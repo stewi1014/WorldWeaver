@@ -10,6 +10,7 @@ import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 
+import java.util.Optional;
 import java.util.function.Consumer;
 import org.jetbrains.annotations.Nullable;
 
@@ -156,7 +157,20 @@ public class DatapackRegistryBuilder {
                     Lifecycle lifecycle
             ) {
                 if (!registry.containsKey(resourceKey)) {
-                    return registry.register(resourceKey, object, lifecycle);
+                    //TODO: 1.21 creating a new instance of RegistrationInfo might be expensive...
+                    return registry.register(resourceKey, object, new RegistrationInfo(Optional.empty(), lifecycle));
+                } else {
+                    return registry.getHolderOrThrow(resourceKey);
+                }
+            }
+
+            @Override
+            public Holder.Reference<T> register(
+                    ResourceKey<T> resourceKey,
+                    T object
+            ) {
+                if (!registry.containsKey(resourceKey)) {
+                    return registry.register(resourceKey, object, RegistrationInfo.BUILT_IN);
                 } else {
                     return registry.getHolderOrThrow(resourceKey);
                 }
@@ -191,7 +205,21 @@ public class DatapackRegistryBuilder {
                     Lifecycle lifecycle
             ) {
                 if (!registry.containsKey(resourceKey)) {
-                    return registry.register(resourceKey, object, lifecycle);
+                    //TODO: 1.21 creating a new instance of RegistrationInfo might be expensive...
+                    return registry.register(resourceKey, object, new RegistrationInfo(Optional.empty(), lifecycle));
+                } else {
+                    return registry.getHolderOrThrow(resourceKey);
+                }
+            }
+
+
+            @Override
+            public Holder.Reference<T> register(
+                    ResourceKey<T> resourceKey,
+                    T object
+            ) {
+                if (!registry.containsKey(resourceKey)) {
+                    return registry.register(resourceKey, object, RegistrationInfo.BUILT_IN);
                 } else {
                     return registry.getHolderOrThrow(resourceKey);
                 }

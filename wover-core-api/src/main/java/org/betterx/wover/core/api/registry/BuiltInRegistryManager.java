@@ -27,11 +27,13 @@ public class BuiltInRegistryManager {
         return BuiltInRegistries.registerSimple(resourceKey, registryBootstrap::apply);
     }
 
+    @Deprecated
     public static <T> Registry<T> createRegistry(
             ResourceKey<? extends Registry<T>> resourceKey,
             Lifecycle lifecycle,
             Function<Registry<T>, T> registryBootstrap
     ) {
-        return BuiltInRegistries.registerSimple(resourceKey, lifecycle, registryBootstrap::apply);
+
+        return BuiltInRegistries.registerSimple(resourceKey, registryBootstrap::apply);
     }
 }
