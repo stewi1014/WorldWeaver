@@ -41,23 +41,29 @@ public class ResourceLocationSet extends HashSet<ResourceLocation> {
 
     public static class WildcardResourceLocation extends ResourceLocation {
         public WildcardResourceLocation(String namespace) {
-            super(namespace, "*", null);
+            super(namespace, "*");
         }
 
         public WildcardResourceLocation(ResourceLocation location) {
-            super(location.getNamespace(), "*", null);
+            super(location.getNamespace(), "*");
         }
 
         public WildcardResourceLocation(ModCore mod) {
-            super(mod.namespace, "*", null);
+            super(mod.namespace, "*");
+        }
+
+        private static String[] parse(String string, String c) {
+            String[] parts = string.split(c, 2);
+            if (parts.length == 2) return parts;
+            return new String[]{DEFAULT_NAMESPACE, string};
         }
 
         public static ResourceLocation parse(String string) {
-            final var decomposed = ResourceLocation.decompose(string, ':');
+            final var decomposed = parse(string, ":");
             if (decomposed[1].equals("*")) {
                 return new WildcardResourceLocation(decomposed[0]);
             } else {
-                return new ResourceLocation(decomposed[0], decomposed[1]);
+                return ResourceLocation.fromNamespaceAndPath(decomposed[0], decomposed[1]);
             }
         }
     }
