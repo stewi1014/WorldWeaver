@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Vec3i;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 
@@ -18,15 +17,19 @@ public class Vec3iProvider {
             .apply(instance, Vec3iProvider::new));
 
     public static Codec<Vec3iProvider> codec(int i, int j) {
-        return ExtraCodecs.validate(CODEC, provider -> {
-            if (provider.getMinValue() < i) {
-                return DataResult.error(() -> "Value provider too low: " + i + " [" + provider.getMinValue() + "-" + provider.getMaxValue() + "]");
-            }
-            if (provider.getMaxValue() > j) {
-                return DataResult.error(() -> "Value provider too high: " + j + " [" + provider.getMinValue() + "-" + provider.getMaxValue() + "]");
-            }
-            return DataResult.success(provider);
-        });
+        return CODEC.validate((provider) -> validate(i, j, provider));
+    }
+
+    private static DataResult<Vec3iProvider> validate(int i, int j, Vec3iProvider provider) {
+        if (provider.getMinValue() < i) {
+            return DataResult.error(() -> {
+                return "Value provider too low: " + i + " [" + provider.getMinValue() + "-" + provider.getMaxValue() + "]";
+            });
+        } else {
+            return provider.getMaxValue() > j ? DataResult.error(() -> {
+                return "Value provider too high: " + j + " [" + provider.getMinValue() + "-" + provider.getMaxValue() + "]";
+            }) : DataResult.success(provider);
+        }
     }
 
     public final IntProvider x;
