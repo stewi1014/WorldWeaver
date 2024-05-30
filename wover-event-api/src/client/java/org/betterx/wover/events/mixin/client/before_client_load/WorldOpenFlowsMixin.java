@@ -17,10 +17,10 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(value = WorldOpenFlows.class, priority = 10)
 public abstract class WorldOpenFlowsMixin {
     @WrapOperation(
-            method = "checkForBackupAndLoad(Ljava/lang/String;Ljava/lang/Runnable;)V",
+            method = "openWorld",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/screens/worldselection/WorldOpenFlows;checkForBackupAndLoad(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Ljava/lang/Runnable;)V"
+                    target = "Lnet/minecraft/client/gui/screens/worldselection/WorldOpenFlows;openWorldLoadLevelData(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Ljava/lang/Runnable;)V"
             )
     )
     private void wover_beforeLoadLevel(

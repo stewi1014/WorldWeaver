@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(value = WorldOpenFlows.class, priority = 20)
 public abstract class WorldOpenFlowsMixin {
     @ModifyExpressionValue(
-            method = "checkForBackupAndLoad(Ljava/lang/String;Ljava/lang/Runnable;)V",
+            method = "openWorld",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/client/gui/screens/worldselection/WorldOpenFlows;createWorldAccess(Ljava/lang/String;)Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;")

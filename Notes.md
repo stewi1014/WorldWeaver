@@ -19,3 +19,61 @@ Use the following order to upgrade the single packages (based on inter-dependenc
 * **wover-biome** (depends on _wover-core-api_, _wover-event-api_ and _wover-feature-api_)
 * **wover-generator** (depends on _wover-core-api_, _wover-event-api_, _wover-surface-api_, _wover-biome-api_,
   _wover-preset-api_, _wover-ui-api_ and _wover-tag-api_)
+
+### Event order for the wover-event test mods
+
+grep "Emitting event:"
+
+#### Server
+
+```
+(wover-events) (DEBUG) Emitting event: WORLD_FOLDER_READY (484b8cee, world)
+(wover-events) (DEBUG) Emitting event: WORLD_REGISTRY_READY (84553a4, PREPARATION)
+(wover-events) (DEBUG) Emitting event: BEFORE_LOADING_RESOURCES
+(wover-events) (DEBUG) Emitting event: WORLD_REGISTRY_READY (11941b73, FINAL)
+(wover-events) (DEBUG) Emitting event: RESOURCES_LOADED
+(wover-events) (DEBUG) Emitting event: ON_DIMENSION_LOAD
+(wover-events) (DEBUG) Emitting event: MINECRAFT_SERVER_READY
+(wover-events) (DEBUG) Emitting event: BEFORE_CREATING_LEVELS
+(wover-events) (DEBUG) Emitting event: SERVER_LEVEL_READY
+(wover-events) (DEBUG) Emitting event: SERVER_LEVEL_READY
+(wover-events) (DEBUG) Emitting event: SERVER_LEVEL_READY
+```
+
+#### Client
+
+##### new World
+
+```
+(wover-events) (DEBUG) Emitting event: WORLD_REGISTRY_READY (2d4be5e0, PREPARATION)
+(wover-events) (DEBUG) Emitting event: BEFORE_LOADING_RESOURCES
+(wover-events) (DEBUG) Emitting event: WORLD_FOLDER_READY (21840920, New World (3))
+(wover-events) (DEBUG) Emitting event: CREATED_NEW_WORLD_FOLDER
+(wover-events) (DEBUG) Emitting event: WORLD_REGISTRY_READY (2039f7e8, LOADING)
+(wover-events) (DEBUG) Emitting event: WORLD_REGISTRY_READY (65d0ad4f, FINAL)
+(wover-events) (DEBUG) Emitting event: RESOURCES_LOADED
+(wover-events) (DEBUG) Emitting event: ON_DIMENSION_LOAD
+(wover-events) (DEBUG) Emitting event: MINECRAFT_SERVER_READY
+(wover-events) (DEBUG) Emitting event: BEFORE_CREATING_LEVELS
+(wover-events) (DEBUG) Emitting event: SERVER_LEVEL_READY
+(wover-events) (DEBUG) Emitting event: SERVER_LEVEL_READY
+(wover-events) (DEBUG) Emitting event: SERVER_LEVEL_READY
+```
+
+##### existing World
+
+```
+(wover-events) (DEBUG) Emitting event: WORLD_FOLDER_READY (26dea145, New World (3))
+(wover-events) (DEBUG) Emitting event: BEFORE_CLIENT_LOAD_SCREEN
+(wover-events) (DEBUG) Emitting event: WORLD_REGISTRY_READY (3899c28c, PREPARATION)
+(wover-events) (DEBUG) Emitting event: BEFORE_LOADING_RESOURCES
+(wover-events) (DEBUG) Emitting event: WORLD_REGISTRY_READY (2fbb4ee8, FINAL)
+(wover-events) (DEBUG) Emitting event: RESOURCES_LOADED
+(wover-events) (DEBUG) Emitting event: ON_DIMENSION_LOAD
+(wover-events) (DEBUG) Emitting event: ALLOW_EXPERIMENTAL_WARNING_SCREEN
+(wover-events) (DEBUG) Emitting event: MINECRAFT_SERVER_READY
+(wover-events) (DEBUG) Emitting event: BEFORE_CREATING_LEVELS
+(wover-events) (DEBUG) Emitting event: SERVER_LEVEL_READY
+(wover-events) (DEBUG) Emitting event: SERVER_LEVEL_READY
+(wover-events) (DEBUG) Emitting event: SERVER_LEVEL_READY
+```

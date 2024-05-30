@@ -3,7 +3,8 @@ package org.betterx.wover.events.mixin;
 import org.betterx.wover.events.impl.WorldLifecycleImpl;
 
 import net.minecraft.commands.Commands;
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.LayeredRegistryAccess;
+import net.minecraft.server.RegistryLayer;
 import net.minecraft.server.ReloadableServerResources;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.flag.FeatureFlagSet;
@@ -21,7 +22,7 @@ public class ReloadableServerResourcesMixin {
     @Inject(method = "loadResources", at = @At("HEAD"))
     private static void wover_onLoadResources(
             ResourceManager resourceManager,
-            RegistryAccess.Frozen frozen,
+            LayeredRegistryAccess<RegistryLayer> layeredRegistryAccess,
             FeatureFlagSet featureFlagSet,
             Commands.CommandSelection commandSelection,
             int i,
