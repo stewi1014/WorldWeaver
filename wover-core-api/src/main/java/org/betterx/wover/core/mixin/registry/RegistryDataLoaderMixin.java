@@ -4,7 +4,6 @@ import org.betterx.wover.core.impl.registry.DatapackRegistryBuilderImpl;
 import org.betterx.wover.entrypoint.LibWoverCore;
 
 import com.mojang.serialization.Decoder;
-import net.minecraft.core.Registry;
 import net.minecraft.core.WritableRegistry;
 import net.minecraft.resources.RegistryDataLoader;
 import net.minecraft.resources.RegistryOps;
@@ -38,23 +37,22 @@ public class RegistryDataLoaderMixin {
         DatapackRegistryBuilderImpl.forEach((key, codec) -> {
             if (codec != null) {
                 LibWoverCore.C.log.debug("    - Adding " + key.location());
-                enhanced.add(new RegistryDataLoader.RegistryData(key, codec));
+                enhanced.add(new RegistryDataLoader.RegistryData(key, codec, false));
             }
         });
 
         wt_set_WORLDGEN_REGISTRIES(enhanced);
     }
 
-    @Inject(method = "loadRegistryContents", at = @At("TAIL"))
+    @Inject(method = "loadContentsFromManager", at = @At("TAIL"))
     private static <E> void wover_bootstrap(
-            RegistryOps.RegistryInfoLookup registryInfoLookup,
             ResourceManager resourceManager,
-            ResourceKey<? extends Registry<E>> resourceKey,
+            RegistryOps.RegistryInfoLookup registryInfoLookup,
             WritableRegistry<E> writableRegistry,
             Decoder<E> decoder,
             Map<ResourceKey<?>, Exception> map,
             CallbackInfo ci
     ) {
-        DatapackRegistryBuilderImpl.bootstrap(registryInfoLookup, resourceKey, writableRegistry);
+        DatapackRegistryBuilderImpl.bootstrap(registryInfoLookup, writableRegistry.key(), writableRegistry);
     }
 }
