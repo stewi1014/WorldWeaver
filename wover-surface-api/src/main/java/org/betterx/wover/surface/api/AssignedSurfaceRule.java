@@ -1,6 +1,6 @@
 package org.betterx.wover.surface.api;
 
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.SurfaceRules;
@@ -12,8 +12,8 @@ import org.jetbrains.annotations.ApiStatus;
  * <p>
  * Instances of this class should never get created direct, they are built when a
  * SurfaceRule is added to the registry using
- * {@link SurfaceRuleRegistry#register(BootstapContext, ResourceKey, ResourceKey, SurfaceRules.RuleSource)}
- * or {@link SurfaceRuleBuilder#register(BootstapContext, ResourceKey)}
+ * {@link SurfaceRuleRegistry#register(BootstrapContext, ResourceKey, ResourceKey, SurfaceRules.RuleSource)}
+ * or {@link SurfaceRuleBuilder#register(BootstrapContext, ResourceKey)}
  */
 public class AssignedSurfaceRule {
     /**
@@ -36,8 +36,8 @@ public class AssignedSurfaceRule {
      * @param ruleSource The rule source of this rule.
      * @param biomeID    The biome ID of this rule.
      * @param priority   The priority of this rule. Rules with higher priority will be first in the sequence.
-     * @see SurfaceRuleRegistry#register(BootstapContext, ResourceKey, ResourceKey, SurfaceRules.RuleSource)
-     * @see SurfaceRuleBuilder#register(BootstapContext, ResourceKey)
+     * @see SurfaceRuleRegistry#register(BootstrapContext, ResourceKey, ResourceKey, SurfaceRules.RuleSource)
+     * @see SurfaceRuleBuilder#register(BootstrapContext, ResourceKey)
      */
     @ApiStatus.Internal
     protected AssignedSurfaceRule(SurfaceRules.RuleSource ruleSource, ResourceLocation biomeID, int priority) {

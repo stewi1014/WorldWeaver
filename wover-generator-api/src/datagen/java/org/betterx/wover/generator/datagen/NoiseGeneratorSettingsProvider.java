@@ -7,7 +7,7 @@ import org.betterx.wover.generator.impl.chunkgenerator.WoverChunkGeneratorImpl;
 import org.betterx.wover.legacy.api.LegacyHelper;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 
 public class NoiseGeneratorSettingsProvider extends WoverRegistryContentProvider<NoiseGeneratorSettings> {
@@ -23,7 +23,7 @@ public class NoiseGeneratorSettingsProvider extends WoverRegistryContentProvider
     }
 
     @Override
-    protected void bootstrap(BootstapContext<NoiseGeneratorSettings> bootstrapContext) {
+    protected void bootstrap(BootstrapContext<NoiseGeneratorSettings> bootstrapContext) {
         bootstrapContext.register(
                 WoverChunkGenerator.AMPLIFIED_NETHER,
                 WoverChunkGenerator.amplifiedNether(bootstrapContext)

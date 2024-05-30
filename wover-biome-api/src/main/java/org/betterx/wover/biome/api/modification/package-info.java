@@ -15,7 +15,7 @@
  *     }
  *
  *     &#64;Override
- *     protected void bootstrap(BootstapContext&lt;BiomeModification&gt; context) {
+ *     protected void bootstrap(BootstrapContext&lt;BiomeModification&gt; context) {
  *         var features = context.lookup(Registries.PLACED_FEATURE);
  *
  *         BiomeModification

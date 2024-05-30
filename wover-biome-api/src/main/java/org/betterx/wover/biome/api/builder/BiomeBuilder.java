@@ -17,7 +17,7 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
@@ -139,9 +139,9 @@ public abstract class BiomeBuilder<B extends BiomeBuilder<B>> {
         bootstrapContext.register(this);
     }
 
-    public abstract void registerBiome(BootstapContext<Biome> biomeContext);
+    public abstract void registerBiome(BootstrapContext<Biome> biomeContext);
 
-    public abstract void registerBiomeData(BootstapContext<BiomeData> dataContext);
+    public abstract void registerBiomeData(BootstrapContext<BiomeData> dataContext);
 
     public void registerBiomeTags(TagBootstrapContext<Biome> context) {
         for (TagKey<Biome> biomeTag : biomeTags) {
@@ -149,7 +149,7 @@ public abstract class BiomeBuilder<B extends BiomeBuilder<B>> {
         }
     }
 
-    public void registerSurfaceRule(@NotNull BootstapContext<AssignedSurfaceRule> context) {
+    public void registerSurfaceRule(@NotNull BootstrapContext<AssignedSurfaceRule> context) {
         if (surfaceBuilder != null) {
             surfaceBuilder.register(context);
         }
@@ -424,11 +424,11 @@ public abstract class BiomeBuilder<B extends BiomeBuilder<B>> {
             bootstrapContext.register(this);
         }
 
-        public void registerBiome(BootstapContext<Biome> biomeContext) {
+        public void registerBiome(BootstrapContext<Biome> biomeContext) {
             biomeContext.register(key.key, buildBiome());
         }
 
-        public abstract void registerBiomeData(BootstapContext<BiomeData> dataContext);
+        public abstract void registerBiomeData(BootstrapContext<BiomeData> dataContext);
 
 
         private static BiomeGenerationSettings fixGenerationSettings(BiomeGenerationSettings settings) {

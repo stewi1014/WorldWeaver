@@ -8,7 +8,7 @@ import org.betterx.wover.surface.api.SurfaceRuleRegistry;
 import org.betterx.wover.surface.impl.SurfaceRuleBuilderImpl;
 import org.betterx.wover.surface.impl.SurfaceRuleRegistryImpl;
 
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 
 import org.jetbrains.annotations.NotNull;
@@ -22,7 +22,7 @@ public class BiomeSurfaceRuleBuilderImpl<B extends BiomeBuilder<B>> extends Surf
         this.sourceBuilder = sourceBuilder;
     }
 
-    public void register(@NotNull BootstapContext<AssignedSurfaceRule> ctx) {
+    public void register(@NotNull BootstrapContext<AssignedSurfaceRule> ctx) {
         final ResourceKey<AssignedSurfaceRule> ruleKey = SurfaceRuleRegistry.createKey(this.biomeKey.location());
         SurfaceRuleRegistryImpl.register(ctx, ruleKey, biomeKey, getRuleSource(), sortPriority);
     }

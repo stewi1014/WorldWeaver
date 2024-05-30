@@ -6,7 +6,7 @@ import org.betterx.wover.biome.api.builder.BiomeBuilder;
 import org.betterx.wover.biome.api.data.BiomeData;
 import org.betterx.wover.tag.api.event.context.TagBootstrapContext;
 
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.level.biome.Biome;
 
 public class WrappedBiomeBuilderImpl extends BiomeBuilder.Wrapped {
@@ -18,7 +18,7 @@ public class WrappedBiomeBuilderImpl extends BiomeBuilder.Wrapped {
     }
 
     @Override
-    public void registerBiome(BootstapContext<Biome> biomeContext) {
+    public void registerBiome(BootstrapContext<Biome> biomeContext) {
 
     }
 
@@ -28,7 +28,7 @@ public class WrappedBiomeBuilderImpl extends BiomeBuilder.Wrapped {
     }
 
     @Override
-    public void registerBiomeData(BootstapContext<BiomeData> dataContext) {
+    public void registerBiomeData(BootstrapContext<BiomeData> dataContext) {
         if (fogDensity == 1.0f && parameters.isEmpty()) return;
 
         dataContext.register(key.dataKey, new BiomeData(fogDensity, key.key, parameters));

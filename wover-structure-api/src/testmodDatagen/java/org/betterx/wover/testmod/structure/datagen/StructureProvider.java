@@ -7,7 +7,7 @@ import org.betterx.wover.structure.api.structures.StructurePlacement;
 import org.betterx.wover.tag.api.event.context.TagBootstrapContext;
 import org.betterx.wover.testmod.entrypoint.TestModWoverStructure;
 
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
@@ -32,7 +32,7 @@ public class StructureProvider extends WoverStructureProvider {
     }
 
     @Override
-    protected void bootstrapSturctures(BootstapContext<Structure> context) {
+    protected void bootstrapSturctures(BootstrapContext<Structure> context) {
         TestModWoverStructure.TEST_STRUCTURE
                 .bootstrap(context)
                 .adjustment(TerrainAdjustment.BEARD_BOX)
@@ -54,7 +54,7 @@ public class StructureProvider extends WoverStructureProvider {
     }
 
     @Override
-    protected void bootstrapSets(BootstapContext<StructureSet> context) {
+    protected void bootstrapSets(BootstrapContext<StructureSet> context) {
         TestModWoverStructure.TEST_STRUCTURE_SET
                 .bootstrap(context)
                 .addStructure(TestModWoverStructure.TEST_STRUCTURE)
@@ -71,7 +71,7 @@ public class StructureProvider extends WoverStructureProvider {
     }
 
     @Override
-    protected void bootstrapPools(BootstapContext<StructureTemplatePool> context) {
+    protected void bootstrapPools(BootstrapContext<StructureTemplatePool> context) {
         TestModWoverStructure.TEST_STRUCTURE_POOL_START
                 .bootstrap(context)
                 .terminator(TestModWoverStructure.TEST_STRUCTURE_POOL_TERMINAL)
@@ -95,7 +95,7 @@ public class StructureProvider extends WoverStructureProvider {
     }
 
     @Override
-    protected void bootstrapProcessors(BootstapContext<StructureProcessorList> context) {
+    protected void bootstrapProcessors(BootstrapContext<StructureProcessorList> context) {
         TestModWoverStructure.TEST_STRUCTURE_PROCESSOR
                 .bootstrap(context)
 

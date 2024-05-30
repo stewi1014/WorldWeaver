@@ -9,7 +9,7 @@ import org.betterx.wover.feature.impl.configured.*;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -40,10 +40,10 @@ public abstract class ConfiguredFeatureManager {
      * A builder to create an anonymous (or inline) {@link ConfiguredFeature}s.
      * <p>
      * You can use the result from an inline builder (after calling {@link FeatureConfigurator#directHolder()})
-     * in {@link PlacedFeatureKey#place(net.minecraft.data.worldgen.BootstapContext, Holder)}
+     * in {@link PlacedFeatureKey#place(net.minecraft.data.worldgen.BootstrapContext, Holder)}
      * <p>
      * However, you should not normally need to use this, as you can create inline configurations using
-     * {@link PlacedFeatureKey#inlineConfiguration(net.minecraft.data.worldgen.BootstapContext)}.
+     * {@link PlacedFeatureKey#inlineConfiguration(net.minecraft.data.worldgen.BootstrapContext)}.
      * <p>
      */
     public final static InlineBuilder INLINE_BUILDER = new InlineBuilderImpl();
@@ -365,7 +365,7 @@ public abstract class ConfiguredFeatureManager {
      * Gets the {@link Holder} for a {@link ConfiguredFeature} from a {@link HolderGetter}.
      *
      * @param getter the getter to get the holder from. You can get this getter from a
-     *               {@link net.minecraft.data.worldgen.BootstapContext} {@code ctx} by
+     *               {@link net.minecraft.data.worldgen.BootstrapContext} {@code ctx} by
      *               calling {@code ctx.lookup(Registries.CONFIGURED_FEATURE)}
      * @param key    the key to get the holder for
      * @return the holder, or null if the holder is not present
@@ -379,7 +379,7 @@ public abstract class ConfiguredFeatureManager {
     }
 
     /**
-     * Gets the {@link Holder} for a {@link ConfiguredFeature} from a {@link BootstapContext}.
+     * Gets the {@link Holder} for a {@link ConfiguredFeature} from a {@link BootstrapContext}.
      *
      * @param context the context to get registry containing the holder. When you need to
      *                get multiple holders at a time, you might want to use
@@ -390,7 +390,7 @@ public abstract class ConfiguredFeatureManager {
      */
     @Nullable
     public static Holder<ConfiguredFeature<?, ?>> getHolder(
-            @Nullable BootstapContext<?> context,
+            @Nullable BootstrapContext<?> context,
             @NotNull ResourceKey<ConfiguredFeature<?, ?>> key
     ) {
         return getHolder(context.lookup(Registries.CONFIGURED_FEATURE), key);

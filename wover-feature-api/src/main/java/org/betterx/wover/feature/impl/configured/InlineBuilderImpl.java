@@ -3,7 +3,7 @@ package org.betterx.wover.feature.impl.configured;
 import org.betterx.wover.feature.api.configured.ConfiguredFeatureManager;
 import org.betterx.wover.feature.api.configured.configurators.*;
 
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
@@ -13,7 +13,7 @@ import org.jetbrains.annotations.ApiStatus;
 
 public class InlineBuilderImpl implements ConfiguredFeatureManager.InlineBuilder {
     private final ResourceKey<PlacedFeature> key;
-    private final BootstapContext<PlacedFeature> bootstapContext;
+    private final BootstrapContext<PlacedFeature> bootstapContext;
 
     public InlineBuilderImpl() {
         this(null, null);
@@ -26,7 +26,7 @@ public class InlineBuilderImpl implements ConfiguredFeatureManager.InlineBuilder
      * @param bootstapContext A bootstrap context for the source {@link PlacedFeature}
      */
     @ApiStatus.Internal
-    public InlineBuilderImpl(BootstapContext<PlacedFeature> bootstapContext, ResourceKey<PlacedFeature> key) {
+    public InlineBuilderImpl(BootstrapContext<PlacedFeature> bootstapContext, ResourceKey<PlacedFeature> key) {
         this.key = key;
         this.bootstapContext = bootstapContext;
     }

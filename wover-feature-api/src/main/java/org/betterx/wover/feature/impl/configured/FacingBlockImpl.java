@@ -8,7 +8,7 @@ import org.betterx.wover.feature.api.features.PlaceBlockFeature;
 import org.betterx.wover.feature.api.features.config.PlaceFacingBlockConfig;
 
 import net.minecraft.core.Direction;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.random.SimpleWeightedRandomList;
@@ -33,7 +33,7 @@ public class FacingBlockImpl extends FeatureConfiguratorImpl<PlaceFacingBlockCon
     private List<Direction> directions = BlockHelper.HORIZONTAL;
 
     FacingBlockImpl(
-            @Nullable BootstapContext<ConfiguredFeature<?, ?>> ctx,
+            @Nullable BootstrapContext<ConfiguredFeature<?, ?>> ctx,
             @Nullable ResourceKey<ConfiguredFeature<?, ?>> key
     ) {
         super(ctx, key);
@@ -125,7 +125,7 @@ public class FacingBlockImpl extends FeatureConfiguratorImpl<PlaceFacingBlockCon
         }
 
         @Override
-        public FacingBlock bootstrap(@NotNull BootstapContext<ConfiguredFeature<?, ?>> ctx) {
+        public FacingBlock bootstrap(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> ctx) {
             return new FacingBlockImpl(ctx, key);
         }
     }

@@ -8,7 +8,7 @@ import org.betterx.wover.feature.api.placed.PlacedConfiguredFeatureKey;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -37,13 +37,13 @@ public class PlacedConfiguredFeatureKeyImpl extends BaseFeatureKeyImpl<PlacedCon
 
 
     @Override
-    public FeaturePlacementBuilder place(@NotNull BootstapContext<PlacedFeature> ctx) {
+    public FeaturePlacementBuilder place(@NotNull BootstrapContext<PlacedFeature> ctx) {
         return this.place(ctx, ctx.lookup(Registries.CONFIGURED_FEATURE));
     }
 
     @Override
     public FeaturePlacementBuilder place(
-            @NotNull BootstapContext<PlacedFeature> ctx,
+            @NotNull BootstrapContext<PlacedFeature> ctx,
             @NotNull HolderGetter<ConfiguredFeature<?, ?>> getter
     ) {
         return super.place(ctx, holderProvider.getHolder(getter));

@@ -6,7 +6,7 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.biome.Biome;
@@ -23,18 +23,18 @@ import java.util.Set;
 /**
  * Special bootstrap context for flat level presets.
  * <p>
- * The context is created from a regular {@link BootstapContext} and provides
+ * The context is created from a regular {@link BootstrapContext} and provides
  * a few helper methods specialized for flat level presets.
  */
 public class FlatLevelPresetBootstrapContext {
-    private final BootstapContext<FlatLevelGeneratorPreset> context;
+    private final BootstrapContext<FlatLevelGeneratorPreset> context;
 
     /**
      * Creates a new flat level preset bootstrap context from the given context.
      *
      * @param context the original context to wrap
      */
-    public FlatLevelPresetBootstrapContext(BootstapContext<FlatLevelGeneratorPreset> context) {
+    public FlatLevelPresetBootstrapContext(BootstrapContext<FlatLevelGeneratorPreset> context) {
         this.context = context;
     }
 

@@ -7,7 +7,7 @@ import org.betterx.wover.surface.api.SurfaceRuleBuilder;
 import org.betterx.wover.surface.api.SurfaceRuleRegistry;
 import org.betterx.wover.testmod.entrypoint.TestModWoverSurface;
 
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
@@ -26,7 +26,7 @@ public class AddonSurfaceRuleProvider extends WoverRegistryContentProvider<Assig
 
 
     @Override
-    protected void bootstrap(BootstapContext<AssignedSurfaceRule> ctx) {
+    protected void bootstrap(BootstrapContext<AssignedSurfaceRule> ctx) {
         SurfaceRuleBuilder
                 .start()
                 .biome(Biomes.MEADOW)

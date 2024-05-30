@@ -8,7 +8,7 @@ import org.betterx.wover.feature.api.placed.FeaturePlacementBuilder;
 import org.betterx.wover.util.Triple;
 
 import net.minecraft.core.Holder;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.random.SimpleWeightedRandomList;
@@ -40,7 +40,7 @@ public class AsMultiPlaceRandomSelectImpl extends FeatureConfiguratorImpl<Random
     private static int lastID = 0;
 
     AsMultiPlaceRandomSelectImpl(
-            @Nullable BootstapContext<ConfiguredFeature<?, ?>> ctx,
+            @Nullable BootstrapContext<ConfiguredFeature<?, ?>> ctx,
             @Nullable ResourceKey<ConfiguredFeature<?, ?>> key
     ) {
         super(ctx, key);
@@ -171,7 +171,7 @@ public class AsMultiPlaceRandomSelectImpl extends FeatureConfiguratorImpl<Random
         }
 
         @Override
-        public AsMultiPlaceRandomSelect bootstrap(@NotNull BootstapContext<ConfiguredFeature<?, ?>> ctx) {
+        public AsMultiPlaceRandomSelect bootstrap(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> ctx) {
             return new AsMultiPlaceRandomSelectImpl(ctx, key);
         }
     }

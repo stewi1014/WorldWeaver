@@ -11,7 +11,7 @@ import org.betterx.wover.feature.impl.placed.PlacedFeatureManagerImpl;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -109,7 +109,7 @@ public class PlacedFeatureManager {
      * Gets the {@link Holder} for a {@link PlacedFeature} from a {@link HolderGetter}.
      *
      * @param getter the getter to get the holder from. You can get this getter from a
-     *               {@link net.minecraft.data.worldgen.BootstapContext} {@code ctx} by
+     *               {@link net.minecraft.data.worldgen.BootstrapContext} {@code ctx} by
      *               calling {@code ctx.lookup(Registries.PLACED_FEATURE)}
      * @param key    the key to get the holder for
      * @return the holder, or null if the holder is not present
@@ -123,7 +123,7 @@ public class PlacedFeatureManager {
     }
 
     /**
-     * Gets the {@link Holder} for a {@link PlacedFeature} from a {@link BootstapContext}.
+     * Gets the {@link Holder} for a {@link PlacedFeature} from a {@link BootstrapContext}.
      *
      * @param context the context to get registry containing the holder. When you need to
      *                get multiple holders at a time, you might want to use
@@ -134,7 +134,7 @@ public class PlacedFeatureManager {
      */
     @Nullable
     public static Holder<PlacedFeature> getHolder(
-            @Nullable BootstapContext<?> context,
+            @Nullable BootstrapContext<?> context,
             @NotNull ResourceKey<PlacedFeature> key
     ) {
         return PlacedFeatureManagerImpl.getHolder(context.lookup(Registries.PLACED_FEATURE), key);

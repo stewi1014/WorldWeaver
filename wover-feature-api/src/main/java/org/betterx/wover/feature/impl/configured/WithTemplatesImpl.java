@@ -8,7 +8,7 @@ import org.betterx.wover.feature.api.features.config.TemplateFeatureConfig;
 import org.betterx.wover.feature.impl.features.FeatureTemplateImpl;
 import org.betterx.wover.util.RandomizedWeightedList;
 
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -20,7 +20,7 @@ public class WithTemplatesImpl extends FeatureConfiguratorImpl<TemplateFeatureCo
     private final RandomizedWeightedList<TemplateFeatureConfig.FeatureTemplate> templates = new RandomizedWeightedList<>();
 
     WithTemplatesImpl(
-            @Nullable BootstapContext<ConfiguredFeature<?, ?>> ctx,
+            @Nullable BootstrapContext<ConfiguredFeature<?, ?>> ctx,
             @Nullable ResourceKey<ConfiguredFeature<?, ?>> key
     ) {
         super(ctx, key);
@@ -69,7 +69,7 @@ public class WithTemplatesImpl extends FeatureConfiguratorImpl<TemplateFeatureCo
         }
 
         @Override
-        public WithTemplates bootstrap(@NotNull BootstapContext<ConfiguredFeature<?, ?>> ctx) {
+        public WithTemplates bootstrap(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> ctx) {
             return new WithTemplatesImpl(ctx, key);
         }
     }

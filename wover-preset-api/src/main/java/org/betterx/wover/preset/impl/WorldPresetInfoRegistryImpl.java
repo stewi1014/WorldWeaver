@@ -7,7 +7,7 @@ import org.betterx.wover.preset.api.WorldPresetInfo;
 import org.betterx.wover.preset.api.WorldPresetInfoRegistry;
 
 import net.minecraft.core.Holder;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.presets.WorldPreset;
@@ -19,7 +19,7 @@ public class WorldPresetInfoRegistryImpl {
     public static final EventImpl<OnBootstrapRegistry<WorldPresetInfo>> BOOTSTRAP_WORLD_PRESET_INFO_REGISTRY
             = new EventImpl<>("BOOTSTRAP_WORLD_PRESET_INFO_REGISTRY");
 
-    private static void onBootstrap(BootstapContext<WorldPresetInfo> ctx) {
+    private static void onBootstrap(BootstrapContext<WorldPresetInfo> ctx) {
         BOOTSTRAP_WORLD_PRESET_INFO_REGISTRY.emit(c -> c.bootstrap(ctx));
     }
 
@@ -44,7 +44,7 @@ public class WorldPresetInfoRegistryImpl {
 
     @ApiStatus.Internal
     public static Holder<WorldPresetInfo> register(
-            @NotNull BootstapContext<WorldPresetInfo> ctx,
+            @NotNull BootstrapContext<WorldPresetInfo> ctx,
             @NotNull ResourceKey<WorldPreset> key,
             @NotNull WorldPresetInfo info
     ) {

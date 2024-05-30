@@ -10,7 +10,7 @@ import org.betterx.wover.events.impl.EventImpl;
 import org.betterx.wover.state.api.WorldState;
 
 import net.minecraft.core.Registry;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
@@ -26,7 +26,7 @@ public class BiomeDataRegistryImpl {
     public static final EventImpl<OnBootstrapRegistry<BiomeData>> BOOTSTRAP_BIOME_DATA_REGISTRY
             = new EventImpl<>("BOOTSTRAP_BIOME_DATA_REGISTRY");
 
-    private static void onBootstrap(BootstapContext<BiomeData> ctx) {
+    private static void onBootstrap(BootstrapContext<BiomeData> ctx) {
         BOOTSTRAP_BIOME_DATA_REGISTRY.emit(c -> c.bootstrap(ctx));
     }
 

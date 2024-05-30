@@ -3,7 +3,7 @@ package org.betterx.wover.feature.impl.configured;
 import org.betterx.wover.feature.api.configured.ConfiguredFeatureKey;
 import org.betterx.wover.feature.api.configured.configurators.WeightedBlock;
 
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class WeightedBlockImpl extends WeightedBaseBlockImpl<SimpleBlockConfiguration, SimpleBlockFeature, WeightedBlock> implements WeightedBlock {
     WeightedBlockImpl(
-            @Nullable BootstapContext<ConfiguredFeature<?, ?>> ctx,
+            @Nullable BootstrapContext<ConfiguredFeature<?, ?>> ctx,
             @Nullable ResourceKey<ConfiguredFeature<?, ?>> key
     ) {
         super(ctx, key);
@@ -39,7 +39,7 @@ public class WeightedBlockImpl extends WeightedBaseBlockImpl<SimpleBlockConfigur
         }
 
         @Override
-        public WeightedBlock bootstrap(@NotNull BootstapContext<ConfiguredFeature<?, ?>> ctx) {
+        public WeightedBlock bootstrap(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> ctx) {
             return new WeightedBlockImpl(ctx, key);
         }
     }

@@ -8,7 +8,7 @@ import org.betterx.wover.surface.api.conditions.NoiseCondition;
 import org.betterx.wover.util.PriorityLinkedList;
 
 import net.minecraft.core.Holder;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
@@ -331,14 +331,14 @@ public class SurfaceRuleBuilderImpl<T extends BaseSurfaceRuleBuilder<T>> impleme
         /**
          * Register rule in the {@link SurfaceRuleRegistry} with the currently set sort priority (see {@link #sortPriority}).
          *
-         * @param ctx The {@link BootstapContext} to register the rule with.
+         * @param ctx The {@link BootstrapContext} to register the rule with.
          * @param key The {@link ResourceKey} to register the rule with.
          * @return The {@link Holder} for the registry item.
-         * @see SurfaceRuleRegistry#register(BootstapContext, ResourceKey, ResourceKey, SurfaceRules.RuleSource, int)
+         * @see SurfaceRuleRegistry#register(BootstrapContext, ResourceKey, ResourceKey, SurfaceRules.RuleSource, int)
          */
 
         public Holder<AssignedSurfaceRule> register(
-                @NotNull BootstapContext<AssignedSurfaceRule> ctx,
+                @NotNull BootstrapContext<AssignedSurfaceRule> ctx,
                 @NotNull ResourceKey<AssignedSurfaceRule> key
         ) {
             if (biomeKey == null) {

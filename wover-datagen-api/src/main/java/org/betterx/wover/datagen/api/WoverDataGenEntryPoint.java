@@ -6,7 +6,7 @@ import org.betterx.wover.datagen.impl.WoverDataGenEntryPointImpl;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.metadata.PackMetadataGenerator;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
@@ -116,7 +116,7 @@ import org.jetbrains.annotations.ApiStatus;
  *     }
  *
  *     &#64;Override
- *     protected void bootstrap(BootstapContext&lt;AssignedSurfaceRule> ctx) {
+ *     protected void bootstrap(BootstrapContext&lt;AssignedSurfaceRule> ctx) {
  *         SurfaceRuleBuilder
  *                 .start()
  *                 .biome(Biomes.MEADOW)
@@ -125,7 +125,7 @@ import org.jetbrains.annotations.ApiStatus;
  *                 .register(ctx, TEST_MEADOW);
  *     }
  * }</pre>
- * The {@link WoverRegistryContentProvider#bootstrap(BootstapContext)} Method does build the
+ * The {@link WoverRegistryContentProvider#bootstrap(BootstrapContext)} Method does build the
  * Surface Rules that will then be added to the optional Datapack.
  * <p>
  * The {@code SurfaceRuleProvider} will be responsible for creating the content that will
@@ -139,7 +139,7 @@ import org.jetbrains.annotations.ApiStatus;
  *     }
  *
  *     &#64;Override
- *     protected void bootstrap(BootstapContext&lt;AssignedSurfaceRule> ctx) {
+ *     protected void bootstrap(BootstrapContext&lt;AssignedSurfaceRule> ctx) {
  *         SurfaceRuleBuilder
  *                 .start()
  *                 .biome(Biomes.PLAINS)

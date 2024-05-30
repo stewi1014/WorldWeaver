@@ -5,7 +5,7 @@ import org.betterx.wover.structure.api.StructureTypeKey;
 import org.betterx.wover.structure.api.builders.StructureBuilder;
 import org.betterx.wover.structure.impl.builders.StructureBuilderImpl;
 
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
@@ -29,7 +29,7 @@ public class SimpleStructureKeyImpl<S extends Structure>
     }
 
     @Override
-    public StructureBuilder<S> bootstrap(BootstapContext<Structure> context) {
+    public StructureBuilder<S> bootstrap(BootstrapContext<Structure> context) {
         return new StructureBuilderImpl<>(this, context);
     }
 }

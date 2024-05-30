@@ -5,7 +5,7 @@ import org.betterx.wover.core.impl.registry.DatapackRegistryBuilderImpl;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.Lifecycle;
 import net.minecraft.core.*;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -30,7 +30,7 @@ public class DatapackRegistryBuilder {
     public static <T> void register(
             ResourceKey<? extends Registry<T>> key,
             Codec<T> elementCodec,
-            Consumer<BootstapContext<T>> bootstrap
+            Consumer<BootstrapContext<T>> bootstrap
     ) {
         DatapackRegistryBuilderImpl.register(key, elementCodec, bootstrap);
     }
@@ -47,7 +47,7 @@ public class DatapackRegistryBuilder {
     public static <T> void register(
             ResourceKey<? extends Registry<T>> key,
             Codec<T> elementCodec,
-            Consumer<BootstapContext<T>> bootstrap,
+            Consumer<BootstrapContext<T>> bootstrap,
             int priority
     ) {
         DatapackRegistryBuilderImpl.register(key, elementCodec, priority, bootstrap);
@@ -65,7 +65,7 @@ public class DatapackRegistryBuilder {
      */
     public static <T> void addBootstrap(
             ResourceKey<? extends Registry<T>> key,
-            Consumer<BootstapContext<T>> bootstrap
+            Consumer<BootstrapContext<T>> bootstrap
     ) {
         DatapackRegistryBuilderImpl.register(key, bootstrap);
     }
@@ -83,7 +83,7 @@ public class DatapackRegistryBuilder {
      */
     public static <T> void addBootstrap(
             ResourceKey<? extends Registry<T>> key,
-            Consumer<BootstapContext<T>> bootstrap,
+            Consumer<BootstrapContext<T>> bootstrap,
             int priority
     ) {
         DatapackRegistryBuilderImpl.register(key, bootstrap, priority);
@@ -101,7 +101,7 @@ public class DatapackRegistryBuilder {
      */
     public static <T> void addReadOnlyBootstrap(
             ResourceKey<? extends Registry<T>> key,
-            Consumer<BootstapContext<T>> bootstrap
+            Consumer<BootstrapContext<T>> bootstrap
     ) {
         DatapackRegistryBuilderImpl.registerReadOnly(key, bootstrap);
     }
@@ -119,7 +119,7 @@ public class DatapackRegistryBuilder {
      */
     public static <T> void addReadOnlyBootstrap(
             ResourceKey<? extends Registry<T>> key,
-            Consumer<BootstapContext<T>> bootstrap,
+            Consumer<BootstrapContext<T>> bootstrap,
             int priority
     ) {
         DatapackRegistryBuilderImpl.registerReadOnly(key, bootstrap, priority);
@@ -137,18 +137,18 @@ public class DatapackRegistryBuilder {
     }
 
     /**
-     * Returns a BootstapContext for the given Registry.
+     * Returns a BootstrapContext for the given Registry.
      *
      * @param registryInfoLookup The RegistryInfoLookup used to lookup Registry-Infos
      * @param registry           The Registry
      * @param <T>                The type of the Registry-Elements
-     * @return A BootstapContext for the given Registry
+     * @return A BootstrapContext for the given Registry
      */
-    public static <T> BootstapContext<T> makeContext(
+    public static <T> BootstrapContext<T> makeContext(
             RegistryOps.RegistryInfoLookup registryInfoLookup,
             WritableRegistry<T> registry
     ) {
-        return new BootstapContext<>() {
+        return new BootstrapContext<>() {
             @Override
             public Holder.Reference<T> register(
                     ResourceKey<T> resourceKey,
@@ -170,20 +170,20 @@ public class DatapackRegistryBuilder {
     }
 
     /**
-     * Returns a BootstapContext for the given Registry.
+     * Returns a BootstrapContext for the given Registry.
      *
      * @param access   The RegistryAccess used to lookup Registry-Infos, if {@code null}
      *                 only the passed registry can be looked up
      * @param registry The Registry
      * @param <T>      The type of the Registry-Elements
-     * @return A BootstapContext for the given Registry
+     * @return A BootstrapContext for the given Registry
      */
-    public static <T> BootstapContext<T> makeContext(
+    public static <T> BootstrapContext<T> makeContext(
             @Nullable RegistryAccess access,
             WritableRegistry<T> registry
     ) {
         var lookup = access == null ? registry.createRegistrationLookup() : null;
-        return new BootstapContext<>() {
+        return new BootstrapContext<>() {
             @Override
             public Holder.Reference<T> register(
                     ResourceKey<T> resourceKey,

@@ -6,7 +6,7 @@ import org.betterx.wover.structure.api.builders.RandomNbtBuilder;
 import org.betterx.wover.structure.api.builders.StructureBuilder;
 import org.betterx.wover.structure.api.structures.nbt.RandomNbtStructure;
 
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Represents a {@link Structure} that can be registered. This is a primarily a wrapper around
  * {@link ResourceKey} to make it easier to register structures. But it also provides a function
- * ({@link #bootstrap(BootstapContext)}) to build and register a structure.
+ * ({@link #bootstrap(BootstrapContext)}) to build and register a structure.
  *
  * @param <S> The {@link Structure} type
  * @param <T> The {@link BaseStructureBuilder} type
@@ -90,10 +90,10 @@ public interface StructureKey<
     StructureType<S> type();
     /**
      * Creates a structure builder for the Type. You may use the builder to register the structure in a
-     * {@link BootstapContext} or create an inline Holder for the Structure.
+     * {@link BootstrapContext} or create an inline Holder for the Structure.
      *
      * @param context The bootstrap context
      * @return The builder
      */
-    T bootstrap(BootstapContext<Structure> context);
+    T bootstrap(BootstrapContext<Structure> context);
 }

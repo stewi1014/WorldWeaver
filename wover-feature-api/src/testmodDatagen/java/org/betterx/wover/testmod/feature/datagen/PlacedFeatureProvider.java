@@ -6,7 +6,7 @@ import org.betterx.wover.feature.api.configured.ConfiguredFeatureManager;
 import org.betterx.wover.testmod.entrypoint.TestModWoverFeature;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
@@ -18,7 +18,7 @@ public class PlacedFeatureProvider extends WoverRegistryContentProvider<PlacedFe
     }
 
     @Override
-    protected void bootstrap(BootstapContext<PlacedFeature> context) {
+    protected void bootstrap(BootstrapContext<PlacedFeature> context) {
         TestModWoverFeature.PLACED_REDSTONE_BLOCK.place(context)
                                                  .count(64)
                                                  .squarePlacement()

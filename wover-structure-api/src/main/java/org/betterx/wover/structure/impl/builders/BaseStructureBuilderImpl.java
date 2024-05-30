@@ -5,7 +5,7 @@ import org.betterx.wover.structure.api.builders.BaseStructureBuilder;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
@@ -23,7 +23,7 @@ public abstract class BaseStructureBuilderImpl<
         implements BaseStructureBuilder<S, R> {
     protected final K key;
 
-    protected final BootstapContext<Structure> context;
+    protected final BootstrapContext<Structure> context;
 
     @NotNull
     protected TerrainAdjustment terrainAdjustment;
@@ -31,7 +31,7 @@ public abstract class BaseStructureBuilderImpl<
     @NotNull
     protected final Map<MobCategory, StructureSpawnOverride> spawnOverrides = new HashMap<>();
 
-    public BaseStructureBuilderImpl(K key, BootstapContext<Structure> context) {
+    public BaseStructureBuilderImpl(K key, BootstrapContext<Structure> context) {
         this.key = key;
         this.context = context;
 

@@ -9,7 +9,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -69,11 +69,11 @@ public abstract class ConfiguredFeatureKey<B extends FeatureConfigurator<?, ?>> 
      * a lot of holders, it is recommended to manually lookup the
      * Registry first and use {@link #getHolder(HolderGetter)} instead.
      *
-     * @param context The {@link BootstapContext} to get the holder from
+     * @param context The {@link BootstrapContext} to get the holder from
      * @return The holder for the {@link ConfiguredFeature} or {@code null} if it is not present
      */
     @Nullable
-    public Holder<ConfiguredFeature<?, ?>> getHolder(@NotNull BootstapContext<?> context) {
+    public Holder<ConfiguredFeature<?, ?>> getHolder(@NotNull BootstrapContext<?> context) {
         return getHolder(context.lookup(Registries.CONFIGURED_FEATURE));
     }
 
@@ -115,9 +115,9 @@ public abstract class ConfiguredFeatureKey<B extends FeatureConfigurator<?, ?>> 
      * When done, you should call {@link FeatureConfigurator#register()}
      * to register the configured feature.
      *
-     * @param ctx The {@link BootstapContext} this bootstrap is performed in
+     * @param ctx The {@link BootstrapContext} this bootstrap is performed in
      * @return The builder for this Feature
      * @see FeatureConfigurator#register()
      */
-    public abstract B bootstrap(@NotNull BootstapContext<ConfiguredFeature<?, ?>> ctx);
+    public abstract B bootstrap(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> ctx);
 }

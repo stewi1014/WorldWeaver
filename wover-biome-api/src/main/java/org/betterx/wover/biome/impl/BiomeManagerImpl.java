@@ -16,7 +16,7 @@ import org.betterx.wover.tag.api.TagManager;
 import org.betterx.wover.tag.api.event.context.TagBootstrapContext;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
@@ -30,7 +30,7 @@ public class BiomeManagerImpl {
     public static final EventImpl<OnBootstrapBiomes> BOOTSTRAP_BIOMES_WITH_DATA
             = new EventImpl<>("BOOTSTRAP_BIOMES_WITH_DATA");
 
-    private static void onBootstrap(BootstapContext<Biome> ctx) {
+    private static void onBootstrap(BootstrapContext<Biome> ctx) {
         BOOTSTRAP_BIOME_REGISTRY.emit(c -> c.bootstrap(ctx));
     }
 
@@ -62,7 +62,7 @@ public class BiomeManagerImpl {
         );
     }
 
-    private static <B> BiomeBootstrapContextImpl initContext(BootstapContext<B> lookupContext) {
+    private static <B> BiomeBootstrapContextImpl initContext(BootstrapContext<B> lookupContext) {
         return CustomBootstrapContext.initContext(
                 lookupContext,
                 Registries.BIOME,
@@ -70,25 +70,25 @@ public class BiomeManagerImpl {
         );
     }
 
-    private static void onBootstrapBiomeDataRegistry(BootstapContext<BiomeData> biomeDataBootstapContext) {
-        final BiomeBootstrapContextImpl context = initContext(biomeDataBootstapContext);
-        context.bootstrapBiomeData(biomeDataBootstapContext);
+    private static void onBootstrapBiomeDataRegistry(BootstrapContext<BiomeData> biomeDataBootstrapContext) {
+        final BiomeBootstrapContextImpl context = initContext(biomeDataBootstrapContext);
+        context.bootstrapBiomeData(biomeDataBootstrapContext);
     }
 
-    private static void onBootstrapBiomeRegistry(BootstapContext<Biome> biomeBootstapContext) {
-        final BiomeBootstrapContextImpl context = initContext(biomeBootstapContext);
-        context.bootstrapBiome(biomeBootstapContext);
+    private static void onBootstrapBiomeRegistry(BootstrapContext<Biome> biomeBootstrapContext) {
+        final BiomeBootstrapContextImpl context = initContext(biomeBootstrapContext);
+        context.bootstrapBiome(biomeBootstrapContext);
     }
 
-    private static void onBootstrapSurfaceRuleRegistry(BootstapContext<AssignedSurfaceRule> assignedSurfaceRuleBootstapContext) {
-        final BiomeBootstrapContextImpl context = initContext(assignedSurfaceRuleBootstapContext);
-        context.bootstrapSurfaceRules(assignedSurfaceRuleBootstapContext);
+    private static void onBootstrapSurfaceRuleRegistry(BootstrapContext<AssignedSurfaceRule> assignedSurfaceRuleBootstrapContext) {
+        final BiomeBootstrapContextImpl context = initContext(assignedSurfaceRuleBootstrapContext);
+        context.bootstrapSurfaceRules(assignedSurfaceRuleBootstrapContext);
     }
 
     private static void onBootstrapTags(TagBootstrapContext<Biome> biomeTagBootstrapContext) {
         final BiomeBootstrapContextImpl context = initContext(null);
         context.prepareTags(biomeTagBootstrapContext);
-        
+
         //preparing tags is the last step of the bootstrap process, when we are done
         // we can invalidate the context
         CustomBootstrapContext.invalidateContext(Registries.BIOME);

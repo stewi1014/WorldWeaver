@@ -5,7 +5,7 @@ import org.betterx.wover.datagen.api.WoverFullRegistryProvider;
 import org.betterx.wover.surface.impl.noise.NoiseRegistryImpl;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 public class NoiseRegistryProvider extends WoverFullRegistryProvider<NormalNoise.NoiseParameters> {
@@ -14,7 +14,7 @@ public class NoiseRegistryProvider extends WoverFullRegistryProvider<NormalNoise
     }
 
     @Override
-    protected void bootstrap(BootstapContext<NormalNoise.NoiseParameters> ctx) {
+    protected void bootstrap(BootstrapContext<NormalNoise.NoiseParameters> ctx) {
         NoiseRegistryImpl.bootstrap(ctx);
     }
 }

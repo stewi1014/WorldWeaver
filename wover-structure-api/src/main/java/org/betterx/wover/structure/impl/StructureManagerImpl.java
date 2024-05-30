@@ -13,7 +13,7 @@ import com.mojang.serialization.Codec;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.structure.Structure;
@@ -79,7 +79,7 @@ public class StructureManagerImpl {
         );
     }
 
-    private static void onBootstrap(BootstapContext<Structure> context) {
+    private static void onBootstrap(BootstrapContext<Structure> context) {
         BOOTSTRAP_STRUCTURES.emit(c -> c.bootstrap(context));
     }
 

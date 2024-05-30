@@ -10,7 +10,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.dimension.LevelStem;
@@ -55,7 +55,7 @@ public class WorldPresetsManagerImpl {
         }
     }
 
-    private static void onBootstrap(BootstapContext<WorldPreset> context) {
+    private static void onBootstrap(BootstrapContext<WorldPreset> context) {
         final WorldPresetBootstrapContext ctx
                 = new WorldPresetBootstrapContext(context);
 

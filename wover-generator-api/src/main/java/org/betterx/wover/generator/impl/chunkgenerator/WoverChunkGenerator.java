@@ -19,7 +19,7 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.SurfaceRuleData;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -179,7 +179,7 @@ public class WoverChunkGenerator extends NoiseBasedChunkGenerator implements
     }
 
 
-    public static NoiseGeneratorSettings amplifiedNether(BootstapContext<NoiseGeneratorSettings> bootstapContext) {
+    public static NoiseGeneratorSettings amplifiedNether(BootstrapContext<NoiseGeneratorSettings> bootstapContext) {
         HolderGetter<DensityFunction> densityGetter = bootstapContext.lookup(Registries.DENSITY_FUNCTION);
         return new NoiseGeneratorSettings(
                 NETHER_NOISE_SETTINGS_AMPLIFIED,

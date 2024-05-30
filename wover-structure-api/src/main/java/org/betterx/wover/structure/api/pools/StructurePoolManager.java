@@ -8,7 +8,7 @@ import org.betterx.wover.structure.impl.pools.StructurePoolManagerImpl;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
@@ -45,7 +45,7 @@ public class StructurePoolManager {
      * Gets the {@link Holder} for a {@link StructureTemplatePool} from a {@link HolderGetter}.
      *
      * @param getter the getter to get the holder from. You can get this getter from a
-     *               {@link net.minecraft.data.worldgen.BootstapContext} {@code ctx} by
+     *               {@link net.minecraft.data.worldgen.BootstrapContext} {@code ctx} by
      *               calling {@code ctx.lookup(Registries.STRUCTURE)}
      * @param key    the key to get the holder for
      * @return the holder, or null if the holder is not present
@@ -59,7 +59,7 @@ public class StructurePoolManager {
     }
 
     /**
-     * Gets the {@link Holder} for a {@link StructureTemplatePool} from a {@link BootstapContext}.
+     * Gets the {@link Holder} for a {@link StructureTemplatePool} from a {@link BootstrapContext}.
      *
      * @param context the context to get registry containing the holder. When you need to
      *                get multiple holders at a time, you might want to use
@@ -70,7 +70,7 @@ public class StructurePoolManager {
      */
     @Nullable
     public static Holder<StructureTemplatePool> getHolder(
-            @Nullable BootstapContext<?> context,
+            @Nullable BootstrapContext<?> context,
             @NotNull ResourceKey<StructureTemplatePool> key
     ) {
         return StructurePoolManagerImpl.getHolder(context.lookup(Registries.TEMPLATE_POOL), key);

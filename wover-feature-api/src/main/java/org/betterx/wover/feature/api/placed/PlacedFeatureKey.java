@@ -5,7 +5,7 @@ import org.betterx.wover.feature.api.configured.ConfiguredFeatureManager;
 import org.betterx.wover.feature.api.configured.configurators.FeatureConfigurator;
 
 import net.minecraft.core.Holder;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -29,12 +29,12 @@ public interface PlacedFeatureKey extends BasePlacedFeatureKey<PlacedFeatureKey>
      * When configuration is finished, you should call {@link FeaturePlacementBuilder#register()}
      * to add it to the registry.
      *
-     * @param bootstrapContext The {@link BootstapContext} to use
+     * @param bootstrapContext The {@link BootstrapContext} to use
      * @param key              The {@link ResourceKey} for the {@link ConfiguredFeature} to place
      * @return A {@link FeaturePlacementBuilder} to setup the placement Modifiers
      */
     public FeaturePlacementBuilder place(
-            BootstapContext<PlacedFeature> bootstrapContext,
+            BootstrapContext<PlacedFeature> bootstrapContext,
             ResourceKey<ConfiguredFeature<?, ?>> key
     );
 
@@ -44,12 +44,12 @@ public interface PlacedFeatureKey extends BasePlacedFeatureKey<PlacedFeatureKey>
      * When configuration is finished, you should call {@link FeaturePlacementBuilder#register()}
      * to add it to the registry.
      *
-     * @param bootstrapContext The {@link BootstapContext} to use
+     * @param bootstrapContext The {@link BootstrapContext} to use
      * @param holder           The {@link Holder} for the {@link ConfiguredFeature} to place
      * @return A {@link FeaturePlacementBuilder} to setup the placement Modifiers
      */
     public FeaturePlacementBuilder place(
-            BootstapContext<PlacedFeature> bootstrapContext,
+            BootstrapContext<PlacedFeature> bootstrapContext,
             Holder<ConfiguredFeature<?, ?>> holder
     );
 
@@ -59,13 +59,13 @@ public interface PlacedFeatureKey extends BasePlacedFeatureKey<PlacedFeatureKey>
      * When configuration is finished, you should call {@link FeaturePlacementBuilder#register()}
      * to add it to the registry.
      *
-     * @param bootstrapContext The {@link BootstapContext} to use
+     * @param bootstrapContext The {@link BootstrapContext} to use
      * @param key              The {@link ConfiguredFeature} to place. Will use the passed bootstrapContext
      *                         to get the holder from the {@link ConfiguredFeatureKey}.
      * @return A {@link FeaturePlacementBuilder} to setup the placement Modifiers
      */
     public <B extends FeatureConfigurator<?, ?>> FeaturePlacementBuilder place(
-            @NotNull BootstapContext<PlacedFeature> bootstrapContext,
+            @NotNull BootstrapContext<PlacedFeature> bootstrapContext,
             ConfiguredFeatureKey<B> key
     );
 
@@ -77,9 +77,9 @@ public interface PlacedFeatureKey extends BasePlacedFeatureKey<PlacedFeatureKey>
      * <p>
      * When the Placement is done, you should call {@link FeaturePlacementBuilder#register()}
      *
-     * @param bootstrapContext The {@link BootstapContext} to use
+     * @param bootstrapContext The {@link BootstrapContext} to use
      * @return A {@link ConfiguredFeatureManager.InlineBuilder} start the
      * configuration.
      */
-    ConfiguredFeatureManager.InlineBuilder inlineConfiguration(@NotNull BootstapContext<PlacedFeature> bootstrapContext);
+    ConfiguredFeatureManager.InlineBuilder inlineConfiguration(@NotNull BootstrapContext<PlacedFeature> bootstrapContext);
 }

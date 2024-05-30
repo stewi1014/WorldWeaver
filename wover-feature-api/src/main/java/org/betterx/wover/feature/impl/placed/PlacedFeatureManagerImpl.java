@@ -7,7 +7,7 @@ import org.betterx.wover.events.impl.EventImpl;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
@@ -39,7 +39,7 @@ public class PlacedFeatureManagerImpl {
         );
     }
 
-    private static void onBootstrap(BootstapContext<PlacedFeature> context) {
+    private static void onBootstrap(BootstrapContext<PlacedFeature> context) {
         BOOTSTRAP_PLACED_FEATURES.emit(c -> c.bootstrap(context));
     }
 }

@@ -4,7 +4,7 @@ import org.betterx.wover.core.api.ModCore;
 import org.betterx.wover.datagen.api.WoverRegistryContentProvider;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 
@@ -40,5 +40,5 @@ public abstract class WoverStructurePoolProvider extends WoverRegistryContentPro
     }
 
     @Override
-    protected abstract void bootstrap(BootstapContext<StructureTemplatePool> context);
+    protected abstract void bootstrap(BootstrapContext<StructureTemplatePool> context);
 }

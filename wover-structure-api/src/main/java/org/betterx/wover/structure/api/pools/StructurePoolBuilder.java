@@ -15,14 +15,15 @@ import org.jetbrains.annotations.NotNull;
 public interface StructurePoolBuilder {
     /**
      * Registers the {@link StructureTemplatePool} with the currently active
-     * {@link net.minecraft.data.worldgen.BootstapContext}.
+     * {@link net.minecraft.data.worldgen.BootstrapContext}.
      * <p>
-     * Will fail if either the key of this Feature or the {@link net.minecraft.data.worldgen.BootstapContext}
+     * Will fail if either the key of this Feature or the {@link net.minecraft.data.worldgen.BootstrapContext}
      * are null.
      *
      * @return the holder
      */
-    @NotNull Holder<StructureTemplatePool> register();
+    @NotNull
+    Holder<StructureTemplatePool> register();
 
     /**
      * Creates an unnamed {@link Holder} for this {@link StructurePoolBuilder}.
@@ -32,35 +33,51 @@ public interface StructurePoolBuilder {
      *
      * @return the holder
      */
-    @NotNull Holder<StructureTemplatePool> directHolder();
+    @NotNull
+    Holder<StructureTemplatePool> directHolder();
 
-    @NotNull StructurePoolBuilder add(
+    @NotNull
+    StructurePoolBuilder add(
             @NotNull Function<StructureTemplatePool.Projection, ? extends StructurePoolElement> element,
             int weight
     );
 
-    @NotNull StructurePoolBuilder projection(@NotNull StructureTemplatePool.Projection projection);
+    @NotNull
+    StructurePoolBuilder projection(@NotNull StructureTemplatePool.Projection projection);
 
-    @NotNull StructurePoolBuilder terminator(@NotNull Holder<StructureTemplatePool> terminator);
+    @NotNull
+    StructurePoolBuilder terminator(@NotNull Holder<StructureTemplatePool> terminator);
 
-    @NotNull StructurePoolBuilder terminator(@NotNull ResourceKey<StructureTemplatePool> terminator);
+    @NotNull
+    StructurePoolBuilder terminator(@NotNull ResourceKey<StructureTemplatePool> terminator);
 
-    @NotNull StructurePoolBuilder terminator(@NotNull StructurePoolKey terminator);
+    @NotNull
+    StructurePoolBuilder terminator(@NotNull StructurePoolKey terminator);
 
-    @NotNull StructurePoolBuilder emptyTerminator();
+    @NotNull
+    StructurePoolBuilder emptyTerminator();
 
-    @NotNull ElementBuilder startSingle(@NotNull ResourceLocation nbtLocation);
-    @NotNull ElementBuilder startSingleEnd(@NotNull ResourceLocation nbtLocation);
-    @NotNull ElementBuilder startLegacySingle(@NotNull ResourceLocation nbtLocation);
+    @NotNull
+    ElementBuilder startSingle(@NotNull ResourceLocation nbtLocation);
+    @NotNull
+    ElementBuilder startSingleEnd(@NotNull ResourceLocation nbtLocation);
+    @NotNull
+    ElementBuilder startLegacySingle(@NotNull ResourceLocation nbtLocation);
 
     interface ElementBuilder {
-        @NotNull ElementBuilder processor(@NotNull Holder<StructureProcessorList> processor);
-        @NotNull ElementBuilder processor(@NotNull ResourceKey<StructureProcessorList> processor);
-        @NotNull ElementBuilder processor(@NotNull StructureProcessorKey processor);
-        @NotNull ElementBuilder emptyProcessor();
+        @NotNull
+        ElementBuilder processor(@NotNull Holder<StructureProcessorList> processor);
+        @NotNull
+        ElementBuilder processor(@NotNull ResourceKey<StructureProcessorList> processor);
+        @NotNull
+        ElementBuilder processor(@NotNull StructureProcessorKey processor);
+        @NotNull
+        ElementBuilder emptyProcessor();
 
-        @NotNull ElementBuilder weight(int weight);
+        @NotNull
+        ElementBuilder weight(int weight);
 
-        @NotNull StructurePoolBuilder endElement();
+        @NotNull
+        StructurePoolBuilder endElement();
     }
 }

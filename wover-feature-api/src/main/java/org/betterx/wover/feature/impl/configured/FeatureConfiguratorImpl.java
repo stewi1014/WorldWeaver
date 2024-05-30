@@ -9,7 +9,7 @@ import org.betterx.wover.feature.impl.placed.FeaturePlacementBuilderImpl;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -34,7 +34,7 @@ public abstract class FeatureConfiguratorImpl<FC extends FeatureConfiguration, F
         );
     }
 
-    private static void onBootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
+    private static void onBootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         BOOTSTRAP_CONFIGURED_FEATURES.emit(c -> c.bootstrap(context));
     }
 
@@ -70,20 +70,20 @@ public abstract class FeatureConfiguratorImpl<FC extends FeatureConfiguration, F
     // --------------------------------------------------
     @Nullable
     public final ResourceKey<ConfiguredFeature<?, ?>> key;
-    protected final @Nullable BootstapContext<ConfiguredFeature<?, ?>> bootstrapContext;
+    protected final @Nullable BootstrapContext<ConfiguredFeature<?, ?>> bootstrapContext;
 
     private ResourceKey<PlacedFeature> transitiveFeatureKey;
-    private BootstapContext<PlacedFeature> transitiveBootstrapContext;
+    private BootstrapContext<PlacedFeature> transitiveBootstrapContext;
 
     FeatureConfiguratorImpl(
-            @Nullable BootstapContext<ConfiguredFeature<?, ?>> ctx,
+            @Nullable BootstrapContext<ConfiguredFeature<?, ?>> ctx,
             @Nullable ResourceKey<ConfiguredFeature<?, ?>> key
     ) {
         this.key = key;
         this.bootstrapContext = ctx;
     }
 
-    void setTransitive(BootstapContext<PlacedFeature> ctx, ResourceKey<PlacedFeature> key) {
+    void setTransitive(BootstrapContext<PlacedFeature> ctx, ResourceKey<PlacedFeature> key) {
         this.transitiveBootstrapContext = ctx;
         this.transitiveFeatureKey = key;
     }
@@ -94,7 +94,7 @@ public abstract class FeatureConfiguratorImpl<FC extends FeatureConfiguration, F
     }
 
     @ApiStatus.Internal
-    public BootstapContext<PlacedFeature> getTransitiveBootstrapContext() {
+    public BootstrapContext<PlacedFeature> getTransitiveBootstrapContext() {
         return this.transitiveBootstrapContext;
     }
 

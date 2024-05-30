@@ -13,7 +13,7 @@ import org.betterx.wover.math.api.valueproviders.Vec3iProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Vec3i;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.valueproviders.*;
@@ -38,7 +38,7 @@ public class FeaturePlacementBuilderImpl implements org.betterx.wover.feature.ap
     @NotNull
     private final Holder<ConfiguredFeature<?, ?>> configuredFeatureHolder;
     @Nullable
-    private final BootstapContext<PlacedFeature> bootstrapContext;
+    private final BootstrapContext<PlacedFeature> bootstrapContext;
 
     //Transitive Members
     @Nullable
@@ -48,7 +48,7 @@ public class FeaturePlacementBuilderImpl implements org.betterx.wover.feature.ap
     private final BiFunction<ResourceKey<ConfiguredFeature<?, ?>>, ResourceKey<PlacedFeature>, RandomPatchImpl> randomPatchBuilder;
 
     public FeaturePlacementBuilderImpl(
-            @Nullable BootstapContext<PlacedFeature> bootstrapContext,
+            @Nullable BootstrapContext<PlacedFeature> bootstrapContext,
             @Nullable ResourceKey<PlacedFeature> key,
             @NotNull Holder<ConfiguredFeature<?, ?>> configuredFeatureHolder
     ) {
@@ -56,7 +56,7 @@ public class FeaturePlacementBuilderImpl implements org.betterx.wover.feature.ap
     }
 
     public FeaturePlacementBuilderImpl(
-            @Nullable BootstapContext<PlacedFeature> bootstrapContext,
+            @Nullable BootstrapContext<PlacedFeature> bootstrapContext,
             @Nullable ResourceKey<PlacedFeature> key,
             @NotNull Holder<ConfiguredFeature<?, ?>> configuredFeatureHolder,
             @Nullable ResourceKey<ConfiguredFeature<?, ?>> transitiveConfiguredFeatureKey,

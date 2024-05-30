@@ -3,7 +3,7 @@ package org.betterx.wover.structure.impl.processors;
 import org.betterx.wover.structure.api.processors.StructureProcessorBuilder;
 
 import net.minecraft.core.Holder;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -18,13 +18,13 @@ public class StructureProcessorBuilderImpl implements StructureProcessorBuilder 
     @NotNull
     private final ResourceKey<StructureProcessorList> key;
     @NotNull
-    private final BootstapContext<StructureProcessorList> context;
+    private final BootstrapContext<StructureProcessorList> context;
 
     private final List<StructureProcessor> list = new LinkedList<>();
 
     public StructureProcessorBuilderImpl(
             @NotNull ResourceKey<StructureProcessorList> key,
-            @NotNull BootstapContext<StructureProcessorList> context
+            @NotNull BootstrapContext<StructureProcessorList> context
     ) {
         this.key = key;
         this.context = context;

@@ -8,7 +8,7 @@ import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.Pools;
 import net.minecraft.data.worldgen.ProcessorLists;
 import net.minecraft.resources.ResourceKey;
@@ -31,7 +31,7 @@ public class StructurePoolBuilderImpl implements StructurePoolBuilder {
     @NotNull
     private final ResourceKey<StructureTemplatePool> key;
     @NotNull
-    private final BootstapContext<StructureTemplatePool> context;
+    private final BootstrapContext<StructureTemplatePool> context;
 
     @Nullable
     private Holder<StructureTemplatePool> terminator;
@@ -42,7 +42,7 @@ public class StructurePoolBuilderImpl implements StructurePoolBuilder {
 
     public StructurePoolBuilderImpl(
             @NotNull ResourceKey<StructureTemplatePool> key,
-            @NotNull BootstapContext<StructureTemplatePool> context
+            @NotNull BootstrapContext<StructureTemplatePool> context
     ) {
         this.key = key;
         this.context = context;

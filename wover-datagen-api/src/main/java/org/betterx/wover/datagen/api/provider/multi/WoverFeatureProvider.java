@@ -7,7 +7,7 @@ import org.betterx.wover.datagen.api.WoverMultiProvider;
 import org.betterx.wover.datagen.api.provider.WoverConfiguredFeatureProvider;
 import org.betterx.wover.datagen.api.provider.WoverPlacedFeatureProvider;
 
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
@@ -43,14 +43,14 @@ public abstract class WoverFeatureProvider extends AbstractMultiProvider {
      *
      * @param context The context to add the elements to.
      */
-    protected abstract void bootstrapConfigured(BootstapContext<ConfiguredFeature<?, ?>> context);
+    protected abstract void bootstrapConfigured(BootstrapContext<ConfiguredFeature<?, ?>> context);
 
     /**
      * Called, when the Elements of the Registry need to be created and registered.
      *
      * @param context The context to add the elements to.
      */
-    protected abstract void bootstrapPlaced(BootstapContext<PlacedFeature> context);
+    protected abstract void bootstrapPlaced(BootstrapContext<PlacedFeature> context);
 
     /**
      * Registers all  providers
@@ -63,7 +63,7 @@ public abstract class WoverFeatureProvider extends AbstractMultiProvider {
                 new WoverConfiguredFeatureProvider(modCore, providerId) {
 
                     @Override
-                    protected void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
+                    protected void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
                         bootstrapConfigured(context);
                     }
                 }
@@ -73,7 +73,7 @@ public abstract class WoverFeatureProvider extends AbstractMultiProvider {
                 new WoverPlacedFeatureProvider(modCore, providerId) {
 
                     @Override
-                    protected void bootstrap(BootstapContext<PlacedFeature> context) {
+                    protected void bootstrap(BootstrapContext<PlacedFeature> context) {
                         bootstrapPlaced(context);
                     }
                 }

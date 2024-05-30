@@ -6,7 +6,7 @@ import org.betterx.wover.core.api.ModCore;
 import org.betterx.wover.datagen.api.WoverRegistryContentProvider;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.NetherPlacements;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biomes;
@@ -25,7 +25,7 @@ public class ModificationProvider extends WoverRegistryContentProvider<BiomeModi
     }
 
     @Override
-    protected void bootstrap(BootstapContext<BiomeModification> context) {
+    protected void bootstrap(BootstrapContext<BiomeModification> context) {
         var features = context.lookup(Registries.PLACED_FEATURE);
 
         BiomeModification

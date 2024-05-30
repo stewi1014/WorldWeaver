@@ -4,7 +4,7 @@ import org.betterx.wover.feature.api.configured.ConfiguredFeatureKey;
 import org.betterx.wover.feature.api.configured.ConfiguredFeatureManager;
 import org.betterx.wover.feature.api.configured.configurators.WeightedBlockPatch;
 
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
@@ -26,7 +26,7 @@ public class WeightedBlockPatchImpl extends WeightedBaseBlockImpl<RandomPatchCon
     private int ySpread = 3;
 
     WeightedBlockPatchImpl(
-            @Nullable BootstapContext<ConfiguredFeature<?, ?>> ctx,
+            @Nullable BootstrapContext<ConfiguredFeature<?, ?>> ctx,
             @Nullable ResourceKey<ConfiguredFeature<?, ?>> key
     ) {
         super(ctx, key);
@@ -113,7 +113,7 @@ public class WeightedBlockPatchImpl extends WeightedBaseBlockImpl<RandomPatchCon
         }
 
         @Override
-        public WeightedBlockPatch bootstrap(@NotNull BootstapContext<ConfiguredFeature<?, ?>> ctx) {
+        public WeightedBlockPatch bootstrap(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> ctx) {
             return new WeightedBlockPatchImpl(ctx, key);
         }
     }
@@ -124,7 +124,7 @@ public class WeightedBlockPatchImpl extends WeightedBaseBlockImpl<RandomPatchCon
         }
 
         @Override
-        public WeightedBlockPatch bootstrap(@NotNull BootstapContext<ConfiguredFeature<?, ?>> ctx) {
+        public WeightedBlockPatch bootstrap(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> ctx) {
             return new WeightedBlockPatchImpl(ctx, key).likeDefaultBonemeal();
         }
     }

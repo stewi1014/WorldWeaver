@@ -7,7 +7,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -57,12 +57,12 @@ public class BaseFeatureKeyImpl<K extends BasePlacedFeatureKey<K>> implements Ba
     }
 
     @Nullable
-    public Holder<PlacedFeature> getHolder(@NotNull BootstapContext<?> context) {
+    public Holder<PlacedFeature> getHolder(@NotNull BootstrapContext<?> context) {
         return getHolder(context.lookup(Registries.PLACED_FEATURE));
     }
 
     protected FeaturePlacementBuilder place(
-            @NotNull BootstapContext<PlacedFeature> bootstrapContext,
+            @NotNull BootstrapContext<PlacedFeature> bootstrapContext,
             Holder<ConfiguredFeature<?, ?>> holder
     ) {
         return new FeaturePlacementBuilderImpl(bootstrapContext, key, holder);

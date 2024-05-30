@@ -8,7 +8,7 @@ import org.betterx.wover.feature.api.features.config.SequenceFeatureConfig;
 import org.betterx.wover.feature.api.placed.PlacedFeatureKey;
 
 import net.minecraft.core.Holder;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -23,7 +23,7 @@ public class AsSequenceImpl extends FeatureConfiguratorImpl<SequenceFeatureConfi
     private final List<Holder<PlacedFeature>> features = new LinkedList<>();
 
     AsSequenceImpl(
-            @Nullable BootstapContext<ConfiguredFeature<?, ?>> ctx,
+            @Nullable BootstrapContext<ConfiguredFeature<?, ?>> ctx,
             @Nullable ResourceKey<ConfiguredFeature<?, ?>> key
     ) {
         super(ctx, key);
@@ -62,7 +62,7 @@ public class AsSequenceImpl extends FeatureConfiguratorImpl<SequenceFeatureConfi
         }
 
         @Override
-        public AsSequence bootstrap(@NotNull BootstapContext<ConfiguredFeature<?, ?>> ctx) {
+        public AsSequence bootstrap(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> ctx) {
             return new AsSequenceImpl(ctx, key);
         }
     }

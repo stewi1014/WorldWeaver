@@ -7,7 +7,7 @@ import org.betterx.wover.structure.api.structures.nbt.RandomNbtStructure;
 import org.betterx.wover.structure.api.structures.nbt.RandomNbtStructureElement;
 import org.betterx.wover.util.RandomizedWeightedList;
 
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.structure.Structure;
 
@@ -20,7 +20,7 @@ public class RandomNbtBuilderImpl
 
     public RandomNbtBuilderImpl(
             StructureKey.RandomNbt key,
-            BootstapContext<Structure> context
+            BootstrapContext<Structure> context
     ) {
         super(key, context);
 

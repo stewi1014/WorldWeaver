@@ -6,7 +6,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
@@ -45,7 +45,7 @@ public class NoiseRegistryImpl {
     }
 
     public static void register(
-            BootstapContext<NormalNoise.NoiseParameters> bootstapContext,
+            BootstrapContext<NormalNoise.NoiseParameters> bootstapContext,
             ResourceKey<NormalNoise.NoiseParameters> resourceKey,
             int firstOctave,
             double firstAmplitude,
@@ -56,7 +56,7 @@ public class NoiseRegistryImpl {
 
 
     @ApiStatus.Internal
-    public static void bootstrap(BootstapContext<NormalNoise.NoiseParameters> bootstapContext) {
+    public static void bootstrap(BootstrapContext<NormalNoise.NoiseParameters> bootstapContext) {
         register(bootstapContext, NoiseParameterManager.ROUGHNESS_NOISE, 2, 1.0D, 1.0, 1.0, 1.0, 1.0);
     }
 }

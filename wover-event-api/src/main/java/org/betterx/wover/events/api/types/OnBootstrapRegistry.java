@@ -2,7 +2,7 @@ package org.betterx.wover.events.api.types;
 
 import org.betterx.wover.events.api.Subscriber;
 
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 
 /**
  * Used by registry bootstrap events.
@@ -15,5 +15,5 @@ public interface OnBootstrapRegistry<T> extends Subscriber {
      *
      * @param context The bootstrap context.
      */
-    void bootstrap(BootstapContext<T> context);
+    void bootstrap(BootstrapContext<T> context);
 }

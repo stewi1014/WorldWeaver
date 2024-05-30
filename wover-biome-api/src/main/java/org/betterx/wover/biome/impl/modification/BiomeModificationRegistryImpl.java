@@ -14,7 +14,7 @@ import org.betterx.wover.state.api.WorldState;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.WorldStem;
@@ -46,7 +46,7 @@ public class BiomeModificationRegistryImpl {
         WorldLifecycle.MINECRAFT_SERVER_READY.subscribe(BiomeModificationRegistryImpl::whenReady);
     }
 
-    private static void onBootstrap(BootstapContext<BiomeModification> ctx) {
+    private static void onBootstrap(BootstrapContext<BiomeModification> ctx) {
         BOOTSTRAP_BIOME_MODIFICATION_REGISTRY.emit(c -> c.bootstrap(ctx));
     }
 

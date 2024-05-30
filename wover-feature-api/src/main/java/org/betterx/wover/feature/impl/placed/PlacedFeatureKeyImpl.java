@@ -9,7 +9,7 @@ import org.betterx.wover.feature.impl.configured.InlineBuilderImpl;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -25,7 +25,7 @@ public class PlacedFeatureKeyImpl extends BaseFeatureKeyImpl<PlacedFeatureKey> i
 
     @Override
     public FeaturePlacementBuilder place(
-            BootstapContext<PlacedFeature> bootstrapContext,
+            BootstrapContext<PlacedFeature> bootstrapContext,
             ResourceKey<ConfiguredFeature<?, ?>> key
     ) {
         return super.place(
@@ -36,7 +36,7 @@ public class PlacedFeatureKeyImpl extends BaseFeatureKeyImpl<PlacedFeatureKey> i
 
     @Override
     public FeaturePlacementBuilder place(
-            @NotNull BootstapContext<PlacedFeature> bootstrapContext,
+            @NotNull BootstrapContext<PlacedFeature> bootstrapContext,
             Holder<ConfiguredFeature<?, ?>> holder
     ) {
         return super.place(bootstrapContext, holder);
@@ -44,14 +44,14 @@ public class PlacedFeatureKeyImpl extends BaseFeatureKeyImpl<PlacedFeatureKey> i
 
     @Override
     public <B extends FeatureConfigurator<?, ?>> FeaturePlacementBuilder place(
-            @NotNull BootstapContext<PlacedFeature> bootstrapContext,
+            @NotNull BootstrapContext<PlacedFeature> bootstrapContext,
             ConfiguredFeatureKey<B> key
     ) {
         return super.place(bootstrapContext, key.getHolder(bootstrapContext));
     }
 
     @Override
-    public ConfiguredFeatureManager.InlineBuilder inlineConfiguration(@NotNull BootstapContext<PlacedFeature> bootstrapContext) {
+    public ConfiguredFeatureManager.InlineBuilder inlineConfiguration(@NotNull BootstrapContext<PlacedFeature> bootstrapContext) {
         return new InlineBuilderImpl(bootstrapContext, this.key);
     }
 }

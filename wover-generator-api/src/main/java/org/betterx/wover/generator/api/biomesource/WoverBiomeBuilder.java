@@ -7,7 +7,7 @@ import org.betterx.wover.biome.api.data.BiomeData;
 import org.betterx.wover.generator.impl.biomesource.builder.WoverBiomeKeyImpl;
 import org.betterx.wover.generator.impl.biomesource.builder.WrappedWoverBiomeKeyImpl;
 
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
@@ -68,7 +68,7 @@ public interface WoverBiomeBuilder<B extends BiomeBuilder<B>> {
         }
 
         @Override
-        public void registerBiomeData(BootstapContext<BiomeData> dataContext) {
+        public void registerBiomeData(BootstrapContext<BiomeData> dataContext) {
             dataContext.register(
                     key.dataKey,
                     new WoverBiomeData(

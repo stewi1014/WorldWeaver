@@ -9,7 +9,7 @@ import org.betterx.wover.surface.api.AssignedSurfaceRule;
 import org.betterx.wover.tag.api.event.context.TagBootstrapContext;
 
 import com.mojang.serialization.Lifecycle;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.level.biome.Biome;
 
 import java.util.LinkedList;
@@ -26,21 +26,21 @@ public class BiomeBootstrapContextImpl extends CustomBootstrapContext<Biome, Bio
     }
 
     @ApiStatus.Internal
-    public final void bootstrapBiome(BootstapContext<Biome> context) {
+    public final void bootstrapBiome(BootstrapContext<Biome> context) {
         for (BiomeBuilder<?> builder : registeredBuilders) {
             builder.registerBiome(context);
         }
     }
 
     @ApiStatus.Internal
-    public final void bootstrapBiomeData(BootstapContext<BiomeData> context) {
+    public final void bootstrapBiomeData(BootstrapContext<BiomeData> context) {
         for (BiomeBuilder<?> builder : registeredBuilders) {
             builder.registerBiomeData(context);
         }
     }
 
     @ApiStatus.Internal
-    public final void bootstrapSurfaceRules(BootstapContext<AssignedSurfaceRule> context) {
+    public final void bootstrapSurfaceRules(BootstrapContext<AssignedSurfaceRule> context) {
         for (BiomeBuilder<?> builder : registeredBuilders) {
             builder.registerSurfaceRule(context);
         }

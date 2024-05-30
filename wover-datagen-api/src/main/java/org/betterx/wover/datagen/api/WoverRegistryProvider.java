@@ -5,7 +5,7 @@ import org.betterx.wover.core.api.ModCore;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistrySetBuilder;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -57,7 +57,7 @@ public abstract class WoverRegistryProvider<T> implements WoverDataProvider<Fabr
      *
      * @param context The context to add the elements to.
      */
-    protected abstract void bootstrap(BootstapContext<T> context);
+    protected abstract void bootstrap(BootstrapContext<T> context);
 
     /**
      * Called, when the Registry needs to be serialized. The returned provider

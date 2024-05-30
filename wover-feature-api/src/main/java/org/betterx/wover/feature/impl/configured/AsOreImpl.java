@@ -3,7 +3,7 @@ package org.betterx.wover.feature.impl.configured;
 import org.betterx.wover.feature.api.configured.ConfiguredFeatureKey;
 import org.betterx.wover.feature.api.configured.configurators.AsOre;
 
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
@@ -26,7 +26,7 @@ public class AsOreImpl extends FeatureConfiguratorImpl<OreConfiguration, OreFeat
     private float discardChanceOnAirExposure = 0;
 
     AsOreImpl(
-            @Nullable BootstapContext<ConfiguredFeature<?, ?>> ctx,
+            @Nullable BootstrapContext<ConfiguredFeature<?, ?>> ctx,
             @Nullable ResourceKey<ConfiguredFeature<?, ?>> featureKey
     ) {
         super(ctx, featureKey);
@@ -84,7 +84,7 @@ public class AsOreImpl extends FeatureConfiguratorImpl<OreConfiguration, OreFeat
         }
 
         @Override
-        public AsOre bootstrap(@NotNull BootstapContext<ConfiguredFeature<?, ?>> ctx) {
+        public AsOre bootstrap(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> ctx) {
             return new AsOreImpl(ctx, key);
         }
     }

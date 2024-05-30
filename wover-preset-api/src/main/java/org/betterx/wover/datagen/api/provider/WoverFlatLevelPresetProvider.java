@@ -11,7 +11,7 @@ import org.betterx.wover.tag.api.event.context.TagBootstrapContext;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataProvider;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.level.levelgen.flat.FlatLevelGeneratorPreset;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -83,7 +83,7 @@ public abstract class WoverFlatLevelPresetProvider
      * @param context The context to add the elements to.
      */
     @Override
-    protected final void bootstrap(BootstapContext<FlatLevelGeneratorPreset> context) {
+    protected final void bootstrap(BootstrapContext<FlatLevelGeneratorPreset> context) {
         bootstrap(new FlatLevelPresetBootstrapContext(context));
     }
 

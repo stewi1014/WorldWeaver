@@ -4,7 +4,7 @@ import org.betterx.wover.core.impl.registry.CustomBootstrapContextImpl;
 
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.Registry;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 
 import java.util.function.Supplier;
@@ -13,10 +13,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class CustomBootstrapContext<T, C extends CustomBootstrapContext<T, C>> implements LookupProvider {
-    protected BootstapContext<?> lookupContext;
+    protected BootstrapContext<?> lookupContext;
 
     @ApiStatus.Internal
-    public final void setLookupContext(BootstapContext<?> lookupContext) {
+    public final void setLookupContext(BootstrapContext<?> lookupContext) {
         this.lookupContext = lookupContext;
     }
 
@@ -29,7 +29,7 @@ public abstract class CustomBootstrapContext<T, C extends CustomBootstrapContext
     public abstract void onBootstrapContextChange(C bootstrapContext);
 
     public static <B, T, C extends CustomBootstrapContext<T, C>> @Nullable C initContext(
-            @Nullable BootstapContext<B> lookupContext,
+            @Nullable BootstrapContext<B> lookupContext,
             @NotNull ResourceKey<Registry<T>> registryKey,
             @NotNull Supplier<C> contextSupplier
     ) {

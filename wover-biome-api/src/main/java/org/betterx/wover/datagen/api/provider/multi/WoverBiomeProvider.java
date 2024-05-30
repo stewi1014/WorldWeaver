@@ -14,7 +14,7 @@ import org.betterx.wover.datagen.api.provider.WoverSurfaceRuleProvider;
 import org.betterx.wover.surface.api.AssignedSurfaceRule;
 import org.betterx.wover.tag.api.event.context.TagBootstrapContext;
 
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
 
@@ -52,7 +52,7 @@ public abstract class WoverBiomeProvider extends AbstractMultiProvider {
      */
     protected abstract void bootstrap(BiomeBootstrapContext context);
 
-    private <T> BiomeBootstrapContextImpl initContext(BootstapContext<T> ctx) {
+    private <T> BiomeBootstrapContextImpl initContext(BootstrapContext<T> ctx) {
         if (context == null) {
             context = new BiomeBootstrapContextImpl();
             context.setLookupContext(ctx);
@@ -64,17 +64,17 @@ public abstract class WoverBiomeProvider extends AbstractMultiProvider {
         return context;
     }
 
-    private void bootstrapBiomes(BootstapContext<Biome> ctx) {
+    private void bootstrapBiomes(BootstrapContext<Biome> ctx) {
         final BiomeBootstrapContextImpl context = initContext(ctx);
         context.bootstrapBiome(ctx);
     }
 
-    private void bootstrapData(BootstapContext<BiomeData> ctx) {
+    private void bootstrapData(BootstrapContext<BiomeData> ctx) {
         final BiomeBootstrapContextImpl context = initContext(ctx);
         context.bootstrapBiomeData(ctx);
     }
 
-    private void bootstrapSurface(BootstapContext<AssignedSurfaceRule> ctx) {
+    private void bootstrapSurface(BootstrapContext<AssignedSurfaceRule> ctx) {
         final BiomeBootstrapContextImpl context = initContext(ctx);
         context.bootstrapSurfaceRules(ctx);
     }
@@ -94,7 +94,7 @@ public abstract class WoverBiomeProvider extends AbstractMultiProvider {
         pack.addRegistryProvider(modCore ->
                 new WoverBiomeOnlyProvider(modCore, providerId) {
                     @Override
-                    protected void bootstrap(BootstapContext<Biome> context) {
+                    protected void bootstrap(BootstrapContext<Biome> context) {
                         bootstrapBiomes(context);
                     }
                 }
@@ -103,7 +103,7 @@ public abstract class WoverBiomeProvider extends AbstractMultiProvider {
         pack.addRegistryProvider(modCore ->
                 new WoverBiomeDataProvider(modCore, providerId) {
                     @Override
-                    protected void bootstrap(BootstapContext<BiomeData> context) {
+                    protected void bootstrap(BootstrapContext<BiomeData> context) {
                         bootstrapData(context);
                     }
                 }
@@ -112,7 +112,7 @@ public abstract class WoverBiomeProvider extends AbstractMultiProvider {
         pack.addRegistryProvider(modCore ->
                 new WoverSurfaceRuleProvider(modCore, providerId) {
                     @Override
-                    protected void bootstrap(BootstapContext<AssignedSurfaceRule> context) {
+                    protected void bootstrap(BootstrapContext<AssignedSurfaceRule> context) {
                         bootstrapSurface(context);
                     }
                 }

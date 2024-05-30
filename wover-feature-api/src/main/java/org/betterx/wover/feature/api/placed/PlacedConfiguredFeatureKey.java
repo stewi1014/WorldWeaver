@@ -2,7 +2,7 @@ package org.betterx.wover.feature.api.placed;
 
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
@@ -11,16 +11,16 @@ import org.jetbrains.annotations.NotNull;
 public interface PlacedConfiguredFeatureKey extends BasePlacedFeatureKey<PlacedConfiguredFeatureKey> {
     /**
      * Places the  {@link ConfiguredFeature} used for creating this instance
-     * from the given {@link BootstapContext}.
+     * from the given {@link BootstrapContext}.
      * <p>
      * This method internally looks up {@link Registries#CONFIGURED_FEATURE}. If you need to perform
      * a lot of placements, it is recommended to manually lookup the
-     * Registry first and use {@link #place(BootstapContext, HolderGetter)} instead.
+     * Registry first and use {@link #place(BootstrapContext, HolderGetter)} instead.
      *
-     * @param ctx A {@link BootstapContext} to get the {@link ConfiguredFeature} from
+     * @param ctx A {@link BootstrapContext} to get the {@link ConfiguredFeature} from
      * @return A {@link FeaturePlacementBuilder} to setup the placement Modifiers
      */
-    FeaturePlacementBuilder place(@NotNull BootstapContext<PlacedFeature> ctx);
+    FeaturePlacementBuilder place(@NotNull BootstrapContext<PlacedFeature> ctx);
 
     /**
      * Places the  {@link ConfiguredFeature} used for creating this instance
@@ -33,7 +33,7 @@ public interface PlacedConfiguredFeatureKey extends BasePlacedFeatureKey<PlacedC
      * @return A {@link FeaturePlacementBuilder} to setup the placement Modifiers
      */
     FeaturePlacementBuilder place(
-            @NotNull BootstapContext<PlacedFeature> ctx,
+            @NotNull BootstrapContext<PlacedFeature> ctx,
             @NotNull HolderGetter<ConfiguredFeature<?, ?>> getter
     );
 }

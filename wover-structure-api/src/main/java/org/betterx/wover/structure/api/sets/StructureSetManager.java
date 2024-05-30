@@ -9,7 +9,7 @@ import org.betterx.wover.structure.impl.sets.StructureSetManagerImpl;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.structure.Structure;
@@ -64,7 +64,7 @@ public class StructureSetManager {
      * shortcut for {@code createKey(structure).bootstrap(context).addStructure(structure)}.
      *
      * @param structure The {@link Structure} to create the {@link StructureSetKey} for
-     * @param context   The {@link BootstapContext} to bootstrap the {@link StructureSet} with
+     * @param context   The {@link BootstrapContext} to bootstrap the {@link StructureSet} with
      * @param <S>       The {@link Structure} type
      * @param <T>       The Builder Ttype
      * @param <R>       The {@link StructureKey} type
@@ -76,7 +76,7 @@ public class StructureSetManager {
             R extends StructureKey<S, T, R>
             > StructureSetBuilder bootstrap(
             R structure,
-            BootstapContext<StructureSet> context
+            BootstrapContext<StructureSet> context
     ) {
         return createKey(structure).bootstrap(context).addStructure(structure);
     }
@@ -85,7 +85,7 @@ public class StructureSetManager {
      * Gets the {@link Holder} for a {@link Structure} from a {@link HolderGetter}.
      *
      * @param getter the getter to get the holder from. You can get this getter from a
-     *               {@link net.minecraft.data.worldgen.BootstapContext} {@code ctx} by
+     *               {@link net.minecraft.data.worldgen.BootstrapContext} {@code ctx} by
      *               calling {@code ctx.lookup(Registries.STRUCTURE)}
      * @param key    the key to get the holder for
      * @return the holder, or null if the holder is not present
@@ -99,7 +99,7 @@ public class StructureSetManager {
     }
 
     /**
-     * Gets the {@link Holder} for a {@link StructureSet} from a {@link BootstapContext}.
+     * Gets the {@link Holder} for a {@link StructureSet} from a {@link BootstrapContext}.
      *
      * @param context the context to get registry containing the holder. When you need to
      *                get multiple holders at a time, you might want to use
@@ -110,7 +110,7 @@ public class StructureSetManager {
      */
     @Nullable
     public static Holder<StructureSet> getHolder(
-            @Nullable BootstapContext<?> context,
+            @Nullable BootstrapContext<?> context,
             @NotNull ResourceKey<StructureSet> key
     ) {
         return StructureSetManagerImpl.getHolder(context.lookup(Registries.STRUCTURE_SET), key);

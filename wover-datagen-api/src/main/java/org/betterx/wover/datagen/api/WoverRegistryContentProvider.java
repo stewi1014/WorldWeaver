@@ -4,7 +4,7 @@ import org.betterx.wover.core.api.ModCore;
 
 import com.mojang.serialization.Lifecycle;
 import net.minecraft.core.*;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
@@ -47,19 +47,19 @@ public abstract class WoverRegistryContentProvider<T> extends WoverRegistryProvi
      * Called, when the Elements of the Registry need to be created and registered.
      * <p>
      * Only Elements that are registered in this method
-     * (using {@link BootstapContext#register(ResourceKey, Object)} or
-     * {@link BootstapContext#register(ResourceKey, Object, Lifecycle)}) will be serialized.
+     * (using {@link BootstrapContext#register(ResourceKey, Object)} or
+     * {@link BootstrapContext#register(ResourceKey, Object, Lifecycle)}) will be serialized.
      *
      * @param context The context to add the elements to.
      */
-    protected abstract void bootstrap(BootstapContext<T> context);
+    protected abstract void bootstrap(BootstrapContext<T> context);
 
     private void addContent(ResourceKey<T> resourceKey) {
         content.add(resourceKey);
     }
 
-    private void wrappedBoostrap(BootstapContext<T> context) {
-        BootstapContext<T> wrapped = new BootstapContext<T>() {
+    private void wrappedBoostrap(BootstrapContext<T> context) {
+        BootstrapContext<T> wrapped = new BootstrapContext<T>() {
             @Override
             public Holder.Reference<T> register(ResourceKey<T> resourceKey, T object, Lifecycle lifecycle) {
                 addContent(resourceKey);

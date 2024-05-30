@@ -3,7 +3,7 @@ package org.betterx.wover.feature.impl.configured;
 import org.betterx.wover.feature.api.configured.ConfiguredFeatureKey;
 import org.betterx.wover.feature.api.configured.configurators.ForSimpleBlock;
 
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
@@ -22,7 +22,7 @@ public class ForSimpleBlockImpl extends FeatureConfiguratorImpl<SimpleBlockConfi
     private BlockStateProvider provider;
 
     ForSimpleBlockImpl(
-            @Nullable BootstapContext<ConfiguredFeature<?, ?>> ctx,
+            @Nullable BootstrapContext<ConfiguredFeature<?, ?>> ctx,
             @Nullable ResourceKey<ConfiguredFeature<?, ?>> featureKey
     ) {
         super(ctx, featureKey);
@@ -77,7 +77,7 @@ public class ForSimpleBlockImpl extends FeatureConfiguratorImpl<SimpleBlockConfi
         }
 
         @Override
-        public ForSimpleBlock bootstrap(@NotNull BootstapContext<ConfiguredFeature<?, ?>> ctx) {
+        public ForSimpleBlock bootstrap(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> ctx) {
             return new ForSimpleBlockImpl(ctx, key);
         }
     }

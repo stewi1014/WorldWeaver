@@ -7,9 +7,9 @@ import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 public interface BaseStructureBuilder<S extends Structure, R extends BaseStructureBuilder<S, R>> {
     /**
      * Registers the {@link Structure} with the currently active
-     * {@link net.minecraft.data.worldgen.BootstapContext}.
+     * {@link net.minecraft.data.worldgen.BootstrapContext}.
      * <p>
-     * Will fail if either the key of this Feature or the {@link net.minecraft.data.worldgen.BootstapContext}
+     * Will fail if either the key of this Feature or the {@link net.minecraft.data.worldgen.BootstrapContext}
      * are null.
      *
      * @return the holder

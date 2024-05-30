@@ -6,7 +6,7 @@ import org.betterx.wover.structure.api.StructureTypeKey;
 import org.betterx.wover.structure.api.builders.StructureBuilder;
 import org.betterx.wover.structure.impl.SimpleStructureKeyImpl;
 
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.level.levelgen.structure.Structure;
 
 public class StructureBuilderImpl<S extends Structure>
@@ -16,7 +16,7 @@ public class StructureBuilderImpl<S extends Structure>
 
     public StructureBuilderImpl(
             SimpleStructureKeyImpl<S> key,
-            BootstapContext<Structure> context
+            BootstrapContext<Structure> context
     ) {
         super(key, context);
         this.type = key.typeKey;

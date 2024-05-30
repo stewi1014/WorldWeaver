@@ -10,7 +10,7 @@ import org.betterx.wover.tag.api.event.context.TagBootstrapContext;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.level.levelgen.presets.WorldPreset;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -45,7 +45,7 @@ public abstract class WoverWorldPresetProvider
      * @param context The context to add the elements to.
      */
     @Override
-    protected final void bootstrap(BootstapContext<WorldPreset> context) {
+    protected final void bootstrap(BootstrapContext<WorldPreset> context) {
         bootstrap(new WorldPresetBootstrapContext(context));
     }
 

@@ -5,7 +5,7 @@ import org.betterx.wover.datagen.api.WoverRegistryContentProvider;
 import org.betterx.wover.surface.api.AssignedSurfaceRule;
 import org.betterx.wover.surface.api.SurfaceRuleRegistry;
 
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceLocation;
 
 import org.jetbrains.annotations.NotNull;
@@ -45,6 +45,6 @@ public abstract class WoverSurfaceRuleProvider extends WoverRegistryContentProvi
      * @param context The context to add the elements to.
      */
     @Override
-    protected abstract void bootstrap(BootstapContext<AssignedSurfaceRule> context);
+    protected abstract void bootstrap(BootstrapContext<AssignedSurfaceRule> context);
 }
 

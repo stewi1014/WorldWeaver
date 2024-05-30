@@ -16,9 +16,9 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 public interface FeatureConfigurator<FC extends FeatureConfiguration, F extends Feature<FC>> {
     /**
      * Registers the {@link ConfiguredFeature} with the currently active
-     * {@link net.minecraft.data.worldgen.BootstapContext}.
+     * {@link net.minecraft.data.worldgen.BootstrapContext}.
      * <p>
-     * Will fail if either the key of this Feature or the {@link net.minecraft.data.worldgen.BootstapContext}
+     * Will fail if either the key of this Feature or the {@link net.minecraft.data.worldgen.BootstrapContext}
      * are null.
      *
      * @return the holder

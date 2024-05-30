@@ -4,7 +4,7 @@ import org.betterx.wover.core.api.ModCore;
 import org.betterx.wover.datagen.api.WoverRegistryContentProvider;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
 
@@ -45,5 +45,5 @@ public abstract class WoverStructureSetProvider extends WoverRegistryContentProv
      * @param context The context to add the elements to.
      */
     @Override
-    protected abstract void bootstrap(BootstapContext<StructureSet> context);
+    protected abstract void bootstrap(BootstrapContext<StructureSet> context);
 }

@@ -4,7 +4,7 @@ import org.betterx.wover.core.api.ModCore;
 import org.betterx.wover.datagen.api.provider.multi.WoverFeatureProvider;
 import org.betterx.wover.testmod.entrypoint.TestModWoverWorldGenerator;
 
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -21,7 +21,7 @@ public class FeatureProvider extends WoverFeatureProvider {
     }
 
     @Override
-    protected void bootstrapConfigured(BootstapContext<ConfiguredFeature<?, ?>> context) {
+    protected void bootstrapConfigured(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         TestModWoverWorldGenerator
                 .TEST_VEGETATION
                 .bootstrap(context)
@@ -31,7 +31,7 @@ public class FeatureProvider extends WoverFeatureProvider {
     }
 
     @Override
-    protected void bootstrapPlaced(BootstapContext<PlacedFeature> context) {
+    protected void bootstrapPlaced(BootstrapContext<PlacedFeature> context) {
         TestModWoverWorldGenerator
                 .TEST_VEGETATION_PLACED
                 .place(context)

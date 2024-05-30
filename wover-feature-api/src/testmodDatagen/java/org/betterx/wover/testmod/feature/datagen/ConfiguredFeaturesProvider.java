@@ -11,7 +11,7 @@ import org.betterx.wover.testmod.entrypoint.TestModWoverFeature;
 
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.util.valueproviders.BiasedToBottomInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
@@ -26,7 +26,7 @@ public class ConfiguredFeaturesProvider extends WoverRegistryContentProvider<Con
     }
 
     @Override
-    protected void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
+    protected void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         TestModWoverFeature.CONFIGURED_REDSTONE_BLOCK
                 .bootstrap(context)
                 .block(Blocks.REDSTONE_BLOCK)

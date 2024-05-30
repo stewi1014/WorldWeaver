@@ -5,7 +5,7 @@ import org.betterx.wover.feature.api.configured.ConfiguredFeatureKey;
 import org.betterx.wover.feature.api.configured.configurators.AsBlockColumn;
 
 import net.minecraft.core.Direction;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.random.SimpleWeightedRandomList;
@@ -33,7 +33,7 @@ public class AsBlockColumnImpl extends FeatureConfiguratorImpl<BlockColumnConfig
     private boolean prioritizeTip = false;
 
     AsBlockColumnImpl(
-            @Nullable BootstapContext<ConfiguredFeature<?, ?>> ctx,
+            @Nullable BootstrapContext<ConfiguredFeature<?, ?>> ctx,
             @Nullable ResourceKey<ConfiguredFeature<?, ?>> key
     ) {
         super(ctx, key);
@@ -165,7 +165,7 @@ public class AsBlockColumnImpl extends FeatureConfiguratorImpl<BlockColumnConfig
         }
 
         @Override
-        public AsBlockColumn bootstrap(@NotNull BootstapContext<ConfiguredFeature<?, ?>> ctx) {
+        public AsBlockColumn bootstrap(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> ctx) {
             return new AsBlockColumnImpl(ctx, key);
         }
     }

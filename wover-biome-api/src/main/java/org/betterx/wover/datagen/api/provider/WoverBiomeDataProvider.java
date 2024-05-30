@@ -5,7 +5,7 @@ import org.betterx.wover.biome.api.data.BiomeDataRegistry;
 import org.betterx.wover.core.api.ModCore;
 import org.betterx.wover.datagen.api.WoverRegistryContentProvider;
 
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceLocation;
 
 import org.jetbrains.annotations.NotNull;
@@ -45,7 +45,7 @@ public abstract class WoverBiomeDataProvider extends WoverRegistryContentProvide
      * @param context The context to add the elements to.
      */
     @Override
-    protected abstract void bootstrap(BootstapContext<BiomeData> context);
+    protected abstract void bootstrap(BootstrapContext<BiomeData> context);
 }
 
 

@@ -4,7 +4,7 @@ import org.betterx.wover.core.api.ModCore;
 import org.betterx.wover.datagen.api.WoverRegistryContentProvider;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
@@ -47,5 +47,5 @@ public abstract class WoverPlacedFeatureProvider extends WoverRegistryContentPro
      * @param context The context to add the elements to.
      */
     @Override
-    abstract protected void bootstrap(BootstapContext<PlacedFeature> context);
+    abstract protected void bootstrap(BootstrapContext<PlacedFeature> context);
 }

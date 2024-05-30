@@ -5,7 +5,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.chunk.ChunkGenerator;
@@ -23,11 +23,11 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Special bootstrap context for world presets.
  * <p>
- * The context is created from a regular {@link BootstapContext} and provides
+ * The context is created from a regular {@link BootstrapContext} and provides
  * a few helper methods specialized for world presets as well as access to some
  * data relevant when creating a world preset.
  */
-public class WorldPresetBootstrapContext implements BootstapContext<WorldPreset> {
+public class WorldPresetBootstrapContext implements BootstrapContext<WorldPreset> {
     /**
      * Read-only access to the {@link NoiseGeneratorSettings} registry
      */
@@ -88,14 +88,14 @@ public class WorldPresetBootstrapContext implements BootstapContext<WorldPreset>
      */
     public final StemContext endContext;
 
-    private final BootstapContext<WorldPreset> context;
+    private final BootstrapContext<WorldPreset> context;
 
     /**
      * Creates a new world preset bootstrap context from the given context.
      *
      * @param bootstapContext the original context to wrap
      */
-    public WorldPresetBootstrapContext(BootstapContext<WorldPreset> bootstapContext) {
+    public WorldPresetBootstrapContext(BootstrapContext<WorldPreset> bootstapContext) {
         this.context = bootstapContext;
 
         this.parameterLists = bootstapContext.lookup(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST);

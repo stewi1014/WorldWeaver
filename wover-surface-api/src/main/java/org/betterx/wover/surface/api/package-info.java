@@ -19,7 +19,7 @@
  *    }
  *
  *    &#64;Override
- *    protected void bootstrap(BootstapContext&lt;AssignedSurfaceRule&gt; ctx) {
+ *    protected void bootstrap(BootstrapContext&lt;AssignedSurfaceRule&gt; ctx) {
  *        SurfaceRuleBuilder
  *                .start()
  *                .biome(Biomes.MEADOW)

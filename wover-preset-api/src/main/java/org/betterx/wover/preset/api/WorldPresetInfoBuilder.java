@@ -3,7 +3,7 @@ package org.betterx.wover.preset.api;
 import org.betterx.wover.preset.impl.WorldPresetInfoBuilderImpl;
 
 import net.minecraft.core.Holder;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.presets.WorldPreset;
 
@@ -20,7 +20,7 @@ public interface WorldPresetInfoBuilder {
 
     Holder<WorldPresetInfo> register(ResourceKey<WorldPreset> key);
 
-    static WorldPresetInfoBuilder start(BootstapContext<WorldPresetInfo> context) {
+    static WorldPresetInfoBuilder start(BootstrapContext<WorldPresetInfo> context) {
         return new WorldPresetInfoBuilderImpl(context);
     }
 }

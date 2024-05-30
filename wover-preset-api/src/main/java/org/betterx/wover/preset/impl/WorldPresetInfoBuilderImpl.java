@@ -5,7 +5,7 @@ import org.betterx.wover.preset.api.WorldPresetInfoBuilder;
 import org.betterx.wover.util.PriorityLinkedList;
 
 import net.minecraft.core.Holder;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.presets.WorldPreset;
 
@@ -21,10 +21,10 @@ public class WorldPresetInfoBuilderImpl implements WorldPresetInfoBuilder {
     private @Nullable
     ResourceKey<WorldPreset> endLike;
 
-    private final BootstapContext<WorldPresetInfo> context;
+    private final BootstrapContext<WorldPresetInfo> context;
 
     @ApiStatus.Internal
-    public WorldPresetInfoBuilderImpl(BootstapContext<WorldPresetInfo> context) {
+    public WorldPresetInfoBuilderImpl(BootstrapContext<WorldPresetInfo> context) {
         sortOrder = PriorityLinkedList.DEFAULT_PRIORITY;
         this.context = context;
     }

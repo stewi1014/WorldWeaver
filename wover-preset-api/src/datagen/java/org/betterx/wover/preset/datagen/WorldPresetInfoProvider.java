@@ -6,7 +6,7 @@ import org.betterx.wover.preset.api.WorldPresetInfo;
 import org.betterx.wover.preset.api.WorldPresetInfoBuilder;
 import org.betterx.wover.preset.api.WorldPresetInfoRegistry;
 
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.level.levelgen.presets.WorldPresets;
 
 public class WorldPresetInfoProvider extends WoverRegistryContentProvider<WorldPresetInfo> {
@@ -22,7 +22,7 @@ public class WorldPresetInfoProvider extends WoverRegistryContentProvider<WorldP
     }
 
     @Override
-    protected void bootstrap(BootstapContext<WorldPresetInfo> context) {
+    protected void bootstrap(BootstrapContext<WorldPresetInfo> context) {
         WorldPresetInfoBuilder.start(context)
                               .order(1000)
                               .register(WorldPresets.NORMAL);

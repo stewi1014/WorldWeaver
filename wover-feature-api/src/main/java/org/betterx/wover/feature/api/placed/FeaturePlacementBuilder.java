@@ -11,7 +11,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.Vec3i;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.valueproviders.FloatProvider;
 import net.minecraft.util.valueproviders.IntProvider;
@@ -41,10 +41,10 @@ import java.util.List;
  * placed at all the positions emitted by the last stage in the pipeline. If the resulting
  * stream is empty, the feature is not placed at all.
  *
- * @see PlacedFeatureKey#place(BootstapContext, Holder)
- * @see PlacedFeatureKey#place(BootstapContext, ResourceKey)
- * @see PlacedConfiguredFeatureKey#place(BootstapContext)
- * @see PlacedConfiguredFeatureKey#place(BootstapContext, HolderGetter)
+ * @see PlacedFeatureKey#place(BootstrapContext, Holder)
+ * @see PlacedFeatureKey#place(BootstrapContext, ResourceKey)
+ * @see PlacedConfiguredFeatureKey#place(BootstrapContext)
+ * @see PlacedConfiguredFeatureKey#place(BootstrapContext, HolderGetter)
  * @see FeatureConfigurator#inlinePlace()
  */
 public interface FeaturePlacementBuilder {
@@ -842,11 +842,11 @@ public interface FeaturePlacementBuilder {
      */
     RandomPatch inRandomPatch();
     /**
-     * Register this PlacedFeature with the {@link BootstapContext} and {@link ResourceKey} used to create
-     * this Builder. If no {@link BootstapContext} or no {@link ResourceKey} was used, the call will fail.
+     * Register this PlacedFeature with the {@link BootstrapContext} and {@link ResourceKey} used to create
+     * this Builder. If no {@link BootstrapContext} or no {@link ResourceKey} was used, the call will fail.
      *
      * @return a holder for the registered PlacedFeature
-     * @throws IllegalStateException if no {@link BootstapContext} was used to create this Builder or the
+     * @throws IllegalStateException if no {@link BootstrapContext} was used to create this Builder or the
      *                               {@link ResourceKey} for this builder is empty
      */
     Holder<PlacedFeature> register();

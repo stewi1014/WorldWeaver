@@ -8,7 +8,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
@@ -30,13 +30,13 @@ public class StructureSetBuilder {
     @NotNull
     private final ResourceKey<StructureSet> key;
     @NotNull
-    private final BootstapContext<StructureSet> context;
+    private final BootstrapContext<StructureSet> context;
 
     private final List<Pair<ResourceKey<Structure>, Integer>> structures = new LinkedList<>();
     private StructurePlacement placement;
 
 
-    StructureSetBuilder(@NotNull ResourceKey<StructureSet> key, @NotNull BootstapContext<StructureSet> context) {
+    StructureSetBuilder(@NotNull ResourceKey<StructureSet> key, @NotNull BootstrapContext<StructureSet> context) {
         this.key = key;
         this.context = context;
     }
@@ -83,9 +83,9 @@ public class StructureSetBuilder {
 
     /**
      * Registers the {@link StructureSet} with the currently active
-     * {@link net.minecraft.data.worldgen.BootstapContext}.
+     * {@link net.minecraft.data.worldgen.BootstrapContext}.
      * <p>
-     * Will fail if either the key of this Feature or the {@link net.minecraft.data.worldgen.BootstapContext}
+     * Will fail if either the key of this Feature or the {@link net.minecraft.data.worldgen.BootstrapContext}
      * are null.
      *
      * @return the holder
@@ -232,10 +232,10 @@ public class StructureSetBuilder {
         @NotNull
         protected TagKey<Biome> preferredBiomes;
         @NotNull
-        private final BootstapContext<StructureSet> context;
+        private final BootstrapContext<StructureSet> context;
 
         ConcentricRingsStructurePlacementBuilder(
-                @NotNull BootstapContext<StructureSet> context,
+                @NotNull BootstrapContext<StructureSet> context,
                 @NotNull ResourceKey<StructureSet> baseKey
         ) {
             super(baseKey);

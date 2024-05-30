@@ -5,7 +5,7 @@ import org.betterx.wover.feature.api.configured.configurators.AsRandomSelect;
 import org.betterx.wover.feature.api.placed.PlacedFeatureKey;
 
 import net.minecraft.core.Holder;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -25,7 +25,7 @@ public class AsRandomSelectImpl extends FeatureConfiguratorImpl<RandomFeatureCon
     private Holder<PlacedFeature> defaultFeature;
 
     AsRandomSelectImpl(
-            @Nullable BootstapContext<ConfiguredFeature<?, ?>> ctx,
+            @Nullable BootstrapContext<ConfiguredFeature<?, ?>> ctx,
             @Nullable ResourceKey<ConfiguredFeature<?, ?>> key
     ) {
         super(ctx, key);
@@ -69,7 +69,7 @@ public class AsRandomSelectImpl extends FeatureConfiguratorImpl<RandomFeatureCon
         }
 
         @Override
-        public AsRandomSelect bootstrap(@NotNull BootstapContext<ConfiguredFeature<?, ?>> ctx) {
+        public AsRandomSelect bootstrap(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> ctx) {
             return new AsRandomSelectImpl(ctx, key);
         }
     }

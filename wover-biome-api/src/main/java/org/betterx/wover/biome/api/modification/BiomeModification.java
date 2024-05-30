@@ -16,7 +16,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -116,7 +116,7 @@ public interface BiomeModification {
      * @param location The location of the modification.
      * @return The builder.
      */
-    static Builder build(@NotNull BootstapContext<BiomeModification> context, @NotNull ResourceLocation location) {
+    static Builder build(@NotNull BootstrapContext<BiomeModification> context, @NotNull ResourceLocation location) {
         return new Builder(
                 context,
                 ResourceKey.create(BiomeModificationRegistry.BIOME_MODIFICATION_REGISTRY, location)
@@ -131,7 +131,7 @@ public interface BiomeModification {
      * @return The builder.
      */
     static Builder build(
-            @NotNull BootstapContext<BiomeModification> context,
+            @NotNull BootstrapContext<BiomeModification> context,
             @NotNull ResourceKey<BiomeModification> key
     ) {
         return new Builder(context, key);
@@ -145,7 +145,7 @@ public interface BiomeModification {
      */
     final class Builder {
         @Nullable
-        private final BootstapContext<BiomeModification> bootstrapContext;
+        private final BootstrapContext<BiomeModification> bootstrapContext;
         private BiomePredicate predicate;
         private final FeatureMap features;
         private final List<MobSpawnSettings.SpawnerData> spawns;
@@ -154,7 +154,7 @@ public interface BiomeModification {
         private final ResourceKey<BiomeModification> key;
 
         private Builder(
-                @Nullable BootstapContext<BiomeModification> bootstrapContext,
+                @Nullable BootstrapContext<BiomeModification> bootstrapContext,
                 ResourceKey<BiomeModification> key
         ) {
             this.bootstrapContext = bootstrapContext;
@@ -464,7 +464,7 @@ public interface BiomeModification {
          * specified in the PlacedFeatureKey of all Biomes that match the {@link #predicate}.
          * <p>
          * Internally this will  call {@link #addFeature(GenerationStep.Decoration, Holder)}. The
-         * Holder Object is created using {@link PlacedFeatureKey#getHolder(BootstapContext)}.
+         * Holder Object is created using {@link PlacedFeatureKey#getHolder(BootstrapContext)}.
          * If you want to add a lot of features, it is recommended to use
          * {@link #addFeature(GenerationStep.Decoration, Holder)}
          * instead, as it will be faster.

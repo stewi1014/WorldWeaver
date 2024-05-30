@@ -8,7 +8,7 @@ import org.betterx.wover.preset.api.event.OnBootstrapFlatLevelPresets;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
@@ -40,13 +40,13 @@ public class FlatLevelPresetManagerImpl {
         );
     }
 
-    private static void onBootstrap(BootstapContext<FlatLevelGeneratorPreset> context) {
+    private static void onBootstrap(BootstrapContext<FlatLevelGeneratorPreset> context) {
         FlatLevelPresetBootstrapContext ctx = new FlatLevelPresetBootstrapContext(context);
         BOOTSTRAP_FLAT_LEVEL_PRESETS.emit(c -> c.bootstrap(ctx));
     }
 
     public static void register(
-            BootstapContext<FlatLevelGeneratorPreset> ctx,
+            BootstrapContext<FlatLevelGeneratorPreset> ctx,
             ResourceKey<FlatLevelGeneratorPreset> presetKey,
             ItemLike icon,
             ResourceKey<Biome> biomeKey,

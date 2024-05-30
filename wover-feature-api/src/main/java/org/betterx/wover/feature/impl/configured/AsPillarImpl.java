@@ -7,7 +7,7 @@ import org.betterx.wover.feature.api.features.PillarFeature;
 import org.betterx.wover.feature.api.features.config.PillarFeatureConfig;
 
 import net.minecraft.core.Direction;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -31,7 +31,7 @@ public class AsPillarImpl extends FeatureConfiguratorImpl<PillarFeatureConfig, P
     private BlockPredicate allowedPlacement = BlockPredicate.ONLY_IN_AIR_PREDICATE;
 
     AsPillarImpl(
-            @Nullable BootstapContext<ConfiguredFeature<?, ?>> ctx,
+            @Nullable BootstrapContext<ConfiguredFeature<?, ?>> ctx,
             @Nullable ResourceKey<ConfiguredFeature<?, ?>> key
     ) {
         super(ctx, key);
@@ -129,7 +129,7 @@ public class AsPillarImpl extends FeatureConfiguratorImpl<PillarFeatureConfig, P
         }
 
         @Override
-        public AsPillar bootstrap(@NotNull BootstapContext<ConfiguredFeature<?, ?>> ctx) {
+        public AsPillar bootstrap(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> ctx) {
             return new AsPillarImpl(ctx, key);
         }
     }

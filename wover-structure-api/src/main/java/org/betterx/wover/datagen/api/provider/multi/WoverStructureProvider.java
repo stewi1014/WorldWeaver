@@ -9,7 +9,7 @@ import org.betterx.wover.datagen.api.provider.WoverStructureProcessorProvider;
 import org.betterx.wover.datagen.api.provider.WoverStructureSetProvider;
 import org.betterx.wover.tag.api.event.context.TagBootstrapContext;
 
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
@@ -40,28 +40,28 @@ public abstract class WoverStructureProvider implements WoverMultiProvider {
      *
      * @param context The context to add the elements to.
      */
-    protected abstract void bootstrapSturctures(BootstapContext<Structure> context);
+    protected abstract void bootstrapSturctures(BootstrapContext<Structure> context);
 
     /**
      * Called, when the Elements of the Registry need to be created and registered.
      *
      * @param context The context to add the elements to.
      */
-    protected abstract void bootstrapSets(BootstapContext<StructureSet> context);
+    protected abstract void bootstrapSets(BootstrapContext<StructureSet> context);
 
     /**
      * Called, when the Elements of the Registry need to be created and registered.
      *
      * @param context The context to add the elements to.
      */
-    protected abstract void bootstrapPools(BootstapContext<StructureTemplatePool> context);
+    protected abstract void bootstrapPools(BootstrapContext<StructureTemplatePool> context);
 
     /**
      * Called, when the Elements of the Registry need to be created and registered.
      *
      * @param context The context to add the elements to.
      */
-    protected abstract void bootstrapProcessors(BootstapContext<StructureProcessorList> context);
+    protected abstract void bootstrapProcessors(BootstrapContext<StructureProcessorList> context);
 
     /**
      * Called, when the Tags need to be set up.
@@ -80,7 +80,7 @@ public abstract class WoverStructureProvider implements WoverMultiProvider {
         pack.addRegistryProvider(modCore ->
                 new org.betterx.wover.datagen.api.provider.WoverStructureProvider(modCore) {
                     @Override
-                    protected void bootstrap(BootstapContext<Structure> context) {
+                    protected void bootstrap(BootstrapContext<Structure> context) {
                         bootstrapSturctures(context);
                     }
                 }
@@ -89,7 +89,7 @@ public abstract class WoverStructureProvider implements WoverMultiProvider {
         pack.addRegistryProvider(modCore ->
                 new WoverStructureSetProvider(modCore) {
                     @Override
-                    protected void bootstrap(BootstapContext<StructureSet> context) {
+                    protected void bootstrap(BootstrapContext<StructureSet> context) {
                         bootstrapSets(context);
                     }
                 }
@@ -98,7 +98,7 @@ public abstract class WoverStructureProvider implements WoverMultiProvider {
         pack.addRegistryProvider(modCore ->
                 new WoverStructurePoolProvider(modCore) {
                     @Override
-                    protected void bootstrap(BootstapContext<StructureTemplatePool> context) {
+                    protected void bootstrap(BootstrapContext<StructureTemplatePool> context) {
                         bootstrapPools(context);
                     }
                 }
@@ -107,7 +107,7 @@ public abstract class WoverStructureProvider implements WoverMultiProvider {
         pack.addRegistryProvider(modCore ->
                 new WoverStructureProcessorProvider(modCore) {
                     @Override
-                    protected void bootstrap(BootstapContext<StructureProcessorList> context) {
+                    protected void bootstrap(BootstrapContext<StructureProcessorList> context) {
                         bootstrapProcessors(context);
                     }
                 }

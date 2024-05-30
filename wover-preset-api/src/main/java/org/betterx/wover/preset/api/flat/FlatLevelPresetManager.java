@@ -4,7 +4,7 @@ import org.betterx.wover.events.api.Event;
 import org.betterx.wover.preset.api.event.OnBootstrapFlatLevelPresets;
 import org.betterx.wover.preset.impl.flat.FlatLevelPresetManagerImpl;
 
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
@@ -47,7 +47,7 @@ public class FlatLevelPresetManager {
     /**
      * Registers a {@link FlatLevelGeneratorPreset}.
      *
-     * @param ctx                  The {@link BootstapContext} to register the preset in.
+     * @param ctx                  The {@link BootstrapContext} to register the preset in.
      * @param presetKey            The key of the preset.
      * @param icon                 The icon of the preset.
      * @param biomeKey             The key of the biome to use.
@@ -57,7 +57,7 @@ public class FlatLevelPresetManager {
      * @param flatLayerInfos       The flat layer infos.
      */
     public static void register(
-            @NotNull BootstapContext<FlatLevelGeneratorPreset> ctx,
+            @NotNull BootstrapContext<FlatLevelGeneratorPreset> ctx,
             @NotNull ResourceKey<FlatLevelGeneratorPreset> presetKey,
             @NotNull ItemLike icon,
             @NotNull ResourceKey<Biome> biomeKey,
