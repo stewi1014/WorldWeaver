@@ -104,7 +104,7 @@ public final class ModCore implements Version.ModVersionProvider {
      * @return The {@link ResourceLocation} for the given name.
      */
     public ResourceLocation id(String name) {
-        return new ResourceLocation(namespace, name);
+        return ResourceLocation.fromNamespaceAndPath(namespace, name);
     }
 
 
@@ -136,7 +136,7 @@ public final class ModCore implements Version.ModVersionProvider {
      */
     @Override
     public ResourceLocation mk(String key) {
-        return new ResourceLocation(namespace, key);
+        return ResourceLocation.fromNamespaceAndPath(namespace, key);
     }
 
     /**
