@@ -1,9 +1,8 @@
 package org.betterx.wover.block.api.predicate;
 
 import org.betterx.wover.block.impl.predicate.BlockPredicatesImpl;
+import org.betterx.wover.common.compat.api.WMapCodec;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.world.level.WorldGenLevel;
@@ -24,11 +23,11 @@ public class IsFullShape implements BlockPredicate {
      * Tests if the block at the current position has a full collision shape.
      */
     public static final IsFullShape HERE = new IsFullShape();
-    
+
     /**
      * Codec for this block predicate.
      */
-    public static final Codec<IsFullShape> CODEC = RecordCodecBuilder.create(
+    public static final WMapCodec<IsFullShape> CODEC = WMapCodec.create(
             instance -> instance
                     .group(
                             Vec3i.offsetCodec(16).optionalFieldOf("offset", Vec3i.ZERO).forGetter((p) -> p.offset)
