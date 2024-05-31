@@ -16,6 +16,7 @@ import java.util.function.Supplier;
 public class V2832Mixin {
     @ModifyArg(method = "method_38837", at = @At(value = "INVOKE", target = "Lcom/mojang/datafixers/DSL;taggedChoiceLazy(Ljava/lang/String;Lcom/mojang/datafixers/types/Type;Ljava/util/Map;)Lcom/mojang/datafixers/types/templates/TaggedChoice;"))
     private static Map<String, Supplier<TypeTemplate>> wover_addGenerator(Map<String, Supplier<TypeTemplate>> map) {
-        return ChunkGeneratorManagerImpl.addGeneratorDSL(map);
+        //TODO: 1.21 Check how to do this without breaking initialization order...
+        return map; //ChunkGeneratorManagerImpl.addGeneratorDSL(map);
     }
 }
