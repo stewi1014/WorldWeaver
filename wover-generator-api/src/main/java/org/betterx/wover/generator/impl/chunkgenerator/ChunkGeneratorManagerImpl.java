@@ -20,6 +20,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.FeatureSorter;
 import net.minecraft.world.level.chunk.ChunkGenerator;
@@ -32,10 +33,7 @@ import net.minecraft.world.level.storage.LevelStorageSource;
 
 import com.google.common.collect.ImmutableMap;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Supplier;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
@@ -191,15 +189,25 @@ public class ChunkGeneratorManagerImpl {
         return sb.toString();
     }
 
-    public static void printDimensionInfo(Registry<LevelStem> dimensionRegistry) {
+    public static void printDimensionInfo(WorldDimensions dimensionRegistry) {
         if (!Configs.MAIN.verboseLogging.get()) return;
 
-        printDimensionInfo("World Dimensions", dimensionRegistry);
+        printDimensionInfo("World Dimensions", dimensionRegistry.dimensions().entrySet());
     }
 
-    public static void printDimensionInfo(String title, Registry<LevelStem> dimensionRegistry) {
+    public static void printDimensionInfo( Registry<LevelStem>  dimensionRegistry) {
+        if (!Configs.MAIN.verboseLogging.get()) return;
+
+        printDimensionInfo("World Dimensions", dimensionRegistry.entrySet());
+    }
+
+    public static void printDimensionInfo(String title, WorldDimensions dimensionRegistry) {
+        printDimensionInfo(title, dimensionRegistry.dimensions().entrySet());
+    }
+
+    public static void printDimensionInfo(String title, Set<Map.Entry<ResourceKey<LevelStem>, LevelStem>> levels) {
         StringBuilder output = new StringBuilder(title + ": ");
-        for (var entry : dimensionRegistry.entrySet()) {
+        for (Map.Entry<ResourceKey<LevelStem>, LevelStem> entry : levels) {
             output.append("\n - ").append(entry.getKey().location()).append(": ")
                   .append("\n     ").append(
                           entry.getValue()

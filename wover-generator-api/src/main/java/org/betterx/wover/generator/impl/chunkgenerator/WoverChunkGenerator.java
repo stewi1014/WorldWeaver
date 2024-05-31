@@ -15,10 +15,7 @@ import org.betterx.wover.surface.impl.SurfaceRuleUtil;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.Holder;
-import net.minecraft.core.HolderGetter;
-import net.minecraft.core.Registry;
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.SurfaceRuleData;
@@ -174,8 +171,13 @@ public class WoverChunkGenerator extends NoiseBasedChunkGenerator implements
                 dimensionKey,
                 dimensionTypeKey,
                 access,
-                dimensionRegistry,
-                referenceGenerator
+                dimensionRegistry.entrySet(),
+                referenceGenerator,
+                dimensionRegistry::get,
+                (registry, key, stem) ->  registry.register(
+                        key, stem,
+                        dimensionRegistry.registrationInfo(key).orElse(RegistrationInfo.BUILT_IN)
+                )
         );
     }
 

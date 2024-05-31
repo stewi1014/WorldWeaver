@@ -12,6 +12,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.dimension.LevelStem;
+import net.minecraft.world.level.levelgen.WorldDimensions;
 import net.minecraft.world.level.levelgen.presets.WorldPreset;
 
 import java.util.HashMap;
@@ -39,9 +40,9 @@ public class DimensionsWrapper {
             .apply(instance, DimensionsWrapper::fromCodec));
     final Map<ResourceKey<LevelStem>, ChunkGenerator> dimensions;
 
-    static Map<ResourceKey<LevelStem>, ChunkGenerator> build(Registry<LevelStem> dimensions) {
+    static Map<ResourceKey<LevelStem>, ChunkGenerator> build(WorldDimensions dimensions) {
         Map<ResourceKey<LevelStem>, ChunkGenerator> map = new HashMap<>();
-        for (var entry : dimensions.entrySet()) {
+        for (var entry : dimensions.dimensions().entrySet()) {
             ResourceKey<LevelStem> key = entry.getKey();
             LevelStem stem = entry.getValue();
             map.put(key, stem.generator());
@@ -49,7 +50,7 @@ public class DimensionsWrapper {
         return map;
     }
 
-    public static @Nullable Registry<LevelStem> getDimensions(ResourceKey<WorldPreset> key) {
+    public static @Nullable WorldDimensions getDimensions(ResourceKey<WorldPreset> key) {
         RegistryAccess access = WorldState.allStageRegistryAccess();
         if (access == null) {
             LibWoverWorldGenerator.C.log.error("No valid registry found!");
@@ -60,12 +61,11 @@ public class DimensionsWrapper {
         return preset
                 .map(worldPresetReference -> worldPresetReference
                         .value()
-                        .createWorldDimensions()
-                        .dimensions())
+                        .createWorldDimensions())
                 .orElse(null);
     }
 
-    public static @Nullable Registry<LevelStem> getDimensions(RegistryAccess access, ResourceKey<WorldPreset> key) {
+    public static @Nullable WorldDimensions getDimensions(RegistryAccess access, ResourceKey<WorldPreset> key) {
         if (access == null) {
             LibWoverWorldGenerator.C.log.error("No valid registry found!");
             return null;
@@ -75,21 +75,20 @@ public class DimensionsWrapper {
         return preset
                 .get()
                 .value()
-                .createWorldDimensions()
-                .dimensions();
+                .createWorldDimensions();
     }
 
     public static @NotNull Map<ResourceKey<LevelStem>, ChunkGenerator> getDimensionsMap(
             RegistryAccess access,
             ResourceKey<WorldPreset> key
     ) {
-        Registry<LevelStem> reg = getDimensions(access, key);
+        WorldDimensions reg = getDimensions(access, key);
         if (reg == null) return new HashMap<>();
         return DimensionsWrapper.build(reg);
     }
 
     public static @NotNull Map<ResourceKey<LevelStem>, ChunkGenerator> getDimensionsMap(ResourceKey<WorldPreset> key) {
-        Registry<LevelStem> reg = getDimensions(key);
+        WorldDimensions reg = getDimensions(key);
         if (reg == null) return new HashMap<>();
         return DimensionsWrapper.build(reg);
     }
@@ -108,7 +107,7 @@ public class DimensionsWrapper {
     }
 
 
-    DimensionsWrapper(Registry<LevelStem> dimensions) {
+    DimensionsWrapper(WorldDimensions dimensions) {
         this(build(dimensions));
     }
 

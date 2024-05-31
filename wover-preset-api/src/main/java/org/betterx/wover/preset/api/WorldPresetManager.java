@@ -10,6 +10,7 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.dimension.LevelStem;
+import net.minecraft.world.level.levelgen.WorldDimensions;
 import net.minecraft.world.level.levelgen.presets.WorldPreset;
 
 import java.util.Map;
@@ -78,7 +79,7 @@ public class WorldPresetManager {
      * @return The {@link WorldPreset}.
      */
     public static WorldPreset withDimensions(
-            Registry<LevelStem> dimensions
+            WorldDimensions dimensions
     ) {
         return WorldPresetsManagerImpl.withDimensions(dimensions);
     }

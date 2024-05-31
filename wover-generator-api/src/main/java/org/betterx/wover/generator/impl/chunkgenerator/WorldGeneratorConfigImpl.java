@@ -174,7 +174,7 @@ public class WorldGeneratorConfigImpl {
                         : WorldPresets.WOVER_WORLD;
             }
 
-            Registry<LevelStem> dimensions = DimensionsWrapper.getDimensions(biomeSourceVersion);
+            WorldDimensions dimensions = DimensionsWrapper.getDimensions(biomeSourceVersion);
             if (dimensions != null) {
                 LibWoverWorldGenerator.C.log.info("Set world to BiomeSource Version " + biomeSourceVersion);
                 writeWorldPresetSettings(new DimensionsWrapper(dimensions));
@@ -200,7 +200,7 @@ public class WorldGeneratorConfigImpl {
         }
 
         LibWoverWorldGenerator.C.log.verbose("Creating presets file for new world");
-        writeWorldPresetSettingsDirect(DimensionsWrapper.build(dimensions.dimensions()));
+        writeWorldPresetSettingsDirect(DimensionsWrapper.build(dimensions));
     }
 
     public static @NotNull Map<ResourceKey<LevelStem>, ChunkGenerator> loadWorldDimensions(

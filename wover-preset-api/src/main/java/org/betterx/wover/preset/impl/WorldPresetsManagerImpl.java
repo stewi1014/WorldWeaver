@@ -14,6 +14,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.dimension.LevelStem;
+import net.minecraft.world.level.levelgen.WorldDimensions;
 import net.minecraft.world.level.levelgen.presets.WorldPreset;
 
 import java.util.HashMap;
@@ -63,10 +64,10 @@ public class WorldPresetsManagerImpl {
     }
 
     public static WorldPreset withDimensions(
-            Registry<LevelStem> dimensions
+            WorldDimensions dimensions
     ) {
         Map<ResourceKey<LevelStem>, LevelStem> map = new HashMap<>();
-        for (var entry : dimensions.entrySet()) {
+        for (var entry : dimensions.dimensions().entrySet()) {
             ResourceKey<LevelStem> key = entry.getKey();
             LevelStem stem = entry.getValue();
             map.put(key, stem);

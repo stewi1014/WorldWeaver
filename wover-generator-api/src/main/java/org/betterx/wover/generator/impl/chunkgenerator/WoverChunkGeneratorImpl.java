@@ -17,11 +17,11 @@ import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
+import net.minecraft.world.level.levelgen.WorldDimensions;
 import net.minecraft.world.level.storage.LevelStorageSource;
 import net.minecraft.world.level.storage.WorldData;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import org.jetbrains.annotations.ApiStatus;
 
 public class WoverChunkGeneratorImpl {
@@ -95,15 +95,25 @@ public class WoverChunkGeneratorImpl {
         return registries;
     }
 
+    public interface RegisterHelper{
+        Holder.Reference<LevelStem> register(MappedRegistry<LevelStem> writableRegistry, ResourceKey<LevelStem> key, LevelStem stem);
+    }
+
+    public interface StemGetter{
+        LevelStem get(ResourceKey<LevelStem> key);
+    }
+
     public static Registry<LevelStem> replaceGenerator(
             ResourceKey<LevelStem> dimensionKey,
             ResourceKey<DimensionType> dimensionTypeKey,
             RegistryAccess registryAccess,
-            Registry<LevelStem> dimensionRegistry,
-            ChunkGenerator generator
+            Set<Map.Entry<ResourceKey<LevelStem>, LevelStem>> dimensionRegistry,
+            ChunkGenerator generator,
+            StemGetter getter,
+            RegisterHelper registerHelper
     ) {
         final Registry<DimensionType> dimensionTypeRegistry = registryAccess.registryOrThrow(Registries.DIMENSION_TYPE);
-        final LevelStem levelStem = dimensionRegistry.get(dimensionKey);
+        final LevelStem levelStem = getter.get(dimensionKey);
 
         Holder<DimensionType> dimensionType = levelStem == null
                 ? dimensionTypeRegistry.getHolderOrThrow(dimensionTypeKey)
@@ -117,19 +127,15 @@ public class WoverChunkGeneratorImpl {
         writableRegistry.register(
                 dimensionKey,
                 new LevelStem(dimensionType, generator),
-                Lifecycle.stable()
+                RegistrationInfo.BUILT_IN
         );
 
         //copy all other dimensions
-        for (Map.Entry<ResourceKey<LevelStem>, LevelStem> entry : dimensionRegistry.entrySet()) {
-            ResourceKey<LevelStem> resourceKey = entry.getKey();
+        for (Map.Entry<ResourceKey<LevelStem>, LevelStem> entry : dimensionRegistry) {
+            final ResourceKey<LevelStem> resourceKey = entry.getKey();
             if (dimensionKey.location().equals(resourceKey.location())) continue;
 
-            writableRegistry.register(
-                    resourceKey,
-                    entry.getValue(),
-                    dimensionRegistry.lifecycle(entry.getValue())
-            );
+            registerHelper.register(writableRegistry, resourceKey, entry.getValue());
         }
 
         return writableRegistry;

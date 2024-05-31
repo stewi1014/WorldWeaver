@@ -28,6 +28,7 @@ import net.minecraft.client.gui.screens.worldselection.WorldCreationContext;
 import net.minecraft.client.gui.screens.worldselection.WorldCreationUiState;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
+import net.minecraft.core.RegistrationInfo;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.locale.Language;
@@ -283,11 +284,10 @@ public class WorldSetupScreen extends LayoutScreen implements BiomeSourceConfigP
             this.updateConfiguration(content.dimensionKey, content.dimensionTypeKey, generator);
         });
 
-        final Registry<LevelStem> dims = createWorldScreen
+        final WorldDimensions dims = createWorldScreen
                 .getUiState()
                 .getSettings()
-                .selectedDimensions()
-                .dimensions();
+                .selectedDimensions();
         printDimensions(dims);
 
         final WorldCreationUiState acc = createWorldScreen.getUiState();
@@ -304,13 +304,18 @@ public class WorldSetupScreen extends LayoutScreen implements BiomeSourceConfigP
             ChunkGenerator chunkGenerator
     ) {
         createWorldScreen.getUiState().updateDimensions(
-                (registryAccess, worldDimensions) -> new WorldDimensions(WoverChunkGeneratorImpl.replaceGenerator(
-                        dimensionKey,
-                        dimensionTypeKey,
-                        registryAccess,
-                        worldDimensions.dimensions(),
-                        chunkGenerator
-                ))
+                (registryAccess, worldDimensions) -> {
+                    var map = worldDimensions.dimensions();
+                    return new WorldDimensions(WoverChunkGeneratorImpl.replaceGenerator(
+                            dimensionKey,
+                            dimensionTypeKey,
+                            registryAccess,
+                            map.entrySet(),
+                            chunkGenerator,
+                            (key)->map.get(key),
+                            (registry, key, stem)-> registry.register(key, stem, RegistrationInfo.BUILT_IN)
+                    ));
+                }
         );
     }
 
@@ -406,7 +411,7 @@ public class WorldSetupScreen extends LayoutScreen implements BiomeSourceConfigP
         return rows;
     }
 
-    private static void printDimensions(Registry<LevelStem> dims) {
+    private static void printDimensions(WorldDimensions dims) {
         if (!Configs.MAIN.verboseLogging.get()) return;
         ChunkGeneratorManagerImpl.printDimensionInfo("Configured Dimensions", dims);
     }
