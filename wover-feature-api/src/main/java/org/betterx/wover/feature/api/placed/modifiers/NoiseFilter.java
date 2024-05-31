@@ -4,6 +4,7 @@ import org.betterx.wover.feature.impl.placed.modifiers.PlacementModifiersImpl;
 import org.betterx.wover.surface.api.noise.NoiseParameterManager;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
@@ -26,7 +27,7 @@ public class NoiseFilter extends PlacementFilter {
     /**
      * Codec for this placement modifier.
      */
-    public static final Codec<NoiseFilter> CODEC = RecordCodecBuilder.create(instance -> instance
+    public static final MapCodec<NoiseFilter> CODEC = RecordCodecBuilder.mapCodec(instance -> instance
             .group(
                     ResourceKey.codec(Registries.NOISE).fieldOf("noise").forGetter(o -> o.noise),
                     Codec.DOUBLE.optionalFieldOf("min_noise_level", -Double.MAX_VALUE).forGetter(o -> o.minNoiseLevel),

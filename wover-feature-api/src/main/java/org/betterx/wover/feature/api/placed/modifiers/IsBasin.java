@@ -3,6 +3,7 @@ package org.betterx.wover.feature.api.placed.modifiers;
 import org.betterx.wover.feature.impl.placed.modifiers.PlacementModifiersImpl;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.ExtraCodecs;
@@ -33,13 +34,13 @@ public class IsBasin extends PlacementFilter {
     /**
      * Codec for this placement modifier.
      */
-    public static final Codec<IsBasin> CODEC = RecordCodecBuilder.create((instance) -> instance
+    public static final MapCodec<IsBasin> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance
             .group(
                     BlockPredicate.CODEC
                             .fieldOf("predicate")
                             .forGetter(cfg -> cfg.predicate),
-                    ExtraCodecs
-                            .strictOptionalField(BlockPredicate.CODEC, "top_predicate")
+                    BlockPredicate.CODEC
+                            .optionalFieldOf("top_predicate")
                             .forGetter(cfg -> Optional.ofNullable(cfg.topPredicate))
             )
             .apply(instance, IsBasin::new));

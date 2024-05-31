@@ -6,6 +6,7 @@ import org.betterx.wover.state.api.WorldState;
 
 import com.mojang.datafixers.util.*;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -21,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class BiomeData {
-    public static final Codec<BiomeData> CODEC = codec(BiomeData::new);
+    public static final MapCodec<BiomeData> CODEC = codec(BiomeData::new);
     public static final KeyDispatchDataCodec<BiomeData> KEY_CODEC = KeyDispatchDataCodec.of(CODEC);
     @NotNull
     public final ResourceKey<Biome> biomeKey;
@@ -52,11 +53,11 @@ public class BiomeData {
         return new BiomeDataImpl.InMemoryBiomeData(1.0f, biome, List.of());
     }
 
-    public static <T extends BiomeData> Codec<T> codec(
+    public static <T extends BiomeData> MapCodec<T> codec(
             final Function3<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, T> factory
     ) {
         BiomeDataImpl.CodecAttributes<T> a = new BiomeDataImpl.CodecAttributes<>();
-        return RecordCodecBuilder.create(
+        return RecordCodecBuilder.mapCodec(
                 instance -> instance.group(a.t0, a.t1, a.t2)
                                     .apply(instance, factory)
         );

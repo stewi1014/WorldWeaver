@@ -3,6 +3,7 @@ package org.betterx.wover.feature.api.placed.modifiers;
 import org.betterx.wover.feature.impl.placed.modifiers.PlacementModifiersImpl;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.levelgen.placement.PlacementContext;
@@ -28,7 +29,7 @@ public class All extends PlacementModifier {
     /**
      * The codec for this placement modifier.
      */
-    public static final Codec<All> CODEC = Codec.unit(All::new);
+    public static final MapCodec<All> CODEC = MapCodec.unit(All::new);
 
     /**
      * Returns a stream of all positions that are offset by 0 to 15 in the xz-Plane.

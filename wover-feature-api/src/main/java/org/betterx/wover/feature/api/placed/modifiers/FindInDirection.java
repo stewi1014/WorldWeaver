@@ -5,6 +5,7 @@ import org.betterx.wover.block.api.predicate.BlockPredicates;
 import org.betterx.wover.feature.impl.placed.modifiers.PlacementModifiersImpl;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -42,8 +43,8 @@ public class FindInDirection extends PlacementModifier {
     /**
      * The codec for this placement modifier.
      */
-    public static final Codec<FindInDirection> CODEC = RecordCodecBuilder
-            .create((instance) -> instance.group(
+    public static final MapCodec<FindInDirection> CODEC = RecordCodecBuilder
+            .mapCodec((instance) -> instance.group(
                                                   ExtraCodecs.nonEmptyList(Direction.CODEC.listOf())
                                                              .optionalFieldOf("dir", List.of(Direction.DOWN))
                                                              .forGetter(a -> a.directions),

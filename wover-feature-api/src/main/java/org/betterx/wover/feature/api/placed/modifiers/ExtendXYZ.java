@@ -3,6 +3,7 @@ package org.betterx.wover.feature.api.placed.modifiers;
 import org.betterx.wover.feature.impl.placed.modifiers.PlacementModifiersImpl;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -112,7 +113,7 @@ public class ExtendXYZ extends PlacementModifier {
     /**
      * The codec for this placement modifier.
      */
-    public static final Codec<ExtendXYZ> CODEC = RecordCodecBuilder.create((instance) -> instance
+    public static final MapCodec<ExtendXYZ> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance
             .group(
                     IntProvider.codec(0, 16)
                                .fieldOf("radius")

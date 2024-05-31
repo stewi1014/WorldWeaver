@@ -3,6 +3,7 @@ package org.betterx.wover.feature.api.placed.modifiers;
 import org.betterx.wover.feature.impl.placed.modifiers.PlacementModifiersImpl;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
@@ -25,7 +26,7 @@ public class IsNextTo extends PlacementFilter {
     /**
      * Codec for this placement modifier.
      */
-    public static final Codec<IsNextTo> CODEC = RecordCodecBuilder.create((instance) -> instance
+    public static final MapCodec<IsNextTo> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance
             .group(
                     BlockPredicate.CODEC
                             .fieldOf("predicate")

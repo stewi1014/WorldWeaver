@@ -3,6 +3,7 @@ package org.betterx.wover.feature.api.placed.modifiers;
 import org.betterx.wover.feature.impl.placed.modifiers.PlacementModifiersImpl;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.ExtraCodecs;
@@ -25,7 +26,7 @@ public class Stencil extends PlacementModifier {
     /**
      * Codec for this placement modifier.
      */
-    public static final Codec<Stencil> CODEC;
+    public static final MapCodec<Stencil> CODEC;
     private static final Boolean[] STENCIL;
     private static final Stencil DEFAULT;
     private static final Stencil DEFAULT4;
@@ -152,7 +153,7 @@ public class Stencil extends PlacementModifier {
 
         DEFAULT = new Stencil(STENCIL, 1);
         DEFAULT4 = new Stencil(STENCIL, 4);
-        CODEC = RecordCodecBuilder.create((instance) -> instance
+        CODEC = RecordCodecBuilder.mapCodec((instance) -> instance
                 .group(
                         ExtraCodecs.nonEmptyList(Codec.BOOL.listOf())
                                    .fieldOf("structures")

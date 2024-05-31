@@ -5,6 +5,7 @@ import org.betterx.wover.core.api.registry.DatapackRegistryBuilder;
 import org.betterx.wover.entrypoint.LibWoverBiome;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -17,13 +18,13 @@ public class BiomePredicateRegistry {
     /**
      * The Key of the Registry. ({@code wover/biome_predicates})
      */
-    public static final ResourceKey<Registry<Codec<? extends BiomePredicate>>> BIOME_PREDICATE_REGISTRY =
+    public static final ResourceKey<Registry<MapCodec<? extends BiomePredicate>>> BIOME_PREDICATE_REGISTRY =
             DatapackRegistryBuilder.createRegistryKey(LibWoverBiome.C.id("wover/biome_predicates"));
 
     /**
      * The Registry itself.
      */
-    public static final Registry<Codec<? extends BiomePredicate>> BIOME_PREDICATES = BiomePredicateRegistryImpl.BIOME_PREDICATES;
+    public static final Registry<MapCodec<? extends BiomePredicate>> BIOME_PREDICATES = BiomePredicateRegistryImpl.BIOME_PREDICATES;
 
     /**
      * Registers a new {@link BiomePredicate} with the given {@link ResourceLocation} and {@link KeyDispatchDataCodec}.
@@ -32,7 +33,7 @@ public class BiomePredicateRegistry {
      * @param keyDispatchDataCodec The {@link KeyDispatchDataCodec} of the {@link BiomePredicate}.
      * @return The registered {@link BiomePredicate}.
      */
-    public static Codec<? extends BiomePredicate> register(
+    public static MapCodec<? extends BiomePredicate> register(
             ResourceLocation location,
             KeyDispatchDataCodec<? extends BiomePredicate> keyDispatchDataCodec
     ) {

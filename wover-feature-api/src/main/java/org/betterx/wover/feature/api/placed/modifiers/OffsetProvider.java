@@ -4,6 +4,7 @@ import org.betterx.wover.feature.impl.placed.modifiers.PlacementModifiersImpl;
 import org.betterx.wover.math.api.valueproviders.Vec3iProvider;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -21,7 +22,7 @@ public class OffsetProvider extends PlacementModifier {
     /**
      * Codec for this placement modifier.
      */
-    public static final Codec<OffsetProvider> CODEC = RecordCodecBuilder.create((instance) -> instance
+    public static final MapCodec<OffsetProvider> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance
             .group(
                     Vec3iProvider.codec(-16, 16)
                                  .fieldOf("offset")

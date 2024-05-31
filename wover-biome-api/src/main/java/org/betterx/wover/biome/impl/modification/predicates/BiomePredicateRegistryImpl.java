@@ -6,6 +6,7 @@ import org.betterx.wover.core.api.registry.BuiltInRegistryManager;
 import org.betterx.wover.entrypoint.LibWoverBiome;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.KeyDispatchDataCodec;
@@ -13,13 +14,13 @@ import net.minecraft.util.KeyDispatchDataCodec;
 import org.jetbrains.annotations.ApiStatus;
 
 public class BiomePredicateRegistryImpl {
-    public static final Registry<Codec<? extends BiomePredicate>> BIOME_PREDICATES = BuiltInRegistryManager.createRegistry(
+    public static final Registry<MapCodec<? extends BiomePredicate>> BIOME_PREDICATES = BuiltInRegistryManager.createRegistry(
             BiomePredicateRegistry.BIOME_PREDICATE_REGISTRY,
             BiomePredicateRegistryImpl::onBootstrap
     );
 
-    public static Codec<? extends BiomePredicate> register(
-            Registry<Codec<? extends BiomePredicate>> registry,
+    public static MapCodec<? extends BiomePredicate> register(
+            Registry<MapCodec<? extends BiomePredicate>> registry,
             ResourceLocation location,
             KeyDispatchDataCodec<? extends BiomePredicate> keyDispatchDataCodec
     ) {
@@ -37,7 +38,7 @@ public class BiomePredicateRegistryImpl {
 //        );
     }
 
-    private static Codec<? extends BiomePredicate> onBootstrap(Registry<Codec<? extends BiomePredicate>> registry) {
+    private static MapCodec<? extends BiomePredicate> onBootstrap(Registry<MapCodec<? extends BiomePredicate>> registry) {
         final var all = LibWoverBiome.C.id("all");
         if (registry.containsKey(all)) {
             return registry.get(all);

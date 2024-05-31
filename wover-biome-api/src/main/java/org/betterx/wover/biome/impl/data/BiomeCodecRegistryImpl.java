@@ -6,6 +6,7 @@ import org.betterx.wover.core.api.registry.BuiltInRegistryManager;
 import org.betterx.wover.entrypoint.LibWoverBiome;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.KeyDispatchDataCodec;
@@ -14,7 +15,7 @@ import java.util.function.Function;
 import org.jetbrains.annotations.ApiStatus;
 
 public class BiomeCodecRegistryImpl {
-    public static final Registry<Codec<? extends BiomeData>> BIOME_CODECS = BuiltInRegistryManager.createRegistry(
+    public static final Registry<MapCodec<? extends BiomeData>> BIOME_CODECS = BuiltInRegistryManager.createRegistry(
             BiomeCodecRegistry.BIOME_CODEC_REGISTRY,
             BiomeCodecRegistryImpl::onBootstrap
     );
@@ -23,8 +24,8 @@ public class BiomeCodecRegistryImpl {
             .byNameCodec()
             .dispatch(b -> b.codec().codec(), Function.identity());
 
-    public static Codec<? extends BiomeData> register(
-            Registry<Codec<? extends BiomeData>> registry,
+    public static MapCodec<? extends BiomeData> register(
+            Registry<MapCodec<? extends BiomeData>> registry,
             ResourceLocation location,
             KeyDispatchDataCodec<? extends BiomeData> keyDispatchDataCodec
     ) {
@@ -36,7 +37,7 @@ public class BiomeCodecRegistryImpl {
         onBootstrap(BIOME_CODECS);
     }
 
-    private static Codec<? extends BiomeData> onBootstrap(Registry<Codec<? extends BiomeData>> registry) {
+    private static MapCodec<? extends BiomeData> onBootstrap(Registry<MapCodec<? extends BiomeData>> registry) {
         final var biomeData = LibWoverBiome.C.id("vanilla_data");
         if (registry.containsKey(biomeData)) {
             return registry.get(biomeData);

@@ -5,6 +5,7 @@ import org.betterx.wover.feature.api.placed.modifiers.*;
 import org.betterx.wover.legacy.api.LegacyHelper;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -82,19 +83,19 @@ public class PlacementModifiersImpl {
     );
 
 
-    private static <P extends PlacementModifier> PlacementModifierType<P> registerLegacy(String path, Codec<P> codec) {
+    private static <P extends PlacementModifier> PlacementModifierType<P> registerLegacy(String path, MapCodec<P> codec) {
         var id = LibWoverFeature.C.id(path);
         return register(id, codec, true);
     }
 
-    private static <P extends PlacementModifier> PlacementModifierType<P> register(String path, Codec<P> codec) {
+    private static <P extends PlacementModifier> PlacementModifierType<P> register(String path, MapCodec<P> codec) {
         var id = LibWoverFeature.C.id(path);
         return register(id, codec, false);
     }
 
     public static <P extends PlacementModifier> PlacementModifierType<P> register(
             ResourceLocation location,
-            Codec<P> codec,
+            MapCodec<P> codec,
             boolean withLegacyBCLib
     ) {
         PlacementModifierType<P> res = Registry.register(

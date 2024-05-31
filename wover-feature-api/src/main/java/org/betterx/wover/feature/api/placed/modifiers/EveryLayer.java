@@ -4,6 +4,7 @@ import org.betterx.wover.block.api.BlockHelper;
 import org.betterx.wover.feature.impl.placed.modifiers.PlacementModifiersImpl;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -35,7 +36,7 @@ public class EveryLayer
     /**
      * The codec for this placement modifier.
      */
-    public static final Codec<EveryLayer> CODEC = RecordCodecBuilder.create(instance -> instance
+    public static final MapCodec<EveryLayer> CODEC = RecordCodecBuilder.mapCodec(instance -> instance
             .group(
                     Codec.INT.optionalFieldOf("min", Integer.MIN_VALUE).forGetter(o -> o.minHeight),
                     Codec.INT.optionalFieldOf("max", Integer.MAX_VALUE).forGetter(o -> o.maxHeight),
@@ -46,7 +47,7 @@ public class EveryLayer
      * For internal use only. Supposed to help migration of old bclib json files to wover
      */
     @ApiStatus.Internal
-    public static final Codec<EveryLayer> CODEC_LEGACY_UNDER = RecordCodecBuilder.create(instance -> instance
+    public static final MapCodec<EveryLayer> CODEC_LEGACY_UNDER = RecordCodecBuilder.mapCodec(instance -> instance
             .group(
                     Codec.INT.optionalFieldOf("min", Integer.MIN_VALUE).forGetter(o -> o.minHeight),
                     Codec.INT.optionalFieldOf("max", Integer.MAX_VALUE).forGetter(o -> o.maxHeight),

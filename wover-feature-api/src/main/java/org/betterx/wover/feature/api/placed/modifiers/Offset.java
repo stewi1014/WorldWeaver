@@ -3,6 +3,7 @@ package org.betterx.wover.feature.api.placed.modifiers;
 import org.betterx.wover.feature.impl.placed.modifiers.PlacementModifiersImpl;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -26,7 +27,7 @@ public class Offset extends PlacementModifier {
     /**
      * Codec for this placement modifier.
      */
-    public static final Codec<Offset> CODEC = RecordCodecBuilder.create((instance) -> instance
+    public static final MapCodec<Offset> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance
             .group(
                     Vec3i.CODEC
                             .fieldOf("blocks")

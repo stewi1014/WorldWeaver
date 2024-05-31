@@ -3,6 +3,7 @@ package org.betterx.wover.feature.api.placed.modifiers;
 import org.betterx.wover.feature.impl.placed.modifiers.PlacementModifiersImpl;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.ExtraCodecs;
@@ -23,7 +24,7 @@ public class Merge extends PlacementModifier {
     /**
      * Codec for this placement modifier.
      */
-    public static final Codec<Merge> CODEC = RecordCodecBuilder.create(instance -> instance
+    public static final MapCodec<Merge> CODEC = RecordCodecBuilder.mapCodec(instance -> instance
             .group(
                     ExtraCodecs.nonEmptyList(PlacementModifier.CODEC.listOf())
                                .fieldOf("modifiers")
