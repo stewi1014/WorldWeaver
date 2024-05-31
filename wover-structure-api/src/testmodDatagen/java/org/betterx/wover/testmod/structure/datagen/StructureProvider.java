@@ -60,7 +60,7 @@ public class StructureProvider extends WoverStructureProvider {
                 .addStructure(TestModWoverStructure.TEST_STRUCTURE)
                 .addStructure(TestModWoverStructure.JIGSAW_STRUCTURE)
                 .randomPlacement()
-                .spreadType(RandomSpreadType.TRIANGULAR)
+                //.spreadType(RandomSpreadType.TRIANGULAR)
                 .finishPlacement()
                 .register();
 

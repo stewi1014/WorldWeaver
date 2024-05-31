@@ -7,6 +7,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
+import net.minecraft.world.level.levelgen.structure.templatesystem.LiquidSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 
 import java.util.function.Function;
@@ -76,6 +77,9 @@ public interface StructurePoolBuilder {
 
         @NotNull
         ElementBuilder weight(int weight);
+
+        @NotNull
+        ElementBuilder liquidSettingsOverride(LiquidSettings value);
 
         @NotNull
         StructurePoolBuilder endElement();

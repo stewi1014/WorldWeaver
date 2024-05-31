@@ -8,6 +8,7 @@ import org.betterx.wover.util.RandomizedWeightedList;
 
 import com.mojang.datafixers.util.Function4;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Mirror;
@@ -23,8 +24,8 @@ import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
 
 public class RandomNbtStructure extends Structure {
-    public static <T extends RandomNbtStructure> Codec<T> simpleRandomCodec(Function4<StructureSettings, StructurePlacement, Boolean, RandomizedWeightedList<RandomNbtStructureElement>, T> instancer) {
-        return RecordCodecBuilder.create((instance) -> instance
+    public static <T extends RandomNbtStructure> MapCodec<T> simpleRandomCodec(Function4<StructureSettings, StructurePlacement, Boolean, RandomizedWeightedList<RandomNbtStructureElement>, T> instancer) {
+        return RecordCodecBuilder.mapCodec((instance) -> instance
                 .group(
                         Structure.settingsCodec(instance),
                         StructurePlacement.CODEC

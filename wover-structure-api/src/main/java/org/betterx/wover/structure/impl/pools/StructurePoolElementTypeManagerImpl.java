@@ -3,7 +3,7 @@ package org.betterx.wover.structure.impl.pools;
 import org.betterx.wover.entrypoint.LibWoverStructure;
 import org.betterx.wover.legacy.api.LegacyHelper;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -19,14 +19,14 @@ public class StructurePoolElementTypeManagerImpl {
 
     public static <P extends StructurePoolElement> StructurePoolElementType<P> register(
             ResourceLocation location,
-            Codec<P> codec
+            MapCodec<P> codec
     ) {
         return Registry.register(BuiltInRegistries.STRUCTURE_POOL_ELEMENT, location, () -> codec);
     }
 
     public static <P extends StructurePoolElement> StructurePoolElementType<P> registerLegacy(
             ResourceLocation location,
-            Codec<P> codec
+            MapCodec<P> codec
     ) {
         final StructurePoolElementType<P> res = register(location, codec);
         if (LegacyHelper.isLegacyEnabled()) {

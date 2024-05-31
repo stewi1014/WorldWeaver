@@ -8,6 +8,7 @@ import org.betterx.wover.structure.api.sets.StructureSetKey;
 import org.betterx.wover.structure.api.sets.StructureSetManager;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
@@ -73,7 +74,7 @@ public class StructureKeys {
     public static <S extends Structure> StructureKey.Simple<S> structure(
             ResourceLocation location,
             @NotNull StructureTypeKey.StructureFactory<S> structureFactory,
-            @NotNull Codec<S> codec
+            @NotNull MapCodec<S> codec
     ) {
         return StructureManager.structure(location, structureFactory, codec);
     }
@@ -151,7 +152,7 @@ public class StructureKeys {
     public static <S extends Structure> @NotNull StructureTypeKey<S> registerType(
             @NotNull ResourceLocation location,
             @NotNull StructureTypeKey.StructureFactory<S> structureFactory,
-            @NotNull Codec<S> codec
+            @NotNull MapCodec<S> codec
     ) {
         return StructureManager.registerType(location, structureFactory, codec);
     }

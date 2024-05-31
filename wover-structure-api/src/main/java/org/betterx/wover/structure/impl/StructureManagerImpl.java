@@ -9,7 +9,7 @@ import org.betterx.wover.structure.api.StructureTypeKey;
 import org.betterx.wover.structure.api.structures.nbt.RandomNbtStructure;
 import org.betterx.wover.structure.api.structures.nbt.RandomNbtStructurePiece;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -86,13 +86,13 @@ public class StructureManagerImpl {
     public static <S extends Structure> @NotNull StructureTypeKey<S> registerType(
             @NotNull ResourceLocation location,
             @NotNull StructureTypeKey.StructureFactory<S> structureFactory,
-            @NotNull Codec<S> codec
+            @NotNull MapCodec<S> codec
     ) {
         final ResourceKey<StructureType<?>> key = ResourceKey.create(Registries.STRUCTURE_TYPE, location);
         @SuppressWarnings("unchecked") final StructureType<S> type = (StructureType<S>) Registry.register(
                 BuiltInRegistries.STRUCTURE_TYPE,
                 key,
-                () -> (Codec<Structure>) codec
+                () -> (MapCodec<Structure>) codec
         );
 
         return new StructureTypeKeyImpl<>(key, type, structureFactory);
@@ -100,13 +100,13 @@ public class StructureManagerImpl {
 
     public static <S extends Structure> @NotNull StructureType<S> registerType(
             @NotNull ResourceLocation location,
-            @NotNull Codec<S> codec
+            @NotNull MapCodec<S> codec
     ) {
         final ResourceKey<StructureType<?>> key = ResourceKey.create(Registries.STRUCTURE_TYPE, location);
         @SuppressWarnings("unchecked") final StructureType<S> type = (StructureType<S>) Registry.register(
                 BuiltInRegistries.STRUCTURE_TYPE,
                 key,
-                () -> (Codec<Structure>) codec
+                () -> (MapCodec<Structure>) codec
         );
 
         return type;

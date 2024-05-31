@@ -9,6 +9,7 @@ import org.betterx.wover.structure.impl.SimpleStructureKeyImpl;
 import org.betterx.wover.structure.impl.StructureManagerImpl;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -64,7 +65,7 @@ public class StructureManager {
     public static <S extends Structure> StructureKey.Simple<S> structure(
             ResourceLocation location,
             @NotNull StructureTypeKey.StructureFactory<S> structureFactory,
-            @NotNull Codec<S> codec
+            @NotNull MapCodec<S> codec
     ) {
         return new SimpleStructureKeyImpl<>(location, registerType(location, structureFactory, codec));
     }
@@ -174,7 +175,7 @@ public class StructureManager {
     public static <S extends Structure> @NotNull StructureTypeKey<S> registerType(
             @NotNull ResourceLocation location,
             @NotNull StructureTypeKey.StructureFactory<S> structureFactory,
-            @NotNull Codec<S> codec
+            @NotNull MapCodec<S> codec
     ) {
         return StructureManagerImpl.registerType(location, structureFactory, codec);
     }

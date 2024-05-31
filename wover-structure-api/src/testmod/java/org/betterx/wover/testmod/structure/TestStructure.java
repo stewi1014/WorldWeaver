@@ -1,7 +1,9 @@
 package org.betterx.wover.testmod.structure;
 
+import org.betterx.wover.entrypoint.LibWoverStructure;
 import org.betterx.wover.testmod.entrypoint.TestModWoverStructure;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 
@@ -16,7 +18,9 @@ public class TestStructure extends Structure {
 
     @Override
     protected @NotNull Optional<GenerationStub> findGenerationPoint(GenerationContext generationContext) {
-        return Optional.empty();
+        BlockPos pos = new BlockPos(generationContext.chunkPos().getMiddleBlockX(), 100,  generationContext.chunkPos().getMiddleBlockZ()) ;
+        return Optional.of(new Structure.GenerationStub(pos, builder -> {}));
+        //return Optional.empty();
     }
 
     @Override

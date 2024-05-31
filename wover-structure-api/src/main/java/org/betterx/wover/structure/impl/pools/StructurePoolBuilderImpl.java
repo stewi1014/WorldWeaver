@@ -17,12 +17,14 @@ import net.minecraft.world.level.levelgen.structure.pools.LegacySinglePoolElemen
 import net.minecraft.world.level.levelgen.structure.pools.SinglePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
+import net.minecraft.world.level.levelgen.structure.templatesystem.LiquidSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 
 import com.google.common.collect.ImmutableList;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -142,10 +144,12 @@ public class StructurePoolBuilderImpl implements StructurePoolBuilder {
         protected final ResourceLocation nbtLocation;
         protected Holder<StructureProcessorList> processor;
         private int weight;
+        protected LiquidSettings liquidSettings;
 
         SinglePoolElementImpl(ResourceLocation nbtLocation) {
             this.nbtLocation = nbtLocation;
             this.weight = 1;
+            this.liquidSettings = null;
         }
 
         @Override
@@ -177,6 +181,12 @@ public class StructurePoolBuilderImpl implements StructurePoolBuilder {
         }
 
         @Override
+        public @NotNull ElementBuilder liquidSettingsOverride(LiquidSettings value) {
+            this.liquidSettings = value;
+            return this;
+        }
+
+        @Override
         public @NotNull StructurePoolBuilder endElement() {
             if (nbtLocation == null) {
                 throw new IllegalStateException("Location for a pool entry must be set before pushing it to the pool.");
@@ -192,7 +202,12 @@ public class StructurePoolBuilderImpl implements StructurePoolBuilder {
         }
 
         protected Function<StructureTemplatePool.Projection, ? extends StructurePoolElement> create() {
-            return projection -> new SinglePoolElement(Either.left(nbtLocation), processor, projection);
+            return projection -> new SinglePoolElement(
+                    Either.left(nbtLocation),
+                    processor,
+                    projection,
+                    liquidSettings == null ? Optional.empty() : Optional.of(liquidSettings)
+            );
         }
     }
 
@@ -202,7 +217,12 @@ public class StructurePoolBuilderImpl implements StructurePoolBuilder {
         }
 
         protected Function<StructureTemplatePool.Projection, ? extends StructurePoolElement> create() {
-            return projection -> new LegacySinglePoolElement(Either.left(nbtLocation), processor, projection);
+            return projection -> new LegacySinglePoolElement(
+                    Either.left(nbtLocation),
+                    processor,
+                    projection,
+                    liquidSettings == null ? Optional.empty() : Optional.of(liquidSettings)
+            );
         }
     }
 

@@ -2,7 +2,7 @@ package org.betterx.wover.structure.api.pools;
 
 import org.betterx.wover.structure.impl.pools.StructurePoolElementTypeManagerImpl;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElementType;
@@ -10,7 +10,7 @@ import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElementTy
 public class StructurePoolElementTypeManager {
     public static <P extends StructurePoolElement> StructurePoolElementType<P> register(
             ResourceLocation location,
-            Codec<P> codec
+            MapCodec<P> codec
     ) {
         return StructurePoolElementTypeManagerImpl.register(location, codec);
     }

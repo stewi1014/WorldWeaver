@@ -14,9 +14,14 @@ import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.heightproviders.ConstantHeight;
 import net.minecraft.world.level.levelgen.heightproviders.HeightProvider;
 import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.pools.DimensionPadding;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.pools.alias.PoolAliasBinding;
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
+import net.minecraft.world.level.levelgen.structure.templatesystem.LiquidSettings;
+
+import static net.minecraft.world.level.levelgen.structure.structures.JigsawStructure.DEFAULT_DIMENSION_PADDING;
+import static net.minecraft.world.level.levelgen.structure.structures.JigsawStructure.DEFAULT_LIQUID_SETTINGS;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,18 +38,35 @@ public class JigsawBuilderImpl
     private int maxDistanceFromCenter;
     private List<PoolAliasBinding> aliasBindings;
 
+    private LiquidSettings liquidSettings;
+    private DimensionPadding dimensionPadding;
+
     public JigsawBuilderImpl(
             StructureKey.Jigsaw key,
             BootstrapContext<Structure> context
     ) {
         super(key, context);
 
+        this.dimensionPadding = DEFAULT_DIMENSION_PADDING;
+        this.liquidSettings = DEFAULT_LIQUID_SETTINGS;
         this.maxDepth = 6;
         this.startHeight = ConstantHeight.of(VerticalAnchor.absolute(0));
         this.maxDistanceFromCenter = 80;
         this.useExpansionHack = false;
         this.startJigsawName = Optional.empty();
         this.projectStartToHeightmap = Optional.empty();
+    }
+
+    @Override
+    public JigsawBuilder liquidSettings(LiquidSettings value) {
+        this.liquidSettings = value;
+        return this;
+    }
+
+    @Override
+    public JigsawBuilder dimensionPadding(DimensionPadding value) {
+        this.dimensionPadding = value;
+        return this;
     }
 
     @Override
@@ -129,7 +151,9 @@ public class JigsawBuilderImpl
                 useExpansionHack,
                 projectStartToHeightmap,
                 maxDistanceFromCenter,
-                aliasBindings == null ? List.of() : aliasBindings
+                aliasBindings == null ? List.of() : aliasBindings,
+                dimensionPadding,
+                liquidSettings
         );
     }
 
