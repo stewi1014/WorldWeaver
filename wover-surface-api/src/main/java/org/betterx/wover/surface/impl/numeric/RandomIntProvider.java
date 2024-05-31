@@ -5,16 +5,16 @@ import org.betterx.wover.surface.api.conditions.SurfaceRulesContext;
 import org.betterx.wover.surface.api.noise.NumericProvider;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.levelgen.XoroshiroRandomSource;
 
 import java.util.Objects;
 
 public final class RandomIntProvider implements NumericProvider {
-    public static final Codec<RandomIntProvider> CODEC = Codec
+    public static final MapCodec<RandomIntProvider> CODEC = Codec
             .INT.fieldOf("range")
-                .xmap(RandomIntProvider::new, obj -> obj.range)
-                .codec();
+                .xmap(RandomIntProvider::new, obj -> obj.range);
     public final int range;
     private final RandomSource random;
 
@@ -34,7 +34,7 @@ public final class RandomIntProvider implements NumericProvider {
     }
 
     @Override
-    public Codec<? extends NumericProvider> pcodec() {
+    public MapCodec<? extends NumericProvider> pcodec() {
         return CODEC;
     }
 

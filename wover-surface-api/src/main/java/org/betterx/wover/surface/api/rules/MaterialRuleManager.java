@@ -2,7 +2,7 @@ package org.betterx.wover.surface.api.rules;
 
 import org.betterx.wover.surface.impl.rules.MaterialRuleRegistryImpl;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.SurfaceRules;
@@ -20,9 +20,9 @@ public class MaterialRuleManager {
      * @param rule     The rule source.
      * @return The key for the rule source.
      */
-    public static ResourceKey<Codec<? extends SurfaceRules.RuleSource>> register(
+    public static ResourceKey<MapCodec<? extends SurfaceRules.RuleSource>> register(
             ResourceLocation location,
-            Codec<? extends SurfaceRules.RuleSource> rule
+            MapCodec<? extends SurfaceRules.RuleSource> rule
     ) {
         return MaterialRuleRegistryImpl.register(MaterialRuleRegistryImpl.createKey(location), rule);
     }
@@ -34,9 +34,9 @@ public class MaterialRuleManager {
      * @param rule The rule source.
      * @return The key for the rule source.
      */
-    public static ResourceKey<Codec<? extends SurfaceRules.RuleSource>> register(
-            ResourceKey<Codec<? extends SurfaceRules.RuleSource>> key,
-            Codec<? extends SurfaceRules.RuleSource> rule
+    public static ResourceKey<MapCodec<? extends SurfaceRules.RuleSource>> register(
+            ResourceKey<MapCodec<? extends SurfaceRules.RuleSource>> key,
+            MapCodec<? extends SurfaceRules.RuleSource> rule
     ) {
         return MaterialRuleRegistryImpl.register(key, rule);
     }
@@ -48,7 +48,7 @@ public class MaterialRuleManager {
      * @return The key for the rule source.
      */
     @NotNull
-    public static ResourceKey<Codec<? extends SurfaceRules.RuleSource>> createKey(ResourceLocation location) {
+    public static ResourceKey<MapCodec<? extends SurfaceRules.RuleSource>> createKey(ResourceLocation location) {
         return MaterialRuleRegistryImpl.createKey(location);
     }
 

@@ -3,7 +3,7 @@ package org.betterx.wover.surface.impl.rules;
 import org.betterx.wover.surface.api.conditions.SurfaceRulesContext;
 import org.betterx.wover.surface.api.noise.NumericProvider;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.world.level.levelgen.SurfaceRules.Context;
@@ -15,8 +15,8 @@ import org.jetbrains.annotations.NotNull;
 
 //
 public record SwitchRuleSource(NumericProvider selector, List<RuleSource> collection) implements RuleSource {
-    public static final Codec<SwitchRuleSource> CODEC = RecordCodecBuilder
-            .create(instance -> instance
+    public static final MapCodec<SwitchRuleSource> CODEC = RecordCodecBuilder
+            .mapCodec(instance -> instance
                     .group(
                             NumericProvider.CODEC.fieldOf("selector").forGetter(SwitchRuleSource::selector),
                             RuleSource.CODEC.listOf().fieldOf("collection").forGetter(SwitchRuleSource::collection)

@@ -6,19 +6,19 @@ import org.betterx.wover.surface.api.conditions.SurfaceRulesContext;
 import org.betterx.wover.surface.api.noise.NumericProvider;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 
 public class NetherNoiseCondition implements NumericProvider {
     /**
      * A simple scalar random number provider
      */
     public static final NumericProvider INSTANCE = new NetherNoiseCondition();
-    public static final Codec<NetherNoiseCondition> CODEC = Codec
+    public static final MapCodec<NetherNoiseCondition> CODEC = Codec
             .BYTE.fieldOf("nether_noise")
                  .xmap(
                          (obj) -> (NetherNoiseCondition) INSTANCE,
                          obj -> (byte) 0
-                 )
-                 .codec();
+                 );
 
 
     public NetherNoiseCondition() {
@@ -26,7 +26,7 @@ public class NetherNoiseCondition implements NumericProvider {
 
 
     @Override
-    public Codec<? extends NumericProvider> pcodec() {
+    public MapCodec<? extends NumericProvider> pcodec() {
         return CODEC;
     }
 

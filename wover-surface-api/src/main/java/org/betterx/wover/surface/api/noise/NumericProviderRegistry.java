@@ -5,6 +5,7 @@ import org.betterx.wover.entrypoint.LibWoverSurface;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.Lifecycle;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
@@ -22,14 +23,14 @@ public class NumericProviderRegistry {
     /**
      * The Key for the Registry. ({@code wover/numeric_provider})
      */
-    public static final ResourceKey<Registry<Codec<? extends NumericProvider>>> NUMERIC_PROVIDER_REGISTRY = DatapackRegistryBuilder.createRegistryKey(
+    public static final ResourceKey<Registry<MapCodec<? extends NumericProvider>>> NUMERIC_PROVIDER_REGISTRY = DatapackRegistryBuilder.createRegistryKey(
             LibWoverSurface.C.id("wover/numeric_provider")
     );
 
     /**
      * The actual Registry for the Numeric Providers.
      */
-    public static final Registry<Codec<? extends NumericProvider>> NUMERIC_PROVIDER = new MappedRegistry<>(
+    public static final Registry<MapCodec<? extends NumericProvider>> NUMERIC_PROVIDER = new MappedRegistry<>(
             NUMERIC_PROVIDER_REGISTRY,
             Lifecycle.stable()
     );
@@ -40,7 +41,7 @@ public class NumericProviderRegistry {
      * @param location The location of the Numeric Provider.
      * @return The ResourceKey for the Numeric Provider.
      */
-    public static ResourceKey<Codec<? extends NumericProvider>> createKey(ResourceLocation location) {
+    public static ResourceKey<MapCodec<? extends NumericProvider>> createKey(ResourceLocation location) {
         return ResourceKey.create(NUMERIC_PROVIDER_REGISTRY, location);
     }
 
@@ -51,9 +52,9 @@ public class NumericProviderRegistry {
      * @param codec The Codec for the Numeric Provider.
      * @return The same ResourceKey that was passed in.
      */
-    public static ResourceKey<Codec<? extends NumericProvider>> register(
-            ResourceKey<Codec<? extends NumericProvider>> key,
-            Codec<? extends NumericProvider> codec
+    public static ResourceKey<MapCodec<? extends NumericProvider>> register(
+            ResourceKey<MapCodec<? extends NumericProvider>> key,
+            MapCodec<? extends NumericProvider> codec
     ) {
         Registry.register(NUMERIC_PROVIDER, key, codec);
         return key;
@@ -66,9 +67,9 @@ public class NumericProviderRegistry {
      * @param codec    The Codec for the Numeric Provider.
      * @return The newly created ResourceKey for the Numeric Provider.
      */
-    public static ResourceKey<Codec<? extends NumericProvider>> register(
+    public static ResourceKey<MapCodec<? extends NumericProvider>> register(
             ResourceLocation location,
-            Codec<? extends NumericProvider> codec
+            MapCodec<? extends NumericProvider> codec
     ) {
         return register(createKey(location), codec);
     }

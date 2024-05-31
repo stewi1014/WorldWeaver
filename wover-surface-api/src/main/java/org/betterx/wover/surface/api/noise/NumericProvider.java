@@ -3,6 +3,7 @@ package org.betterx.wover.surface.api.noise;
 import org.betterx.wover.surface.api.conditions.SurfaceRulesContext;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 
 import java.util.function.Function;
 
@@ -21,6 +22,7 @@ public interface NumericProvider {
                                      NumericProvider::pcodec,
                                      Function.identity()
                              );
+
     /**
      * Get the next number for the given context.
      *
@@ -34,5 +36,5 @@ public interface NumericProvider {
      *
      * @return The codec.
      */
-    Codec<? extends NumericProvider> pcodec();
+    MapCodec<? extends NumericProvider> pcodec();
 }

@@ -1,10 +1,10 @@
 package org.betterx.wover.block.impl.predicate;
 
 import org.betterx.wover.block.api.predicate.IsFullShape;
-import org.betterx.wover.common.compat.api.WMapCodec;
 import org.betterx.wover.entrypoint.LibWoverBlockAndItem;
 import org.betterx.wover.legacy.api.LegacyHelper;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -19,7 +19,7 @@ public class BlockPredicatesImpl {
 
     public static <P extends BlockPredicate> BlockPredicateType<P> register(
             ResourceLocation location,
-            WMapCodec<P> codec
+            MapCodec<P> codec
     ) {
         return Registry.register(BuiltInRegistries.BLOCK_PREDICATE_TYPE, location, () -> codec);
     }

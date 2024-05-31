@@ -1,8 +1,9 @@
 package org.betterx.wover.block.api.predicate;
 
 import org.betterx.wover.block.impl.predicate.BlockPredicatesImpl;
-import org.betterx.wover.common.compat.api.WMapCodec;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.world.level.WorldGenLevel;
@@ -27,7 +28,7 @@ public class IsFullShape implements BlockPredicate {
     /**
      * Codec for this block predicate.
      */
-    public static final WMapCodec<IsFullShape> CODEC = WMapCodec.create(
+    public static final MapCodec<IsFullShape> CODEC = RecordCodecBuilder.mapCodec(
             instance -> instance
                     .group(
                             Vec3i.offsetCodec(16).optionalFieldOf("offset", Vec3i.ZERO).forGetter((p) -> p.offset)

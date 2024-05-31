@@ -1,11 +1,11 @@
 package org.betterx.wover.generator.impl.biomesource;
 
 import org.betterx.wover.biome.api.data.BiomeCodecRegistry;
-import org.betterx.wover.common.compat.api.WMapCodec;
 import org.betterx.wover.entrypoint.LibWoverWorldGenerator;
 import org.betterx.wover.generator.api.biomesource.WoverBiomeData;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.OptionalFieldCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.registries.Registries;
@@ -41,8 +41,9 @@ public class WoverBiomeDataImpl {
                 ResourceKey.codec(Registries.BIOME).optionalFieldOf("parent")
                            .forGetter(o -> Optional.ofNullable(o.parent));
 
-        private static WMapCodec<ResourceKey<Biome>> biomeCodec(String name) {
-            return new OptionalFieldCodec<>(name, ResourceKey.codec(Registries.BIOME))
+        private static MapCodec<ResourceKey<Biome>> biomeCodec(String name) {
+            //lenient=false => fail on error
+            return new OptionalFieldCodec<>(name, ResourceKey.codec(Registries.BIOME), false)
                     .xmap(
                             (Optional<ResourceKey<Biome>> r) -> r.orElse(null),
                             (ResourceKey<Biome> r) -> Optional.ofNullable(r)

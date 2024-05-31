@@ -5,21 +5,21 @@ import org.betterx.wover.legacy.api.LegacyHelper;
 import org.betterx.wover.surface.api.noise.NumericProvider;
 import org.betterx.wover.surface.api.noise.NumericProviderRegistry;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.resources.ResourceKey;
 
 import org.jetbrains.annotations.ApiStatus;
 
 public class NumericProviderRegistryImpl {
 
-    public static final ResourceKey<Codec<? extends NumericProvider>> RANDOM_INT
+    public static final ResourceKey<MapCodec<? extends NumericProvider>> RANDOM_INT
             = NumericProviderRegistry.createKey(LibWoverSurface.C.id("rnd_int"));
-    public static final ResourceKey<Codec<? extends NumericProvider>> NETHER_NOISE
+    public static final ResourceKey<MapCodec<? extends NumericProvider>> NETHER_NOISE
             = NumericProviderRegistry.createKey(LibWoverSurface.C.id("nether_noise"));
 
     public static void registerWithBCLib(
-            ResourceKey<Codec<? extends NumericProvider>> key,
-            Codec<? extends NumericProvider> codec
+            ResourceKey<MapCodec<? extends NumericProvider>> key,
+            MapCodec<? extends NumericProvider> codec
     ) {
         NumericProviderRegistry.register(key, codec);
         if (LegacyHelper.isLegacyEnabled()) {

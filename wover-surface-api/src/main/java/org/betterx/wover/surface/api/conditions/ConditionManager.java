@@ -2,7 +2,7 @@ package org.betterx.wover.surface.api.conditions;
 
 import org.betterx.wover.surface.impl.conditions.MaterialConditionRegistryImpl;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.SurfaceRules;
@@ -21,9 +21,9 @@ public class ConditionManager {
      * @param codec    the codec of the condition
      * @return the new key of the condition
      */
-    public static ResourceKey<Codec<? extends SurfaceRules.ConditionSource>> register(
+    public static ResourceKey<MapCodec<? extends SurfaceRules.ConditionSource>> register(
             ResourceLocation location,
-            Codec<? extends SurfaceRules.ConditionSource> codec
+            MapCodec<? extends SurfaceRules.ConditionSource> codec
     ) {
         return MaterialConditionRegistryImpl.register(MaterialConditionRegistryImpl.createKey(location), codec, false);
     }
@@ -35,9 +35,9 @@ public class ConditionManager {
      * @param codec the codec of the condition
      * @return the same key that was passed in
      */
-    public static ResourceKey<Codec<? extends SurfaceRules.ConditionSource>> register(
-            ResourceKey<Codec<? extends SurfaceRules.ConditionSource>> key,
-            Codec<? extends SurfaceRules.ConditionSource> codec
+    public static ResourceKey<MapCodec<? extends SurfaceRules.ConditionSource>> register(
+            ResourceKey<MapCodec<? extends SurfaceRules.ConditionSource>> key,
+            MapCodec<? extends SurfaceRules.ConditionSource> codec
     ) {
         return MaterialConditionRegistryImpl.register(key, codec, false);
     }
@@ -49,7 +49,7 @@ public class ConditionManager {
      * @return the key
      */
     @NotNull
-    public static ResourceKey<Codec<? extends SurfaceRules.ConditionSource>> createKey(ResourceLocation location) {
+    public static ResourceKey<MapCodec<? extends SurfaceRules.ConditionSource>> createKey(ResourceLocation location) {
         return MaterialConditionRegistryImpl.createKey(location);
     }
 }
