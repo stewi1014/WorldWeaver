@@ -62,11 +62,11 @@ public class TestModWoverWorldGenerator implements ModInitializer {
         Map<ResourceKey<Biome>, Integer> testMap = new HashMap<>();
         ResourceKey<Biome> k2 = ResourceKey.create(
                 Registries.BIOME,
-                new ResourceLocation(Biomes.NETHER_WASTES.location().toString())
+                ResourceLocation.parse(Biomes.NETHER_WASTES.location().toString())
         );
         ResourceKey<Biome> k3 = ResourceKey.create(
                 Registries.BIOME,
-                new ResourceLocation(Biomes.NETHER_WASTES.location().toString())
+                ResourceLocation.parse(Biomes.NETHER_WASTES.location().toString())
         );
         testMap.put(Biomes.NETHER_WASTES, 10);
         testMap.put(k2, 20);
