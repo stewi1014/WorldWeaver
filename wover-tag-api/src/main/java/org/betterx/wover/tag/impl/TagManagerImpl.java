@@ -9,10 +9,10 @@ import org.betterx.wover.tag.api.event.context.TagBootstrapContext;
 import net.minecraft.core.DefaultedRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagLoader;
-import net.minecraft.tags.TagManager;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
@@ -67,7 +67,7 @@ public class TagManagerImpl {
     ) {
         return registerType(
                 registryKey,
-                TagManager.getTagDir(registryKey),
+                Registries.tagsDirPath(registryKey),
                 (preset) -> WorldState.registryAccess() != null
                         ? WorldState.registryAccess()
                                     .registryOrThrow(registryKey)

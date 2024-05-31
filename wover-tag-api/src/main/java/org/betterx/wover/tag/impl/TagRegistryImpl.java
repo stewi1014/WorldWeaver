@@ -9,10 +9,10 @@ import org.betterx.wover.tag.api.event.context.TagBootstrapContext;
 
 import net.minecraft.core.DefaultedRegistry;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.tags.TagManager;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 import org.jetbrains.annotations.Nullable;
@@ -38,11 +38,11 @@ public abstract class TagRegistryImpl<T, P extends TagBootstrapContext<T>> imple
     }
 
     public TagKey<T> makeCommonTag(String name) {
-        return makeTag(new ResourceLocation("c", name));
+        return makeTag(ResourceLocation.fromNamespaceAndPath("c", name));
     }
 
     public TagKey<T> makeFabricTag(String name) {
-        return makeTag(new ResourceLocation("fabric", name));
+        return makeTag(ResourceLocation.fromNamespaceAndPath("fabric", name));
     }
 
     public TagKey<T> makeTag(ModCore mod, String name) {
@@ -98,7 +98,7 @@ public abstract class TagRegistryImpl<T, P extends TagBootstrapContext<T>> imple
         public WithRegistry(DefaultedRegistry<T> registry) {
             super(
                     registry.key(),
-                    TagManager.getTagDir(registry.key()),
+                    Registries.tagsDirPath(registry.key()),
                     (T element) -> {
                         ResourceLocation id = registry.getKey(element);
                         if (id != registry.getDefaultKey()) {

@@ -23,7 +23,7 @@ public class BiomeTagRegistryImpl extends TagRegistryImpl<Biome, TagBootstrapCon
 
     @Override
     public TagKey<Biome> makeStructureTag(ResourceKey<Structure> baseStructure) {
-        return makeTag(new ResourceLocation(
+        return makeTag(ResourceLocation.fromNamespaceAndPath(
                 baseStructure.location().getNamespace(),
                 "has_structure/" + (baseStructure.location().getPath())
         ));

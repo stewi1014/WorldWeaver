@@ -6,8 +6,6 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 
-import net.fabricmc.fabric.api.mininglevel.v1.FabricMineableTags;
-
 import org.jetbrains.annotations.ApiStatus;
 
 
@@ -32,7 +30,8 @@ public class MineableTags {
     /**
      * {@code fabric:mineable/shears}
      */
-    public static final TagKey<Block> SHEARS = FabricMineableTags.SHEARS_MINEABLE;
+    public static final TagKey<Block> SHEARS = TagManager.BLOCKS.makeFabricTag("mineable/shears");
+    ;
     /**
      * {@code minecraft:mineable/shovel}
      */
@@ -40,7 +39,7 @@ public class MineableTags {
     /**
      * {@code fabric:mineable/sword}
      */
-    public static final TagKey<Block> SWORD = FabricMineableTags.SWORD_MINEABLE;
+    public static final TagKey<Block> SWORD = TagManager.BLOCKS.makeFabricTag("mineable/sword");
     /**
      * {@code c:mineable/hammer}
      */
