@@ -19,6 +19,7 @@ import org.betterx.wover.tag.api.predefined.CommonBiomeTags;
 import org.betterx.wover.util.ResourceLocationSet;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -55,7 +56,7 @@ public class BiomeSourceManagerImpl {
     public static final String END_CATCH_ALL = "*:is_end";
     public static final String NETHER_CATCH_ALL = "*:is_nether";
 
-    public static void register(ResourceLocation location, Codec<? extends BiomeSource> codec) {
+    public static void register(ResourceLocation location, MapCodec<? extends BiomeSource> codec) {
         BuiltInRegistryManager.register(BuiltInRegistries.BIOME_SOURCE, location, codec);
     }
 
@@ -223,7 +224,7 @@ public class BiomeSourceManagerImpl {
                     final List<TagKey<Biome>> netherTags = WoverNetherBiomeSource.TAGS;
                     addBiomesToExclusion(value, id -> addAllExclusions(netherTags, id));
                 } else {
-                    final TagKey<Biome> tag = TagKey.create(Registries.BIOME, new ResourceLocation(key));
+                    final TagKey<Biome> tag = TagKey.create(Registries.BIOME,  ResourceLocation.parse(key));
                     final Set<ResourceLocation> elements = EXCLUSIONS.computeIfAbsent(
                             tag,
                             k -> new ResourceLocationSet()

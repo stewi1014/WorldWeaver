@@ -3,6 +3,7 @@ package org.betterx.wover.generator.api.biomesource;
 import org.betterx.wover.generator.impl.biomesource.BiomeSourceManagerImpl;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
@@ -11,7 +12,7 @@ import net.minecraft.world.level.biome.BiomeSource;
 import java.util.Set;
 
 public class BiomeSourceManager {
-    public static void register(ResourceLocation location, Codec<BiomeSource> codec) {
+    public static void register(ResourceLocation location, MapCodec<BiomeSource> codec) {
         BiomeSourceManagerImpl.register(location, codec);
     }
 

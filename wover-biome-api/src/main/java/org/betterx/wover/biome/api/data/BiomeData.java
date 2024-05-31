@@ -63,43 +63,43 @@ public class BiomeData {
         );
     }
 
-    public static <T extends BiomeData, P4> Codec<T> codec(
+    public static <T extends BiomeData, P4> MapCodec<T> codec(
             final RecordCodecBuilder<T, P4> p4,
             final Function4<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, P4, T> factory
     ) {
         BiomeDataImpl.CodecAttributes<T> a = new BiomeDataImpl.CodecAttributes<>();
-        return RecordCodecBuilder.create(
+        return RecordCodecBuilder.mapCodec(
                 instance -> instance.group(a.t0, a.t1, a.t2, p4)
                                     .apply(instance, factory)
         );
     }
 
-    public static <T extends BiomeData, P4, P5> Codec<T> codec(
+    public static <T extends BiomeData, P4, P5> MapCodec<T> codec(
             final RecordCodecBuilder<T, P4> p4,
             final RecordCodecBuilder<T, P5> p5,
             final Function5<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, P4, P5, T> factory
     ) {
         BiomeDataImpl.CodecAttributes<T> a = new BiomeDataImpl.CodecAttributes<>();
-        return RecordCodecBuilder.create(
+        return RecordCodecBuilder.mapCodec(
                 instance -> instance.group(a.t0, a.t1, a.t2, p4, p5)
                                     .apply(instance, factory)
         );
     }
 
-    public static <T extends BiomeData, P4, P5, P6> Codec<T> codec(
+    public static <T extends BiomeData, P4, P5, P6> MapCodec<T> codec(
             final RecordCodecBuilder<T, P4> p4,
             final RecordCodecBuilder<T, P5> p5,
             final RecordCodecBuilder<T, P6> p6,
             final Function6<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, P4, P5, P6, T> factory
     ) {
         BiomeDataImpl.CodecAttributes<T> a = new BiomeDataImpl.CodecAttributes<>();
-        return RecordCodecBuilder.create(
+        return RecordCodecBuilder.mapCodec(
                 instance -> instance.group(a.t0, a.t1, a.t2, p4, p5, p6)
                                     .apply(instance, factory)
         );
     }
 
-    public static <T extends BiomeData, P4, P5, P6, P7> Codec<T> codec(
+    public static <T extends BiomeData, P4, P5, P6, P7> MapCodec<T> codec(
             final RecordCodecBuilder<T, P4> p4,
             final RecordCodecBuilder<T, P5> p5,
             final RecordCodecBuilder<T, P6> p6,
@@ -107,13 +107,13 @@ public class BiomeData {
             final Function7<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, P4, P5, P6, P7, T> factory
     ) {
         BiomeDataImpl.CodecAttributes<T> a = new BiomeDataImpl.CodecAttributes<>();
-        return RecordCodecBuilder.create(
+        return RecordCodecBuilder.mapCodec(
                 instance -> instance.group(a.t0, a.t1, a.t2, p4, p5, p6, p7)
                                     .apply(instance, factory)
         );
     }
 
-    public static <T extends BiomeData, P4, P5, P6, P7, P8> Codec<T> codec(
+    public static <T extends BiomeData, P4, P5, P6, P7, P8> MapCodec<T> codec(
             final RecordCodecBuilder<T, P4> p4,
             final RecordCodecBuilder<T, P5> p5,
             final RecordCodecBuilder<T, P6> p6,
@@ -122,13 +122,13 @@ public class BiomeData {
             final Function8<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, P4, P5, P6, P7, P8, T> factory
     ) {
         BiomeDataImpl.CodecAttributes<T> a = new BiomeDataImpl.CodecAttributes<>();
-        return RecordCodecBuilder.create(
+        return RecordCodecBuilder.mapCodec(
                 instance -> instance.group(a.t0, a.t1, a.t2, p4, p5, p6, p7, p8)
                                     .apply(instance, factory)
         );
     }
 
-    public static <T extends BiomeData, P4, P5, P6, P7, P8, P9> Codec<T> codec(
+    public static <T extends BiomeData, P4, P5, P6, P7, P8, P9> MapCodec<T> codec(
             final RecordCodecBuilder<T, P4> p4,
             final RecordCodecBuilder<T, P5> p5,
             final RecordCodecBuilder<T, P6> p6,
@@ -138,13 +138,13 @@ public class BiomeData {
             final Function9<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, P4, P5, P6, P7, P8, P9, T> factory
     ) {
         BiomeDataImpl.CodecAttributes<T> a = new BiomeDataImpl.CodecAttributes<>();
-        return RecordCodecBuilder.create(
+        return RecordCodecBuilder.mapCodec(
                 instance -> instance.group(a.t0, a.t1, a.t2, p4, p5, p6, p7, p8, p9)
                                     .apply(instance, factory)
         );
     }
 
-    public static <T extends BiomeData, P4, P5, P6, P7, P8, P9, P10> Codec<T> codec(
+    public static <T extends BiomeData, P4, P5, P6, P7, P8, P9, P10> MapCodec<T> codec(
             final RecordCodecBuilder<T, P4> p4,
             final RecordCodecBuilder<T, P5> p5,
             final RecordCodecBuilder<T, P6> p6,
@@ -155,13 +155,13 @@ public class BiomeData {
             final Function10<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, P4, P5, P6, P7, P8, P9, P10, T> factory
     ) {
         BiomeDataImpl.CodecAttributes<T> a = new BiomeDataImpl.CodecAttributes<>();
-        return RecordCodecBuilder.create(
+        return RecordCodecBuilder.mapCodec(
                 instance -> instance.group(a.t0, a.t1, a.t2, p4, p5, p6, p7, p8, p9, p10)
                                     .apply(instance, factory)
         );
     }
 
-    public static <T extends BiomeData, P4, P5, P6, P7, P8, P9, P10, P11> Codec<T> codec(
+    public static <T extends BiomeData, P4, P5, P6, P7, P8, P9, P10, P11> MapCodec<T> codec(
             final RecordCodecBuilder<T, P4> p4,
             final RecordCodecBuilder<T, P5> p5,
             final RecordCodecBuilder<T, P6> p6,
@@ -173,13 +173,13 @@ public class BiomeData {
             final Function11<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, P4, P5, P6, P7, P8, P9, P10, P11, T> factory
     ) {
         BiomeDataImpl.CodecAttributes<T> a = new BiomeDataImpl.CodecAttributes<>();
-        return RecordCodecBuilder.create(
+        return RecordCodecBuilder.mapCodec(
                 instance -> instance.group(a.t0, a.t1, a.t2, p4, p5, p6, p7, p8, p9, p10, p11)
                                     .apply(instance, factory)
         );
     }
 
-    public static <T extends BiomeData, P4, P5, P6, P7, P8, P9, P10, P11, P12> Codec<T> codec(
+    public static <T extends BiomeData, P4, P5, P6, P7, P8, P9, P10, P11, P12> MapCodec<T> codec(
             final RecordCodecBuilder<T, P4> p4,
             final RecordCodecBuilder<T, P5> p5,
             final RecordCodecBuilder<T, P6> p6,
@@ -192,13 +192,13 @@ public class BiomeData {
             final Function12<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, P4, P5, P6, P7, P8, P9, P10, P11, P12, T> factory
     ) {
         BiomeDataImpl.CodecAttributes<T> a = new BiomeDataImpl.CodecAttributes<>();
-        return RecordCodecBuilder.create(
+        return RecordCodecBuilder.mapCodec(
                 instance -> instance.group(a.t0, a.t1, a.t2, p4, p5, p6, p7, p8, p9, p10, p11, p12)
                                     .apply(instance, factory)
         );
     }
 
-    public static <T extends BiomeData, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13> Codec<T> codec(
+    public static <T extends BiomeData, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13> MapCodec<T> codec(
             final RecordCodecBuilder<T, P4> p4,
             final RecordCodecBuilder<T, P5> p5,
             final RecordCodecBuilder<T, P6> p6,
@@ -212,13 +212,13 @@ public class BiomeData {
             final Function13<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, T> factory
     ) {
         BiomeDataImpl.CodecAttributes<T> a = new BiomeDataImpl.CodecAttributes<>();
-        return RecordCodecBuilder.create(
+        return RecordCodecBuilder.mapCodec(
                 instance -> instance.group(a.t0, a.t1, a.t2, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13)
                                     .apply(instance, factory)
         );
     }
 
-    public static <T extends BiomeData, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14> Codec<T> codec(
+    public static <T extends BiomeData, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14> MapCodec<T> codec(
             final RecordCodecBuilder<T, P4> p4,
             final RecordCodecBuilder<T, P5> p5,
             final RecordCodecBuilder<T, P6> p6,
@@ -233,13 +233,13 @@ public class BiomeData {
             final Function14<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, T> factory
     ) {
         BiomeDataImpl.CodecAttributes<T> a = new BiomeDataImpl.CodecAttributes<>();
-        return RecordCodecBuilder.create(
+        return RecordCodecBuilder.mapCodec(
                 instance -> instance.group(a.t0, a.t1, a.t2, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14)
                                     .apply(instance, factory)
         );
     }
 
-    public static <T extends BiomeData, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15> Codec<T> codec(
+    public static <T extends BiomeData, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15> MapCodec<T> codec(
             final RecordCodecBuilder<T, P4> p4,
             final RecordCodecBuilder<T, P5> p5,
             final RecordCodecBuilder<T, P6> p6,
@@ -255,13 +255,13 @@ public class BiomeData {
             final Function15<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, T> factory
     ) {
         BiomeDataImpl.CodecAttributes<T> a = new BiomeDataImpl.CodecAttributes<>();
-        return RecordCodecBuilder.create(
+        return RecordCodecBuilder.mapCodec(
                 instance -> instance.group(a.t0, a.t1, a.t2, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15)
                                     .apply(instance, factory)
         );
     }
 
-    public static <T extends BiomeData, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16> Codec<T> codec(
+    public static <T extends BiomeData, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16> MapCodec<T> codec(
             final RecordCodecBuilder<T, P4> p4,
             final RecordCodecBuilder<T, P5> p5,
             final RecordCodecBuilder<T, P6> p6,
@@ -278,7 +278,7 @@ public class BiomeData {
             final Function16<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, T> factory
     ) {
         BiomeDataImpl.CodecAttributes<T> a = new BiomeDataImpl.CodecAttributes<>();
-        return RecordCodecBuilder.create(
+        return RecordCodecBuilder.mapCodec(
                 instance -> instance.group(a.t0, a.t1, a.t2, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16)
                                     .apply(instance, factory)
         );

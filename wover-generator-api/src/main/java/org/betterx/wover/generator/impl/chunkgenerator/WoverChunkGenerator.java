@@ -13,6 +13,7 @@ import org.betterx.wover.generator.mixin.generator.ChunkGeneratorAccessor;
 import org.betterx.wover.surface.impl.SurfaceRuleUtil;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -51,8 +52,8 @@ public class WoverChunkGenerator extends NoiseBasedChunkGenerator implements
             LibWoverWorldGenerator.C.id("amplified_nether")
     );
 
-    public static final Codec<WoverChunkGenerator> CODEC = RecordCodecBuilder
-            .create((RecordCodecBuilder.Instance<WoverChunkGenerator> builderInstance) -> {
+    public static final MapCodec<WoverChunkGenerator> CODEC = RecordCodecBuilder
+            .mapCodec((RecordCodecBuilder.Instance<WoverChunkGenerator> builderInstance) -> {
 
                 RecordCodecBuilder<WoverChunkGenerator, BiomeSource> biomeSourceCodec = BiomeSource.CODEC
                         .fieldOf("biome_source")
@@ -89,7 +90,7 @@ public class WoverChunkGenerator extends NoiseBasedChunkGenerator implements
     }
 
     @Override
-    protected @NotNull Codec<? extends ChunkGenerator> codec() {
+    protected @NotNull MapCodec<? extends ChunkGenerator> codec() {
         return CODEC;
     }
 

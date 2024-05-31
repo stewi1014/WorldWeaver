@@ -13,6 +13,7 @@ import org.betterx.wover.state.api.WorldState;
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.types.templates.TypeTemplate;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.client.gui.screens.worldselection.WorldCreationContext;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -107,7 +108,7 @@ public class ChunkGeneratorManagerImpl {
         }
     }
 
-    public static void register(ResourceLocation location, Codec<? extends ChunkGenerator> codec) {
+    public static void register(ResourceLocation location, MapCodec<? extends ChunkGenerator> codec) {
         final String idString = location.toString();
         if (GENERATOR_IDS.contains(idString)) {
             throw new IllegalStateException("Duplicate generator id: " + idString);

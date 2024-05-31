@@ -16,6 +16,7 @@ import org.betterx.wover.state.api.WorldState;
 import org.betterx.wover.tag.api.predefined.CommonBiomeTags;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Holder;
@@ -41,8 +42,8 @@ public class WoverEndBiomeSource extends WoverBiomeSource implements
         BiomeSourceWithConfig<WoverEndBiomeSource, WoverEndConfig>,
         BiomeSourceWithConfigScreen<WoverEndBiomeSource, WoverEndConfig> {
 
-    public static Codec<WoverEndBiomeSource> CODEC
-            = RecordCodecBuilder.create((instance) -> instance
+    public static MapCodec<WoverEndBiomeSource> CODEC
+            = RecordCodecBuilder.mapCodec((instance) -> instance
             .group(
                     Codec
                             .LONG
@@ -239,7 +240,7 @@ public class WoverEndBiomeSource extends WoverBiomeSource implements
     }
 
     @Override
-    protected @NotNull Codec<? extends BiomeSource> codec() {
+    protected @NotNull MapCodec<? extends BiomeSource> codec() {
         return CODEC;
     }
 

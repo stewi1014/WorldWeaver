@@ -8,6 +8,7 @@ import org.betterx.wover.state.api.WorldState;
 
 import com.mojang.datafixers.util.*;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -23,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class WoverBiomeData extends BiomeData {
-    public static final Codec<WoverBiomeData> CODEC = codec(WoverBiomeData::new);
+    public static final MapCodec<WoverBiomeData> CODEC = codec(WoverBiomeData::new);
     public static final KeyDispatchDataCodec<WoverBiomeData> KEY_CODEC = KeyDispatchDataCodec.of(CODEC);
 
     public final float terrainHeight;
@@ -71,7 +72,7 @@ public class WoverBiomeData extends BiomeData {
         return new WoverBiomeData.InMemoryWoverBiomeData(1.0f, biome, List.of(), 0.1f, 1.0f, 4, false, edge, null);
     }
 
-    public static <T extends WoverBiomeData> Codec<T> codec(
+    public static <T extends WoverBiomeData> MapCodec<T> codec(
             final Function9<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, Float, Float, Integer, Boolean, ResourceKey<Biome>, ResourceKey<Biome>, T> factory
     ) {
         WoverBiomeDataImpl.CodecAttributes<T> a = new WoverBiomeDataImpl.CodecAttributes<>();
@@ -88,7 +89,7 @@ public class WoverBiomeData extends BiomeData {
         );
     }
 
-    public static <T extends WoverBiomeData, P10> Codec<T> codec(
+    public static <T extends WoverBiomeData, P10> MapCodec<T> codec(
             final RecordCodecBuilder<T, P10> p10,
             final Function10<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, Float, Float, Integer, Boolean, ResourceKey<Biome>, ResourceKey<Biome>, P10, T> factory
     ) {
@@ -100,7 +101,7 @@ public class WoverBiomeData extends BiomeData {
         );
     }
 
-    public static <T extends WoverBiomeData, P10, P11> Codec<T> codec(
+    public static <T extends WoverBiomeData, P10, P11> MapCodec<T> codec(
             final RecordCodecBuilder<T, P10> p10,
             final RecordCodecBuilder<T, P11> p11,
             final Function11<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, Float, Float, Integer, Boolean, ResourceKey<Biome>, ResourceKey<Biome>, P10, P11, T> factory
@@ -113,7 +114,7 @@ public class WoverBiomeData extends BiomeData {
         );
     }
 
-    public static <T extends WoverBiomeData, P10, P11, P12> Codec<T> codec(
+    public static <T extends WoverBiomeData, P10, P11, P12> MapCodec<T> codec(
             final RecordCodecBuilder<T, P10> p10,
             final RecordCodecBuilder<T, P11> p11,
             final RecordCodecBuilder<T, P12> p12,
@@ -127,7 +128,7 @@ public class WoverBiomeData extends BiomeData {
         );
     }
 
-    public static <T extends WoverBiomeData, P10, P11, P12, P13> Codec<T> codec(
+    public static <T extends WoverBiomeData, P10, P11, P12, P13> MapCodec<T> codec(
             final RecordCodecBuilder<T, P10> p10,
             final RecordCodecBuilder<T, P11> p11,
             final RecordCodecBuilder<T, P12> p12,
@@ -142,7 +143,7 @@ public class WoverBiomeData extends BiomeData {
         );
     }
 
-    public static <T extends WoverBiomeData, P10, P11, P12, P13, P14> Codec<T> codec(
+    public static <T extends WoverBiomeData, P10, P11, P12, P13, P14> MapCodec<T> codec(
             final RecordCodecBuilder<T, P10> p10,
             final RecordCodecBuilder<T, P11> p11,
             final RecordCodecBuilder<T, P12> p12,
@@ -159,7 +160,7 @@ public class WoverBiomeData extends BiomeData {
         );
     }
 
-    public static <T extends WoverBiomeData, P10, P11, P12, P13, P14, P15> Codec<T> codec(
+    public static <T extends WoverBiomeData, P10, P11, P12, P13, P14, P15> MapCodec<T> codec(
             final RecordCodecBuilder<T, P10> p10,
             final RecordCodecBuilder<T, P11> p11,
             final RecordCodecBuilder<T, P12> p12,
@@ -177,7 +178,7 @@ public class WoverBiomeData extends BiomeData {
         );
     }
 
-    public static <T extends WoverBiomeData, P10, P11, P12, P13, P14, P15, P16> Codec<T> codec(
+    public static <T extends WoverBiomeData, P10, P11, P12, P13, P14, P15, P16> MapCodec<T> codec(
             final RecordCodecBuilder<T, P10> p10,
             final RecordCodecBuilder<T, P11> p11,
             final RecordCodecBuilder<T, P12> p12,

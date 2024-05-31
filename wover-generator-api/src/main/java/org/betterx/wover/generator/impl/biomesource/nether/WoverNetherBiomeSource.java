@@ -12,6 +12,7 @@ import org.betterx.wover.generator.impl.client.NetherConfigPage;
 import org.betterx.wover.generator.impl.map.MapStack;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Holder;
@@ -32,8 +33,8 @@ import org.jetbrains.annotations.NotNull;
 public class WoverNetherBiomeSource extends WoverBiomeSource implements
         BiomeSourceWithConfig<WoverNetherBiomeSource, WoverNetherConfig>,
         BiomeSourceWithConfigScreen<WoverNetherBiomeSource, WoverNetherConfig> {
-    public static final Codec<WoverNetherBiomeSource> CODEC = RecordCodecBuilder
-            .create(instance -> instance
+    public static final MapCodec<WoverNetherBiomeSource> CODEC = RecordCodecBuilder
+            .mapCodec(instance -> instance
                     .group(
                             Codec
                                     .LONG
@@ -147,7 +148,7 @@ public class WoverNetherBiomeSource extends WoverBiomeSource implements
     }
 
     @Override
-    protected @NotNull Codec<? extends BiomeSource> codec() {
+    protected @NotNull MapCodec<? extends BiomeSource> codec() {
         return CODEC;
     }
 
