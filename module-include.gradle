@@ -9,6 +9,7 @@ ext.knownWoverModules = [
         'wover-tag-api',
         'wover-preset-api',
         'wover-block-api',
+        'wover-item-api',
         'wover-feature-api',
         'wover-structure-api',
         'wover-biome-api',
