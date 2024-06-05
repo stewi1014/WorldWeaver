@@ -10,8 +10,11 @@ import net.minecraft.core.DefaultedRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.tags.TagLoader;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -113,5 +116,21 @@ public class TagManagerImpl {
         }
 
         return tagsMap;
+    }
+
+    final static private ResourceLocation NO_TAG = LibWoverTag.C.mk("no_tag");
+
+    public static <T> StreamCodec<RegistryFriendlyByteBuf, TagKey<T>> streamCodec(ResourceKey<Registry<T>> registry) {
+        return new StreamCodec<RegistryFriendlyByteBuf, TagKey<T>>() {
+
+            public TagKey<T> decode(RegistryFriendlyByteBuf registryFriendlyByteBuf) {
+                ResourceLocation location = ResourceLocation.STREAM_CODEC.decode(registryFriendlyByteBuf);
+                return TagKey.create(registry, location.equals(NO_TAG) ? null : location);
+            }
+
+            public void encode(RegistryFriendlyByteBuf registryFriendlyByteBuf, TagKey<T> tag) {
+                ResourceLocation.STREAM_CODEC.encode(registryFriendlyByteBuf, tag == null ? NO_TAG : tag.location());
+            }
+        };
     }
 }

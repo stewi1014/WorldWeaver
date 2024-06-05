@@ -8,7 +8,10 @@ import org.betterx.wover.tag.impl.TagRegistryImpl;
 
 import net.minecraft.core.DefaultedRegistry;
 import net.minecraft.core.Registry;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
@@ -98,5 +101,16 @@ public class TagManager {
             ResourceKey<? extends Registry<T>> registry
     ) {
         return TagManagerImpl.registerType(registry);
+    }
+
+    /**
+     * Creates a streaming Codec for Tags from the given registry.
+     *
+     * @param registry The registry to create the Codec for.
+     * @param <T>      The type of the Tag elements.
+     * @return The created Codec.
+     */
+    public static <T> StreamCodec<RegistryFriendlyByteBuf, TagKey<T>> streamCodec(ResourceKey<Registry<T>> registry) {
+        return TagManagerImpl.streamCodec(registry);
     }
 }
