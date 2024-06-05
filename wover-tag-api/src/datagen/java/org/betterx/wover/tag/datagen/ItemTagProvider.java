@@ -5,6 +5,7 @@ import org.betterx.wover.datagen.api.WoverTagProvider;
 import org.betterx.wover.tag.api.event.context.ItemTagBootstrapContext;
 import org.betterx.wover.tag.api.predefined.CommonItemTags;
 
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 
@@ -22,5 +23,7 @@ public class ItemTagProvider extends WoverTagProvider.ForItems {
         ctx.add(CommonItemTags.IRON_INGOTS, Items.IRON_INGOT);
         ctx.add(CommonItemTags.FURNACES, Blocks.FURNACE.asItem());
         ctx.add(CommonItemTags.WATER_BOTTLES, Items.WATER_BUCKET);
+
+        ctx.add(ItemTags.MINING_ENCHANTABLE, CommonItemTags.SHEARS);
     }
 }
