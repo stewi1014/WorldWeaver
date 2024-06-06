@@ -3,7 +3,7 @@ package org.betterx.wover.testmod.block.datagen;
 import org.betterx.wover.core.api.ModCore;
 import org.betterx.wover.datagen.api.PackBuilder;
 import org.betterx.wover.datagen.api.WoverDataGenEntryPoint;
-import org.betterx.wover.testmod.entrypoint.TestModWoverBlockAndItem;
+import org.betterx.wover.testmod.entrypoint.TestModWoverBlock;
 
 public class TestModWoverBlockAndItemDatagen extends WoverDataGenEntryPoint {
     @Override
@@ -13,7 +13,7 @@ public class TestModWoverBlockAndItemDatagen extends WoverDataGenEntryPoint {
 
     @Override
     protected ModCore modCore() {
-        return TestModWoverBlockAndItem.C;
+        return TestModWoverBlock.C;
     }
 
 }

@@ -1,9 +1,12 @@
-package org.betterx.wover.item.api.tabs;
+package org.betterx.wover.tabs.impl;
 
-import org.betterx.wover.block.api.BlockRegistry;
 import org.betterx.wover.common.item.api.ItemWithCustomStack;
 import org.betterx.wover.core.api.ModCore;
 import org.betterx.wover.item.api.ItemRegistry;
+import org.betterx.wover.tabs.api.interfaces.CreativeTabPredicate;
+import org.betterx.wover.tabs.api.interfaces.CreativeTabsBuilder;
+import org.betterx.wover.tabs.api.interfaces.CreativeTabsBuilderWithItems;
+import org.betterx.wover.tabs.api.interfaces.CreativeTabsBuilderWithTab;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -17,47 +20,36 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class CreativeTabManager {
+public class CreativeTabManagerImpl implements CreativeTabsBuilder, CreativeTabsBuilderWithTab, CreativeTabsBuilderWithItems {
     public final ModCore C;
-    protected final List<SimpleCreativeTab> tabs = new LinkedList<>();
+    protected final List<SimpleCreativeTabImpl> tabs = new LinkedList<>();
 
-    public static CreativeTabManager start(ModCore modCore) {
-        return new CreativeTabManager(modCore);
-    }
 
-    private CreativeTabManager(ModCore modCore) {
+    public CreativeTabManagerImpl(ModCore modCore) {
         this.C = modCore;
     }
 
-    public SimpleCreativeTab.Builder createTab(String name) {
-        return new SimpleCreativeTab.Builder(this, name);
+    public CreativeTabBuilderImpl createTab(String name) {
+        return new CreativeTabBuilderImpl(this, name);
     }
 
-    public SimpleCreativeTab.Builder createBlockTab(ItemLike icon) {
-        return new SimpleCreativeTab.Builder(this, "blocks").setIcon(icon).setPredicate(SimpleCreativeTab.BLOCKS);
+    public CreativeTabBuilderImpl createBlockOnlyTab(ItemLike icon) {
+        return new CreativeTabBuilderImpl(this, "blocks").setIcon(icon).setPredicate(CreativeTabPredicate.BLOCKS);
     }
 
-    public SimpleCreativeTab.Builder createItemsTab(ItemLike icon) {
-        return new SimpleCreativeTab.Builder(this, "items").setIcon(icon).setPredicate(SimpleCreativeTab.ITEMS);
+    public CreativeTabBuilderImpl createItemOnlyTab(ItemLike icon) {
+        return new CreativeTabBuilderImpl(this, "items").setIcon(icon).setPredicate(CreativeTabPredicate.ITEMS);
     }
 
-    public CreativeTabManager processRegistries() {
-        ItemRegistry
-                .streamAll()
-                .map(ItemRegistry::allItems)
-                .forEach(this::process);
 
-        BlockRegistry
-                .streamAll()
-                .map(BlockRegistry::allBlockItems)
-                .map(stream -> stream.map(Item.class::cast))
-                .forEach(this::process);
+    public CreativeTabsBuilderWithItems processRegistries() {
+        process(ItemRegistry.forMod(C).allItems());
         return this;
     }
 
-    public CreativeTabManager process(Stream<Item> items) {
+    public CreativeTabsBuilderWithItems process(Stream<Item> items) {
         items.forEach(item -> {
-            for (SimpleCreativeTab tab : tabs) {
+            for (SimpleCreativeTabImpl tab : tabs) {
                 if (tab.predicate.contains(item)) {
                     tab.addItem(item);
                     break;
@@ -69,7 +61,7 @@ public class CreativeTabManager {
     }
 
     public void registerAll() {
-        for (SimpleCreativeTab tab : tabs) {
+        for (SimpleCreativeTabImpl tab : tabs) {
             var tabItem = FabricItemGroup
                     .builder()
                     .icon(() -> new ItemStack(tab.icon))

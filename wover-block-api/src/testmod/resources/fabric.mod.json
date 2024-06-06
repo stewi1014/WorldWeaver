@@ -17,7 +17,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "org.betterx.wover.testmod.entrypoint.TestModWoverBlockAndItem"
+      "org.betterx.wover.testmod.entrypoint.TestModWoverBlock"
     ],
     "fabric-datagen": [
       "org.betterx.wover.testmod.block.datagen.TestModWoverBlockAndItemDatagen"

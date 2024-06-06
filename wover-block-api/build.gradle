@@ -13,4 +13,4 @@ loom {
     accessWidenerPath = file('src/main/resources/wover-block.accesswidener')
 }
 
-moduleDependencies(project, ['wover-core-api', 'wover-tag-api'])
+moduleDependencies(project, ['wover-core-api', 'wover-tag-api', 'wover-item-api'])

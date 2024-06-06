@@ -1,6 +1,7 @@
 package org.betterx.wover.item.api;
 
 import org.betterx.wover.core.api.ModCore;
+import org.betterx.wover.item.api.smithing.SmithingTemplates;
 import org.betterx.wover.tag.api.event.context.ItemTagBootstrapContext;
 
 import net.minecraft.core.Direction;
@@ -12,13 +13,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.DispenserBlock;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -48,7 +47,7 @@ public class ItemRegistry {
         return items.values().stream();
     }
 
-    public Item register(String path, Item item, TagKey<Item>... tags) {
+    public <T extends Item> T register(String path, T item, TagKey<Item>... tags) {
         if (item != null && item != Items.AIR) {
             ResourceLocation id = C.mk(path);
             Registry.register(BuiltInRegistries.ITEM, id, item);
@@ -60,13 +59,13 @@ public class ItemRegistry {
         return item;
     }
 
-    public Item registerAsTool(String path, Item item, TagKey<Item>... tags) {
+    public <T extends Item> T registerAsTool(String path, T item, TagKey<Item>... tags) {
         register(path, item, tags);
 
         return item;
     }
 
-    public Item registerEgg(String path, SpawnEggItem item, TagKey<Item>... tags) {
+    public <T extends SpawnEggItem> T registerEgg(String path, T item, TagKey<Item>... tags) {
         DefaultDispenseItemBehavior behavior = new DefaultDispenseItemBehavior() {
             public ItemStack execute(BlockSource pointer, ItemStack stack) {
                 Direction direction = pointer.state().getValue(DispenserBlock.FACING);
@@ -86,6 +85,28 @@ public class ItemRegistry {
         };
         DispenserBlock.registerBehavior(item, behavior);
         return register(path, item, tags);
+    }
+
+    public SmithingTemplateItem registerSmithingTemplateItem(
+            String path,
+            List<ResourceLocation> baseSlotEmptyIcons,
+            List<ResourceLocation> additionalSlotEmptyIcons
+    ) {
+        final SmithingTemplateItem item = SmithingTemplates
+                .create(C, path)
+                .setBaseSlotEmptyIcons(baseSlotEmptyIcons)
+                .setAdditionalSlotEmptyIcons(additionalSlotEmptyIcons)
+                .build();
+
+        return registerSmithingTemplateItem(path + "_smithing_template", item);
+    }
+
+    public <T extends SmithingTemplateItem> T registerSmithingTemplateItem(
+            String path,
+            T item
+    ) {
+        register(path, item);
+        return item;
     }
 
     public void bootstrapItemTags(ItemTagBootstrapContext ctx) {

@@ -9,8 +9,8 @@ Use the following order to upgrade the single packages (based on inter-dependenc
 * **wover-event** (depends on _wover-core_)
 * **wover-ui** (depends on _wover-core_ and _wover-event_)
 * **wover-tag** (depends on _wover-core_, _wover-datagen_ and _wover-event_)
-* **wover-block** (depends on _wover-core_, _wover-tag_)
-* **wover-item** (depends on _wover-core_, _wover-tag_, _wover-event_ and _wover-block_)
+* **wover-item** (depends on _wover-core_, _wover-tag_ and _wover-event_)
+* **wover-block** (depends on _wover-core_, _wover-tag_ and _wover-item_)
 * **wover-preset** (depends on _wover-core_, _wover-tag_ and _wover-event_)
 * **wover-surface** (depends on _wover-common-api_, _wover-datagen-api_, _wover-core-api_, _wover-math-api_ and
   _wover-event-api_)
