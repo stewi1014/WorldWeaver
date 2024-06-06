@@ -3,6 +3,7 @@ package org.betterx.wover.core.api.registry;
 import org.betterx.wover.entrypoint.LibWoverCore;
 
 import com.mojang.serialization.Lifecycle;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
@@ -17,6 +18,14 @@ public class BuiltInRegistryManager {
 
     public static <V, T extends V> T register(Registry<V> registry, ResourceKey<V> resourceKey, T object) {
         return Registry.register(registry, resourceKey, object);
+    }
+
+    public static <V, T extends V> Holder.Reference<V> registerForHolder(
+            Registry<V> registry,
+            ResourceLocation resourceLocation,
+            T object
+    ) {
+        return Registry.registerForHolder(registry, resourceLocation, object);
     }
 
     public static <T> Registry<T> createRegistry(
