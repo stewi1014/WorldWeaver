@@ -21,6 +21,6 @@ public class TestModWoverBlock implements ModInitializer {
                     .createBlockOnlyTab(Items.OAK_LOG)
                     .buildAndAdd()
                     .processRegistries()
-                    .registerAll();
+                    .registerAllTabs();
     }
 }

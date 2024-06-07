@@ -20,6 +20,6 @@ public class TestModWoverItemApi implements ModInitializer {
         CreativeTabs.start(C)
                     .createItemOnlyTab(Items.WOODEN_AXE).buildAndAdd()
                     .processRegistries()
-                    .registerAll();
+                    .registerAllTabs();
     }
 }

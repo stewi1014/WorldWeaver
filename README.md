@@ -2,7 +2,9 @@
 
 **WorldWeaver**, or *WoVer* for short, is a Fabric utility mod for Minecraft that aims to streamline common modding
 tasks, particularly those related to world creation. As a successor to BCLib, WoVer is intended to eventually take its
-place. Embracing Minecraft's data-driven world generation methodology, it aims to increase the value of data elements.
+place. Embracing Minecraft's data-driven world generation methodology, it aims to increase the value of data elements
+(i.e. ResourcePacks, DataPacks, etc.) in modding, and to provide a more flexible and powerful way to create and modify
+worlds.
 In addition, WoVer is designed to integrate seamlessly with the vanilla game, other mods and world generation data
 packs.
 
@@ -12,7 +14,7 @@ packs.
 - There may be game breaking bugs that cannot be undone and may destroy worlds.
 - Documentation may be missing for some parts, especially those that are still under active development.
 
-We will be providing more information on how to add the mod to your project, as well as the format of our additional
+We will provide more information on how to add the mod to your project, as well as the format of our additional
 datapack files, in the near future. 
 
  

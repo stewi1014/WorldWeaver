@@ -60,7 +60,7 @@ public class CreativeTabManagerImpl implements CreativeTabsBuilder, CreativeTabs
         return this;
     }
 
-    public void registerAll() {
+    public void registerAllTabs() {
         for (SimpleCreativeTabImpl tab : tabs) {
             var tabItem = FabricItemGroup
                     .builder()
