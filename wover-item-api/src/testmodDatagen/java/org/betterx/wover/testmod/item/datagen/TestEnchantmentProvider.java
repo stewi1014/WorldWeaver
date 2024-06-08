@@ -2,7 +2,7 @@ package org.betterx.wover.testmod.item.datagen;
 
 import org.betterx.wover.core.api.ModCore;
 import org.betterx.wover.datagen.api.provider.WoverEnchantmentProvider;
-import org.betterx.wover.testmod.entrypoint.TestModWoverItemApi;
+import org.betterx.wover.testmod.entrypoint.TestModWoverItem;
 
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -29,12 +29,12 @@ public class TestEnchantmentProvider extends WoverEnchantmentProvider {
     protected void bootstrap(BootstrapContext<Enchantment> context) {
         HolderGetter<Item> itemGetter = context.lookup(Registries.ITEM);
         HolderGetter<DamageType> damageGetter = context.lookup(Registries.DAMAGE_TYPE);
-        TestModWoverItemApi.TEST_ENCHANT.register(context, Enchantment
+        TestModWoverItem.TEST_ENCHANT.register(context, Enchantment
                 .enchantment(
                         Enchantment.definition(
                                 itemGetter.getOrThrow(ItemTags.LEG_ARMOR),
                                 itemGetter.getOrThrow(ItemTags.LEG_ARMOR_ENCHANTABLE),
-                                1, 1,
+                                10, 3,
                                 Enchantment.dynamicCost(20, 20),
                                 Enchantment.dynamicCost(120, 20),
                                 1,

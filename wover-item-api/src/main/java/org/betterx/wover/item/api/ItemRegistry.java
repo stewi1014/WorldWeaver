@@ -113,5 +113,10 @@ public class ItemRegistry {
         if (datagenTags != null) {
             datagenTags.forEach(ctx::add);
         }
+        items
+                .entrySet()
+                .stream()
+                .filter(i -> i.getValue() instanceof ItemTagProvider)
+                .forEach(i -> ((ItemTagProvider) i).registerItemTags(i.getKey(), ctx));
     }
 }

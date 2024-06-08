@@ -3,9 +3,9 @@ package org.betterx.wover.item.datagen;
 import org.betterx.wover.core.api.ModCore;
 import org.betterx.wover.datagen.api.PackBuilder;
 import org.betterx.wover.datagen.api.WoverDataGenEntryPoint;
-import org.betterx.wover.entrypoint.LibWoverItemApi;
+import org.betterx.wover.entrypoint.LibWoverItem;
 
-public class LibWoverItemApiDatagen extends WoverDataGenEntryPoint {
+public class LibWoverItemDatagen extends WoverDataGenEntryPoint {
     @Override
     protected void onInitializeProviders(PackBuilder globalPack) {
 
@@ -13,7 +13,7 @@ public class LibWoverItemApiDatagen extends WoverDataGenEntryPoint {
 
     @Override
     protected ModCore modCore() {
-        return LibWoverItemApi.C;
+        return LibWoverItem.C;
     }
 
 }

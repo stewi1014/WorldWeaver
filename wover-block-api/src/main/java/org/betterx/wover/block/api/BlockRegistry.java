@@ -107,5 +107,11 @@ public class BlockRegistry {
         if (datagenTags != null) {
             datagenTags.forEach(ctx::add);
         }
+
+        blocks
+                .entrySet()
+                .stream()
+                .filter(b -> b.getValue() instanceof BlockTagProvider)
+                .forEach(b -> ((BlockTagProvider) b).registerItemTags(b.getKey(), ctx));
     }
 }

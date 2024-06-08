@@ -17,13 +17,13 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "org.betterx.wover.entrypoint.LibWoverItemApi"
+      "org.betterx.wover.entrypoint.LibWoverItem"
     ],
     "client": [
-      "org.betterx.wover.entrypoint.client.LibWoverItemApiClient"
+      "org.betterx.wover.entrypoint.client.LibWoverItemClient"
     ],
     "fabric-datagen": [
-      "org.betterx.wover.item.datagen.LibWoverItemApiDatagen"
+      "org.betterx.wover.item.datagen.LibWoverItemDatagen"
     ]
   },
   "mixins": [
