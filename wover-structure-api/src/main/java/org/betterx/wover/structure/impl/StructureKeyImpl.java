@@ -5,7 +5,11 @@ import org.betterx.wover.structure.api.StructureManager;
 import org.betterx.wover.structure.api.builders.BaseStructureBuilder;
 import org.betterx.wover.tag.api.TagManager;
 
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -39,6 +43,22 @@ public abstract class StructureKeyImpl<
     @Override
     public final ResourceKey<Structure> key() {
         return this.key;
+    }
+
+    @Nullable
+    public Holder<Structure> getHolder(@Nullable HolderGetter<Structure> getter) {
+        return StructureManagerImpl.getHolder(getter, key);
+    }
+
+
+    @Nullable
+    public Holder<Structure> getHolder(@NotNull BootstrapContext<?> context) {
+        return getHolder(context.lookup(Registries.STRUCTURE));
+    }
+
+    @Nullable
+    public Holder<Structure> getHolder(@NotNull RegistryAccess access) {
+        return getHolder(access.lookupOrThrow(Registries.STRUCTURE));
     }
 
     @Override

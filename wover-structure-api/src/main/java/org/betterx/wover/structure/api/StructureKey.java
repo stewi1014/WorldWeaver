@@ -1,11 +1,16 @@
 package org.betterx.wover.structure.api;
 
+import org.betterx.wover.core.api.ModCore;
 import org.betterx.wover.structure.api.builders.BaseStructureBuilder;
 import org.betterx.wover.structure.api.builders.JigsawBuilder;
 import org.betterx.wover.structure.api.builders.RandomNbtBuilder;
 import org.betterx.wover.structure.api.builders.StructureBuilder;
 import org.betterx.wover.structure.api.structures.nbt.RandomNbtStructure;
 
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
@@ -49,8 +54,45 @@ public interface StructureKey<
     ResourceKey<Structure> key();
 
     /**
+     * Gets the {@link Holder} for the {@link Structure} from the given getter.
+     *
+     * @param getter The getter to get the holder from or {@code null}
+     * @return The holder for the {@link Structure} or {@code null} if it is not present
+     */
+    @Nullable
+    Holder<Structure> getHolder(@Nullable HolderGetter<Structure> getter);
+
+    /**
+     * Gets the {@link Holder} for the {@link Structure} from the given getter.
+     *
+     * <p>
+     * This method internally looks up {@link Registries#STRUCTURE}. If you need to retrieve
+     * a lot of holders, it is recommended to manually lookup the
+     * Registry first and use {@link #getHolder(HolderGetter)} instead.
+     *
+     * @param context The {@link BootstrapContext} to get the holder from
+     * @return The holder for the {@link Structure} or {@code null} if it is not present
+     */
+    @Nullable
+    Holder<Structure> getHolder(@NotNull BootstrapContext<?> context);
+
+    /**
+     * Gets the {@link Holder} for the {@link Structure} from the given getter.
+     *
+     * <p>
+     * This method internally looks up {@link Registries#STRUCTURE}. If you need to retrieve
+     * a lot of holders, it is recommended to manually lookup the
+     * Registry first and use {@link #getHolder(HolderGetter)} instead.
+     *
+     * @param access The {@link RegistryAccess} to get the holder from
+     * @return The holder for the {@link Structure} or {@code null} if it is not present
+     */
+    @Nullable
+    Holder<Structure> getHolder(@NotNull RegistryAccess access);
+
+    /**
      * Define a BiomeTag that will be used to determine if the structure can spawn in a biome. You can
-     * build a new Structure tag by using {@link org.betterx.wover.tag.api.BiomeTagRegistry#makeStructureTag(ModCore, String)}
+     * build a new Structure tag by using {@link org.betterx.wover.tag.api.BiomeTagRegistry#makeStructureTag(ModCore, String)} (ModCore, String)}
      * from {@link org.betterx.wover.tag.api.TagManager#BIOMES}.
      *
      * @param biomeTag The biome tag to set
