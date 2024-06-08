@@ -12,11 +12,11 @@ import java.util.Map;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class EquipmentSet {
-    public interface ToolFactory<I extends TieredItem> {
+    public interface ToolFactory<I extends Item> {
         I create(Tier tier, Item.Properties properties);
     }
 
-    public interface ArmorFactory<I extends ArmorItem> {
+    public interface ArmorFactory<I extends Item> {
         I create(Holder<ArmorMaterial> holder, ArmorItem.Type type, Item.Properties properties);
     }
 
@@ -52,11 +52,11 @@ public abstract class EquipmentSet {
         this.templateBaseSet = templateBaseSet;
     }
 
-    public <I extends TieredItem> void add(ToolSlot slot, ToolFactory<I> toolFactory) {
+    public <I extends Item> void add(ToolSlot slot, ToolFactory<I> toolFactory) {
         add(slot, toolFactory, ToolSlot::buildProperties);
     }
 
-    public <I extends TieredItem> void add(
+    public <I extends Item> void add(
             ToolSlot slot,
             ToolFactory<I> toolFactory,
             ToolSlot.PropertiesBuilder propertiesBuilder
@@ -67,11 +67,11 @@ public abstract class EquipmentSet {
         );
     }
 
-    public <I extends ArmorItem> void add(ArmorSlot slot, ArmorFactory<I> armorFactory) {
+    public <I extends Item> void add(ArmorSlot slot, ArmorFactory<I> armorFactory) {
         add(slot, armorFactory, ArmorSlot::buildProperties);
     }
 
-    public <I extends ArmorItem> void add(
+    public <I extends Item> void add(
             ArmorSlot slot,
             ArmorFactory<I> armorFactory,
             ArmorSlot.PropertiesBuilder propertiesBuilder
@@ -94,13 +94,18 @@ public abstract class EquipmentSet {
     }
 
     @NotNull
-    protected String nameForSlot(ToolSlot slot) {
-        return baseName + "_" + slot.name;
+    private String nameForSlot(ToolSlot slot) {
+        return nameForSlot(slot.name);
     }
 
     @NotNull
-    protected String nameForSlot(ArmorSlot slot) {
-        return baseName + "_" + slot.name;
+    private String nameForSlot(ArmorSlot slot) {
+        return nameForSlot(slot.name);
+    }
+
+    @NotNull
+    protected String nameForSlot(String slotName) {
+        return baseName + "_" + slotName;
     }
 
     public <I extends TieredItem> I get(ToolSlot slot) {

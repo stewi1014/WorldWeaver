@@ -5,13 +5,13 @@ import org.betterx.wover.recipe.api.RecipeBuilder;
 
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.world.item.TieredItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 
 import java.util.function.Supplier;
 
 
-class ToolDescription<I extends TieredItem> extends ItemDescription<I> {
+class ToolDescription<I extends Item> extends ItemDescription<I> {
     public final ToolSlot slot;
 
     public ToolDescription(

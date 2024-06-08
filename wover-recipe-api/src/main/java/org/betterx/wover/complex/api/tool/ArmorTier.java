@@ -13,6 +13,14 @@ public class ArmorTier {
         public ArmorValues(int durability) {
             this(durability, null);
         }
+
+
+        public ArmorValues copyWithOffset(ArmorValues offset) {
+            return new ArmorValues(
+                    durability + offset.durability,
+                    offset.smithingTemplate
+            );
+        }
     }
 
     public final Holder<ArmorMaterial> armorMaterial;
@@ -38,6 +46,10 @@ public class ArmorTier {
         return new Builder(name);
     }
 
+    public boolean is(Holder<ArmorMaterial> mat) {
+        return mat.unwrapKey().map(this.armorMaterial::is).orElse(false);
+    }
+
     @Override
     public String toString() {
         return "ArmorTier - " + this.name;
@@ -53,7 +65,7 @@ public class ArmorTier {
             this.name = name;
         }
 
-        Builder armorMaterial(Holder<ArmorMaterial> armorMaterial) {
+        public Builder armorMaterial(Holder<ArmorMaterial> armorMaterial) {
             this.armorMaterial = armorMaterial;
             return this;
         }
@@ -65,6 +77,13 @@ public class ArmorTier {
 
         public Builder armorValues(ArmorSlot slot, ArmorValues armorValues) {
             this.armorValues[slot.slotIndex] = armorValues;
+            return this;
+        }
+
+        public Builder armorValuesWithOffset(ArmorTier source, ArmorValues offset) {
+            for (int i = 0; i < armorValues.length; i++) {
+                this.armorValues[i] = source.armorValues[i].copyWithOffset(offset);
+            }
             return this;
         }
 
@@ -88,7 +107,7 @@ public class ArmorTier {
     ) {
         ArmorValues[] newValues = new ArmorValues[armorValues.length];
         for (int i = 0; i < armorValues.length; i++) {
-            newValues[i] = new ArmorValues(armorValues[i].durability + offset.durability);
+            newValues[i] = armorValues[i].copyWithOffset(offset);
         }
         return new ArmorTier(newName, newMaterial == null ? this.armorMaterial : newMaterial, newValues);
     }

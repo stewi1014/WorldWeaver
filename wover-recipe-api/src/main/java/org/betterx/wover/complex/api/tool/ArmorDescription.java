@@ -5,13 +5,13 @@ import org.betterx.wover.recipe.api.RecipeBuilder;
 
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 
 import java.util.function.Supplier;
 import org.jetbrains.annotations.Nullable;
 
-public class ArmorDescription<I extends ArmorItem> extends ItemDescription<I> {
+public class ArmorDescription<I extends Item> extends ItemDescription<I> {
     private final ArmorSlot slot;
 
     public ArmorDescription(

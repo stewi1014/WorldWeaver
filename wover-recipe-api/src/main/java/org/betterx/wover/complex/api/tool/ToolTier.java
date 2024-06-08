@@ -1,9 +1,6 @@
 package org.betterx.wover.complex.api.tool;
 
-import net.minecraft.world.item.DiggerItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.*;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -24,7 +21,18 @@ public class ToolTier {
         return new Item.Properties().attributes(SwordItem.createAttributes(tier.toolTier, (int) values.attackDamage, values.attackSpeed));
     };
 
-    public record ToolValues(float attackDamage, float attackSpeed) {
+    public record ToolValues(float attackDamage, float attackSpeed, SmithingTemplateItem smithingTemplate) {
+        public ToolValues(float attackDamage, float attackSpeed) {
+            this(attackDamage, attackSpeed, null);
+        }
+
+        ToolValues copyWithOffset(ToolValues offset) {
+            return new ToolValues(
+                    attackDamage + offset.attackDamage,
+                    attackSpeed + offset.attackSpeed,
+                    offset.smithingTemplate
+            );
+        }
     }
 
     public final String name;
@@ -61,13 +69,21 @@ public class ToolTier {
             this.name = name;
         }
 
-        Builder toolTier(Tier toolTier) {
+        public Builder toolTier(Tier toolTier) {
             this.toolTier = toolTier;
             return this;
         }
 
         public Builder toolValues(ToolSlot slot, ToolValues toolValues) {
             this.toolValues[slot.slotIndex] = toolValues;
+            return this;
+        }
+
+        public Builder toolValuesWithOffset(ToolTier source, ToolValues offset) {
+            for (int i = 0; i < toolValues.length; i++) {
+                this.toolValues[i] = source.toolValues[i].copyWithOffset(offset);
+
+            }
             return this;
         }
 
@@ -92,10 +108,7 @@ public class ToolTier {
     public ToolTier copyWithOffset(@NotNull String newName, @Nullable Tier newTier, ToolValues offset) {
         ToolValues[] newValues = new ToolValues[toolValues.length];
         for (int i = 0; i < toolValues.length; i++) {
-            newValues[i] = new ToolValues(
-                    toolValues[i].attackDamage + offset.attackDamage,
-                    toolValues[i].attackSpeed + offset.attackSpeed
-            );
+            newValues[i] = toolValues[i].copyWithOffset(offset);
         }
         return new ToolTier(newName, newTier == null ? this.toolTier : newTier, newValues);
     }
