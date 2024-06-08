@@ -91,7 +91,8 @@ public class ToolTier {
 
         public Builder toolValuesWithOffset(ToolTier source, ToolValues offset) {
             for (int i = 0; i < toolValues.length; i++) {
-                this.toolValues[i] = source.toolValues[i].copyWithOffset(offset);
+                if (source.toolValues[i] != null)
+                    this.toolValues[i] = source.toolValues[i].copyWithOffset(offset);
 
             }
             return this;
@@ -123,7 +124,8 @@ public class ToolTier {
     ) {
         ToolValues[] newValues = new ToolValues[toolValues.length];
         for (int i = 0; i < toolValues.length; i++) {
-            newValues[i] = toolValues[i].copyWithOffset(offset);
+            if (toolValues[i] != null)
+                newValues[i] = toolValues[i].copyWithOffset(offset);
         }
         return new ToolTier(newName, newTier == null ? this.toolTier : newTier, newValues, blockTag);
     }

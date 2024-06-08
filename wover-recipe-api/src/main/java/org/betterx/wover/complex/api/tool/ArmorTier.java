@@ -82,7 +82,8 @@ public class ArmorTier {
 
         public Builder armorValuesWithOffset(ArmorTier source, ArmorValues offset) {
             for (int i = 0; i < armorValues.length; i++) {
-                this.armorValues[i] = source.armorValues[i].copyWithOffset(offset);
+                if (source.armorValues[i] != null)
+                    this.armorValues[i] = source.armorValues[i].copyWithOffset(offset);
             }
             return this;
         }
@@ -107,7 +108,8 @@ public class ArmorTier {
     ) {
         ArmorValues[] newValues = new ArmorValues[armorValues.length];
         for (int i = 0; i < armorValues.length; i++) {
-            newValues[i] = armorValues[i].copyWithOffset(offset);
+            if (armorValues[i] != null)
+                newValues[i] = armorValues[i].copyWithOffset(offset);
         }
         return new ArmorTier(newName, newMaterial == null ? this.armorMaterial : newMaterial, newValues);
     }

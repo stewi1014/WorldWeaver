@@ -16,6 +16,7 @@ public class ToolTiers {
             .toolValues(ToolSlot.PICKAXE_SLOT, new ToolValues(1, -2.8f))
             .toolValues(ToolSlot.AXE_SLOT, new ToolValues(6, -3.2f))
             .toolValues(ToolSlot.HOE_SLOT, new ToolValues(0, -3.0f))
+            .toolValues(ToolSlot.HAMMER_SLOT, new ToolValues(7, -3.0f))
             .build();
 
     public static ToolTier STONE_TOOL = ToolTier
@@ -27,6 +28,8 @@ public class ToolTiers {
             .toolValues(ToolSlot.PICKAXE_SLOT, new ToolValues(1, -2.8f))
             .toolValues(ToolSlot.AXE_SLOT, new ToolValues(7, -3.2f))
             .toolValues(ToolSlot.HOE_SLOT, new ToolValues(-1, -2.0f))
+            .toolValues(ToolSlot.SHEARS_SLOT, new ToolValues(-1, -2.5f))
+            .toolValues(ToolSlot.HAMMER_SLOT, new ToolValues(9, -5.0f))
             .build();
 
     public static ToolTier GOLD_TOOL = ToolTier
@@ -38,6 +41,8 @@ public class ToolTiers {
             .toolValues(ToolSlot.PICKAXE_SLOT, new ToolValues(1, -2.8f))
             .toolValues(ToolSlot.AXE_SLOT, new ToolValues(6, -3.0f))
             .toolValues(ToolSlot.HOE_SLOT, new ToolValues(0, -3.0f))
+            .toolValues(ToolSlot.SHEARS_SLOT, new ToolValues(0, -3.5f)).
+            toolValues(ToolSlot.HAMMER_SLOT, new ToolValues(8, -4.0f))
             .build();
 
     public static ToolTier IRON_TOOL = ToolTier
@@ -49,6 +54,8 @@ public class ToolTiers {
             .toolValues(ToolSlot.PICKAXE_SLOT, new ToolValues(1, -2.8f))
             .toolValues(ToolSlot.AXE_SLOT, new ToolValues(6, -3.1f))
             .toolValues(ToolSlot.HOE_SLOT, new ToolValues(-2, -1.0f))
+            .toolValues(ToolSlot.SHEARS_SLOT, new ToolValues(-2, -4.0f))
+            .toolValues(ToolSlot.HAMMER_SLOT, new ToolValues(8, -4.3f))
             .build();
 
     public static ToolTier DIAMOND_TOOL = ToolTier
@@ -60,6 +67,8 @@ public class ToolTiers {
             .toolValues(ToolSlot.PICKAXE_SLOT, new ToolValues(1, -2.8f))
             .toolValues(ToolSlot.AXE_SLOT, new ToolValues(5, -3.0f))
             .toolValues(ToolSlot.HOE_SLOT, new ToolValues(-3, 0.0f))
+            .toolValues(ToolSlot.SHEARS_SLOT, new ToolValues(-3, -0.5f))
+            .toolValues(ToolSlot.HAMMER_SLOT, new ToolValues(7, -4.0f))
             .build();
 
     public static ToolTier NETHERITE_TOOL = ToolTier
@@ -71,6 +80,8 @@ public class ToolTiers {
             .toolValues(ToolSlot.PICKAXE_SLOT, new ToolValues(1, -2.8f))
             .toolValues(ToolSlot.AXE_SLOT, new ToolValues(5, -3.0f))
             .toolValues(ToolSlot.HOE_SLOT, new ToolValues(-4, 0.0f))
+            .toolValues(ToolSlot.HOE_SLOT, new ToolValues(-4, -0.5f))
+            .toolValues(ToolSlot.HAMMER_SLOT, new ToolValues(8, -3.2f))
             .build();
 
 

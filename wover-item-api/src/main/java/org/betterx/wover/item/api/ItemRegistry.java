@@ -53,7 +53,7 @@ public class ItemRegistry {
             Registry.register(BuiltInRegistries.ITEM, id, item);
             items.put(id, item);
 
-            if (datagenTags != null) datagenTags.put(item, tags);
+            if (datagenTags != null && tags != null && tags.length > 0) datagenTags.put(item, tags);
         }
 
         return item;

@@ -98,7 +98,7 @@ public class BlockRegistry {
         Registry.register(BuiltInRegistries.BLOCK, id, block);
         blocks.put(id, block);
 
-        if (datagenTags != null) datagenTags.put(block, tags);
+        if (datagenTags != null && tags != null && tags.length > 0) datagenTags.put(block, tags);
         return id;
     }
 
