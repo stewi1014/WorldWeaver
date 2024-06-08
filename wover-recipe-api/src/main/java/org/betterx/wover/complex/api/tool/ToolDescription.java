@@ -2,9 +2,12 @@ package org.betterx.wover.complex.api.tool;
 
 import org.betterx.wover.core.api.ModCore;
 import org.betterx.wover.recipe.api.RecipeBuilder;
+import org.betterx.wover.tag.api.predefined.CommonItemTags;
 
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 
@@ -14,13 +17,27 @@ import java.util.function.Supplier;
 class ToolDescription<I extends Item> extends ItemDescription<I> {
     public final ToolSlot slot;
 
+    @SuppressWarnings("unchecked")
+    private static TagKey<Item>[] getTagKey(ToolSlot slot) {
+        return switch (slot) {
+            case PICKAXE_SLOT -> new TagKey[]{ItemTags.PICKAXES};
+            case AXE_SLOT -> new TagKey[]{ItemTags.AXES};
+            case SHOVEL_SLOT -> new TagKey[]{ItemTags.SHOVELS};
+            case HOE_SLOT -> new TagKey[]{ItemTags.HOES};
+            case SWORD_SLOT -> new TagKey[]{ItemTags.SWORDS};
+            case SHEARS_SLOT -> new TagKey[]{CommonItemTags.SHEARS};
+            case HAMMER_SLOT -> new TagKey[]{CommonItemTags.HAMMERS};
+            default -> new TagKey[0];
+        };
+    }
+
     public ToolDescription(
             ModCore modCore,
             ToolSlot slot,
             String path,
             Supplier<I> creator
     ) {
-        super(modCore, path, creator);
+        super(modCore, path, creator, getTagKey(slot));
         this.slot = slot;
 
     }

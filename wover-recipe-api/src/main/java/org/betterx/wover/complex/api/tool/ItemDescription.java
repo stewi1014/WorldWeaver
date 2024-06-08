@@ -5,6 +5,7 @@ import org.betterx.wover.item.api.ItemRegistry;
 import org.betterx.wover.recipe.api.CraftingRecipeBuilder;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.ItemLike;
@@ -18,11 +19,12 @@ abstract class ItemDescription<I extends Item> {
     public ItemDescription(
             ModCore modCore,
             String path,
-            Supplier<I> creator
+            Supplier<I> creator,
+            TagKey<Item>... tags
     ) {
         this.location = modCore.mk(path);
         this.item = creator.get();
-        ItemRegistry.forMod(modCore).registerAsTool(path, item);
+        ItemRegistry.forMod(modCore).registerAsTool(path, item, tags);
     }
 
     static boolean buildRecipe(Item tool, ItemLike stick, CraftingRecipeBuilder builder) {

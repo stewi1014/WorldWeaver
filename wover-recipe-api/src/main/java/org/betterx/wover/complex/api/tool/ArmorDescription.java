@@ -5,6 +5,8 @@ import org.betterx.wover.recipe.api.RecipeBuilder;
 
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 
@@ -14,13 +16,24 @@ import org.jetbrains.annotations.Nullable;
 public class ArmorDescription<I extends Item> extends ItemDescription<I> {
     private final ArmorSlot slot;
 
+    @SuppressWarnings("unchecked")
+    private static TagKey<Item>[] getTagKey(ArmorSlot slot) {
+        return switch (slot) {
+            case HELMET_SLOT -> new TagKey[]{ItemTags.HEAD_ARMOR};
+            case CHESTPLATE_SLOT -> new TagKey[]{ItemTags.CHEST_ARMOR};
+            case LEGGINGS_SLOT -> new TagKey[]{ItemTags.LEG_ARMOR};
+            case BOOTS_SLOT -> new TagKey[]{ItemTags.FOOT_ARMOR};
+            default -> new TagKey[0];
+        };
+    }
+
     public ArmorDescription(
             ModCore modCore,
             ArmorSlot slot,
             String path,
             Supplier<I> creator
     ) {
-        super(modCore, path, creator);
+        super(modCore, path, creator, getTagKey(slot));
         this.slot = slot;
     }
 
