@@ -1,6 +1,7 @@
 package org.betterx.wover.datagen.api;
 
 import org.betterx.wover.core.api.ModCore;
+import org.betterx.wover.tag.api.TagManager;
 import org.betterx.wover.tag.api.TagRegistry;
 import org.betterx.wover.tag.api.event.context.ItemTagBootstrapContext;
 import org.betterx.wover.tag.api.event.context.TagBootstrapContext;
@@ -10,6 +11,7 @@ import org.betterx.wover.tag.impl.TagManagerImpl;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.biome.Biome;
@@ -338,7 +340,7 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
 
     /**
      * Convenience class for creating {@link WoverTagProvider} instances for
-     * {@link Enchantement} tags.
+     * Enchantement tags.
      */
     public abstract static class ForEnchantments extends WoverTagProvider<Enchantment, TagBootstrapContext<Enchantment>> {
         /**
@@ -346,7 +348,7 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
          * force the writing of any empty tag.
          */
         public ForEnchantments(ModCore modCore) {
-            super(modCore, TagManagerImpl.ENCHANTMENTS);
+            super(modCore, TagManager.ENCHANTMENTS);
         }
 
         /**
@@ -360,7 +362,7 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
                 ModCore modCore,
                 @Nullable List<String> modIDs
         ) {
-            super(modCore, TagManagerImpl.ENCHANTMENTS, modIDs);
+            super(modCore, TagManager.ENCHANTMENTS, modIDs);
         }
 
         /**
@@ -376,7 +378,51 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
                 @Nullable List<String> modIDs,
                 Set<TagKey<Enchantment>> forceWriteKeys
         ) {
-            super(modCore, TagManagerImpl.ENCHANTMENTS, modIDs, forceWriteKeys);
+            super(modCore, TagManager.ENCHANTMENTS, modIDs, forceWriteKeys);
+        }
+    }
+
+    /**
+     * Convenience class for creating {@link WoverTagProvider} instances for
+     * EntityType tags.
+     */
+    public abstract static class ForEntityTypes extends WoverTagProvider<EntityType<?>, TagBootstrapContext<EntityType<?>>> {
+        /**
+         * Creates a new Instance that includes all namespaces but will not
+         * force the writing of any empty tag.
+         */
+        public ForEntityTypes(ModCore modCore) {
+            super(modCore, TagManager.ENTITY_TYPES);
+        }
+
+        /**
+         * Creates a new Instance that will not force the writing of any empty tag.
+         *
+         * @param modIDs List of ModIDs that are allowed to include data. All Resources in the namespace of the
+         *               mod will be written to the tag. If null all elements get written, an empty list will
+         *               write nothing
+         */
+        public ForEntityTypes(
+                ModCore modCore,
+                @Nullable List<String> modIDs
+        ) {
+            super(modCore, TagManager.ENTITY_TYPES, modIDs);
+        }
+
+        /**
+         * Creates a new Instance.
+         *
+         * @param modIDs         List of ModIDs that are allowed to include data. All Resources in the namespace of the
+         *                       mod will be written to the tag. If null all elements get written, an empty list will
+         *                       write nothing
+         * @param forceWriteKeys the keys that should always get written
+         */
+        public ForEntityTypes(
+                ModCore modCore,
+                @Nullable List<String> modIDs,
+                Set<TagKey<EntityType<?>>> forceWriteKeys
+        ) {
+            super(modCore, TagManager.ENTITY_TYPES, modIDs, forceWriteKeys);
         }
     }
 }

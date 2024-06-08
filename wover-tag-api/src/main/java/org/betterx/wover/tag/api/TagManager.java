@@ -12,7 +12,9 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 
 /**
@@ -36,6 +38,16 @@ public class TagManager {
      * The registry for biome tags.
      */
     public static BiomeTagRegistry BIOMES = TagManagerImpl.BIOMES;
+
+    /**
+     * The registry for enchantment tags.
+     */
+    public static TagRegistryImpl<Enchantment, TagBootstrapContext<Enchantment>> ENCHANTMENTS = TagManagerImpl.ENCHANTMENTS;
+
+    /**
+     * The registry for entity types
+     */
+    public static TagRegistryImpl<EntityType<?>, TagBootstrapContext<EntityType<?>>> ENTITY_TYPES = TagManagerImpl.ENTITY_TYPES;
 
     /**
      * Creates a new {@link TagRegistry} for the given registry.
