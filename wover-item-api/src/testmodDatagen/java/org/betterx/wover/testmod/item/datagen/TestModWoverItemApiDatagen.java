@@ -8,7 +8,7 @@ import org.betterx.wover.testmod.entrypoint.TestModWoverItemApi;
 public class TestModWoverItemApiDatagen extends WoverDataGenEntryPoint {
     @Override
     protected void onInitializeProviders(PackBuilder globalPack) {
-
+        globalPack.addProvider(TestEnchantmentProvider::new);
     }
 
     @Override
