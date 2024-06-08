@@ -34,12 +34,12 @@ public class TestEnchantmentProvider extends WoverEnchantmentProvider {
         TestModWoverItemApi.TEST_ENCHANT.register(context, Enchantment
                 .enchantment(
                         Enchantment.definition(
-                                itemGetter.getOrThrow(ItemTags.ARMOR_ENCHANTABLE),
+                                itemGetter.getOrThrow(ItemTags.CHEST_ARMOR),
                                 itemGetter.getOrThrow(ItemTags.CHEST_ARMOR_ENCHANTABLE),
-                                1, 3,
-                                Enchantment.dynamicCost(10, 20),
-                                Enchantment.dynamicCost(60, 20),
-                                8,
+                                1, 5,
+                                Enchantment.dynamicCost(1, 40),
+                                Enchantment.dynamicCost(5, 80),
+                                2,
                                 EquipmentSlotGroup.ANY
                         )
                 )
@@ -49,16 +49,16 @@ public class TestEnchantmentProvider extends WoverEnchantmentProvider {
                         EnchantmentTarget.ATTACKER,
                         AllOf.entityEffects(
                                 new DamageEntity(
-                                        LevelBasedValue.constant(1.0F),
-                                        LevelBasedValue.constant(5.0F),
-                                        dmageGetter.getOrThrow(DamageTypes.THORNS)
+                                        LevelBasedValue.constant(4.0F),
+                                        LevelBasedValue.constant(10.0F),
+                                        dmageGetter.getOrThrow(DamageTypes.CACTUS)
                                 ),
                                 new DamageItem(
-                                        LevelBasedValue.constant(2.0F)
+                                        LevelBasedValue.constant(4.0F)
                                 )
                         ),
                         LootItemRandomChanceCondition.randomChance(
-                                EnchantmentLevelProvider.forEnchantmentLevel(LevelBasedValue.perLevel(0.15F))
+                                EnchantmentLevelProvider.forEnchantmentLevel(LevelBasedValue.perLevel(0.25F))
                         )
                 )
         );
