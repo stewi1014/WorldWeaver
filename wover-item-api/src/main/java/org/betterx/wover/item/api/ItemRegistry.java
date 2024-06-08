@@ -117,6 +117,6 @@ public class ItemRegistry {
                 .entrySet()
                 .stream()
                 .filter(i -> i.getValue() instanceof ItemTagProvider)
-                .forEach(i -> ((ItemTagProvider) i).registerItemTags(i.getKey(), ctx));
+                .forEach(i -> ((ItemTagProvider) i.getValue()).registerItemTags(i.getKey(), ctx));
     }
 }

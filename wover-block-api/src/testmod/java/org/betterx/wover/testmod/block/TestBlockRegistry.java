@@ -15,7 +15,7 @@ public class TestBlockRegistry {
 
     public static final TestBlock TEST_BLOCK = R.register(
             "test_block",
-            new TestBlock(Block.Properties.of().noLootTable().ignitedByLava().instabreak())
+            new TestBlock(Block.Properties.of().ignitedByLava().instabreak())
     );
 
     @ApiStatus.Internal

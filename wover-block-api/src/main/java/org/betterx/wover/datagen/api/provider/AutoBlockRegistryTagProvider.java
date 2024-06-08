@@ -1,4 +1,4 @@
-package org.betterx.wover.block.impl.predicate;
+package org.betterx.wover.datagen.api.provider;
 
 import org.betterx.wover.block.api.BlockRegistry;
 import org.betterx.wover.core.api.ModCore;
