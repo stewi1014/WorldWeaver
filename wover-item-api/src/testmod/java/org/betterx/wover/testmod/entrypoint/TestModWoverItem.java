@@ -6,13 +6,17 @@ import org.betterx.wover.enchantment.api.EnchantmentManager;
 import org.betterx.wover.tabs.api.CreativeTabs;
 import org.betterx.wover.testmod.item.TestItemRegistry;
 
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.attributes.RangedAttribute;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -34,8 +38,19 @@ public class TestModWoverItem implements ModInitializer {
     public static final EnchantmentKey BREAKER_ENCHANT = EnchantmentManager
             .createKey(C.mk("breaker_enchant"));
 
+
+    private static Holder<Attribute> register(ResourceLocation string, Attribute attribute) {
+        return Registry.registerForHolder(BuiltInRegistries.ATTRIBUTE, string, attribute);
+    }
+
+    public static final Holder<Attribute> OBSIDIAN_BLOCK_BREAK_SPEED = register(
+            C.mk("player.bn_obsidian_block_break_speed"),
+            new RangedAttribute("attribute.name.player.bn_obsidian_block_break_speed", 1.0, 1.0f, 100.0f).setSyncable(true)
+    );
+
     @Override
     public void onInitialize() {
+
         TestItemRegistry.ensureStaticallyLoaded();
 
         CreativeTabs.start(C)
@@ -59,10 +74,10 @@ public class TestModWoverItem implements ModInitializer {
                     .withEffect(
                             EnchantmentEffectComponents.ATTRIBUTES,
                             new EnchantmentAttributeEffect(
-                                    ResourceLocation.withDefaultNamespace("enchantment.efficiency"),
-                                    Attributes.MINING_EFFICIENCY,
+                                    OBSIDIAN_BLOCK_BREAK_SPEED.unwrapKey().orElseThrow().location(),
+                                    OBSIDIAN_BLOCK_BREAK_SPEED,
                                     new LevelBasedValue.Lookup(List.of(6f, 12f, 18f), new LevelBasedValue.LevelsSquared(9.0F)),
-                                    AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
+                                    AttributeModifier.Operation.ADD_VALUE
                             )
                     )
             );

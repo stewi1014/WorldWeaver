@@ -29,6 +29,7 @@ public class TestEnchantmentProvider extends WoverEnchantmentProvider {
     protected void bootstrap(BootstrapContext<Enchantment> context) {
         HolderGetter<Item> itemGetter = context.lookup(Registries.ITEM);
         HolderGetter<DamageType> damageGetter = context.lookup(Registries.DAMAGE_TYPE);
+        HolderGetter<Enchantment> enchantmentGeter = context.lookup(Registries.ENCHANTMENT);
         TestModWoverItem.TEST_ENCHANT.register(context, Enchantment
                 .enchantment(
                         Enchantment.definition(

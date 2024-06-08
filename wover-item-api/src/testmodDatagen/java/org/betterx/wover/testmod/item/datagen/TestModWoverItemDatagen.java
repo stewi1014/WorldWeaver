@@ -9,6 +9,7 @@ public class TestModWoverItemDatagen extends WoverDataGenEntryPoint {
     @Override
     protected void onInitializeProviders(PackBuilder globalPack) {
         globalPack.addProvider(TestEnchantmentProvider::new);
+        globalPack.addProvider(BlockTagProvider::new);
     }
 
     @Override

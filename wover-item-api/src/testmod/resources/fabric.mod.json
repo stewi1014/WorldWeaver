@@ -20,13 +20,15 @@
       "org.betterx.wover.testmod.entrypoint.TestModWoverItem"
     ],
     "fabric-datagen": [
-      "org.betterx.wover.testmod.item.datagen.TestModWoverItemApiDatagen"
+      "org.betterx.wover.testmod.item.datagen.TestModWoverItemDatagen"
     ],
     "client": [
-      "org.betterx.wover.testmod.entrypoint.client.TestModWoverItemApiClient"
+      "org.betterx.wover.testmod.entrypoint.client.TestModWoverItemClient"
     ]
   },
-  "mixins": [],
+  "mixins": [
+    "wover.item.testmod.mixins.common.json"
+  ],
   "depends": {
     "fabricloader": ">=0.15.3",
     "minecraft": [
