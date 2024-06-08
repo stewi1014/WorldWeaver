@@ -4,7 +4,10 @@ import org.betterx.wover.core.api.ModCore;
 
 import net.minecraft.core.Holder;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Tier;
 import net.minecraft.world.level.ItemLike;
 
 import java.util.HashMap;
@@ -108,12 +111,42 @@ public abstract class EquipmentSet {
         return baseName + "_" + slotName;
     }
 
-    public <I extends TieredItem> I get(ToolSlot slot) {
+    public <I extends Item> I get(ToolSlot slot) {
         return (I) tools.get(slot).getItem();
     }
 
-    public <I extends ArmorItem> I get(ArmorSlot slot) {
+    public <I extends Item> I get(ArmorSlot slot) {
         return (I) armors.get(slot).getItem();
+    }
+
+    public Item[] getTools() {
+        var items = new Item[tools.size()];
+        int i = 0;
+        for (var desc : tools.values()) {
+            items[i++] = desc.getItem();
+        }
+        return items;
+    }
+
+    public Item[] getArmorPieces() {
+        var items = new Item[armors.size()];
+        int i = 0;
+        for (var desc : armors.values()) {
+            items[i++] = desc.getItem();
+        }
+        return items;
+    }
+
+    public Item[] getAll() {
+        var items = new Item[tools.size() + armors.size()];
+        int i = 0;
+        for (var desc : tools.values()) {
+            items[i++] = desc.getItem();
+        }
+        for (var desc : armors.values()) {
+            items[i++] = desc.getItem();
+        }
+        return items;
     }
 }
 

@@ -17,6 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.tags.TagLoader;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 
 import com.google.common.collect.Lists;
@@ -31,6 +32,7 @@ public class TagManagerImpl {
 
     public static TagRegistryImpl<Block, TagBootstrapContext<Block>> BLOCKS = registerType(BuiltInRegistries.BLOCK);
     public static TagRegistryImpl<Item, ItemTagBootstrapContext> ITEMS = registerItem();
+    public static TagRegistryImpl<Enchantment, TagBootstrapContext<Enchantment>> ENCHANTMENTS = registerType(Registries.ENCHANTMENT);
     public static BiomeTagRegistryImpl BIOMES = registerBiome();
 
     public static <T, P extends TagBootstrapContext<T>> TagRegistryImpl<T, P> registerType(DefaultedRegistry<T> registry) {

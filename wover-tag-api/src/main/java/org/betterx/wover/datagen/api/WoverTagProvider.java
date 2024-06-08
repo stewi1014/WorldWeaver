@@ -11,6 +11,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 
@@ -332,6 +333,50 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
                 Set<TagKey<Biome>> forceWriteKeys
         ) {
             super(modCore, TagManagerImpl.BIOMES, modIDs, forceWriteKeys);
+        }
+    }
+
+    /**
+     * Convenience class for creating {@link WoverTagProvider} instances for
+     * {@link Enchantement} tags.
+     */
+    public abstract static class ForEnchantments extends WoverTagProvider<Enchantment, TagBootstrapContext<Enchantment>> {
+        /**
+         * Creates a new Instance that includes all namespaces but will not
+         * force the writing of any empty tag.
+         */
+        public ForEnchantments(ModCore modCore) {
+            super(modCore, TagManagerImpl.ENCHANTMENTS);
+        }
+
+        /**
+         * Creates a new Instance that will not force the writing of any empty tag.
+         *
+         * @param modIDs List of ModIDs that are allowed to include data. All Resources in the namespace of the
+         *               mod will be written to the tag. If null all elements get written, an empty list will
+         *               write nothing
+         */
+        public ForEnchantments(
+                ModCore modCore,
+                @Nullable List<String> modIDs
+        ) {
+            super(modCore, TagManagerImpl.ENCHANTMENTS, modIDs);
+        }
+
+        /**
+         * Creates a new Instance.
+         *
+         * @param modIDs         List of ModIDs that are allowed to include data. All Resources in the namespace of the
+         *                       mod will be written to the tag. If null all elements get written, an empty list will
+         *                       write nothing
+         * @param forceWriteKeys the keys that should always get written
+         */
+        public ForEnchantments(
+                ModCore modCore,
+                @Nullable List<String> modIDs,
+                Set<TagKey<Enchantment>> forceWriteKeys
+        ) {
+            super(modCore, TagManagerImpl.ENCHANTMENTS, modIDs, forceWriteKeys);
         }
     }
 }
