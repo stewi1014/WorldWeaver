@@ -1,6 +1,8 @@
 package org.betterx.wover.complex.api.tool;
 
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -37,17 +39,19 @@ public class ToolTier {
 
     public final String name;
     public final Tier toolTier;
-
+    public final TagKey<Block> blockTag;
     private final ToolValues[] toolValues;
 
     private ToolTier(
             String name,
             Tier toolTier,
-            ToolValues[] toolValues
+            ToolValues[] toolValues,
+            TagKey<Block> blockTag
     ) {
         this.toolTier = toolTier;
         this.toolValues = toolValues;
         this.name = name;
+        this.blockTag = blockTag;
     }
 
     @Nullable
@@ -64,9 +68,15 @@ public class ToolTier {
         private Tier toolTier;
         private final ToolValues[] toolValues = new ToolValues[ToolSlot.values().length];
         private final String name;
+        private TagKey<Block> blockTag;
 
         Builder(String name) {
             this.name = name;
+        }
+
+        public Builder blockTag(TagKey<Block> blockTag) {
+            this.blockTag = blockTag;
+            return this;
         }
 
         public Builder toolTier(Tier toolTier) {
@@ -88,7 +98,7 @@ public class ToolTier {
         }
 
         public ToolTier build() {
-            return new ToolTier(name, toolTier, toolValues);
+            return new ToolTier(name, toolTier, toolValues, blockTag);
         }
     }
 
@@ -105,11 +115,16 @@ public class ToolTier {
      * @param offset  Offset to apply to all values
      * @return New ToolTier with the specified offset
      */
-    public ToolTier copyWithOffset(@NotNull String newName, @Nullable Tier newTier, ToolValues offset) {
+    public ToolTier copyWithOffset(
+            @NotNull String newName,
+            @Nullable Tier newTier,
+            ToolValues offset,
+            @Nullable TagKey<Block> blockTag
+    ) {
         ToolValues[] newValues = new ToolValues[toolValues.length];
         for (int i = 0; i < toolValues.length; i++) {
             newValues[i] = toolValues[i].copyWithOffset(offset);
         }
-        return new ToolTier(newName, newTier == null ? this.toolTier : newTier, newValues);
+        return new ToolTier(newName, newTier == null ? this.toolTier : newTier, newValues, blockTag);
     }
 }

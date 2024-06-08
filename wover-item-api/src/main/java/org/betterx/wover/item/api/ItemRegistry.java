@@ -109,6 +109,10 @@ public class ItemRegistry {
         return item;
     }
 
+    public Item.Properties createDefaultItemSettings() {
+        return new Item.Properties();
+    }
+
     public void bootstrapItemTags(ItemTagBootstrapContext ctx) {
         if (datagenTags != null) {
             datagenTags.forEach(ctx::add);

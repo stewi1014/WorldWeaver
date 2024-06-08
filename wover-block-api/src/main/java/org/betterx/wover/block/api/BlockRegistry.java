@@ -63,8 +63,14 @@ public class BlockRegistry {
     }
 
     public <T extends Block> T register(String path, T block, TagKey<Block>... tags) {
+        return register(path, block, tags, null);
+    }
+
+    public <T extends Block> T register(String path, T block, TagKey<Block>[] tags, TagKey<Item>[] itemTags) {
         if (block != null && block != Blocks.AIR) {
-            final ResourceLocation id = _registerBlockOnly(path, block, tags);
+            final ResourceLocation id = tags == null
+                    ? _registerBlockOnly(path, block)
+                    : _registerBlockOnly(path, block, tags);
 
             final BlockItem item;
             if (block instanceof CustomBlockItemProvider provider) {
@@ -72,7 +78,10 @@ public class BlockRegistry {
             } else {
                 item = new BlockItem(block, defaultBlockItemSettings());
             }
-            registerBlockItem(path, item);
+            if (itemTags == null)
+                registerBlockItem(path, item);
+            else
+                registerBlockItem(path, item, itemTags);
 
             if (block.defaultBlockState().ignitedByLava()
                     && FlammableBlockRegistry.getDefaultInstance()
@@ -102,8 +111,8 @@ public class BlockRegistry {
     }
 
 
-    private BlockItem registerBlockItem(String path, BlockItem item) {
-        return this.itemRegistry.register(path, item);
+    private BlockItem registerBlockItem(String path, BlockItem item, TagKey<Item>... tags) {
+        return this.itemRegistry.register(path, item, tags);
     }
 
     protected Item.Properties defaultBlockItemSettings() {

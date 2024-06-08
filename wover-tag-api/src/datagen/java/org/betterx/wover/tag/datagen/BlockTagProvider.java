@@ -214,5 +214,10 @@ public class BlockTagProvider extends WoverTagProvider.ForBlocks {
         );
 
         ctx.add(CommonBlockTags.GROWS_GRASS, BlockTags.DIRT, CommonBlockTags.TERRAIN, BlockTags.LOGS, BlockTags.PLANKS);
+
+        ctx.add(CommonBlockTags.GRASS_SOIL, BlockTags.DIRT, CommonBlockTags.TERRAIN, BlockTags.LOGS, BlockTags.PLANKS);
+
+        ctx.add(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, CommonBlockTags.NEEDS_NETHERITE_TOOL);
+        ctx.add(BlockTags.INCORRECT_FOR_WOODEN_TOOL, CommonBlockTags.NEEDS_GOLD_TOOL);
     }
 }

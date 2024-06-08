@@ -7,12 +7,14 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.packs.VanillaBlockLoot;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -20,6 +22,7 @@ import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
@@ -47,16 +50,21 @@ public class LootLookupProvider {
         return provider;
     }
 
+    public LootItemCondition.Builder silkTouchCondition() {
+        return vanillaBlockLoot.hasSilkTouch();
+    }
+
     public LootTable.Builder dropWithSilkTouch(
-            Block withSilkTouch
+            ItemLike withSilkTouch
     ) {
-        return LootTable
-                .lootTable()
-                .withPool(LootPool
-                        .lootPool()
-                        .setRolls(ConstantValue.exactly(1.0F))
-                        .add(LootItem.lootTableItem(withSilkTouch).when(vanillaBlockLoot.hasSilkTouch()))
-                );
+        return vanillaBlockLoot.createSilkTouchOnlyTable(withSilkTouch);
+//        return LootTable
+//                .lootTable()
+//                .withPool(LootPool
+//                        .lootPool()
+//                        .setRolls(ConstantValue.exactly(1.0F))
+//                        .add(LootItem.lootTableItem(withSilkTouch).when(vanillaBlockLoot.hasSilkTouch()))
+//                );
     }
 
     public LootTable.Builder dropWithSilkTouch(
@@ -119,6 +127,66 @@ public class LootLookupProvider {
                                 .apply(SetItemCountFunction.setCount(numberProvider))
                                 .apply(ApplyBonusCount.addOreBonusCount(enchantmentLookup.getOrThrow(Enchantments.FORTUNE)))
                 )
+        );
+    }
+
+    public LootTable.Builder dropDoor(Block doorBlock) {
+        return vanillaBlockLoot.createDoorTable(doorBlock);
+    }
+
+    /*
+    this.
+     */
+
+    public <T extends Comparable<T> & StringRepresentable> LootTable.Builder dropSingleWithCondition(
+            Block block,
+            Property<T> property,
+            T comparable
+    ) {
+        return vanillaBlockLoot.createSinglePropConditionTable(block, property, comparable);
+    }
+
+    public <T extends Comparable<T> & StringRepresentable> LootTable.Builder dropWithSilkTouchAndCondition(
+            Block withSilkTouch,
+            ItemLike withoutSilkTouch,
+            NumberProvider numberProvider,
+            Property<T> property,
+            T comparable
+    ) {
+        return vanillaBlockLoot.createSilkTouchDispatchTable(
+                withSilkTouch,
+                vanillaBlockLoot.applyExplosionCondition(
+                        withSilkTouch,
+                        LootItem.lootTableItem(withoutSilkTouch)
+                                .when(LootItemBlockStatePropertyCondition
+                                        .hasBlockStateProperties(withSilkTouch)
+                                        .setProperties(net.minecraft.advancements.critereon.StatePropertiesPredicate.Builder
+                                                .properties()
+                                                .hasProperty(property, comparable))
+                                )
+                                .apply(SetItemCountFunction.setCount(numberProvider))
+                )
+        );
+    }
+
+    public <T extends Comparable<T> & StringRepresentable> LootTable.Builder dropWithSilkTouchAndCondition(
+            Block withSilkTouch,
+            Property<T> property,
+            T comparable
+    ) {
+        return LootTable.lootTable().withPool(
+                LootPool
+                        .lootPool()
+                        .when(vanillaBlockLoot.hasSilkTouch())
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(withSilkTouch)
+                                     .when(LootItemBlockStatePropertyCondition
+                                             .hasBlockStateProperties(withSilkTouch)
+                                             .setProperties(net.minecraft.advancements.critereon.StatePropertiesPredicate.Builder
+                                                     .properties()
+                                                     .hasProperty(property, comparable))
+                                     )
+                        )
         );
     }
 

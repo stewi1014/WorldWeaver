@@ -120,6 +120,8 @@ public class CommonBlockTags {
      * {@code c:grows_grass}
      */
     public static final TagKey<Block> GROWS_GRASS = TagManager.BLOCKS.makeCommonTag("grows_grass");
+
+    public static final TagKey<Block> GRASS_SOIL = TagManager.BLOCKS.makeCommonTag("grass_soil");
     /**
      * {@code c:nether_terrain}
      */
@@ -136,6 +138,10 @@ public class CommonBlockTags {
      * {@code c:plant}
      */
     public static final TagKey<Block> PLANT = TagManager.BLOCKS.makeCommonTag("plant");
+
+    public static final TagKey<Block> NEEDS_NETHERITE_TOOL = TagManager.BLOCKS.makeCommonTag("needs_netherite_tool");
+    public static final TagKey<Block> NEEDS_GOLD_TOOL = TagManager.BLOCKS.makeCommonTag("needs_gold_tool");
+    public static final TagKey<Block> NEEDS_WOOD_TOOL = TagManager.BLOCKS.makeCommonTag("needs_wood_tool");
 
     /**
      * Called internally to ensure that the tags are created.
