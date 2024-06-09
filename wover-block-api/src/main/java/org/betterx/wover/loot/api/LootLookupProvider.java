@@ -2,6 +2,7 @@ package org.betterx.wover.loot.api;
 
 import org.betterx.wover.core.api.ModCore;
 
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.packs.VanillaBlockLoot;
@@ -14,6 +15,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -24,6 +26,7 @@ import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
 
@@ -65,6 +68,18 @@ public class LootLookupProvider {
 //                        .setRolls(ConstantValue.exactly(1.0F))
 //                        .add(LootItem.lootTableItem(withSilkTouch).when(vanillaBlockLoot.hasSilkTouch()))
 //                );
+    }
+
+    public LootTable.Builder dropWithSilkTouchOrShears(
+            ItemLike withSilkTouch
+    ) {
+        return LootTable
+                .lootTable()
+                .withPool(LootPool
+                        .lootPool()
+                        .when(vanillaBlockLoot.hasShearsOrSilkTouch())
+                        .setRolls(ConstantValue.exactly(1.0f))
+                        .add(LootItem.lootTableItem(withSilkTouch)));
     }
 
     public LootTable.Builder dropWithSilkTouch(
@@ -188,6 +203,114 @@ public class LootLookupProvider {
                                      )
                         )
         );
+    }
+
+    public LootTable.Builder dropPlant(Block plantBlock, ItemLike sapling) {
+        return dropPlant(plantBlock, sapling, 0.125F, ConstantValue.exactly(1), 2);
+    }
+
+    public LootTable.Builder dropPlant(
+            Block plantBlock,
+            ItemLike sapling,
+            float saplingChance,
+            NumberProvider saplingCount,
+            int fortuneBonus
+    ) {
+        return vanillaBlockLoot.createShearsDispatchTable(plantBlock, vanillaBlockLoot.applyExplosionDecay(plantBlock, (LootItem
+                .lootTableItem(sapling)
+                .when(LootItemRandomChanceCondition.randomChance(saplingChance)))
+                .apply(SetItemCountFunction.setCount(saplingCount))
+                .apply(ApplyBonusCount.addUniformBonusCount(enchantmentLookup.getOrThrow(Enchantments.FORTUNE), fortuneBonus))));
+    }
+
+    public <T extends Comparable<T> & StringRepresentable> LootTable.Builder dropPlant(
+            Block plantBlock,
+            ItemLike fruit,
+            ItemLike seed,
+            Property<T> property,
+            T comparable
+    ) {
+        return this.dropPlant(plantBlock, fruit, ConstantValue.exactly(1), seed, ConstantValue.exactly(1), 0.571f, 3, property, comparable);
+    }
+
+    public LootTable.Builder dropPlant(
+            Block plantBlock,
+            ItemLike fruit,
+            ItemLike seed,
+            IntegerProperty property,
+            int comparable
+    ) {
+        return this.dropPlant(plantBlock, fruit, ConstantValue.exactly(1), seed, ConstantValue.exactly(1), 0.571f, 3, property, comparable);
+    }
+
+    public <T extends Comparable<T> & StringRepresentable> LootTable.Builder dropPlant(
+            Block plantBlock,
+            ItemLike fruit,
+            NumberProvider fruitCount,
+            ItemLike seed,
+            NumberProvider seedCount,
+            float probability,
+            int extraRounds,
+            Property<T> property,
+            T comparable
+    ) {
+        LootItemCondition.Builder condition = LootItemBlockStatePropertyCondition
+                .hasBlockStateProperties(plantBlock)
+                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(property, comparable));
+        return dropPlant(plantBlock, fruit, fruitCount, seed, seedCount, probability, extraRounds, condition);
+    }
+
+    public LootTable.Builder dropPlant(
+            Block plantBlock,
+            ItemLike fruit,
+            NumberProvider fruitCount,
+            ItemLike seed,
+            NumberProvider seedCount,
+            float probability,
+            int extraRounds,
+            IntegerProperty property,
+            int comparable
+    ) {
+        LootItemCondition.Builder condition = LootItemBlockStatePropertyCondition
+                .hasBlockStateProperties(plantBlock)
+                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(property, comparable));
+        return dropPlant(plantBlock, fruit, fruitCount, seed, seedCount, probability, extraRounds, condition);
+    }
+
+    public LootTable.Builder dropPlant(
+            Block plantBlock,
+            ItemLike fruit,
+            NumberProvider fruitCount,
+            ItemLike seed,
+            NumberProvider seedCount,
+            float probability,
+            int extraRounds,
+            LootItemCondition.Builder condition
+    ) {
+        return vanillaBlockLoot.applyExplosionDecay(
+                plantBlock,
+                LootTable.lootTable().withPool(
+                        LootPool
+                                .lootPool()
+                                .add(LootItem
+                                        .lootTableItem(fruit)
+                                        .apply(SetItemCountFunction.setCount(fruitCount))
+                                        .when(condition).otherwise(LootItem.lootTableItem(seed))
+
+                                )
+                ).withPool(
+                        LootPool
+                                .lootPool()
+                                .when(condition)
+                                .add(LootItem
+                                        .lootTableItem(seed)
+                                        .apply(SetItemCountFunction.setCount(seedCount))
+                                        .apply(ApplyBonusCount.addBonusBinomialDistributionCount(enchantmentLookup.getOrThrow(Enchantments.FORTUNE), probability, extraRounds))
+                                )
+                )
+
+        );
+
     }
 
     public static ResourceKey<LootTable> getBlockLootTableKey(ModCore modCore, ResourceLocation blockId) {
