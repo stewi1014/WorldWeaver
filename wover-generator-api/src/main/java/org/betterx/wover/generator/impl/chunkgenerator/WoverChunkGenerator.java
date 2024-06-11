@@ -5,6 +5,7 @@ import org.betterx.wover.common.generator.api.biomesource.MergeableBiomeSource;
 import org.betterx.wover.common.generator.api.biomesource.NoiseGeneratorSettingsProvider;
 import org.betterx.wover.common.generator.api.biomesource.ReloadableBiomeSource;
 import org.betterx.wover.common.generator.api.chunkgenerator.EnforceableChunkGenerator;
+import org.betterx.wover.common.generator.api.chunkgenerator.RebuildableFeaturesPerStep;
 import org.betterx.wover.common.generator.api.chunkgenerator.RestorableBiomeSource;
 import org.betterx.wover.common.surface.api.InjectableSurfaceRules;
 import org.betterx.wover.core.api.IntegrationCore;
@@ -12,7 +13,6 @@ import org.betterx.wover.entrypoint.LibWoverWorldGenerator;
 import org.betterx.wover.generator.mixin.generator.ChunkGeneratorAccessor;
 import org.betterx.wover.surface.impl.SurfaceRuleUtil;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.*;
@@ -40,7 +40,8 @@ import org.jetbrains.annotations.NotNull;
 public class WoverChunkGenerator extends NoiseBasedChunkGenerator implements
         RestorableBiomeSource<WoverChunkGenerator>,
         InjectableSurfaceRules<WoverChunkGenerator>,
-        EnforceableChunkGenerator<WoverChunkGenerator> {
+        EnforceableChunkGenerator<WoverChunkGenerator>,
+        RebuildableFeaturesPerStep<WoverChunkGenerator> {
     public static final ResourceLocation ID = LibWoverWorldGenerator.C.id("betterx");
 
     protected static final NoiseSettings NETHER_NOISE_SETTINGS_AMPLIFIED = NoiseSettings.create(0, 256, 1, 4);
@@ -84,6 +85,8 @@ public class WoverChunkGenerator extends NoiseBasedChunkGenerator implements
             //we redo it at this point, otherwise we will get blank biomes
             rebuildFeaturesPerStep(biomeSource);
         }
+
+        LibWoverWorldGenerator.C.log.info("Created WoverChunkGenerator with " + biomeSource.getClass().getName());
     }
 
     @Override
@@ -91,6 +94,10 @@ public class WoverChunkGenerator extends NoiseBasedChunkGenerator implements
         return CODEC;
     }
 
+    public void rebuildFeaturesPerStep() {
+        rebuildFeaturesPerStep(getBiomeSource());
+    }
+    
     private void rebuildFeaturesPerStep(BiomeSource biomeSource) {
         if (this instanceof ChunkGeneratorAccessor acc) {
             Function<Holder<Biome>, BiomeGenerationSettings> function
@@ -174,7 +181,7 @@ public class WoverChunkGenerator extends NoiseBasedChunkGenerator implements
                 dimensionRegistry.entrySet(),
                 referenceGenerator,
                 dimensionRegistry::get,
-                (registry, key, stem) ->  registry.register(
+                (registry, key, stem) -> registry.register(
                         key, stem,
                         dimensionRegistry.registrationInfo(key).orElse(RegistrationInfo.BUILT_IN)
                 )

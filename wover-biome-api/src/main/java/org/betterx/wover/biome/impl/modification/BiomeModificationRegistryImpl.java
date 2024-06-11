@@ -4,6 +4,7 @@ import org.betterx.wover.biome.api.modification.BiomeModification;
 import org.betterx.wover.biome.api.modification.BiomeModificationRegistry;
 import org.betterx.wover.biome.api.modification.predicates.BiomePredicate;
 import org.betterx.wover.common.generator.api.biomesource.ReloadableBiomeSource;
+import org.betterx.wover.common.generator.api.chunkgenerator.RebuildableFeaturesPerStep;
 import org.betterx.wover.core.api.registry.DatapackRegistryBuilder;
 import org.betterx.wover.entrypoint.LibWoverBiome;
 import org.betterx.wover.events.api.WorldLifecycle;
@@ -146,6 +147,15 @@ public class BiomeModificationRegistryImpl {
         }
 
         if (biomesProcessed > 0) {
+            //We need to rebuild all feature maps, as we might have added feature that did not yet exist on any
+            //of the valid biomes
+            final Registry<LevelStem> dimensions = registryAccess.registryOrThrow(Registries.LEVEL_STEM);
+            dimensions.forEach(stem -> {
+                if (stem.generator() instanceof RebuildableFeaturesPerStep<?> generator) {
+                    generator.rebuildFeaturesPerStep();
+                }
+            });
+
             LibWoverBiome.C.log.info(
                     "Applied {} biome modifications and added {} tags to {} of {} biomes in {}",
                     modifiersApplied,
