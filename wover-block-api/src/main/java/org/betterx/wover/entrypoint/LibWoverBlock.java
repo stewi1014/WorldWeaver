@@ -16,7 +16,7 @@ public class LibWoverBlock implements ModInitializer {
         //make sure the Datagen will automatically include all Tags assigned to Blocks in the BlockRegistry
         WoverDataGenEntryPoint.registerAutoProvider(AutoBlockRegistryTagProvider::new);
         WoverDataGenEntryPoint.registerAutoProvider(AutoBlockLootProvider::new);
-        
+
         BlockPredicatesImpl.ensureStaticInitialization();
     }
 }

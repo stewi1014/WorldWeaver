@@ -38,6 +38,13 @@ public abstract class WoverLootTableProvider implements WoverDataProvider<DataPr
 
     public WoverLootTableProvider(
             ModCore modCore,
+            LootContextParamSet lootContextType
+    ) {
+        this(modCore, modCore.namespace, lootContextType);
+    }
+
+    public WoverLootTableProvider(
+            ModCore modCore,
             String title,
             LootContextParamSet lootContextType
     ) {

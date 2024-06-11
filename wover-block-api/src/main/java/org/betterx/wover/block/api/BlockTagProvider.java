@@ -16,5 +16,5 @@ public interface BlockTagProvider {
      * @param location The location of the block as it was registered with then BlockRegistry
      * @param context  The context to add tags to
      */
-    void registerItemTags(ResourceLocation location, TagBootstrapContext<Block> context);
+    void registerBlockTags(ResourceLocation location, TagBootstrapContext<Block> context);
 }

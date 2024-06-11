@@ -128,7 +128,7 @@ public class BlockRegistry {
                 .entrySet()
                 .stream()
                 .filter(b -> b.getValue() instanceof BlockTagProvider)
-                .forEach(b -> ((BlockTagProvider) b.getValue()).registerItemTags(b.getKey(), ctx));
+                .forEach(b -> ((BlockTagProvider) b.getValue()).registerBlockTags(b.getKey(), ctx));
     }
 
     public void bootstrapBlockLoot(

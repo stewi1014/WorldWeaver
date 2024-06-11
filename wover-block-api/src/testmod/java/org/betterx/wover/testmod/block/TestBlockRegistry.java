@@ -3,6 +3,7 @@ package org.betterx.wover.testmod.block;
 import org.betterx.wover.block.api.BlockRegistry;
 import org.betterx.wover.testmod.entrypoint.TestModWoverBlock;
 
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.material.PushReaction;
@@ -26,6 +27,12 @@ public class TestBlockRegistry {
                     .of()
                     .ignitedByLava()
                     .pushReaction(PushReaction.DESTROY))
+    );
+
+    public static final TestWall TEST_WALL = R.register(
+            "test_wall",
+            new TestWall(Block.Properties.of().ignitedByLava().forceSolidOn()),
+            BlockTags.WALLS
     );
 
     @ApiStatus.Internal

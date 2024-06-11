@@ -18,6 +18,9 @@
   "entrypoints": {
     "main": [
       "org.betterx.wover.entrypoint.LibWoverBlock"
+    ],
+    "client": [
+      "org.betterx.wover.entrypoint.client.LibWoverBlockClient"
     ]
   },
   "mixins": [

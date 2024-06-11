@@ -8,7 +8,7 @@ import org.betterx.wover.testmod.entrypoint.TestModWoverBlock;
 public class TestModWoverBlockAndItemDatagen extends WoverDataGenEntryPoint {
     @Override
     protected void onInitializeProviders(PackBuilder globalPack) {
-
+        globalPack.addProvider(TestModelProvider::new);
     }
 
     @Override
