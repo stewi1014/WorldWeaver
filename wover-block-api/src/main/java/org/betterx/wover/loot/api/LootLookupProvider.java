@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
@@ -24,24 +25,36 @@ import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import java.util.List;
+import org.jetbrains.annotations.Nullable;
 
 public class LootLookupProvider {
+    public static final float[] VANILLA_LEAVES_STICK_CHANCES = new float[]{
+            0.02F,
+            0.022222223F,
+            0.025F,
+            0.033333335F,
+            0.1F
+    };
+    public static final float[] VANILLA_LEAVES_SAPLING_CHANCES = new float[]{0.05F, 0.0625F, 0.083333336F, 0.1F};
+
     public record DropInfo(ItemLike item, NumberProvider numberProvider) {
         public DropInfo(ItemLike item, int count) {
             this(item, ConstantValue.exactly(count));
         }
     }
 
-    private final HolderLookup.Provider provider;
+    public final HolderLookup.Provider provider;
     private final VanillaBlockLoot vanillaBlockLoot;
-    private final HolderLookup.RegistryLookup<Enchantment> enchantmentLookup;
+    public final HolderLookup.RegistryLookup<Enchantment> enchantmentLookup;
 
     public LootLookupProvider(HolderLookup.Provider provider) {
         this.vanillaBlockLoot = new VanillaBlockLoot(provider);
@@ -310,7 +323,77 @@ public class LootLookupProvider {
                 )
 
         );
+    }
 
+    public LootTable.Builder dropLeaves(Block leaves, Block sapling) {
+        return this.dropLeaves(leaves, sapling, VANILLA_LEAVES_SAPLING_CHANCES);
+    }
+
+    public LootTable.Builder dropLeaves(Block leaves, Block sapling, float... saplingChances) {
+        return vanillaBlockLoot.createLeavesDrops(leaves, sapling, saplingChances);
+    }
+
+    public LootTable.Builder dropLeaves(
+            Block leaveBlock,
+            ItemLike saplingBlock,
+            int fortuneRate,
+            int dropRate
+    ) {
+        return dropLeaves(leaveBlock, saplingBlock, null, null, fortuneRate, dropRate);
+    }
+
+    public LootTable.Builder dropLeaves(
+            Block leaveBlock,
+            ItemLike saplingBlock,
+            @Nullable ItemLike stickBlock,
+            @Nullable NumberProvider stickCount,
+            int fortuneRate,
+            int dropRate
+    ) {
+        float fortuneSaplingChance = 1.0f / fortuneRate;
+        float saplingChance = 1.0f / dropRate;
+        float[] fortuneSaplingChances = {
+                0.8f * saplingChance,
+                fortuneSaplingChance,
+                1.3333f * fortuneSaplingChance,
+                1.6666f * fortuneSaplingChance
+        };
+        var baseBuilder = vanillaBlockLoot
+                .createSilkTouchOrShearsDispatchTable(
+                        leaveBlock,
+                        vanillaBlockLoot
+                                .applyExplosionCondition(
+                                        leaveBlock,
+                                        LootItem.lootTableItem(saplingBlock)
+                                )
+                                .when(BonusLevelTableCondition.bonusLevelFlatChance(enchantmentLookup.getOrThrow(Enchantments.FORTUNE), fortuneSaplingChances))
+                );
+        if (stickBlock != null) {
+            if (stickCount == null) {
+                stickCount = UniformGenerator.between(1.0f, 2.0f);
+            }
+            baseBuilder = baseBuilder.withPool(
+                    LootPool.lootPool()
+                            .setRolls(ConstantValue.exactly(1.0f))
+                            .when(vanillaBlockLoot.doesNotHaveShearsOrSilkTouch())
+                            .add(vanillaBlockLoot
+                                    .applyExplosionDecay(
+                                            leaveBlock,
+                                            LootItem.lootTableItem(Items.STICK)
+                                                    .apply(SetItemCountFunction.setCount(stickCount))
+                                    )
+                                    .when(BonusLevelTableCondition.bonusLevelFlatChance(enchantmentLookup.getOrThrow(Enchantments.FORTUNE), VANILLA_LEAVES_STICK_CHANCES)))
+            );
+        }
+        return baseBuilder;
+    }
+
+    public LootTable.Builder dropDoublePlantShears(Block block) {
+        return vanillaBlockLoot.createDoublePlantShearsDrop(block);
+    }
+
+    public LootTable.Builder dropDoublePlantShears(Block block, Block seed) {
+        return vanillaBlockLoot.createDoublePlantWithSeedDrops(block, seed);
     }
 
     public static ResourceKey<LootTable> getBlockLootTableKey(ModCore modCore, ResourceLocation blockId) {
