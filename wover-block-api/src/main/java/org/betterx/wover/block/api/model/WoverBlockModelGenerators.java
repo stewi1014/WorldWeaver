@@ -2,17 +2,25 @@ package org.betterx.wover.block.api.model;
 
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.blockstates.BlockStateGenerator;
+import net.minecraft.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.data.models.blockstates.Variant;
+import net.minecraft.data.models.blockstates.VariantProperties;
 import net.minecraft.data.models.model.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 
 import com.google.common.collect.Maps;
+import com.google.gson.JsonElement;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class WoverBlockModelGenerators {
+    public static final ResourceLocation CROSS = ResourceLocation.withDefaultNamespace("block/cross");
+    public static final ResourceLocation CUBE = ResourceLocation.withDefaultNamespace("block/cube");
+    public static final ResourceLocation CUBE_ALL = ResourceLocation.withDefaultNamespace("block/cube_all");
     public final BlockModelGenerators vanillaGenerator;
 
     public WoverBlockModelGenerators(
@@ -21,8 +29,43 @@ public class WoverBlockModelGenerators {
         this.vanillaGenerator = vanillaGenerator;
     }
 
+    public void createObsidianVariants(WoverBlockModelGenerators generators, Block obsidianBlock) {
+        var model = generators.getTextureModels(obsidianBlock, TexturedModel.CUBE.get(obsidianBlock));
+        var template = model.getTemplate();
+        var modelLocation = template.create(obsidianBlock, model.getMapping(), generators.vanillaGenerator.modelOutput);
+        final VariantProperties.Rotation[] rotations = {
+                VariantProperties.Rotation.R0,
+                VariantProperties.Rotation.R90,
+                VariantProperties.Rotation.R180,
+                VariantProperties.Rotation.R270
+        };
+
+        final Variant[] variants = new Variant[16];
+        int idx = 0;
+        for (VariantProperties.Rotation rotation : rotations) {
+            for (VariantProperties.Rotation rotationY : rotations) {
+                variants[idx] = Variant
+                        .variant()
+                        .with(VariantProperties.MODEL, modelLocation);
+                if (rotation != VariantProperties.Rotation.R0)
+                    variants[idx] = variants[idx].with(VariantProperties.X_ROT, rotation);
+
+                if (rotationY != VariantProperties.Rotation.R0)
+                    variants[idx] = variants[idx].with(VariantProperties.Y_ROT, rotationY);
+
+                idx++;
+            }
+        }
+
+        generators.acceptBlockState(MultiVariantGenerator.multiVariant(obsidianBlock, variants));
+    }
+
     public void acceptBlockState(BlockStateGenerator blockStateGenerator) {
         this.vanillaGenerator.blockStateOutput.accept(blockStateGenerator);
+    }
+
+    public void acceptModelOutput(ResourceLocation id, Supplier<JsonElement> supplier) {
+        this.vanillaGenerator.modelOutput.accept(id, supplier);
     }
 
     public void delegateItemModel(Block block, ResourceLocation resourceLocation) {
@@ -39,7 +82,16 @@ public class WoverBlockModelGenerators {
     }
 
     public Builder modelFor(TexturedModel texturedModel) {
-        return new Builder(texturedModel);
+        return new Builder(texturedModel, texturedModel.getMapping());
+    }
+
+    public Builder modelFor(TexturedModel texturedModel, TextureMapping textureMapping) {
+        return new Builder(texturedModel, textureMapping);
+    }
+
+    public Builder modelFor(Block block, TextureMapping textureMappingOverride) {
+        final TexturedModel texturedModel = this.getTextureModels(block, TexturedModel.CUBE.get(block));
+        return new Builder(texturedModel, textureMappingOverride);
     }
 
     public static TextureMapping textureMappingOf(
@@ -75,9 +127,9 @@ public class WoverBlockModelGenerators {
         private final TextureMapping mapping;
         private final Map<ModelTemplate, ResourceLocation> models = Maps.newHashMap();
 
-        private Builder(TexturedModel model) {
+        private Builder(TexturedModel model, TextureMapping mapping) {
             this.model = model;
-            this.mapping = model.getMapping();
+            this.mapping = mapping;
         }
 
         public Builder createFullBlock(Block fullBlock) {
@@ -206,11 +258,13 @@ public class WoverBlockModelGenerators {
         }
 
         public Builder createStairs(Block stairBlock) {
-            final List<ResourceLocation> locations = Stream.of(
-                    ModelTemplates.STAIRS_INNER,
-                    ModelTemplates.STAIRS_STRAIGHT,
-                    ModelTemplates.STAIRS_OUTER
-            ).map(template -> this.computeModelIfAbsent(template, stairBlock)).toList();
+            final List<ResourceLocation> locations = Stream
+                    .of(
+                            ModelTemplates.STAIRS_INNER,
+                            ModelTemplates.STAIRS_STRAIGHT,
+                            ModelTemplates.STAIRS_OUTER
+                    )
+                    .map(template -> this.computeModelIfAbsent(template, stairBlock)).toList();
 
             acceptBlockState(BlockModelGenerators.createStairs(stairBlock, locations.get(0), locations.get(1), locations.get(2)));
             delegateItemModel(stairBlock, locations.get(1));
