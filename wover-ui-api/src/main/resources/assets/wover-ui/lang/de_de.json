@@ -6,6 +6,11 @@
   "title.config.wover.client.general.force_betterx_world_type": "BetterX als Standard-Welt-Typ verwenden",
   "title.config.wover.client.loading.disable_experimental_warning": "Warnbildschirm beim Laden deaktivieren",
   "warning.config.wover.client.general.force_betterx_world_type": "MOST LIKELY YOU WILL WANT TO KEEP THIS OPTION ENABLED.\n",
+  "wover.updates.description": "Einige der installierten Mods sind veraltet. Wir verbessern und erweitern unser Angebot kontinuierlich und bieten wichtige Fehlerbehebungen an.\nBitte erwäge, deine Mods über die unten bereitgestellten Links zu aktualisieren.",
+  "wover.updates.disable_check": "Update-Überprüfung deaktivieren",
+  "wover.updates.download_link": "Download",
+  "wover.updates.modrinth_link": "[Modrinth]",
+  "wover.updates.title": "Mod-Updates",
   "wover.welcome.description": "... und ein riesiges herzliches **Dankeschön** für das Herunterladen und Spielen unserer Mods. Wir hoffen, dass sie euch genauso viel Spaß machen wie uns.\n\nBevor wir anfangen, gibt es ein paar Dinge, die wir einrichten müssen, also lest bitte den folgenden langweiligen Teil weiter.",
   "wover.welcome.title": "Wilkommen bei "
 }
