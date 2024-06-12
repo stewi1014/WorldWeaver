@@ -2,8 +2,6 @@ package org.betterx.wover.generator.impl.client;
 
 import de.ambertation.wunderlib.ui.ColorHelper;
 import de.ambertation.wunderlib.ui.layout.components.*;
-import de.ambertation.wunderlib.ui.layout.components.render.RenderHelper;
-import de.ambertation.wunderlib.ui.layout.values.Rectangle;
 import de.ambertation.wunderlib.ui.layout.values.Size;
 import de.ambertation.wunderlib.ui.layout.values.Value;
 import de.ambertation.wunderlib.ui.vanilla.LayoutScreen;
@@ -91,7 +89,7 @@ public class WorldSetupScreen extends LayoutScreen implements BiomeSourceConfigP
     private Tabs mainTabs;
 
     public WorldSetupScreen(@Nullable CreateWorldScreen parent, WorldCreationContext context) {
-        super(parent, Component.translatable("title.screen.wover.worldgen.main"), 8, 6, 10);
+        super(parent, Component.translatable("title.screen.wover.worldgen.main"), 2, 6, 10);
         this.context = context;
         this.createWorldScreen = parent;
 
@@ -312,8 +310,8 @@ public class WorldSetupScreen extends LayoutScreen implements BiomeSourceConfigP
                             registryAccess,
                             map.entrySet(),
                             chunkGenerator,
-                            (key)->map.get(key),
-                            (registry, key, stem)-> registry.register(key, stem, RegistrationInfo.BUILT_IN)
+                            (key) -> map.get(key),
+                            (registry, key, stem) -> registry.register(key, stem, RegistrationInfo.BUILT_IN)
                     ));
                 }
         );
@@ -386,10 +384,11 @@ public class WorldSetupScreen extends LayoutScreen implements BiomeSourceConfigP
         endButton = main.getButton(sortedDimensions.indexOf(BuiltinDimensionTypes.END));
 
         title = new HorizontalStack(fit(), fit()).setDebugName("title bar").alignBottom();
-        title.addImage(fixed(22), fixed(22), WoverLayoutScreen.WOVER_LOGO_WHITE_LOCATION, Size.of(256))
+        title.addImage(fixed(38), fixed(38), WoverLayoutScreen.WOVER_LOGO_LOCATION, Size.of(256))
              .setDebugName("icon");
         title.addSpacer(4);
         VerticalStack logos = title.addColumn(fit(), fit());
+        logos.addSpacer(8);
         logos.addImage(fixed(178 / 3), fixed(40 / 3), WelcomeScreen.BETTERX_LOCATION, Size.of(178, 40));
         logos.add(super.createTitle());
         logos.addSpacer(2);
@@ -406,7 +405,7 @@ public class WorldSetupScreen extends LayoutScreen implements BiomeSourceConfigP
             onClose();
         }).alignRight();
 
-        main.onPageChange((tabs, idx) -> targetT = 1 - idx);
+        // main.onPageChange((tabs, idx) -> targetT = 1 - idx);
 
         return rows;
     }
@@ -421,110 +420,110 @@ public class WorldSetupScreen extends LayoutScreen implements BiomeSourceConfigP
         guiGraphics.fill(0, 0, width, height, 0xBD343444);
     }
 
-    record IconState(int left, int top, int size) {
-        //easing curves from https://easings.net/de
-        static double easeInOutQuint(double t) {
-            return t < 0.5 ? 16 * t * t * t * t * t : 1 - Math.pow(-2 * t + 2, 5) / 2;
-        }
+//    record IconState(int left, int top, int size) {
+//        //easing curves from https://easings.net/de
+//        static double easeInOutQuint(double t) {
+//            return t < 0.5 ? 16 * t * t * t * t * t : 1 - Math.pow(-2 * t + 2, 5) / 2;
+//        }
+//
+//        static double easeOutBounce(double x) {
+//            final double n1 = 7.5625;
+//            final double d1 = 2.75;
+//
+//            if (x < 1 / d1) {
+//                return n1 * x * x;
+//            } else if (x < 2 / d1) {
+//                return n1 * (x -= 1.5 / d1) * x + 0.75;
+//            } else if (x < 2.5 / d1) {
+//                return n1 * (x -= 2.25 / d1) * x + 0.9375;
+//            } else {
+//                return n1 * (x -= 2.625 / d1) * x + 0.984375;
+//            }
+//        }
+//
+//        static int lerp(double t, int x0, int x1) {
+//            return (int) ((1 - t) * x0 + t * x1);
+//        }
+//    }
+//
+//    IconState netherOff, netherOn, endOff, endOn;
+//    double iconT = 0.5;
+//    double targetT = 1;
 
-        static double easeOutBounce(double x) {
-            final double n1 = 7.5625;
-            final double d1 = 2.75;
-
-            if (x < 1 / d1) {
-                return n1 * x * x;
-            } else if (x < 2 / d1) {
-                return n1 * (x -= 1.5 / d1) * x + 0.75;
-            } else if (x < 2.5 / d1) {
-                return n1 * (x -= 2.25 / d1) * x + 0.9375;
-            } else {
-                return n1 * (x -= 2.625 / d1) * x + 0.984375;
-            }
-        }
-
-        static int lerp(double t, int x0, int x1) {
-            return (int) ((1 - t) * x0 + t * x1);
-        }
-    }
-
-    IconState netherOff, netherOn, endOff, endOn;
-    double iconT = 0.5;
-    double targetT = 1;
-
-    @Override
-    public void render(GuiGraphics guiGraphics, int i, int j, float f) {
-        super.render(guiGraphics, i, j, f);
-        final double SPEED = 0.05;
-        if (targetT < iconT && iconT > 0) iconT = Math.max(0, iconT - f * SPEED);
-        else if (targetT > iconT && iconT < 1) iconT = Math.min(1, iconT + f * SPEED);
-
-        final double t;
-        if (iconT > 0 && iconT < 1) {
-            if (targetT > iconT) {
-                t = IconState.easeOutBounce(iconT);
-            } else {
-                t = 1 - IconState.easeOutBounce(1 - iconT);
-            }
-        } else t = iconT;
-
-        if (endButton != null) {
-            if (endOff == null) {
-                endOff = new IconState(
-                        endButton.getScreenBounds().right() - 12,
-                        endButton.getScreenBounds().top - 7,
-                        16
-                );
-                endOn = new IconState(
-                        (title.getScreenBounds().left - endButton.getScreenBounds().right()) / 2
-                                + endButton.getScreenBounds().right()
-                                - 14,
-                        scroller.getScreenBounds().top - 16,
-                        32
-                );
-            }
-            guiGraphics.pose().pushPose();
-            guiGraphics.pose().translate(
-                    IconState.lerp(t, endOn.left, endOff.left),
-                    IconState.lerp(t, endOn.top, endOff.top),
-                    0
-            );
-            int size = IconState.lerp(t, endOn.size, endOff.size);
-            RenderHelper.renderImage(
-                    guiGraphics, 0, 0,
-                    size,
-                    size,
-                    WelcomeScreen.ICON_BETTEREND,
-                    Size.of(32), new Rectangle(0, 0, 32, 32),
-                    (float) 1
-            );
-            guiGraphics.pose().popPose();
-        }
-
-        if (netherButton != null) {
-            if (netherOff == null) {
-                netherOff = new IconState(
-                        netherButton.getScreenBounds().right() - 12,
-                        netherButton.getScreenBounds().top - 7,
-                        16
-                );
-                netherOn = endOn;
-            }
-            guiGraphics.pose().pushPose();
-            guiGraphics.pose().translate(
-                    IconState.lerp(t, netherOff.left, netherOn.left),
-                    IconState.lerp(t, netherOff.top, netherOn.top),
-                    0
-            );
-            int size = IconState.lerp(t, netherOff.size, netherOn.size);
-            RenderHelper.renderImage(
-                    guiGraphics, 0, 0,
-                    size,
-                    size,
-                    WelcomeScreen.ICON_BETTERNETHER,
-                    Size.of(32), new Rectangle(0, 0, 32, 32),
-                    (float) 1
-            );
-            guiGraphics.pose().popPose();
-        }
-    }
+//    @Override
+//    public void render(GuiGraphics guiGraphics, int i, int j, float f) {
+//        super.render(guiGraphics, i, j, f);
+//        final double SPEED = 0.05;
+//        if (targetT < iconT && iconT > 0) iconT = Math.max(0, iconT - f * SPEED);
+//        else if (targetT > iconT && iconT < 1) iconT = Math.min(1, iconT + f * SPEED);
+//
+//        final double t;
+//        if (iconT > 0 && iconT < 1) {
+//            if (targetT > iconT) {
+//                t = IconState.easeOutBounce(iconT);
+//            } else {
+//                t = 1 - IconState.easeOutBounce(1 - iconT);
+//            }
+//        } else t = iconT;
+//
+//        if (endButton != null) {
+//            if (endOff == null) {
+//                endOff = new IconState(
+//                        endButton.getScreenBounds().right() - 12,
+//                        endButton.getScreenBounds().top - 7,
+//                        16
+//                );
+//                endOn = new IconState(
+//                        (title.getScreenBounds().left - endButton.getScreenBounds().right()) / 2
+//                                + endButton.getScreenBounds().right()
+//                                - 14,
+//                        scroller.getScreenBounds().top - 16,
+//                        32
+//                );
+//            }
+//            guiGraphics.pose().pushPose();
+//            guiGraphics.pose().translate(
+//                    IconState.lerp(t, endOn.left, endOff.left),
+//                    IconState.lerp(t, endOn.top, endOff.top),
+//                    0
+//            );
+//            int size = IconState.lerp(t, endOn.size, endOff.size);
+//            RenderHelper.renderImage(
+//                    guiGraphics, 0, 0,
+//                    size,
+//                    size,
+//                    WelcomeScreen.ICON_BETTEREND,
+//                    Size.of(32), new Rectangle(0, 0, 32, 32),
+//                    (float) 1
+//            );
+//            guiGraphics.pose().popPose();
+//        }
+//
+//        if (netherButton != null) {
+//            if (netherOff == null) {
+//                netherOff = new IconState(
+//                        netherButton.getScreenBounds().right() - 12,
+//                        netherButton.getScreenBounds().top - 7,
+//                        16
+//                );
+//                netherOn = endOn;
+//            }
+//            guiGraphics.pose().pushPose();
+//            guiGraphics.pose().translate(
+//                    IconState.lerp(t, netherOff.left, netherOn.left),
+//                    IconState.lerp(t, netherOff.top, netherOn.top),
+//                    0
+//            );
+//            int size = IconState.lerp(t, netherOff.size, netherOn.size);
+//            RenderHelper.renderImage(
+//                    guiGraphics, 0, 0,
+//                    size,
+//                    size,
+//                    WelcomeScreen.ICON_BETTERNETHER,
+//                    Size.of(32), new Rectangle(0, 0, 32, 32),
+//                    (float) 1
+//            );
+//            guiGraphics.pose().popPose();
+//        }
+//    }
 }
