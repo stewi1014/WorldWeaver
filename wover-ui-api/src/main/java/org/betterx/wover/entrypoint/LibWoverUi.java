@@ -1,5 +1,6 @@
 package org.betterx.wover.entrypoint;
 
+import org.betterx.wover.config.impl.CachedConfig;
 import org.betterx.wover.core.api.ModCore;
 
 import net.fabricmc.api.ModInitializer;
@@ -9,6 +10,6 @@ public class LibWoverUi implements ModInitializer {
 
     @Override
     public void onInitialize() {
-
+        CachedConfig.ensureStaticallyLoaded();
     }
 }

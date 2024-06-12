@@ -3,6 +3,7 @@ package org.betterx.wover.screens.impl;
 import de.ambertation.wunderlib.ui.vanilla.ConfigScreen;
 import org.betterx.wover.config.api.Configs;
 import org.betterx.wover.config.api.client.ClientConfigs;
+import org.betterx.wover.ui.impl.client.WoverLayoutScreen;
 
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -14,7 +15,7 @@ public class MainMenu extends ConfigScreen {
     public MainMenu(
             @Nullable Screen parent
     ) {
-        super(parent, Component.translatable("wover.mainmenu.title"), List.of(ClientConfigs.CLIENT, Configs.MAIN));
+        super(parent, WoverLayoutScreen.WOVER_LOGO_LOCATION, Component.translatable("wover.mainmenu.title"), List.of(ClientConfigs.CLIENT, Configs.MAIN));
     }
 
     @Override

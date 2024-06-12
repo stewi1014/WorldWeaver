@@ -26,6 +26,12 @@ public class ClientConfig extends ConfigFile {
             true
     ).setGroup(MainConfig.GENERAL_GROUP);
 
+    public final BooleanValue prefereModrinth = new BooleanValue(
+            GENERAL_CATEGORY,
+            "prefere_modrinth",
+            false
+    ).setGroup(MainConfig.GENERAL_GROUP);
+
     public final BooleanValue disableExperimentalWarning = new BooleanValue(
             LOADING_CATEGORY,
             "disable_experimental_warning",

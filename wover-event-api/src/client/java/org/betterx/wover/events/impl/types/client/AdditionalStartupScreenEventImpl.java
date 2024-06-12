@@ -14,8 +14,8 @@ public class AdditionalStartupScreenEventImpl extends AbstractEvent<StartupScree
     }
 
     public final void process(List<Function<Runnable, Screen>> screens) {
-        for (var h : handlers) {
-            screens.add(h.task);
+        for (Subscriber<StartupScreenProvider> h : handlers) {
+            h.task.accept(screens);
         }
     }
 }

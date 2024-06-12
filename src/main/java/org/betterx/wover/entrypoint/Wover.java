@@ -2,6 +2,7 @@ package org.betterx.wover.entrypoint;
 
 import org.betterx.wover.core.api.ModCore;
 import org.betterx.wover.core.impl.registry.ModCoreImpl;
+import org.betterx.wover.ui.api.VersionChecker;
 
 import net.fabricmc.api.ModInitializer;
 
@@ -10,6 +11,6 @@ public class Wover implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        C.LOG.info("Hello Fabric world !!!");
+        VersionChecker.registerMod(C);
     }
 }

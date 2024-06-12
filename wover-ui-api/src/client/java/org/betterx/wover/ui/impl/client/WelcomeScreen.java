@@ -6,6 +6,7 @@ import de.ambertation.wunderlib.ui.layout.values.Size;
 import org.betterx.wover.config.api.client.ClientConfigs;
 import org.betterx.wover.entrypoint.LibWoverUi;
 import org.betterx.wover.events.impl.client.ClientWorldLifecycleImpl;
+import org.betterx.wover.ui.api.VersionChecker;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.CommonComponents;
@@ -16,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class WelcomeScreen extends WoverLayoutScreen {
     public static final ResourceLocation BETTERX_LOCATION = LibWoverUi.C.id("betterx.png");
-    public static final ResourceLocation BACKGROUND = LibWoverUi.C.id("header.jpg");
+    public static final ResourceLocation BACKGROUND = LibWoverUi.C.id("header.png");
     public static final ResourceLocation ICON_BETTERNETHER = LibWoverUi.C.id("icon_betternether.png");
     public static final ResourceLocation ICON_BETTEREND = LibWoverUi.C.id("icon_betterend.png");
     public static final ResourceLocation ICON_BCLIB = LibWoverUi.C.id("icon_bclib.png");
@@ -29,12 +30,12 @@ public class WelcomeScreen extends WoverLayoutScreen {
     protected LayoutComponent<?, ?> initContent() {
         VerticalStack content = new VerticalStack(fill(), fit()).setDebugName("content");
 
-        content.addImage(fill(), fit(), BACKGROUND, new Size(854 / 2, 200 / 2));
-        content.addHorizontalLine(1).setColor(ColorHelper.BLACK);
+        content.addImage(fill(), fit(), BACKGROUND, new Size(854 / 2, 286 / 2));
+        //content.addHorizontalLine(1).setColor(ColorHelper.BLACK);
         content.addSpacer(16);
         HorizontalStack headerRow = content.addRow(fit(), fit()).setDebugName("title bar").centerHorizontal();
-        headerRow.addIcon(icon, Size.of(512)).setDebugName("icon");
-        headerRow.addSpacer(4);
+//        headerRow.addIcon(icon, Size.of(512)).setDebugName("icon");
+        //headerRow.addSpacer(4);
         headerRow.addText(fit(), fit(), title).centerHorizontal().setColor(ColorHelper.WHITE).setDebugName("title");
         headerRow.addImage(fixed(178 / 2), fixed(40 / 2), BETTERX_LOCATION, Size.of(178, 40)).setDebugName("betterx");
         content.addSpacer(16);
@@ -52,21 +53,22 @@ public class WelcomeScreen extends WoverLayoutScreen {
         // Do Update Checks
         Checkbox check = innerContent.addCheckbox(
                                              fit(), fit(),
-                                             translatable("title.config.wover.client.version.check"),
+                                             translatable("title.config.wover.client.general.check_for_new_versions"),
                                              ClientConfigs.CLIENT.checkForNewVersions.get()
                                      )
                                      .onChange((cb, state) -> ClientConfigs.CLIENT.checkForNewVersions.set(state));
         innerContent.addSpacer(2);
         HorizontalStack dscBox = innerContent.indent(24);
-        dscBox.addMultilineText(fill(), fit(), translatable("description.config.wover.client.version.check"))
-              .setColor(ColorHelper.GRAY);
+        dscBox
+                .addMultilineText(fill(), fit(), translatable("description.config.wover.client.general.check_for_new_versions"))
+                .setColor(ColorHelper.GRAY);
         dscBox.addSpacer(8);
 
         // Hide Experimental Dialog
         innerContent.addSpacer(8);
         Checkbox experimental = innerContent.addCheckbox(
                                                     fit(), fit(),
-                                                    translatable("title.config.wover.client.ui.suppressExperimentalDialogOnLoad"),
+                                                    translatable("title.config.wover.client.loading.disable_experimental_warning"),
                                                     ClientConfigs.CLIENT.disableExperimentalWarning.get()
                                             )
                                             .onChange((cb, state) -> ClientConfigs.CLIENT.disableExperimentalWarning.set(
@@ -76,7 +78,7 @@ public class WelcomeScreen extends WoverLayoutScreen {
         dscBox.addMultilineText(
                       fill(),
                       fit(),
-                      translatable("description.config.wover.client.ui.suppressExperimentalDialogOnLoad")
+                      translatable("description.config.wover.client.loading.disable_experimental_warning")
               )
               .setColor(ColorHelper.GRAY);
         dscBox.addSpacer(8);
@@ -85,7 +87,7 @@ public class WelcomeScreen extends WoverLayoutScreen {
         innerContent.addSpacer(8);
         Checkbox betterx = innerContent.addCheckbox(
                                                fit(), fit(),
-                                               translatable("title.config.wover.client.ui.forceBetterXPreset"),
+                                               translatable("title.config.wover.client.general.force_betterx_world_type"),
                                                ClientConfigs.CLIENT.forceBetterXPreset.get()
                                        )
                                        .onChange((cb, state) -> ClientConfigs.CLIENT.forceBetterXPreset.set(state));
@@ -93,13 +95,13 @@ public class WelcomeScreen extends WoverLayoutScreen {
         dscBox = innerContent.indent(24);
         dscBox.addMultilineText(
                       fill(), fit(),
-                      translatable("warning.config.wover.client.ui.forceBetterXPreset")
+                      translatable("warning.config.wover.client.general.force_betterx_world_type")
                               .setStyle(Style.EMPTY
                                       .withBold(true)
                                       .withColor(ColorHelper.RED)
                               )
                               .append(translatable(
-                                      "description.config.wover.client.ui.forceBetterXPreset").setStyle(
+                                      "description.config.wover.client.general.force_betterx_world_type").setStyle(
                                       Style.EMPTY
                                               .withBold(false)
                                               .withColor(ColorHelper.GRAY))
@@ -119,7 +121,7 @@ public class WelcomeScreen extends WoverLayoutScreen {
             ClientWorldLifecycleImpl.AFTER_WELCOME_SCREEN.emit(c -> c.didPresent());
 
             //TODO: VersionChecker needs to be started here
-            //VersionChecker.startCheck(true);
+            VersionChecker.startCheck(true);
             onClose();
         }).alignRight();
 
