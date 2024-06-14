@@ -246,6 +246,11 @@ remapJar {
     }
 }
 
+tasks.sourcesJar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+
 //dependencies for the main Libraray
 dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
@@ -296,6 +301,7 @@ task copyHighlightJs(type: Copy) {
     from 'javadoc/contrib' // Path to the local folder containing Highlight.js
     into "$buildDir/docs/javadoc/contrib" // Specify the destination folder in the generated Javadoc
 }
+
 
 javadoc {
     options {
