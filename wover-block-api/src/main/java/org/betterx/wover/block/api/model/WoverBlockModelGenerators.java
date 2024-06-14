@@ -126,6 +126,14 @@ public class WoverBlockModelGenerators {
         vanillaGenerator.createSimpleFlatItemModel(ladderBlock);
     }
 
+    public void createHangingSign(Block baseBlock, Block hangingSignBlock, Block wallHangingSignBlock) {
+        ResourceLocation resourceLocation = ModelTemplates.PARTICLE_ONLY.create(hangingSignBlock, new TextureMapping().put(TextureSlot.PARTICLE, TextureMapping.getBlockTexture(baseBlock)), vanillaGenerator.modelOutput);
+        acceptBlockState(vanillaGenerator.createSimpleBlock(hangingSignBlock, resourceLocation));
+        acceptBlockState(vanillaGenerator.createSimpleBlock(wallHangingSignBlock, resourceLocation));
+        vanillaGenerator.createSimpleFlatItemModel(hangingSignBlock.asItem());
+        vanillaGenerator.skipAutoItemBlock(wallHangingSignBlock);
+    }
+
     public void createBarrel(Block barrelBlock) {
         ResourceLocation resourceLocation = TextureMapping.getBlockTexture(barrelBlock, "_top_open");
         acceptBlockState(MultiVariantGenerator
@@ -150,7 +158,6 @@ public class WoverBlockModelGenerators {
                 )
         );
     }
-
 
     public void createComposter(Block composterBlock) {
         var mapping = new TextureMapping()
@@ -369,6 +376,20 @@ public class WoverBlockModelGenerators {
 
                 return this;
             }
+        }
+
+
+        public Builder createChest(Block chestBlock) {
+            final var baseModel = ModelTemplates
+                    .PARTICLE_ONLY
+                    .create(
+                            ModelLocationUtils.getModelLocation(chestBlock),
+                            this.mapping,
+                            vanillaGenerator.modelOutput
+                    );
+            vanillaGenerator.skipAutoItemBlock(chestBlock);
+            acceptBlockState(BlockModelGenerators.createSimpleBlock(chestBlock, baseModel));
+            return this;
         }
 
         private ResourceLocation computeModelIfAbsent(ModelTemplate modelTemplate, Block block) {
