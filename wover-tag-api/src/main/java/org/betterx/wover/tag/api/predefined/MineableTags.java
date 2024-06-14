@@ -51,6 +51,11 @@ public class MineableTags {
     public static final TagKey<Block> NEEDS_NETHERITE_TOOL = TagManager.BLOCKS.makeCommonTag("needs_netherite_tool");
 
     /**
+     * {@code c:needs_gold_tool}
+     */
+    public static final TagKey<Block> NEEDS_GOLD_TOOL = TagManager.BLOCKS.makeCommonTag("needs_gold_tool");
+
+    /**
      * Called internally to ensure that the tags are created.
      */
     @ApiStatus.Internal

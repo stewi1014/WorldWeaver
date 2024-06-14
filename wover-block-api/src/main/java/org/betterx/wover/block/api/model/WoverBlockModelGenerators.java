@@ -1,19 +1,21 @@
 package org.betterx.wover.block.api.model;
 
+import org.betterx.wover.entrypoint.LibWoverBlock;
+
 import net.minecraft.data.models.BlockModelGenerators;
-import net.minecraft.data.models.blockstates.BlockStateGenerator;
-import net.minecraft.data.models.blockstates.MultiVariantGenerator;
-import net.minecraft.data.models.blockstates.Variant;
-import net.minecraft.data.models.blockstates.VariantProperties;
+import net.minecraft.data.models.blockstates.*;
 import net.minecraft.data.models.model.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import com.google.common.collect.Maps;
 import com.google.gson.JsonElement;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -21,6 +23,9 @@ public class WoverBlockModelGenerators {
     public static final ResourceLocation CROSS = ResourceLocation.withDefaultNamespace("block/cross");
     public static final ResourceLocation CUBE = ResourceLocation.withDefaultNamespace("block/cube");
     public static final ResourceLocation CUBE_ALL = ResourceLocation.withDefaultNamespace("block/cube_all");
+    public static final ResourceLocation COMPOSTER = LibWoverBlock.C.id("block/composter");
+
+    public static final ModelTemplate COMPOSTER_MODEL = new ModelTemplate(Optional.of(COMPOSTER), Optional.empty(), TextureSlot.SIDE, TextureSlot.BOTTOM, TextureSlot.TOP);
     public final BlockModelGenerators vanillaGenerator;
 
     public WoverBlockModelGenerators(
@@ -119,6 +124,67 @@ public class WoverBlockModelGenerators {
     public void createLadder(Block ladderBlock) {
         vanillaGenerator.createNonTemplateHorizontalBlock(ladderBlock);
         vanillaGenerator.createSimpleFlatItemModel(ladderBlock);
+    }
+
+    public void createBarrel(Block barrelBlock) {
+        ResourceLocation resourceLocation = TextureMapping.getBlockTexture(barrelBlock, "_top_open");
+        acceptBlockState(MultiVariantGenerator
+                .multiVariant(barrelBlock)
+                .with(vanillaGenerator.createColumnWithFacing())
+                .with(PropertyDispatch
+                        .property(BlockStateProperties.OPEN)
+                        .select(false, Variant
+                                .variant()
+                                .with(VariantProperties.MODEL, TexturedModel.CUBE_TOP_BOTTOM.create(barrelBlock, this.vanillaGenerator.modelOutput))
+                        )
+                        .select(true, Variant
+                                .variant()
+                                .with(VariantProperties.MODEL, TexturedModel.CUBE_TOP_BOTTOM
+                                        .get(barrelBlock)
+                                        .updateTextures((textureMapping) -> {
+                                            textureMapping.put(TextureSlot.TOP, resourceLocation);
+                                        })
+                                        .createWithSuffix(barrelBlock, "_open", this.vanillaGenerator.modelOutput)
+                                )
+                        )
+                )
+        );
+    }
+
+
+    public void createComposter(Block composterBlock) {
+        var mapping = new TextureMapping()
+                .put(TextureSlot.SIDE, TextureMapping.getBlockTexture(composterBlock, "_side"))
+                .put(TextureSlot.TOP, TextureMapping.getBlockTexture(composterBlock, "_top"))
+                .put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(composterBlock, "_bottom"));
+        var location = COMPOSTER_MODEL.create(composterBlock, mapping, vanillaGenerator.modelOutput);
+        acceptBlockState(MultiPartGenerator
+                .multiPart(composterBlock)
+                .with(Variant.variant().with(VariantProperties.MODEL, location))
+                .with(Condition.condition().term(BlockStateProperties.LEVEL_COMPOSTER, 1), Variant
+                        .variant()
+                        .with(VariantProperties.MODEL, TextureMapping.getBlockTexture(Blocks.COMPOSTER, "_contents1")))
+                .with(Condition.condition().term(BlockStateProperties.LEVEL_COMPOSTER, 2), Variant
+                        .variant()
+                        .with(VariantProperties.MODEL, TextureMapping.getBlockTexture(Blocks.COMPOSTER, "_contents2")))
+                .with(Condition.condition().term(BlockStateProperties.LEVEL_COMPOSTER, 3), Variant
+                        .variant()
+                        .with(VariantProperties.MODEL, TextureMapping.getBlockTexture(Blocks.COMPOSTER, "_contents3")))
+                .with(Condition.condition().term(BlockStateProperties.LEVEL_COMPOSTER, 4), Variant
+                        .variant()
+                        .with(VariantProperties.MODEL, TextureMapping.getBlockTexture(Blocks.COMPOSTER, "_contents4")))
+                .with(Condition.condition().term(BlockStateProperties.LEVEL_COMPOSTER, 5), Variant
+                        .variant()
+                        .with(VariantProperties.MODEL, TextureMapping.getBlockTexture(Blocks.COMPOSTER, "_contents5")))
+                .with(Condition.condition().term(BlockStateProperties.LEVEL_COMPOSTER, 6), Variant
+                        .variant()
+                        .with(VariantProperties.MODEL, TextureMapping.getBlockTexture(Blocks.COMPOSTER, "_contents6")))
+                .with(Condition.condition().term(BlockStateProperties.LEVEL_COMPOSTER, 7), Variant
+                        .variant()
+                        .with(VariantProperties.MODEL, TextureMapping.getBlockTexture(Blocks.COMPOSTER, "_contents7")))
+                .with(Condition.condition().term(BlockStateProperties.LEVEL_COMPOSTER, 8), Variant
+                        .variant()
+                        .with(VariantProperties.MODEL, TextureMapping.getBlockTexture(Blocks.COMPOSTER, "_contents_ready"))));
     }
 
     public class Builder {

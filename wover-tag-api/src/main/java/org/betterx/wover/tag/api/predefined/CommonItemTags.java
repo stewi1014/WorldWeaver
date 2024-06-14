@@ -74,6 +74,11 @@ public class CommonItemTags {
     public static final TagKey<Item> COMPOSTABLE = TagManager.ITEMS.makeCommonTag("compostable");
 
     /**
+     * {@code c:music_discs}
+     */
+    public static final TagKey<Item> MUSIC_DISCS = TagManager.ITEMS.makeCommonTag("music_discs");
+
+    /**
      * Called internally to ensure that the tags are created.
      */
     @ApiStatus.Internal
@@ -82,5 +87,6 @@ public class CommonItemTags {
     }
 
     private CommonItemTags() {
+
     }
 }

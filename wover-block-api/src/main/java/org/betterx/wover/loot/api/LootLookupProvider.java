@@ -133,7 +133,7 @@ public class LootLookupProvider {
     }
 
 
-    public LootTable.Builder drop(Block block) {
+    public LootTable.Builder drop(ItemLike block) {
         return vanillaBlockLoot.createSingleItemTable(block);
     }
 

@@ -8,12 +8,16 @@ import org.betterx.wover.tag.impl.TagRegistryImpl;
 
 import net.minecraft.core.DefaultedRegistry;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.DiggerItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.Tool;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 
@@ -124,5 +128,29 @@ public class TagManager {
      */
     public static <T> StreamCodec<RegistryFriendlyByteBuf, TagKey<T>> streamCodec(ResourceKey<Registry<T>> registry) {
         return TagManagerImpl.streamCodec(registry);
+    }
+
+    /**
+     * Checks if the given {@link ItemStack} is a tool with the given mineable tag.
+     *
+     * @param stack The ItemStack to check.
+     * @param tag   The tag to check for.
+     * @return {@code true} if the ItemStack is a tool with the given mineable tag, {@code false} otherwise.
+     */
+    public static boolean isToolWithMineableTag(ItemStack stack, TagKey<Block> tag) {
+        if (stack.getItem() instanceof DiggerItem dig) {
+            Tool tool = dig.components().get(DataComponents.TOOL);
+            if (tool != null) {
+                for (var rule : tool.rules()) {
+                    if (
+                            rule.correctForDrops().orElse(false)
+                                    && rule.blocks().unwrapKey().map(key -> key == tag).orElse(false)
+                    ) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 }
