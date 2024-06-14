@@ -1,6 +1,6 @@
 package org.betterx.wover.testmod.recipe;
 
-import org.betterx.wover.complex.api.tool.*;
+import org.betterx.wover.complex.api.equipment.*;
 import org.betterx.wover.testmod.entrypoint.TestModWoverRecipe;
 
 import net.minecraft.world.item.*;

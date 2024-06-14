@@ -140,6 +140,15 @@ public final class ModCore implements Version.ModVersionProvider {
     }
 
     /**
+     * Returns true if the mod is loaded.
+     *
+     * @return true if the mod is loaded.
+     */
+    public boolean isLoaded() {
+        return modContainer != null;
+    }
+
+    /**
      * Returns a stream of all Datapacks {@link ResourceLocation}s that are provided by this mod.
      *
      * @return a stream of all Datapacks {@link ResourceLocation}s that are provided by this mod.
@@ -165,6 +174,21 @@ public final class ModCore implements Version.ModVersionProvider {
                 activationType
         );
         return id;
+    }
+
+    /**
+     * Register a Datapack {@link ResourceLocation} that is provided by this mod. When the dependency
+     * is not loaded, the Datapack will be registered with the {@link ResourcePackActivationType#NORMAL}
+     * activation type. When the dependency is loaded, the Datapack will be registered with the
+     * {@link ResourcePackActivationType#DEFAULT_ENABLED} activation type.
+     *
+     * @param dependency The dependency mod.
+     * @return The {@link ResourceLocation} of the Datapack.
+     */
+    public ResourceLocation addDatapack(ModCore dependency) {
+        return this.addDatapack(dependency.namespace + "_extensions", dependency.isLoaded()
+                ? ResourcePackActivationType.DEFAULT_ENABLED
+                : ResourcePackActivationType.NORMAL);
     }
 
     @Override

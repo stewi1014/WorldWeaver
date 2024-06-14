@@ -1,6 +1,6 @@
-package org.betterx.wover.complex.api.tool;
+package org.betterx.wover.complex.api.equipment;
 
-import org.betterx.wover.complex.api.tool.ToolTier.ToolValues;
+import org.betterx.wover.complex.api.equipment.ToolTier.ToolValues;
 import org.betterx.wover.tag.api.predefined.CommonBlockTags;
 
 import net.minecraft.tags.BlockTags;

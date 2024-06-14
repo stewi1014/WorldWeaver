@@ -28,6 +28,7 @@ public class SmithingRecipeBuilderImpl extends BaseRecipeBuilderImpl<SmithingRec
     @Override
     public SmithingRecipeBuilderImpl template(SmithingTemplateItem in) {
         this.template = Ingredient.of(in);
+        unlockedBy(in);
         return this;
     }
 

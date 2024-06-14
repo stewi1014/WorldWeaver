@@ -1,4 +1,4 @@
-package org.betterx.wover.complex.api.tool;
+package org.betterx.wover.complex.api.equipment;
 
 import org.betterx.wover.core.api.ModCore;
 
@@ -11,10 +11,14 @@ import net.minecraft.world.item.Tier;
 import net.minecraft.world.level.ItemLike;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class EquipmentSet {
+    private static final List<EquipmentSet> SETS = new LinkedList<>();
+
     public interface ToolFactory<I extends Item> {
         I create(Tier tier, Item.Properties properties);
     }
@@ -53,6 +57,7 @@ public abstract class EquipmentSet {
         this.armorTier = armorTier;
         this.handleItem = handleItem;
         this.templateBaseSet = templateBaseSet;
+        SETS.add(this);
     }
 
     public <I extends Item> void add(ToolSlot slot, ToolFactory<I> toolFactory) {
@@ -94,6 +99,10 @@ public abstract class EquipmentSet {
         for (var desc : armors.entrySet()) {
             desc.getValue().addRecipe(ctx, armorTier, handleItem, templateBaseSet);
         }
+    }
+
+    public static void buildAllRecipes(ModCore modCore, RecipeOutput ctx) {
+        SETS.stream().filter(set -> set.C == modCore).forEach(set -> set.buildRecipes(ctx));
     }
 
     @NotNull

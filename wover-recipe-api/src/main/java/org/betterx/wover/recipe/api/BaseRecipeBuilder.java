@@ -7,5 +7,8 @@ import org.jetbrains.annotations.NotNull;
 
 public interface BaseRecipeBuilder<I extends BaseRecipeBuilder<I>> {
     I category(@NotNull RecipeCategory category);
+    default I setCategory(@NotNull RecipeCategory category) {
+        return category(category);
+    }
     void build(RecipeOutput ctx);
 }

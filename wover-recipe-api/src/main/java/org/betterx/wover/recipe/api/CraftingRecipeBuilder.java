@@ -17,6 +17,18 @@ public interface CraftingRecipeBuilder extends BaseRecipeBuilder<CraftingRecipeB
     CraftingRecipeBuilder addMaterial(char key, ItemLike... values);
     CraftingRecipeBuilder addMaterial(char key, Ingredient ingredient);
     CraftingRecipeBuilder shape(String... shape);
+
     CraftingRecipeBuilder shapeless();
     CraftingRecipeBuilder showNotification();
+
+
+    default CraftingRecipeBuilder setGroup(@Nullable String group) {
+        return group(group);
+    }
+    default CraftingRecipeBuilder setOutputCount(int count) {
+        return outputCount(count);
+    }
+    default CraftingRecipeBuilder setShape(String... shape) {
+        return shape(shape);
+    }
 }

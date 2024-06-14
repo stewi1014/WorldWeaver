@@ -1,6 +1,6 @@
-package org.betterx.wover.complex.api.tool;
+package org.betterx.wover.complex.api.equipment;
 
-import org.betterx.wover.complex.api.tool.ArmorTier.ArmorValues;
+import org.betterx.wover.complex.api.equipment.ArmorTier.ArmorValues;
 
 import net.minecraft.world.item.ArmorMaterials;
 

@@ -1,10 +1,10 @@
-package org.betterx.wover.complex.api.tool;
+package org.betterx.wover.complex.api.equipment;
 
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.world.item.Item;
 
-import static org.betterx.wover.complex.api.tool.ToolTier.DIGGER_ITEM_PROPERTIES;
-import static org.betterx.wover.complex.api.tool.ToolTier.SWORD_ITEM_PROPERTIES;
+import static org.betterx.wover.complex.api.equipment.ToolTier.DIGGER_ITEM_PROPERTIES;
+import static org.betterx.wover.complex.api.equipment.ToolTier.SWORD_ITEM_PROPERTIES;
 
 public enum ToolSlot {
     PICKAXE_SLOT(0, "pickaxe", RecipeCategory.TOOLS, DIGGER_ITEM_PROPERTIES),

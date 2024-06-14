@@ -31,6 +31,7 @@ public abstract class WoverRecipeProvider implements WoverDataProvider<FabricRec
         this.modCore = modCore;
     }
 
+
     /**
      * Called, when the Recipes need to be created and added
      *
@@ -52,6 +53,11 @@ public abstract class WoverRecipeProvider implements WoverDataProvider<FabricRec
             @Override
             protected ResourceLocation getRecipeIdentifier(ResourceLocation identifier) {
                 return identifier;
+            }
+
+            @Override
+            public String getName() {
+                return title;
             }
         };
     }

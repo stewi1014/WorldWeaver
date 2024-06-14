@@ -10,9 +10,11 @@ import net.minecraft.world.level.ItemLike;
 
 public interface SmithingRecipeBuilder extends BaseRecipeBuilder<SmithingRecipeBuilder>, BaseUnlockableRecipeBuilder<SmithingRecipeBuilder> {
     SmithingRecipeBuilderImpl template(SmithingTemplateItem in);
+
     SmithingRecipeBuilderImpl base(TagKey<Item> in);
     SmithingRecipeBuilderImpl base(ItemLike in);
     SmithingRecipeBuilderImpl base(Ingredient in);
+
     SmithingRecipeBuilderImpl addon(TagKey<Item> in);
     SmithingRecipeBuilderImpl addon(ItemLike in);
     SmithingRecipeBuilderImpl addon(Ingredient in);

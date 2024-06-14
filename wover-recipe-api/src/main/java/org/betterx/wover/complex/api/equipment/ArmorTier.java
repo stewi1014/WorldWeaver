@@ -1,4 +1,4 @@
-package org.betterx.wover.complex.api.tool;
+package org.betterx.wover.complex.api.equipment;
 
 import net.minecraft.core.Holder;
 import net.minecraft.world.item.ArmorMaterial;
