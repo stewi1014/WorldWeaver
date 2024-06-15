@@ -7,6 +7,7 @@ import de.ambertation.wunderlib.ui.layout.components.VerticalStack;
 import de.ambertation.wunderlib.ui.layout.values.Size;
 import de.ambertation.wunderlib.ui.layout.values.Value;
 import org.betterx.wover.config.api.client.ClientConfigs;
+import org.betterx.wover.core.api.ModCore;
 import org.betterx.wover.entrypoint.LibWoverUi;
 import org.betterx.wover.ui.api.VersionChecker;
 
@@ -20,7 +21,6 @@ import net.minecraft.resources.ResourceLocation;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.CustomValue;
 
@@ -47,18 +47,18 @@ public class UpdatesScreen extends WoverLayoutScreen {
         }
     }
 
-    public ResourceLocation getUpdaterIcon(String modID) {
-        if (modID.equals(LibWoverUi.C.modId)) {
+    public ResourceLocation getUpdaterIcon(ModCore core) {
+        if (core.namespace.equals(LibWoverUi.C.namespace)) {
             return UPDATE_LOGO_LOCATION;
         }
-        ModContainer nfo = FabricLoader.getInstance().getModContainer(modID).orElse(null);
+        ModContainer nfo = core.modContainer;
         if (nfo != null) {
             CustomValue element = nfo.getMetadata().getCustomValue("wover");
             if (element != null) {
                 CustomValue.CvObject obj = element.getAsObject();
                 if (obj != null) {
                     CustomValue icon = obj.get("updater_icon");
-                    return ResourceLocation.fromNamespaceAndPath(modID, icon.getAsString());
+                    return core.mk(icon.getAsString());
                 }
             }
         }
@@ -74,8 +74,9 @@ public class UpdatesScreen extends WoverLayoutScreen {
         rows.addSpacer(8);
 
         VersionChecker.forEachUpdate((mod, cur, updated) -> {
-            ModContainer nfo = FabricLoader.getInstance().getModContainer(mod).orElse(null);
-            ResourceLocation icon = getUpdaterIcon(mod);
+            ModCore core = ModCore.create(mod);
+            ModContainer nfo = core.modContainer;
+            ResourceLocation icon = getUpdaterIcon(core);
             HorizontalStack row = rows.addRow(fixed(320), fit()).centerHorizontal();
             if (icon != null) {
                 row.addImage(Value.fit(), Value.fit(), icon, Size.of(32));

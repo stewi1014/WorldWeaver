@@ -11,6 +11,7 @@
   "wover.updates.description": "Some of the installed mods are outdated. We continually improve and extend our content as well as provide important bug-fixes.\nPlease consider updating your mods using the provided links below.",
   "wover.updates.download_link": "Download",
   "wover.updates.modrinth_link": "[Modrinth]",
+  "wover.updates.curseforge_link": "[Curseforge]",
   "wover.updates.title": "Mod Updates",
   "wover.updates.disable_check": "Disable Update Check"
 }
