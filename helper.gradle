@@ -120,7 +120,7 @@ curseforge {
     }
 
     project {
-        id = '495191'
+        id = '1037172'
         changelogType = 'markdown'
         changelog = changes
         releaseType = project.release_channel
@@ -131,7 +131,7 @@ curseforge {
             latestVersion = "[$v]"
         }
         addGameVersion 'Fabric'
-        addGameVersion 'Java 17'
+        addGameVersion 'Java 21'
         relations {
             requiredDependency 'fabric-api'
             optionalDependency 'modmenu'
