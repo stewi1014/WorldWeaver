@@ -11,5 +11,7 @@
   "title.config.wover.client.general.prefere_modrinth": "Link zu Modrinth",
   "title.config.wover.main.log.verbose": "Ausführliches Protokoll",
   "title.config.wover.main.server.force_default_world_preset": "BetterX-Welttyp als Standard für neue Serverwelten",
-  "wover.mainmenu.title": "WorldWeaver Einstellungen"
+  "wover.mainmenu.title": "WorldWeaver Einstellungen",
+  "title.config.group.wover.ui": "Benutzeroberfläche",
+  "title.config.group.wover.rendering": "Rendering"
 }
