@@ -35,7 +35,7 @@ public class ToolTiers {
     public static ToolTier GOLD_TOOL = ToolTier
             .builder("golden")
             .toolTier(Tiers.GOLD)
-            .blockTag(BlockTags.NEEDS_IRON_TOOL)
+            .blockTag(CommonBlockTags.NEEDS_GOLD_TOOL)
             .toolValues(ToolSlot.SWORD_SLOT, new ToolValues(3, -2.4f))
             .toolValues(ToolSlot.SHOVEL_SLOT, new ToolValues(1.5f, -3.0f))
             .toolValues(ToolSlot.PICKAXE_SLOT, new ToolValues(1, -2.8f))
@@ -48,7 +48,7 @@ public class ToolTiers {
     public static ToolTier IRON_TOOL = ToolTier
             .builder("iron")
             .toolTier(Tiers.IRON)
-            .blockTag(CommonBlockTags.NEEDS_GOLD_TOOL)
+            .blockTag(BlockTags.NEEDS_IRON_TOOL)
             .toolValues(ToolSlot.SWORD_SLOT, new ToolValues(3, -2.4f))
             .toolValues(ToolSlot.SHOVEL_SLOT, new ToolValues(1.5f, -3.0f))
             .toolValues(ToolSlot.PICKAXE_SLOT, new ToolValues(1, -2.8f))
