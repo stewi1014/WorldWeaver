@@ -93,7 +93,7 @@ public abstract class EquipmentSet {
 
     public void buildRecipes(RecipeOutput ctx) {
         for (var desc : tools.entrySet()) {
-            desc.getValue().addRecipe(ctx, toolTier, handleItem);
+            desc.getValue().addRecipe(ctx, toolTier, handleItem, templateBaseSet);
         }
 
         for (var desc : armors.entrySet()) {

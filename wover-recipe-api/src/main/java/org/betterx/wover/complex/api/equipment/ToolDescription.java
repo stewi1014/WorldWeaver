@@ -12,6 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 
 import java.util.function.Supplier;
+import org.jetbrains.annotations.Nullable;
 
 
 class ToolDescription<I extends Item> extends ItemDescription<I> {
@@ -45,7 +46,8 @@ class ToolDescription<I extends Item> extends ItemDescription<I> {
     public void addRecipe(
             RecipeOutput ctx,
             ToolTier tier,
-            ItemLike stick
+            ItemLike stick,
+            @Nullable EquipmentSet sourceSet
     ) {
         if (item == null) return;
         if (tier == null) return;
@@ -54,12 +56,23 @@ class ToolDescription<I extends Item> extends ItemDescription<I> {
         if (repairItems.length == 0) return;
         final ItemLike ingot = repairItems[0].getItem();
 
-        var builder = RecipeBuilder.crafting(location, item)
-                                   .addMaterial('#', ingot)
-                                   .category(RecipeCategory.TOOLS);
+        var values = tier.getValues(slot);
+        if (values != null && values.smithingTemplate() != null && sourceSet != null) {
+            RecipeBuilder
+                    .smithing(location, item)
+                    .template(values.smithingTemplate())
+                    .base(sourceSet.get(this.slot))
+                    .addon(ingot)
+                    .category(slot.category)
+                    .build(ctx);
+        } else {
+            var builder = RecipeBuilder.crafting(location, item)
+                                       .addMaterial('#', ingot)
+                                       .category(RecipeCategory.TOOLS);
 
-        if (buildRecipe(item, stick, builder)) return;
-        builder.category(slot.category).group(location.getPath()).build(ctx);
+            if (buildRecipe(item, stick, builder)) return;
+            builder.category(slot.category).group(location.getPath()).build(ctx);
+        }
     }
 
 
