@@ -31,7 +31,7 @@ public class BlockRegistry {
     public final ModCore C;
     private final Map<ResourceLocation, Block> blocks = new HashMap<>();
     private Map<Block, TagKey<Block>[]> datagenTags;
-    private ItemRegistry itemRegistry;
+    private final ItemRegistry itemRegistry;
 
     private BlockRegistry(ModCore modeCore) {
         this.C = modeCore;
@@ -62,7 +62,8 @@ public class BlockRegistry {
                 .map(block -> (BlockItem) block.asItem());
     }
 
-    public <T extends Block> T register(String path, T block, TagKey<Block>... tags) {
+    @SafeVarargs
+    public final <T extends Block> T register(String path, T block, TagKey<Block>... tags) {
         return register(path, block, tags, null);
     }
 
@@ -93,6 +94,7 @@ public class BlockRegistry {
         return block;
     }
 
+    @SafeVarargs
     private ResourceLocation _registerBlockOnly(String path, Block block, TagKey<Block>... tags) {
         ResourceLocation id = C.mk(path);
         Registry.register(BuiltInRegistries.BLOCK, id, block);
@@ -102,7 +104,8 @@ public class BlockRegistry {
         return id;
     }
 
-    public <T extends Block> T registerBlockOnly(String path, T block, TagKey<Block>... tags) {
+    @SafeVarargs
+    public final <T extends Block> T registerBlockOnly(String path, T block, TagKey<Block>... tags) {
         if (block != null && block != Blocks.AIR) {
             _registerBlockOnly(path, block, tags);
         }
@@ -110,7 +113,7 @@ public class BlockRegistry {
         return block;
     }
 
-
+    @SafeVarargs
     private BlockItem registerBlockItem(String path, BlockItem item, TagKey<Item>... tags) {
         return this.itemRegistry.register(path, item, tags);
     }
