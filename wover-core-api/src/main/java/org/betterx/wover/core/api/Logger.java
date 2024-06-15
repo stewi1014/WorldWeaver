@@ -104,4 +104,28 @@ public final class Logger extends de.ambertation.wunderlib.general.Logger {
             warn(message, params);
         }
     }
+
+
+    /**
+     * Log a message with level ERROR if the verbose logging option is enabled in {@link Configs#MAIN}
+     *
+     * @param message the message string to be logged
+     */
+    public void verboseError(String message) {
+        if (Configs.MAIN.verboseLogging.get()) {
+            error(message);
+        }
+    }
+
+    /**
+     * Log a message with parameters with level ERROR if the verbose logging option is enabled in {@link Configs#MAIN}
+     *
+     * @param message the message string to be logged
+     * @param e       the exception to log
+     */
+    public void verboseError(String message, Exception e) {
+        if (Configs.MAIN.verboseLogging.get()) {
+            error(message, e);
+        }
+    }
 }
