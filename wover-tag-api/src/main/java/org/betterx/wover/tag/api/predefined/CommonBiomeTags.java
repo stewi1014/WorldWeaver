@@ -17,6 +17,11 @@ public class CommonBiomeTags {
     public static final TagKey<Biome> IS_END_CENTER = TagManager.BIOMES.makeCommonTag("is_end_center");
 
     /**
+     * {@code c:is_end_land} - Tag for biomes that are highlands or midlands in the end.
+     */
+    public static final TagKey<Biome> IS_END_LAND = TagManager.BIOMES.makeCommonTag("is_end_land");
+
+    /**
      * {@code c:is_end_highland} - Tag for biomes that are highlands in the end.
      */
     public static final TagKey<Biome> IS_END_HIGHLAND = TagManager.BIOMES.makeCommonTag("is_end_highland");

@@ -24,6 +24,16 @@ public class BiomeTagProvider extends WoverTagProvider.ForBiomes {
         ctx.add(CommonBiomeTags.IS_SMALL_END_ISLAND, Biomes.SMALL_END_ISLANDS);
 
         ctx.add(
+                CommonBiomeTags.IS_END_HIGHLAND,
+                CommonBiomeTags.IS_END_LAND
+        );
+
+        ctx.add(
+                CommonBiomeTags.IS_END_MIDLAND,
+                CommonBiomeTags.IS_END_LAND
+        );
+
+        ctx.add(
                 BiomeTags.IS_END,
                 CommonBiomeTags.IS_END_CENTER,
                 CommonBiomeTags.IS_END_HIGHLAND,
