@@ -11,14 +11,17 @@ import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.DispenserBlock;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class ItemRegistry {
@@ -64,6 +67,57 @@ public class ItemRegistry {
 
         return item;
     }
+
+    public FoodProperties.Builder foodPropertiesOf(int hunger, float saturation, MobEffectInstance... effects) {
+        FoodProperties.Builder builder = new FoodProperties.Builder().nutrition(hunger).saturationModifier(saturation);
+        for (MobEffectInstance effect : effects) {
+            builder.effect(effect, 1F);
+        }
+        return builder;
+    }
+
+    public FoodProperties.Builder drinkPropertiesOf(int hunger, float saturation) {
+        return new FoodProperties.Builder().nutrition(hunger).saturationModifier(saturation);
+    }
+
+
+    public <T extends Item> T registerFood(
+            String name, Function<Item.Properties, T> factory,
+            int hunger, float saturation,
+            MobEffectInstance... effects
+    ) {
+        return registerFood(name, factory, createDefaultItemSettings(), hunger, saturation, effects);
+    }
+
+    public <T extends Item> T registerFood(
+            String name, Function<Item.Properties, T> factory, Item.Properties properties,
+            int hunger, float saturation,
+            MobEffectInstance... effects
+    ) {
+        return this.register(name, factory.apply(properties.food(this
+                .foodPropertiesOf(hunger, saturation, effects)
+                .build())));
+    }
+    
+    public <T extends Item> T registerDrink(
+            String name, Function<Item.Properties, T> factory,
+            int hunger, float saturation,
+            MobEffectInstance... effects
+    ) {
+        return registerDrink(name, factory, createDefaultItemSettings(), hunger, saturation, effects);
+    }
+
+
+    public <T extends Item> T registerDrink(
+            String name, Function<Item.Properties, T> factory, Item.Properties properties,
+            int hunger, float saturation,
+            MobEffectInstance... effects
+    ) {
+        return this.register(name, factory.apply(properties.food(this
+                .drinkPropertiesOf(hunger, saturation)
+                .build())));
+    }
+
 
     public <T extends SpawnEggItem> T registerEgg(String path, T item, TagKey<Item>... tags) {
         DefaultDispenseItemBehavior behavior = new DefaultDispenseItemBehavior() {
