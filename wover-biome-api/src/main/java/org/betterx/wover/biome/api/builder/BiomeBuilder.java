@@ -285,9 +285,17 @@ public abstract class BiomeBuilder<B extends BiomeBuilder<B>> {
             return (B) this;
         }
 
+        public B waterColor(int r, int g, int b) {
+            return waterColor(ColorHelper.color(r, g, b));
+        }
+
         public B waterColor(int color) {
             fx.waterColor(color);
             return (B) this;
+        }
+
+        public B waterFogColor(int r, int g, int b) {
+            return waterFogColor(ColorHelper.color(r, g, b));
         }
 
         public B waterFogColor(int color) {
@@ -295,14 +303,26 @@ public abstract class BiomeBuilder<B extends BiomeBuilder<B>> {
             return (B) this;
         }
 
+        public B skyColor(int r, int g, int b) {
+            return skyColor(ColorHelper.color(r, g, b));
+        }
+
         public B skyColor(int color) {
             fx.skyColor(color);
             return (B) this;
         }
 
+        public B foliageColorOverride(int r, int g, int b) {
+            return foliageColorOverride(ColorHelper.color(r, g, b));
+        }
+
         public B foliageColorOverride(int color) {
             fx.foliageColorOverride(color);
             return (B) this;
+        }
+
+        public B grassColorOverride(int r, int g, int b) {
+            return grassColorOverride(ColorHelper.color(r, g, b));
         }
 
         public B grassColorOverride(int color) {
@@ -313,6 +333,22 @@ public abstract class BiomeBuilder<B extends BiomeBuilder<B>> {
         public B grassColorModifier(BiomeSpecialEffects.GrassColorModifier grassColorModifier) {
             fx.grassColorModifier(grassColorModifier);
             return (B) this;
+        }
+
+        public B waterAndFogColor(int color) {
+            return waterColor(color).waterFogColor(color);
+        }
+
+        public B waterAndFogColor(int r, int g, int b) {
+            return waterAndFogColor(ColorHelper.color(r, g, b));
+        }
+
+        public B plantsColor(int r, int g, int b) {
+            return plantsColor(ColorHelper.color(r, g, b));
+        }
+
+        public B plantsColor(int color) {
+            return grassColorOverride(color).foliageColorOverride(color);
         }
 
 

@@ -46,7 +46,7 @@ public abstract class WoverBiomeProvider extends AbstractMultiProvider {
     }
 
     /**
-     * Called, when the Elements of the Registry need to be created and registered.
+     * Called, when the Elements of the Registry needs to be created and registered.
      *
      * @param context The context to add the elements to.
      */

@@ -5,7 +5,6 @@ import org.betterx.wover.biome.api.modification.predicates.BiomePredicateRegistr
 import org.betterx.wover.core.api.registry.BuiltInRegistryManager;
 import org.betterx.wover.entrypoint.LibWoverBiome;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
@@ -51,6 +50,7 @@ public class BiomePredicateRegistryImpl {
         register(registry, LibWoverBiome.C.id("has_tag"), HasTag.CODEC);
         register(registry, LibWoverBiome.C.id("in_dimension"), InDimension.CODEC);
         register(registry, LibWoverBiome.C.id("is_namespace"), IsNamespace.CODEC);
+        register(registry, LibWoverBiome.C.id("location_path_contains"), LocationPathContains.CODEC);
         register(registry, LibWoverBiome.C.id("spawns"), Spawns.CODEC);
         register(registry, LibWoverBiome.C.id("has_structure"), HasStructure.CODEC);
         register(registry, LibWoverBiome.C.id("has_placed_feature"), HasPlacedFeature.CODEC);

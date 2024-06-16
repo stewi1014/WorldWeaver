@@ -273,6 +273,16 @@ public interface BiomePredicate {
     }
 
     /**
+     * Creates a predicate that returns {@code true} when the biome path contains the passed needle.
+     *
+     * @param needle the string to look for in the path of the biomes location
+     * @return the predicate
+     */
+    static BiomePredicate pathContains(String needle) {
+        return new LocationPathContains(needle);
+    }
+
+    /**
      * Creates a predicate that tests if the given value from a config file matches the targetValue.
      * <p>
      * The {@link AbstractConfig} that provides the value has to be registered using
