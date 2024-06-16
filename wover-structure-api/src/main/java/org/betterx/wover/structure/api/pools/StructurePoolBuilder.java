@@ -5,6 +5,7 @@ import org.betterx.wover.structure.api.processors.StructureProcessorKey;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.templatesystem.LiquidSettings;
@@ -44,6 +45,12 @@ public interface StructurePoolBuilder {
     );
 
     @NotNull
+    StructurePoolBuilder addFeature(@NotNull ResourceKey<PlacedFeature> feature, int weight);
+
+    @NotNull
+    StructurePoolBuilder addFeature(@NotNull Holder<PlacedFeature> feature, int weight);
+
+    @NotNull
     StructurePoolBuilder projection(@NotNull StructureTemplatePool.Projection projection);
 
     @NotNull
@@ -64,6 +71,8 @@ public interface StructurePoolBuilder {
     ElementBuilder startSingleEnd(@NotNull ResourceLocation nbtLocation);
     @NotNull
     ElementBuilder startLegacySingle(@NotNull ResourceLocation nbtLocation);
+    @NotNull
+    StructurePoolBuilder addEmptyElement(int weight);
 
     interface ElementBuilder {
         @NotNull

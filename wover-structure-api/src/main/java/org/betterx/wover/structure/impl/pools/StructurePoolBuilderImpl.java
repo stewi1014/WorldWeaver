@@ -13,6 +13,7 @@ import net.minecraft.data.worldgen.Pools;
 import net.minecraft.data.worldgen.ProcessorLists;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.pools.LegacySinglePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.SinglePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
@@ -91,11 +92,33 @@ public class StructurePoolBuilderImpl implements StructurePoolBuilder {
 
     @Override
     @NotNull
+    public StructurePoolBuilder addEmptyElement(int weight) {
+        return add(StructurePoolElement.empty(), weight);
+    }
+
+    @Override
+    @NotNull
     public StructurePoolBuilder add(
             @NotNull Function<StructureTemplatePool.Projection, ? extends StructurePoolElement> element,
             int weight
     ) {
         return add(Pair.of(element, weight));
+    }
+
+    @Override
+    @NotNull
+    public StructurePoolBuilder addFeature(
+            @NotNull ResourceKey<PlacedFeature> feature,
+            int weight
+    ) {
+        return add(Pair.of(StructurePoolElement.feature(context
+                .lookup(Registries.PLACED_FEATURE)
+                .get(feature).orElseThrow()), weight));
+    }
+
+    @Override
+    public @NotNull StructurePoolBuilder addFeature(@NotNull Holder<PlacedFeature> feature, int weight) {
+        return add(Pair.of(StructurePoolElement.feature(feature), weight));
     }
 
     @NotNull
