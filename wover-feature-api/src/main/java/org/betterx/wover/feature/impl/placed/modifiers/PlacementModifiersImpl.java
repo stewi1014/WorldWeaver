@@ -4,7 +4,6 @@ import org.betterx.wover.entrypoint.LibWoverFeature;
 import org.betterx.wover.feature.api.placed.modifiers.*;
 import org.betterx.wover.legacy.api.LegacyHelper;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -72,6 +71,11 @@ public class PlacementModifiersImpl {
             Extend.CODEC
     );
 
+    public static final PlacementModifierType<InBiome> IN_BIOME = registerLegacy(
+            "in_biome",
+            InBiome.CODEC
+    );
+
     public static final PlacementModifierType<ExtendXYZ> EXTEND_XZ = register(
             "extend_xyz",
             ExtendXYZ.CODEC
@@ -83,7 +87,10 @@ public class PlacementModifiersImpl {
     );
 
 
-    private static <P extends PlacementModifier> PlacementModifierType<P> registerLegacy(String path, MapCodec<P> codec) {
+    private static <P extends PlacementModifier> PlacementModifierType<P> registerLegacy(
+            String path,
+            MapCodec<P> codec
+    ) {
         var id = LibWoverFeature.C.id(path);
         return register(id, codec, true);
     }
