@@ -12,8 +12,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 
 import org.jetbrains.annotations.NotNull;
@@ -94,8 +94,16 @@ public abstract class ConfiguredFeatureKey<B extends FeatureConfigurator<?, ?>> 
     }
 
     public boolean placeInWorld(
+            @NotNull WorldGenLevel level,
+            @NotNull BlockPos pos,
+            @NotNull RandomSource random
+    ) {
+        return placeInWorld(level.registryAccess(), level, pos, random);
+    }
+
+    public boolean placeInWorld(
             @Nullable RegistryAccess access,
-            @NotNull ServerLevel level,
+            @NotNull WorldGenLevel level,
             @NotNull BlockPos pos,
             @NotNull RandomSource random
     ) {

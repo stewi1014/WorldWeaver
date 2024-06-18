@@ -5,6 +5,8 @@ import org.betterx.wover.feature.api.features.GrowableFeature;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
@@ -16,7 +18,7 @@ import java.util.Optional;
 public class ConfiguredFeatureManagerImpl {
     public static boolean placeInWorld(
             ConfiguredFeature<?, ?> feature,
-            ServerLevel level,
+            WorldGenLevel level,
             BlockPos pos,
             RandomSource random,
             boolean unchanged
@@ -27,7 +29,7 @@ public class ConfiguredFeatureManagerImpl {
     private static boolean placeUnboundInWorld(
             Feature<?> feature,
             FeatureConfiguration config,
-            ServerLevel level,
+            WorldGenLevel level,
             BlockPos pos,
             RandomSource random,
             boolean asIs
@@ -43,11 +45,15 @@ public class ConfiguredFeatureManagerImpl {
                 return growable.grow(level, pos, random, config);
             }
         }
+        ChunkGenerator chunkGenerator = null;
+        if (level instanceof ServerLevel sLevel) {
+            chunkGenerator = sLevel.getChunkSource().getGenerator();
+        }
 
         FeaturePlaceContext context = new FeaturePlaceContext(
                 Optional.empty(),
                 level,
-                level.getChunkSource().getGenerator(),
+                chunkGenerator,
                 random,
                 pos,
                 config

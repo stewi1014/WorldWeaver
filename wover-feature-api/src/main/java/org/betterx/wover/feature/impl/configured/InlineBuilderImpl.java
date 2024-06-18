@@ -74,7 +74,7 @@ public class InlineBuilderImpl implements ConfiguredFeatureManager.InlineBuilder
     }
 
     @Override
-    public <F extends Feature<FC>, FC extends FeatureConfiguration> WithConfiguration<F, FC> configuration(F feature) {
+    public <F extends Feature<FC>, FC extends FeatureConfiguration> WithConfiguration<F, FC> withFeature(F feature) {
         final var res = new WithConfigurationImpl<F, FC>(null, null);
         res.feature(feature);
         res.setTransitive(bootstapContext, key);

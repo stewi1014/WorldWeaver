@@ -302,7 +302,19 @@ public abstract class ConfiguredFeatureManager {
          * @return the new builder
          * @see ConfiguredFeatureManager#configuration(ResourceLocation, Feature)
          */
-        <F extends Feature<FC>, FC extends FeatureConfiguration> WithConfiguration<F, FC> configuration(F feature);
+        <F extends Feature<FC>, FC extends FeatureConfiguration> WithConfiguration<F, FC> withFeature(F feature);
+
+        /**
+         * @param feature
+         * @param <F>
+         * @param <FC>
+         * @return
+         * @deprecated Use {@link #withFeature(Feature)} instead
+         */
+        @Deprecated(forRemoval = true)
+        default <F extends Feature<FC>, FC extends FeatureConfiguration> WithConfiguration<F, FC> configuration(F feature) {
+            return withFeature(feature);
+        }
         /**
          * Creates a new oriented block feature.
          *
