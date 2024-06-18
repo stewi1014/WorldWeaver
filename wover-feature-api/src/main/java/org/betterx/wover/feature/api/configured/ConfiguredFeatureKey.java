@@ -14,6 +14,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 
 import org.jetbrains.annotations.NotNull;
@@ -98,7 +99,17 @@ public abstract class ConfiguredFeatureKey<B extends FeatureConfigurator<?, ?>> 
             @NotNull BlockPos pos,
             @NotNull RandomSource random
     ) {
-        return placeInWorld(level.registryAccess(), level, pos, random);
+
+        return placeInWorld(level.registryAccess(), level, pos, random, null);
+    }
+
+    public boolean placeInWorld(
+            @NotNull WorldGenLevel level,
+            @NotNull BlockPos pos,
+            @NotNull RandomSource random,
+            @Nullable ChunkGenerator generator
+    ) {
+        return placeInWorld(level.registryAccess(), level, pos, random, generator);
     }
 
     public boolean placeInWorld(
@@ -111,6 +122,21 @@ public abstract class ConfiguredFeatureKey<B extends FeatureConfigurator<?, ?>> 
         final Holder<ConfiguredFeature<?, ?>> holder = getHolder(access);
         if (holder != null) {
             return FeatureUtils.placeInWorld(holder.value(), level, pos, random, false);
+        }
+        return false;
+    }
+
+    public boolean placeInWorld(
+            @Nullable RegistryAccess access,
+            @NotNull WorldGenLevel level,
+            @NotNull BlockPos pos,
+            @NotNull RandomSource random,
+            @Nullable ChunkGenerator generator
+    ) {
+        if (access == null) return false;
+        final Holder<ConfiguredFeature<?, ?>> holder = getHolder(access);
+        if (holder != null) {
+            return FeatureUtils.placeInWorld(holder.value(), level, pos, random, generator, false);
         }
         return false;
     }

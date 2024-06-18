@@ -14,6 +14,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 
 import java.util.Optional;
+import org.jetbrains.annotations.Nullable;
 
 public class ConfiguredFeatureManagerImpl {
     public static boolean placeInWorld(
@@ -21,9 +22,10 @@ public class ConfiguredFeatureManagerImpl {
             WorldGenLevel level,
             BlockPos pos,
             RandomSource random,
+            @Nullable ChunkGenerator chunkGenerator,
             boolean unchanged
     ) {
-        return placeUnboundInWorld(feature.feature(), feature.config(), level, pos, random, unchanged);
+        return placeUnboundInWorld(feature.feature(), feature.config(), level, pos, random, chunkGenerator, unchanged);
     }
 
     private static boolean placeUnboundInWorld(
@@ -32,6 +34,7 @@ public class ConfiguredFeatureManagerImpl {
             WorldGenLevel level,
             BlockPos pos,
             RandomSource random,
+            @Nullable ChunkGenerator chunkGenerator,
             boolean asIs
     ) {
         if (!asIs) {
@@ -45,8 +48,8 @@ public class ConfiguredFeatureManagerImpl {
                 return growable.grow(level, pos, random, config);
             }
         }
-        ChunkGenerator chunkGenerator = null;
-        if (level instanceof ServerLevel sLevel) {
+        
+        if (chunkGenerator == null && level instanceof ServerLevel sLevel) {
             chunkGenerator = sLevel.getChunkSource().getGenerator();
         }
 
