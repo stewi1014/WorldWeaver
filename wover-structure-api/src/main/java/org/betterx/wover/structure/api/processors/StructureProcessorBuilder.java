@@ -63,7 +63,6 @@ public interface StructureProcessorBuilder {
 
             @NotNull
             ProcessorRuleBuilder inputPredicateRandom(@NotNull BlockState block, float chance);
-
             @NotNull
             ProcessorRuleBuilder locationPredicate(@NotNull RuleTest locPredicate);
             @NotNull
@@ -72,7 +71,8 @@ public interface StructureProcessorBuilder {
             ProcessorRuleBuilder locationPredicate(@NotNull Block block);
             @NotNull
             ProcessorRuleBuilder locationPredicate(@NotNull BlockState state);
-
+            @NotNull
+            ProcessorRuleBuilder locationAlways();
             @NotNull
             ProcessorRuleBuilder locationPredicateRandom(@NotNull BlockState block, float chance);
 

@@ -131,6 +131,12 @@ public class StructureProcessorBuilderImpl implements StructureProcessorBuilder 
             }
 
             @Override
+            public @NotNull ProcessorRuleBuilder locationAlways() {
+                this.locPredicate = AlwaysTrueTest.INSTANCE;
+                return this;
+            }
+
+            @Override
             public @NotNull ProcessorRuleBuilder locationPredicate(@NotNull RuleTest locPredicate) {
                 this.locPredicate = locPredicate;
                 return this;
