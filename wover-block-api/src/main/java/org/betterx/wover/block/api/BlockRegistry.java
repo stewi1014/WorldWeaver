@@ -4,6 +4,7 @@ import org.betterx.wover.core.api.ModCore;
 import org.betterx.wover.item.api.ItemRegistry;
 import org.betterx.wover.loot.api.BlockLootProvider;
 import org.betterx.wover.loot.api.LootLookupProvider;
+import org.betterx.wover.loot.api.LootTableManager;
 import org.betterx.wover.tag.api.event.context.TagBootstrapContext;
 
 import net.minecraft.core.HolderLookup;
@@ -144,7 +145,7 @@ public class BlockRegistry {
                 .stream()
                 .filter(b -> b.getValue() instanceof BlockLootProvider)
                 .forEach(b -> {
-                    var key = LootLookupProvider.getBlockLootTableKey(C, b.getKey());
+                    var key = LootTableManager.getBlockLootTableKey(C, b.getKey());
                     var builder = ((BlockLootProvider) b.getValue()).registerBlockLoot(b.getKey(), provider, key);
 
                     if (builder != null)

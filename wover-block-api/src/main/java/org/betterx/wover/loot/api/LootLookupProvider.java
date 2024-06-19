@@ -1,13 +1,11 @@
 package org.betterx.wover.loot.api;
 
-import org.betterx.wover.core.api.ModCore;
-
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.packs.VanillaBlockLoot;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -46,6 +44,10 @@ public class LootLookupProvider {
     };
     public static final float[] VANILLA_LEAVES_SAPLING_CHANCES = new float[]{0.05F, 0.0625F, 0.083333336F, 0.1F};
 
+    public LootItemCondition.Builder hasSilkTouch() {
+        return vanillaBlockLoot.hasSilkTouch();
+    }
+
     public record DropInfo(ItemLike item, NumberProvider numberProvider) {
         public DropInfo(ItemLike item, int count) {
             this(item, ConstantValue.exactly(count));
@@ -60,6 +62,18 @@ public class LootLookupProvider {
         this.vanillaBlockLoot = new VanillaBlockLoot(provider);
         this.provider = provider;
         this.enchantmentLookup = provider.lookupOrThrow(Registries.ENCHANTMENT);
+    }
+
+    public Holder<Enchantment> enchantment(ResourceKey<Enchantment> key) {
+        return this.enchantmentLookup.getOrThrow(key);
+    }
+
+    public Holder<Enchantment> fortune() {
+        return enchantment(Enchantments.FORTUNE);
+    }
+
+    public Holder<Enchantment> silkTouch() {
+        return enchantment(Enchantments.SILK_TOUCH);
     }
 
     public HolderLookup.Provider getProvider() {
@@ -396,7 +410,5 @@ public class LootLookupProvider {
         return vanillaBlockLoot.createDoublePlantWithSeedDrops(block, seed);
     }
 
-    public static ResourceKey<LootTable> getBlockLootTableKey(ModCore modCore, ResourceLocation blockId) {
-        return ResourceKey.create(Registries.LOOT_TABLE, blockId.withPrefix("blocks/"));
-    }
+
 }
