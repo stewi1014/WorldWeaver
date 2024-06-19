@@ -9,6 +9,7 @@ import org.betterx.wover.structure.api.structures.nbt.RandomNbtStructure;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -61,6 +62,18 @@ public interface StructureKey<
      */
     @Nullable
     Holder<Structure> getHolder(@Nullable HolderGetter<Structure> getter);
+
+    /**
+     * Gets the {@link Holder} for the {@link Structure} from the given lookup. This method
+     * needs to lookup the Structure Registry first, and may be inefficient if used frequently.
+     * If you need to look up many holders, you may want to consider to get the Registry Lookup
+     * first and use {@link #getHolder(HolderGetter)} instead.
+     *
+     * @param lookup The lookup to get the holder from
+     * @return The holder for the {@link Structure} or {@code null} if it is not present
+     */
+    @Nullable
+    Holder<Structure> getHolder(@Nullable HolderLookup.Provider lookup);
 
     /**
      * Gets the {@link Holder} for the {@link Structure} from the given getter.

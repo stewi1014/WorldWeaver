@@ -50,6 +50,16 @@ public class StructureManagerImpl {
         return h.orElse(null);
     }
 
+    @Nullable
+    public static Holder<Structure> getHolder(
+            @Nullable HolderLookup.Provider lookup,
+            @NotNull ResourceKey<Structure> key
+    ) {
+        if (lookup == null) return null;
+
+        return lookup.lookup(Registries.STRUCTURE).flatMap(r -> r.get(key)).orElse(null);
+    }
+
     @ApiStatus.Internal
     public static void initialize() {
         DatapackRegistryBuilder.addBootstrap(

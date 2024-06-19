@@ -7,6 +7,7 @@ import org.betterx.wover.tag.api.TagManager;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -48,6 +49,11 @@ public abstract class StructureKeyImpl<
     @Nullable
     public Holder<Structure> getHolder(@Nullable HolderGetter<Structure> getter) {
         return StructureManagerImpl.getHolder(getter, key);
+    }
+
+    @Nullable
+    public Holder<Structure> getHolder(@Nullable HolderLookup.Provider lookup) {
+        return StructureManagerImpl.getHolder(lookup, key);
     }
 
 
