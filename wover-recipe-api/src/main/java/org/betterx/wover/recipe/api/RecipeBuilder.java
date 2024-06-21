@@ -49,7 +49,7 @@ public class RecipeBuilder {
             ResourceLocation id,
             ItemLike output
     ) {
-        return new CookingRecipeBuilderImpl(id, output, true, false, false, false);
+        return new CookingRecipeBuilderImpl(id, output, true, false, false, true);
     }
 
     public static CookingRecipeBuilder smoker(
