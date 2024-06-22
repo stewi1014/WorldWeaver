@@ -4,7 +4,6 @@ import org.betterx.wover.config.api.client.ClientConfigs;
 import org.betterx.wover.config.impl.CachedConfig;
 import org.betterx.wover.core.api.ModCore;
 import org.betterx.wover.entrypoint.LibWoverUi;
-import org.betterx.wover.ui.impl.client.VersionCheckerClient;
 
 import net.fabricmc.loader.api.FabricLoader;
 
@@ -66,7 +65,7 @@ public class VersionChecker implements Runnable {
 
     public static void startCheck(boolean isClient) {
         if (versionChecker == null && isClient) {
-            final VersionChecker checker = new VersionCheckerClient();
+            final VersionChecker checker = new VersionChecker();
 
             if (ClientConfigs.CLIENT.checkForNewVersions.get() && ClientConfigs.CLIENT.didPresentWelcomeScreen.get()) {
                 if (TEST_UPDATE_SCREEN) {
