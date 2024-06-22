@@ -8,10 +8,12 @@ public class MainConfig extends ConfigFile {
     public final static Group WORLD_LOADING = new Group(LibWoverCore.C.namespace, "loading", 800);
     public final static Group SERVER_GROUP = new Group(LibWoverCore.C.namespace, "server", 1000);
     public final static Group STRUCTURE_GROUP = new Group(LibWoverCore.C.namespace, "structure", 2000);
+    public final static Group ENTITY_GROUP = new Group(LibWoverCore.C.namespace, "entity", 2500);
     public final static Group PERFORMANCE_GROUP = new Group(LibWoverCore.C.namespace, "performance", 3000);
     public final static Group COSMETIC_GROUP = new Group(LibWoverCore.C.namespace, "cosmetic", 4000);
     public final static Group UI_GROUP = new Group(LibWoverCore.C.namespace, "ui", 4300);
     public final static Group RENDERING_GROUP = new Group(LibWoverCore.C.namespace, "rendering", 4600);
+
 
     public final static String LOG_CATEGORY = "log";
     public final static String SERVER_CATEGORY = SERVER_GROUP.title();

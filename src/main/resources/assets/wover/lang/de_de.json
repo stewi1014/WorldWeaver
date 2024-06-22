@@ -3,6 +3,7 @@
   "description.config.wover.main.log.verbose": "Schreibt zusätzliche Informationen in die Protokolldatei. Nützlich für die Fehlersuche.",
   "description.config.wover.main.server.force_default_world_preset": "Wenn du eine neue Welt auf einem Server erstellst, wird der BetterX-Welttyp standardmäßig ausgewählt. Dies kann in der server-properties Datei geändert werden.",
   "title.config.group.wover.cosmetic": "Aussehen",
+  "title.config.group.wover.entity": "Mobs und Spieler",
   "title.config.group.wover.general": "Allgemein",
   "title.config.group.wover.loading": "Welt Laden und Erstellen",
   "title.config.group.wover.performance": "Leistung",
