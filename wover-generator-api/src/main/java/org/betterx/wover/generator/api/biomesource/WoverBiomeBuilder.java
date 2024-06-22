@@ -85,14 +85,14 @@ public interface WoverBiomeBuilder<B extends BiomeBuilder<B>> {
         }
 
         @Override
-        public T parent(ResourceKey<Biome> parent) {
+        public T parent(@Nullable ResourceKey<Biome> parent) {
             this.parent = parent;
             return (T) this;
         }
 
         @Override
-        public T parent(BiomeKey<?> parent) {
-            this.parent = parent.key;
+        public T parent(@Nullable BiomeKey<?> parent) {
+            this.parent = parent == null ? null : parent.key;
             return (T) this;
         }
 

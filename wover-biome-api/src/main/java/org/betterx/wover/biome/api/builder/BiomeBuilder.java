@@ -25,7 +25,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -438,7 +437,7 @@ public abstract class BiomeBuilder<B extends BiomeBuilder<B>> {
             return tag(CommonBiomeTags.IS_SMALL_END_ISLAND);
         }
 
-        public <M extends Mob> B spawn(EntityType<M> entityType, int weight, int minGroupCount, int maxGroupCount) {
+        public B spawn(EntityType<?> entityType, int weight, int minGroupCount, int maxGroupCount) {
             mobSpawnSettings.addSpawn(
                     entityType.getCategory(),
                     new MobSpawnSettings.SpawnerData(entityType, weight, minGroupCount, maxGroupCount)
@@ -446,7 +445,7 @@ public abstract class BiomeBuilder<B extends BiomeBuilder<B>> {
             return (B) this;
         }
 
-        public <M extends Mob> B addMobCharge(EntityType<M> entityType, double energyBudget, double charge) {
+        public B addMobCharge(EntityType<?> entityType, double energyBudget, double charge) {
             mobSpawnSettings.addMobCharge(entityType, energyBudget, charge);
             return (B) this;
         }
