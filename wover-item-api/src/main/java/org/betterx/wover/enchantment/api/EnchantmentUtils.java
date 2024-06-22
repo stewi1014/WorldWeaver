@@ -46,6 +46,22 @@ public class EnchantmentUtils {
     }
 
     /**
+     * Gets an enchantment from the world. This method is safe to call from anywhere.
+     *
+     * @param lookup      A Lookup object for the enchantment registry
+     * @param enchantment The enchantment to get
+     * @return The enchantment, or null if it does not exist.
+     */
+    public static Holder<Enchantment> getEnchantment(
+            HolderLookup.RegistryLookup<Enchantment> lookup,
+            ResourceKey<Enchantment> enchantment
+    ) {
+        return lookup
+                .get(enchantment)
+                .orElse(null);
+    }
+
+    /**
      * Gets the level of an enchantment on an item. This method is safe to call from anywhere.
      *
      * @param world       The world to get the enchantment from (actually the registryAccess of the world to get the item from)
