@@ -22,8 +22,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class VersionChecker implements Runnable {
-
-
     private static final boolean TEST_UPDATE_SCREEN = false && ModCore.isDevEnvironment();
 
     @FunctionalInterface
