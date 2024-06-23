@@ -1,50 +1,50 @@
 {
-  "schemaVersion": 1,
-  "id": "wover-preset",
-  "version": "21.0.0",
-  "name": "WorldWeaver - World Preset API",
-  "description": "",
-  "authors": [
-    "Quiqueck"
-  ],
-  "contact": {
-    "homepage": "https://github.com/quiqueck/WorldWeaver",
-    "sources": "https://github.com/quiqueck/WorldWeaver",
-    "issues": "https://github.com/quiqueck/WorldWeaver/issues"
-  },
-  "license": "MIT",
-  "icon": "assets/wover-preset/icon.png",
-  "environment": "*",
-  "entrypoints": {
-    "main": [
-      "org.betterx.wover.entrypoint.LibWoverWorldPreset"
+    "schemaVersion": 1,
+    "id": "wover-preset",
+    "version": "21.0.2",
+    "name": "WorldWeaver - World Preset API",
+    "description": "",
+    "authors": [
+        "Quiqueck"
     ],
-    "client": [
-      "org.betterx.wover.entrypoint.client.LibWoverWorldPresetClient"
+    "contact": {
+        "homepage": "https://github.com/quiqueck/WorldWeaver",
+        "sources": "https://github.com/quiqueck/WorldWeaver",
+        "issues": "https://github.com/quiqueck/WorldWeaver/issues"
+    },
+    "license": "MIT",
+    "icon": "assets/wover-preset/icon.png",
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "org.betterx.wover.entrypoint.LibWoverWorldPreset"
+        ],
+        "client": [
+            "org.betterx.wover.entrypoint.client.LibWoverWorldPresetClient"
+        ],
+        "fabric-datagen": [
+            "org.betterx.wover.preset.datagen.WoverWorldPresetDatagen"
+        ]
+    },
+    "mixins": [
+        "wover.preset.mixins.common.json",
+        "wover.preset.mixins.client.json"
     ],
-    "fabric-datagen": [
-      "org.betterx.wover.preset.datagen.WoverWorldPresetDatagen"
-    ]
-  },
-  "mixins": [
-    "wover.preset.mixins.common.json",
-    "wover.preset.mixins.client.json"
-  ],
-  "depends": {
-    "fabricloader": ">=0.15.3",
-    "minecraft": [
-      "1.21.0"
-    ],
-    "java": ">=17",
-    "fabric-api": ">=0.100.1"
-  },
-  "custom": {
-    "modmenu": {
-      "badges": [
-        "library"
-      ],
-      "parent": "wover"
-    }
-  },
-  "accessWidener": "wover-preset.accesswidener"
+    "depends": {
+        "fabricloader": ">=0.15.3",
+        "minecraft": [
+            "1.21"
+        ],
+        "java": ">=17",
+        "fabric-api": ">=0.100.1"
+    },
+    "custom": {
+        "modmenu": {
+            "badges": [
+                "library"
+            ],
+            "parent": "wover"
+        }
+    },
+    "accessWidener": "wover-preset.accesswidener"
 }

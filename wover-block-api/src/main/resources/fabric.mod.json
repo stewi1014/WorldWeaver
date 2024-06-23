@@ -1,46 +1,46 @@
 {
-  "schemaVersion": 1,
-  "id": "wover-block",
-  "version": "21.0.1",
-  "name": "WorldWeaver - Block and Item API",
-  "description": "",
-  "authors": [
-    "Quiqueck"
-  ],
-  "contact": {
-    "homepage": "https://github.com/quiqueck/WorldWeaver",
-    "sources": "https://github.com/quiqueck/WorldWeaver",
-    "issues": "https://github.com/quiqueck/WorldWeaver/issues"
-  },
-  "license": "MIT",
-  "icon": "assets/wover-block/icon.png",
-  "environment": "*",
-  "entrypoints": {
-    "main": [
-      "org.betterx.wover.entrypoint.LibWoverBlock"
+    "schemaVersion": 1,
+    "id": "wover-block",
+    "version": "21.0.2",
+    "name": "WorldWeaver - Block and Item API",
+    "description": "",
+    "authors": [
+        "Quiqueck"
     ],
-    "client": [
-      "org.betterx.wover.entrypoint.client.LibWoverBlockClient"
-    ]
-  },
-  "mixins": [
-    "wover.block.mixins.common.json"
-  ],
-  "depends": {
-    "fabricloader": ">=0.15.3",
-    "minecraft": [
-      "1.21.0"
+    "contact": {
+        "homepage": "https://github.com/quiqueck/WorldWeaver",
+        "sources": "https://github.com/quiqueck/WorldWeaver",
+        "issues": "https://github.com/quiqueck/WorldWeaver/issues"
+    },
+    "license": "MIT",
+    "icon": "assets/wover-block/icon.png",
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "org.betterx.wover.entrypoint.LibWoverBlock"
+        ],
+        "client": [
+            "org.betterx.wover.entrypoint.client.LibWoverBlockClient"
+        ]
+    },
+    "mixins": [
+        "wover.block.mixins.common.json"
     ],
-    "java": ">=17",
-    "fabric-api": ">=0.100.1"
-  },
-  "custom": {
-    "modmenu": {
-      "badges": [
-        "library"
-      ],
-      "parent": "wover"
-    }
-  },
-  "accessWidener": "wover-block.accesswidener"
+    "depends": {
+        "fabricloader": ">=0.15.3",
+        "minecraft": [
+            "1.21"
+        ],
+        "java": ">=17",
+        "fabric-api": ">=0.100.1"
+    },
+    "custom": {
+        "modmenu": {
+            "badges": [
+                "library"
+            ],
+            "parent": "wover"
+        }
+    },
+    "accessWidener": "wover-block.accesswidener"
 }

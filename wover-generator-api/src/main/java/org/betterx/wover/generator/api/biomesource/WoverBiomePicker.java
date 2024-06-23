@@ -5,16 +5,22 @@ import org.betterx.wover.entrypoint.LibWoverWorldGenerator;
 import org.betterx.wover.state.api.WorldState;
 import org.betterx.wover.util.RandomizedWeightedList;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.chunk.ChunkAccess;
+import net.minecraft.world.level.chunk.status.ChunkStatus;
 import net.minecraft.world.level.levelgen.WorldgenRandom;
 
 import java.util.*;
 import java.util.function.BiConsumer;
+import org.jetbrains.annotations.Nullable;
 
 public class WoverBiomePicker {
     private final Map<BiomeData, PickableBiome> registeredBiomes = new HashMap<>();
@@ -217,5 +223,16 @@ public class WoverBiomePicker {
                 ", biomeRegistry=" + biomeRegistry +
                 ", type=" + super.toString() +
                 '}';
+    }
+
+
+    public static @Nullable Holder<Biome> getBiomeAt(WorldGenLevel world, BlockPos testPos) {
+        final ChunkPos chunkPos = new ChunkPos(testPos);
+        final ChunkAccess chunk = world.getChunkSource().getChunk(chunkPos.x, chunkPos.z, ChunkStatus.BIOMES, false);
+        if (chunk != null) {
+            return chunk.getBiomeFabric(testPos);
+        } else {
+            return null;
+        }
     }
 }
