@@ -18,7 +18,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
  * holds a weighted list of {@link FeatureTemplateImpl}s that will be placed at random.
  * <p>
  * Structures are identified by {@link ResourceLocation}s. The structure
- * is loaded from a datapack at {@code data/<namespace>/structures/<path>.nbt}.
+ * is loaded from a datapack at {@code data/<namespace>/structure/<path>.nbt}.
  */
 public class TemplateFeatureConfig implements FeatureConfiguration {
     /**
@@ -79,7 +79,7 @@ public class TemplateFeatureConfig implements FeatureConfiguration {
          * The location of the template.
          * <p>
          * The structure is loaded from a resource location in a data pack from the
-         * file {@code data/<namespace>/structures/<path>.nbt}.
+         * file {@code data/<namespace>/structure/<path>.nbt}.
          *
          * @return the location
          */

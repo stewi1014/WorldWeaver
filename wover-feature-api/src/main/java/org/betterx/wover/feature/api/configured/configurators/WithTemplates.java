@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
  * <p>
  * The Configurator accepts  {@link ResourceLocation}s of the templates to place. Templates
  * are chosen randomly bases on their weight. The weight is relative to the sum of all weights.
- * Templates are loaded from datapacks at {@code data/<namespace>/structures/<path>.nbt}.
+ * Templates are loaded from datapacks at {@code data/<namespace>/structure/<path>.nbt}.
  */
 public interface WithTemplates extends FeatureConfigurator<TemplateFeatureConfig, TemplateFeature<TemplateFeatureConfig>> {
     /**
