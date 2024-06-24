@@ -2,12 +2,14 @@
   "required": true,
   "minVersion": "0.8",
   "package": "org.betterx.wover.core.mixin",
-  "compatibilityLevel": "JAVA_17",
+  "compatibilityLevel": "JAVA_21",
   "injectors": {
     "defaultRequire": 1
   },
   "mixins": [
-    "registry.MappedRegistryMixin", "registry.RegistryDataLoaderMixin", "registry.RegistryDataLoaderMixinEarly",
+    "registry.MappedRegistryMixin",
+    "registry.RegistryDataLoaderMixin",
+    "registry.RegistryDataLoaderMixinEarly",
     "registry.VanillaRegistriesMixin"
   ]
 }

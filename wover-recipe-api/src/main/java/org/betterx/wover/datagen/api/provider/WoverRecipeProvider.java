@@ -138,6 +138,7 @@ public abstract class WoverRecipeProvider implements WoverDataProvider<RecipePro
                 }
 
                 @Override
+                @SuppressWarnings("removal")
                 public Advancement.Builder advancement() {
                     //noinspection removal
                     return Advancement.Builder.recipeAdvancement().parent(RecipeBuilder.ROOT_RECIPE_ADVANCEMENT);

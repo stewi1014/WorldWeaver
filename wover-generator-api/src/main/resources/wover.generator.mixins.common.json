@@ -2,13 +2,19 @@
   "required": true,
   "minVersion": "0.8",
   "package": "org.betterx.wover.generator.mixin",
-  "compatibilityLevel": "JAVA_17",
+  "compatibilityLevel": "JAVA_21",
   "injectors": {
     "defaultRequire": 1
   },
   "mixins": [
-    "biomesource.BiomeSourcePrintMixin", "biomesource.ServerLevelMixin", "biomesource.TheEndBiomesMixin",
-    "DSL.V2551Mixin", "DSL.V2832Mixin", "generator.ChunkGeneratorAccessor", "generator.ChunkGeneratorMixin",
-    "generator.ChunkGeneratorPrintMixin", "generator.NoiseBasedChunkGeneratorMixin"
+    "biomesource.BiomeSourcePrintMixin",
+    "biomesource.ServerLevelMixin",
+    "biomesource.TheEndBiomesMixin",
+    "DSL.V2551Mixin",
+    "DSL.V2832Mixin",
+    "generator.ChunkGeneratorAccessor",
+    "generator.ChunkGeneratorMixin",
+    "generator.ChunkGeneratorPrintMixin",
+    "generator.NoiseBasedChunkGeneratorMixin"
   ]
 }
