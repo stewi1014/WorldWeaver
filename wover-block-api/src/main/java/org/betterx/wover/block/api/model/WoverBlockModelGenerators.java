@@ -194,6 +194,48 @@ public class WoverBlockModelGenerators {
                         .with(VariantProperties.MODEL, TextureMapping.getBlockTexture(Blocks.COMPOSTER, "_contents_ready"))));
     }
 
+    public void createBlockTopSideBottom(Block bottomBlock, Block coverBlock, boolean withVariants) {
+        var mapping = new TextureMapping()
+                .put(TextureSlot.SIDE, TextureMapping.getBlockTexture(coverBlock, "_side"))
+                .put(TextureSlot.TOP, TextureMapping.getBlockTexture(coverBlock, "_top"))
+                .put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(bottomBlock));
+        var location = ModelTemplates.CUBE_BOTTOM_TOP.create(coverBlock, mapping, vanillaGenerator.modelOutput);
+
+        if (withVariants) acceptBlockState(randomTopModelVariant(coverBlock, location));
+        else acceptBlockState(BlockModelGenerators.createSimpleBlock(coverBlock, location));
+    }
+
+    public static MultiVariantGenerator randomTopModelVariant(Block block, ResourceLocation model) {
+        return MultiVariantGenerator
+                .multiVariant(
+                        block,
+                        Variant
+                                .variant()
+                                .with(VariantProperties.MODEL, model)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R0)
+                                .with(VariantProperties.UV_LOCK, false)
+                                .with(VariantProperties.WEIGHT, 1),
+                        Variant
+                                .variant()
+                                .with(VariantProperties.MODEL, model)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                                .with(VariantProperties.UV_LOCK, false)
+                                .with(VariantProperties.WEIGHT, 1),
+                        Variant
+                                .variant()
+                                .with(VariantProperties.MODEL, model)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+                                .with(VariantProperties.UV_LOCK, false)
+                                .with(VariantProperties.WEIGHT, 1),
+                        Variant
+                                .variant()
+                                .with(VariantProperties.MODEL, model)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+                                .with(VariantProperties.UV_LOCK, false)
+                                .with(VariantProperties.WEIGHT, 1)
+                );
+    }
+
     public class Builder {
         private ResourceLocation fullBlockLocation;
         private final TexturedModel model;
