@@ -6,6 +6,8 @@ import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.blockstates.*;
 import net.minecraft.data.models.model.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -16,8 +18,10 @@ import com.google.gson.JsonElement;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
+import org.jetbrains.annotations.Nullable;
 
 public class WoverBlockModelGenerators {
     public static final ResourceLocation CROSS = ResourceLocation.withDefaultNamespace("block/cross");
@@ -126,8 +130,29 @@ public class WoverBlockModelGenerators {
         vanillaGenerator.createSimpleFlatItemModel(ladderBlock);
     }
 
+    private final Map<ResourceLocation, ResourceLocation> PARTICLE_ONLY_MODELS = Maps.newHashMap();
+
+    public ResourceLocation particleOnlyModel(Block block) {
+        final var name = ModelLocationUtils.getModelLocation(block).withSuffix("_particles");
+        return PARTICLE_ONLY_MODELS.computeIfAbsent(name, (n) -> ModelTemplates.PARTICLE_ONLY.create(
+                name,
+                new TextureMapping().put(TextureSlot.PARTICLE, TextureMapping.getBlockTexture(block)),
+                vanillaGenerator.modelOutput
+        ));
+    }
+
+    public void createSign(Block baseBlock, Block signBlock, Block wallSignBlock) {
+        final ResourceLocation particleLocation = particleOnlyModel(baseBlock);
+
+        acceptBlockState(BlockModelGenerators.createSimpleBlock(signBlock, particleLocation));
+        acceptBlockState(BlockModelGenerators.createSimpleBlock(wallSignBlock, particleLocation));
+
+        vanillaGenerator.createSimpleFlatItemModel(signBlock.asItem());
+        vanillaGenerator.skipAutoItemBlock(wallSignBlock);
+    }
+
     public void createHangingSign(Block baseBlock, Block hangingSignBlock, Block wallHangingSignBlock) {
-        ResourceLocation resourceLocation = ModelTemplates.PARTICLE_ONLY.create(hangingSignBlock, new TextureMapping().put(TextureSlot.PARTICLE, TextureMapping.getBlockTexture(baseBlock)), vanillaGenerator.modelOutput);
+        ResourceLocation resourceLocation = particleOnlyModel(baseBlock);
         acceptBlockState(vanillaGenerator.createSimpleBlock(hangingSignBlock, resourceLocation));
         acceptBlockState(vanillaGenerator.createSimpleBlock(wallHangingSignBlock, resourceLocation));
         vanillaGenerator.createSimpleFlatItemModel(hangingSignBlock.asItem());
@@ -205,6 +230,120 @@ public class WoverBlockModelGenerators {
         else acceptBlockState(BlockModelGenerators.createSimpleBlock(coverBlock, location));
     }
 
+    public void createCubeModel(Block block) {
+        final var model = TexturedModel.CUBE.get(block);
+        final TextureMapping mapping = this.getTextureModels(block, model).getMapping();
+        final var location = model.getTemplate().create(block, mapping, vanillaGenerator.modelOutput);
+        acceptBlockState(BlockModelGenerators.createSimpleBlock(block, location));
+    }
+
+    public void createPressurePlate(Block plateBlock, ResourceLocation textureLocation) {
+        createPressurePlate(plateBlock, new TextureMapping().put(TextureSlot.TEXTURE, textureLocation));
+    }
+
+    public void createPressurePlate(Block materialBlock, Block plateBlock) {
+        createPressurePlate(plateBlock, this
+                .getTextureModels(plateBlock, TexturedModel.CUBE.get(materialBlock))
+                .getMapping());
+    }
+
+    private void createPressurePlate(Block plateBlock, TextureMapping mapping) {
+        final List<ResourceLocation> locations = Stream.of(
+                ModelTemplates.PRESSURE_PLATE_UP,
+                ModelTemplates.PRESSURE_PLATE_DOWN
+        ).map(template -> template.create(plateBlock, mapping, vanillaGenerator.modelOutput)).toList();
+
+        acceptBlockState(BlockModelGenerators.createPressurePlate(plateBlock, locations.get(0), locations.get(1)));
+    }
+
+
+    public void createButton(Block buttonBlock, ResourceLocation textureLocation) {
+        createButton(buttonBlock, new TextureMapping().put(TextureSlot.TEXTURE, textureLocation));
+    }
+
+    public void createButton(Block materialBlock, Block buttonBlock) {
+        createButton(buttonBlock, this
+                .getTextureModels(buttonBlock, TexturedModel.CUBE.get(materialBlock))
+                .getMapping());
+    }
+
+    private void createButton(Block buttonBlock, TextureMapping mapping) {
+        final List<ResourceLocation> locations = Stream.of(
+                ModelTemplates.BUTTON,
+                ModelTemplates.BUTTON_PRESSED
+        ).map(template -> template.create(buttonBlock, mapping, vanillaGenerator.modelOutput)).toList();
+
+        acceptBlockState(BlockModelGenerators.createButton(buttonBlock, locations.get(0), locations.get(1)));
+        createItem(buttonBlock, ModelTemplates.BUTTON_INVENTORY, mapping);
+    }
+
+    public void createStairs(
+            Block stairBlock,
+            ResourceLocation topTextureLocation,
+            ResourceLocation sideTextureLocation,
+            ResourceLocation bottomTextureLocation
+    ) {
+        createStairs(stairBlock, new TextureMapping()
+                .put(TextureSlot.TOP, topTextureLocation)
+                .put(TextureSlot.SIDE, sideTextureLocation)
+                .put(TextureSlot.BOTTOM, bottomTextureLocation));
+    }
+
+    public void createStairs(Block materialBlock, Block stairBlock) {
+        createStairs(stairBlock, this
+                .getTextureModels(stairBlock, TexturedModel.CUBE_TOP_BOTTOM.get(materialBlock))
+                .getMapping());
+    }
+
+    private void createStairs(Block stairBlock, TextureMapping mapping) {
+        final List<ResourceLocation> locations = Stream
+                .of(
+                        ModelTemplates.STAIRS_INNER,
+                        ModelTemplates.STAIRS_STRAIGHT,
+                        ModelTemplates.STAIRS_OUTER
+                )
+                .map(template -> template.create(stairBlock, mapping, vanillaGenerator.modelOutput)).toList();
+
+        acceptBlockState(BlockModelGenerators.createStairs(stairBlock, locations.get(0), locations.get(1), locations.get(2)));
+        delegateItemModel(stairBlock, locations.get(1));
+    }
+
+
+    public void createChest(Block materialBlock, Block chestBlock) {
+        final var baseModel = particleOnlyModel(materialBlock);
+        acceptBlockState(BlockModelGenerators.createSimpleBlock(chestBlock, baseModel));
+    }
+
+    public final void createItemModel(Block block, ModelTemplate template, TextureMapping mapping) {
+        Item item = block.asItem();
+        if (item != Items.AIR) {
+            template.create(ModelLocationUtils.getModelLocation(item), mapping, vanillaGenerator.modelOutput);
+        }
+        vanillaGenerator.skipAutoItemBlock(block);
+    }
+
+    public void createFlatItem(Block block) {
+        vanillaGenerator.createSimpleFlatItemModel(block);
+        vanillaGenerator.skipAutoItemBlock(block);
+    }
+
+    public void createFlatItem(Block block, @Nullable ResourceLocation itemLocation) {
+        if (itemLocation == null) {
+            this.createFlatItem(block);
+            return;
+        }
+        final var item = block.asItem();
+        if (item != Items.AIR) {
+            ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(item), TextureMapping.layer0(itemLocation), vanillaGenerator.modelOutput);
+        }
+        vanillaGenerator.skipAutoItemBlock(block);
+    }
+
+    private void createItem(Block block, ModelTemplate inventoryModel, TextureMapping mapping) {
+        delegateItemModel(block, inventoryModel.create(block, mapping, vanillaGenerator.modelOutput));
+        vanillaGenerator.skipAutoItemBlock(block);
+    }
+
     public static MultiVariantGenerator randomTopModelVariant(Block block, ResourceLocation model) {
         return MultiVariantGenerator
                 .multiVariant(
@@ -236,6 +375,10 @@ public class WoverBlockModelGenerators {
                 );
     }
 
+    public BiConsumer<ResourceLocation, Supplier<JsonElement>> modelOutput() {
+        return vanillaGenerator.modelOutput;
+    }
+
     public class Builder {
         private ResourceLocation fullBlockLocation;
         private final TexturedModel model;
@@ -251,6 +394,7 @@ public class WoverBlockModelGenerators {
             this.fullBlockLocation = model
                     .getTemplate()
                     .create(fullBlock, mapping, vanillaGenerator.modelOutput);
+
             acceptBlockState(
                     BlockModelGenerators.createSimpleBlock(
                             fullBlock,
@@ -271,18 +415,6 @@ public class WoverBlockModelGenerators {
             acceptBlockState(BlockModelGenerators.createWall(wallBlock, locations.get(0), locations.get(1), locations.get(2)));
 
             createInventoryModel(wallBlock, ModelTemplates.WALL_INVENTORY, mapping);
-
-            return this;
-        }
-
-        public Builder createButton(Block buttonBlock) {
-            final List<ResourceLocation> locations = Stream.of(
-                    ModelTemplates.BUTTON,
-                    ModelTemplates.BUTTON_PRESSED
-            ).map(template -> template.create(buttonBlock, mapping, vanillaGenerator.modelOutput)).toList();
-
-            acceptBlockState(BlockModelGenerators.createButton(buttonBlock, locations.get(0), locations.get(1)));
-            createInventoryModel(buttonBlock, ModelTemplates.BUTTON_INVENTORY, this.mapping);
 
             return this;
         }
@@ -349,29 +481,6 @@ public class WoverBlockModelGenerators {
             return this;
         }
 
-        public Builder createPressurePlate(Block plateBlock) {
-            final List<ResourceLocation> locations = Stream.of(
-                    ModelTemplates.PRESSURE_PLATE_UP,
-                    ModelTemplates.PRESSURE_PLATE_DOWN
-            ).map(template -> template.create(plateBlock, mapping, vanillaGenerator.modelOutput)).toList();
-
-            acceptBlockState(BlockModelGenerators.createPressurePlate(plateBlock, locations.get(0), locations.get(1)));
-
-            return this;
-        }
-
-        public Builder createSign(Block signBlock, Block wallSignBlock) {
-            final ResourceLocation particleLocation = ModelTemplates.PARTICLE_ONLY.create(signBlock, this.mapping, vanillaGenerator.modelOutput);
-
-            acceptBlockState(BlockModelGenerators.createSimpleBlock(signBlock, particleLocation));
-            acceptBlockState(BlockModelGenerators.createSimpleBlock(wallSignBlock, particleLocation));
-
-            vanillaGenerator.createSimpleFlatItemModel(signBlock.asItem());
-            vanillaGenerator.skipAutoItemBlock(wallSignBlock);
-
-            return this;
-        }
-
         public Builder createStairs(Block stairBlock) {
             final List<ResourceLocation> locations = Stream
                     .of(
@@ -418,20 +527,6 @@ public class WoverBlockModelGenerators {
 
                 return this;
             }
-        }
-
-
-        public Builder createChest(Block chestBlock) {
-            final var baseModel = ModelTemplates
-                    .PARTICLE_ONLY
-                    .create(
-                            ModelLocationUtils.getModelLocation(chestBlock),
-                            this.mapping,
-                            vanillaGenerator.modelOutput
-                    );
-            vanillaGenerator.skipAutoItemBlock(chestBlock);
-            acceptBlockState(BlockModelGenerators.createSimpleBlock(chestBlock, baseModel));
-            return this;
         }
 
         private ResourceLocation computeModelIfAbsent(ModelTemplate modelTemplate, Block block) {
