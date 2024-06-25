@@ -15,8 +15,11 @@ import net.minecraft.world.level.block.Block;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public abstract class WoverModelProvider implements WoverDataProvider<FabricModelProvider> {
     /**
@@ -43,25 +46,78 @@ public abstract class WoverModelProvider implements WoverDataProvider<FabricMode
             BlockRegistry registry,
             boolean validate
     ) {
-        addFromRegistry(generator, registry, validate, List.of());
+        addFromRegistry(generator, registry, validate, ModelOverides.create());
     }
+
+    public static class ModelOverides {
+        public interface BlockModelProvider {
+            void provideModels(Block block);
+        }
+
+        private final Map<Block, BlockModelProvider> OVERRIDES = new HashMap<>();
+        private static final BlockModelProvider IGNORE = (block) -> {
+        };
+
+        public static ModelOverides create() {
+            return new ModelOverides();
+        }
+
+        public ModelOverides override(@Nullable Block block, @NotNull BlockModelProvider provider) {
+            if (block == null) return this;
+
+            final var old = OVERRIDES.put(block, provider);
+            if (old != null) {
+                throw new IllegalStateException("Block " + block + " already has an override.");
+            }
+            return this;
+        }
+
+        public ModelOverides overrideLike(@Nullable Block block, @NotNull Block copyFromBlock) {
+            return this.override(block, OVERRIDES.get(copyFromBlock));
+        }
+
+        public ModelOverides ignore(@Nullable Block block) {
+            return this.override(block, IGNORE);
+        }
+
+        public boolean contain(Block block) {
+            return OVERRIDES.containsKey(block);
+        }
+
+        boolean provideBlockModel(Block block) {
+            final var override = OVERRIDES.get(block);
+            if (override != null) {
+                override.provideModels(block);
+                return true;
+            }
+            return false;
+        }
+
+        private ModelOverides() {
+        }
+    }
+
 
     protected void addFromRegistry(
             WoverBlockModelGenerators generator,
             BlockRegistry registry,
-            boolean validate,
-            List<Block> ignoreBlocks
+            boolean validateMissing,
+            ModelOverides overrides
     ) {
         registry
                 .allBlocks()
                 .forEach(block -> {
-                    if (block instanceof BlockModelProvider bmp && !ignoreBlocks.contains(block))
+                    // If the block is not in the overrides, and it is a BlockModelProvider, provide the models.
+                    if (!overrides.provideBlockModel(block) && block instanceof BlockModelProvider bmp) {
                         bmp.provideBlockModels(generator);
-                    else if (validate)
+                    } else if (validateMissing) {
                         ModelProviderExclusions.excludeFromBlockModelValidation(block);
+                    }
 
-                    if (!validate)
+                    if (!validateMissing) {
                         ModelProviderExclusions.excludeFromBlockModelValidation(block);
+                    }
+
                 });
     }
 
