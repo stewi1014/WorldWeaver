@@ -195,6 +195,10 @@ public abstract class WoverDataGenEntryPoint implements DataGeneratorEntrypoint 
                 this.builders = new LinkedList<>();
                 this.globalBuilder = addDatapack(null);
 
+                //call the custom providers for the global Datapack
+                addDefaultGlobalProviders(this.globalBuilder);
+
+                //run mod specific init
                 onInitializeProviders(this.globalBuilder);
             }
         }
@@ -235,18 +239,13 @@ public abstract class WoverDataGenEntryPoint implements DataGeneratorEntrypoint 
                 .forEach(p -> p.pack = createBuiltinDatapack(fabricDataGenerator, p.location));
 
         for (PackBuilder builder : builders) {
-            if (builder.location == null) {
-                //call the custom providers for the global Datapack
-                addDefaultGlobalProviders(builder);
-            }
-
             //run other providers
-            builder.providerFactories
-                    .stream()
-                    .forEach(provider -> {
-                        builder.pack.addProvider(provider::getProvider);
-                        addMultiProviders(builder, provider);
-                    });
+            builder.providerFactories()
+                   .stream()
+                   .forEach(provider -> {
+                       builder.pack.addProvider(provider::getProvider);
+                       addMultiProviders(builder, provider);
+                   });
 
             //call the custom bootstrap method
             if (builder.datapackBootstrap != null) {

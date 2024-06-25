@@ -16,7 +16,7 @@ public class ItemTagProvider extends WoverTagProvider.ForItems {
         super(modCore, List.of(modCore.namespace, modCore.modId, "c", "minecraft"));
     }
 
-    protected void prepareTags(ItemTagBootstrapContext ctx) {
+    public void prepareTags(ItemTagBootstrapContext ctx) {
         ctx.add(CommonItemTags.SOUL_GROUND, Blocks.SOUL_SAND.asItem(), Blocks.SOUL_SOIL.asItem());
 
         ctx.add(CommonItemTags.CHEST, Items.CHEST);

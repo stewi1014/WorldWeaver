@@ -20,9 +20,9 @@ import net.minecraft.world.level.block.Block;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -45,38 +45,60 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
      * allowed namespaces will be written.
      */
     @Nullable
-    protected final List<String> modIDs;
+    protected List<String> modIDs;
     /**
      * The {@link ModCore} instance to use
      */
-    protected final ModCore modCore;
+    public final ModCore modCore;
 
     /**
      * The {@link TagRegistry} that will provide the tags.
      */
-    protected final TagRegistry<T, P> tagRegistry;
+    public final TagRegistry<T, P> tagRegistry;
 
     /**
      * Tags that should be written even if they are empty.
      */
-    private final Set<TagKey<T>> forceWrite;
+    private Set<TagKey<T>> forceWrite;
+
+    private static @NotNull List<String> defaultModIDList(ModCore modCore) {
+        return List.of(modCore.namespace, modCore.modId, "minecraft", "c");
+    }
 
     /**
      * Creates a new Instance that will not force the writing of any tag, and will
      * allow all namespaces.
      *
+     * @param modCore     the {@link ModCore} instance to use
      * @param tagRegistry the {@link TagRegistry} that will provide the tags
      */
     public WoverTagProvider(
             ModCore modCore,
             TagRegistry<T, P> tagRegistry
     ) {
-        this(modCore, tagRegistry, List.of(modCore.namespace, modCore.modId), Set.of());
+        this(modCore, tagRegistry, defaultModIDList(modCore), Set.of());
+    }
+
+    /**
+     * Creates a new Instance that will not force the writing of any tag, and will
+     * allow all namespaces.
+     *
+     * @param modCore        the {@link ModCore} instance to use
+     * @param tagRegistry    the {@link TagRegistry} that will provide the tags
+     * @param forceWriteKeys the keys that should always get written
+     */
+    public WoverTagProvider(
+            ModCore modCore,
+            TagRegistry<T, P> tagRegistry,
+            Set<TagKey<T>> forceWriteKeys
+    ) {
+        this(modCore, tagRegistry, defaultModIDList(modCore), forceWriteKeys);
     }
 
     /**
      * Creates a new Instance that will not force the writing of any tag.
      *
+     * @param modCore     the {@link ModCore} instance to use
      * @param tagRegistry the {@link TagRegistry} that will provide the tags
      * @param modIDs      List of ModIDs that are allowed to include data. All Resources in the namespace of the
      *                    mod will be written to the tag. If null all elements get written, an empty list will
@@ -93,6 +115,7 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
     /**
      * Creates a new Instance .
      *
+     * @param modCore        the {@link ModCore} instance to use
      * @param tagRegistry    the {@link TagRegistry} that will provide the tags
      * @param modIDs         List of ModIDs that are allowed to inlcude data. All Resources in the namespace of the
      *                       mod will be written to the tag. If null all elements get written, an empty list will
@@ -109,6 +132,31 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
         this.tagRegistry = tagRegistry;
         this.modIDs = modIDs;
         this.forceWrite = forceWriteKeys;
+    }
+
+    /**
+     * Adds the set of keys from the given {@link WoverTagProvider} to the list of keys that should always be written.
+     *
+     * @param provider the provider to add the keys from
+     */
+    public void mergeAllowedAndForced(@Nullable WoverTagProvider<T, ?> provider) {
+        if (provider != null) {
+            final Set<TagKey<T>> c = new HashSet<>(this.forceWrite);
+            c.addAll(provider.forceWrite);
+
+            // Make the set immutable
+            this.forceWrite = Collections.unmodifiableSet(c);
+
+            if (provider.modIDs != null) {
+                if (this.modIDs == null) {
+                    this.modIDs = Collections.unmodifiableList(new LinkedList<>(provider.modIDs));
+                } else {
+                    final var l = new LinkedList<>(provider.modIDs);
+                    l.addAll(this.modIDs);
+                    this.modIDs = Collections.unmodifiableList(l);
+                }
+            }
+        }
     }
 
     /**
@@ -133,7 +181,7 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
      *
      * @param context the {@link TagBootstrapContext} you can use to add elements to the tags
      */
-    protected abstract void prepareTags(P context);
+    public abstract void prepareTags(P context);
 
     /**
      * When {@code true} all tags will be initialized with an empty element list
@@ -152,7 +200,7 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
     }
 
     protected String getTitle() {
-        return this.getClass().getSimpleName();
+        return this.modCore.namespace + "/" + this.getClass().getSimpleName();
     }
 
     @Override
@@ -188,7 +236,9 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
                                          .filter(element -> shouldAdd(element.id()))
                                          .toList();
 
-                    if (!force && elements.isEmpty()) return;
+                    if (!force && elements.isEmpty()) {
+                        return;
+                    }
                     final FabricTagProvider<T>.FabricTagBuilder builder = getOrCreateTagBuilder(tag);
 
                     //write all elements that passed the above filtering...
@@ -214,6 +264,8 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
         /**
          * Creates a new Instance that includes all namespaces but will not
          * force the writing of any empty tag.
+         *
+         * @param modCore the {@link ModCore} instance to use
          */
         public ForBlocks(ModCore modCore) {
             super(modCore, TagManagerImpl.BLOCKS);
@@ -222,9 +274,10 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
         /**
          * Creates a new Instance that will not force the writing of any empty tag.
          *
-         * @param modIDs List of ModIDs that are allowed to include data. All Resources in the namespace of the
-         *               mod will be written to the tag. If null all elements get written, an empty list will
-         *               write nothing
+         * @param modCore the {@link ModCore} instance to use
+         * @param modIDs  List of ModIDs that are allowed to include data. All Resources in the namespace of the
+         *                mod will be written to the tag. If null all elements get written, an empty list will
+         *                write nothing
          */
         public ForBlocks(
                 ModCore modCore,
@@ -236,6 +289,20 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
         /**
          * Creates a new Instance.
          *
+         * @param modCore        the {@link ModCore} instance to use
+         * @param forceWriteKeys the keys that should always get written
+         */
+        public ForBlocks(
+                ModCore modCore,
+                Set<TagKey<Block>> forceWriteKeys
+        ) {
+            super(modCore, TagManagerImpl.BLOCKS, forceWriteKeys);
+        }
+
+        /**
+         * Creates a new Instance.
+         *
+         * @param modCore        the {@link ModCore} instance to use
          * @param modIDs         List of ModIDs that are allowed to include data. All Resources in the namespace of the
          *                       mod will be written to the tag. If null all elements get written, an empty list will
          *                       write nothing
@@ -266,9 +333,10 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
         /**
          * Creates a new Instance that will not force the writing of any empty tag.
          *
-         * @param modIDs List of ModIDs that are allowed to include data. All Resources in the namespace of the
-         *               mod will be written to the tag. If null all elements get written, an empty list will
-         *               write nothing
+         * @param modCore the {@link ModCore} instance to use
+         * @param modIDs  List of ModIDs that are allowed to include data. All Resources in the namespace of the
+         *                mod will be written to the tag. If null all elements get written, an empty list will
+         *                write nothing
          */
         public ForItems(
                 ModCore modCore,
@@ -280,6 +348,20 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
         /**
          * Creates a new Instance.
          *
+         * @param modCore        the {@link ModCore} instance to use
+         * @param forceWriteKeys the keys that should always get written
+         */
+        public ForItems(
+                ModCore modCore,
+                Set<TagKey<Item>> forceWriteKeys
+        ) {
+            super(modCore, TagManagerImpl.ITEMS, forceWriteKeys);
+        }
+
+        /**
+         * Creates a new Instance.
+         *
+         * @param modCore        the {@link ModCore} instance to use
          * @param modIDs         List of ModIDs that are allowed to include data. All Resources in the namespace of the
          *                       mod will be written to the tag. If null all elements get written, an empty list will
          *                       write nothing
@@ -302,6 +384,8 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
         /**
          * Creates a new Instance that includes all namespaces but will not
          * force the writing of any empty tag.
+         *
+         * @param modCore the {@link ModCore} instance to use
          */
         public ForBiomes(ModCore modCore) {
             super(modCore, TagManagerImpl.BIOMES);
@@ -310,9 +394,10 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
         /**
          * Creates a new Instance that will not force the writing of any empty tag.
          *
-         * @param modIDs List of ModIDs that are allowed to include data. All Resources in the namespace of the
-         *               mod will be written to the tag. If null all elements get written, an empty list will
-         *               write nothing
+         * @param modCore the {@link ModCore} instance to use
+         * @param modIDs  List of ModIDs that are allowed to include data. All Resources in the namespace of the
+         *                mod will be written to the tag. If null all elements get written, an empty list will
+         *                write nothing
          */
         public ForBiomes(
                 ModCore modCore,
@@ -324,6 +409,20 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
         /**
          * Creates a new Instance.
          *
+         * @param modCore        the {@link ModCore} instance to use
+         * @param forceWriteKeys the keys that should always get written
+         */
+        public ForBiomes(
+                ModCore modCore,
+                Set<TagKey<Biome>> forceWriteKeys
+        ) {
+            super(modCore, TagManagerImpl.BIOMES, forceWriteKeys);
+        }
+
+        /**
+         * Creates a new Instance.
+         *
+         * @param modCore        the {@link ModCore} instance to use
          * @param modIDs         List of ModIDs that are allowed to include data. All Resources in the namespace of the
          *                       mod will be written to the tag. If null all elements get written, an empty list will
          *                       write nothing
@@ -346,6 +445,8 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
         /**
          * Creates a new Instance that includes all namespaces but will not
          * force the writing of any empty tag.
+         *
+         * @param modCore the {@link ModCore} instance to use
          */
         public ForEnchantments(ModCore modCore) {
             super(modCore, TagManager.ENCHANTMENTS);
@@ -354,9 +455,10 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
         /**
          * Creates a new Instance that will not force the writing of any empty tag.
          *
-         * @param modIDs List of ModIDs that are allowed to include data. All Resources in the namespace of the
-         *               mod will be written to the tag. If null all elements get written, an empty list will
-         *               write nothing
+         * @param modCore the {@link ModCore} instance to use
+         * @param modIDs  List of ModIDs that are allowed to include data. All Resources in the namespace of the
+         *                mod will be written to the tag. If null all elements get written, an empty list will
+         *                write nothing
          */
         public ForEnchantments(
                 ModCore modCore,
@@ -368,6 +470,20 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
         /**
          * Creates a new Instance.
          *
+         * @param modCore        the {@link ModCore} instance to use
+         * @param forceWriteKeys the keys that should always get written
+         */
+        public ForEnchantments(
+                ModCore modCore,
+                Set<TagKey<Enchantment>> forceWriteKeys
+        ) {
+            super(modCore, TagManager.ENCHANTMENTS, forceWriteKeys);
+        }
+
+        /**
+         * Creates a new Instance.
+         *
+         * @param modCore        the {@link ModCore} instance to use
          * @param modIDs         List of ModIDs that are allowed to include data. All Resources in the namespace of the
          *                       mod will be written to the tag. If null all elements get written, an empty list will
          *                       write nothing
@@ -390,6 +506,8 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
         /**
          * Creates a new Instance that includes all namespaces but will not
          * force the writing of any empty tag.
+         *
+         * @param modCore the {@link ModCore} instance to use
          */
         public ForEntityTypes(ModCore modCore) {
             super(modCore, TagManager.ENTITY_TYPES);
@@ -398,9 +516,10 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
         /**
          * Creates a new Instance that will not force the writing of any empty tag.
          *
-         * @param modIDs List of ModIDs that are allowed to include data. All Resources in the namespace of the
-         *               mod will be written to the tag. If null all elements get written, an empty list will
-         *               write nothing
+         * @param modCore the {@link ModCore} instance to use
+         * @param modIDs  List of ModIDs that are allowed to include data. All Resources in the namespace of the
+         *                mod will be written to the tag. If null all elements get written, an empty list will
+         *                write nothing
          */
         public ForEntityTypes(
                 ModCore modCore,
@@ -412,6 +531,20 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
         /**
          * Creates a new Instance.
          *
+         * @param modCore        the {@link ModCore} instance to use
+         * @param forceWriteKeys the keys that should always get written
+         */
+        public ForEntityTypes(
+                ModCore modCore,
+                Set<TagKey<EntityType<?>>> forceWriteKeys
+        ) {
+            super(modCore, TagManager.ENTITY_TYPES, forceWriteKeys);
+        }
+
+        /**
+         * Creates a new Instance.
+         *
+         * @param modCore        the {@link ModCore} instance to use
          * @param modIDs         List of ModIDs that are allowed to include data. All Resources in the namespace of the
          *                       mod will be written to the tag. If null all elements get written, an empty list will
          *                       write nothing

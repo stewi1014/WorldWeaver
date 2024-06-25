@@ -16,7 +16,7 @@ public class BlockTagProvider extends WoverTagProvider.ForBlocks {
     }
 
     @Override
-    protected void prepareTags(TagBootstrapContext<Block> context) {
+    public void prepareTags(TagBootstrapContext<Block> context) {
         context.add(CommonBlockTags.IS_OBSIDIAN, Blocks.OBSIDIAN, Blocks.CRYING_OBSIDIAN);
     }
 }

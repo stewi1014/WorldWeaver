@@ -121,7 +121,7 @@ public abstract class WoverBiomeProvider extends AbstractMultiProvider {
         pack.addProvider(modCore ->
                 new WoverTagProvider.ForBiomes(modCore) {
                     @Override
-                    protected void prepareTags(TagBootstrapContext<Biome> provider) {
+                    public void prepareTags(TagBootstrapContext<Biome> provider) {
                         prepareBiomeTags(provider);
                     }
                 }

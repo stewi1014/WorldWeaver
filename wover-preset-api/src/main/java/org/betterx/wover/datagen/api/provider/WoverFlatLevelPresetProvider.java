@@ -93,7 +93,7 @@ public abstract class WoverFlatLevelPresetProvider
         }
 
         @Override
-        protected void prepareTags(TagBootstrapContext<FlatLevelGeneratorPreset> provider) {
+        public void prepareTags(TagBootstrapContext<FlatLevelGeneratorPreset> provider) {
             WoverFlatLevelPresetProvider.this.prepareTags(provider);
         }
     }

@@ -121,7 +121,7 @@ public abstract class WoverStructureProvider implements WoverMultiProvider {
                     }
 
                     @Override
-                    protected void prepareTags(TagBootstrapContext<Biome> provider) {
+                    public void prepareTags(TagBootstrapContext<Biome> provider) {
                         prepareBiomeTags(provider);
                     }
                 }

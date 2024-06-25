@@ -1,6 +1,7 @@
 package org.betterx.wover.datagen.api;
 
 import org.betterx.wover.core.api.ModCore;
+import org.betterx.wover.datagen.impl.PackBuilderImpl;
 
 import net.minecraft.data.DataProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -8,7 +9,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
 import org.jetbrains.annotations.NotNull;
@@ -20,23 +20,26 @@ import org.jetbrains.annotations.Nullable;
  * <p>
  * You can create new Instances of this class using {@link WoverDataGenEntryPoint#addDatapack(ResourceLocation)}
  */
-public class PackBuilder {
+public class PackBuilder extends PackBuilderImpl {
+    /**
+     * The ModCore instance of the Mod that is providing this instance.
+     */
+    @NotNull
+    public final ModCore modCore;
+
     /**
      * The {@link ResourceLocation} of the Datapack or {@code null} if it is the global
      * Datapack.
      */
     @Nullable
     public final ResourceLocation location;
-    /**
-     * The ModCore instance of the Mod that is providing this instance.
-     */
-    @NotNull
-    public final ModCore modCore;
+
     FabricDataGenerator.Pack pack;
-    final List<WoverDataProvider<?>> providerFactories = new LinkedList<>();
     DatapackBootstrap datapackBootstrap;
 
-    PackBuilder(@Nullable ModCore modCore, @Nullable ResourceLocation location) {
+
+    PackBuilder(@NotNull ModCore modCore, @Nullable ResourceLocation location) {
+        super();
         this.location = location;
         this.modCore = modCore;
     }
@@ -61,9 +64,10 @@ public class PackBuilder {
      * @return This instance
      */
     public <T extends DataProvider> PackBuilder addProvider(ProviderFactory<T> provider) {
-        providerFactories.add(provider.create(modCore));
+        super.addProviderWithRedirect(provider.create(modCore));
         return this;
     }
+
 
     /**
      * Adds a {@link WoverMultiProvider} to the Datapack.
@@ -91,6 +95,10 @@ public class PackBuilder {
         return this;
     }
 
+    List<WoverDataProvider<?>> providerFactories() {
+        return this.providerFactories;
+    }
+
     /**
      * Returns a {@link Stream} of all {@link WoverRegistryProvider}s that are
      * registered for this Datapack.
@@ -109,6 +117,11 @@ public class PackBuilder {
     PackBuilder pack(FabricDataGenerator.Pack pack) {
         this.pack = pack;
         return this;
+    }
+
+    @Override
+    protected ModCore modCore() {
+        return modCore;
     }
 
     /**

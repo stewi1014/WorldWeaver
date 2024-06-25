@@ -85,7 +85,7 @@ public abstract class WoverWorldPresetProvider
         }
 
         @Override
-        protected void prepareTags(TagBootstrapContext<WorldPreset> provider) {
+        public void prepareTags(TagBootstrapContext<WorldPreset> provider) {
             WoverWorldPresetProvider.this.prepareTags(provider);
         }
     }

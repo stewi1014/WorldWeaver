@@ -34,7 +34,7 @@ public class BlockTagProvider extends WoverTagProvider.ForBlocks {
         return true;
     }
 
-    protected void prepareTags(TagBootstrapContext<Block> ctx) {
+    public void prepareTags(TagBootstrapContext<Block> ctx) {
         prepareBlockTags(ctx);
         preparePOITags(ctx);
     }

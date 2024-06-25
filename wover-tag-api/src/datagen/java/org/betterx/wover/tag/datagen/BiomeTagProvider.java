@@ -16,7 +16,7 @@ public class BiomeTagProvider extends WoverTagProvider.ForBiomes {
         super(modCore, List.of(modCore.namespace, modCore.modId, "c", "minecraft"));
     }
 
-    protected void prepareTags(TagBootstrapContext<Biome> ctx) {
+    public void prepareTags(TagBootstrapContext<Biome> ctx) {
         ctx.add(CommonBiomeTags.IS_END_CENTER, Biomes.THE_END);
         ctx.add(CommonBiomeTags.IS_END_HIGHLAND, Biomes.END_HIGHLANDS);
         ctx.add(CommonBiomeTags.IS_END_MIDLAND, Biomes.END_MIDLANDS);
