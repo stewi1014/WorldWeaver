@@ -45,8 +45,12 @@ public class WorldPresetInfoRegistry {
     ) {
         if (key == null) return WorldPresetInfoImpl.DEFAULT;
         final Registry<WorldPresetInfo> infos = WorldState.allStageRegistryAccess()
-                                                          .registryOrThrow(WORLD_PRESET_INFO_REGISTRY);
-
+                                                          .registry(WORLD_PRESET_INFO_REGISTRY)
+                                                          .orElse(null);
+        if (infos == null) {
+            LibWoverWorldPreset.C.LOG.error("WorldPresetInfoRegistry: Registry not read");
+            return WorldPresetInfoImpl.DEFAULT;
+        }
         if (!infos.containsKey(key.location())) return WorldPresetInfoImpl.DEFAULT;
         return infos.get(key.location());
     }
