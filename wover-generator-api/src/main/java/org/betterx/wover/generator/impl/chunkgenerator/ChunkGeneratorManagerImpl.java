@@ -12,7 +12,6 @@ import org.betterx.wover.state.api.WorldState;
 
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.types.templates.TypeTemplate;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.client.gui.screens.worldselection.WorldCreationContext;
 import net.minecraft.core.Holder;
@@ -119,41 +118,45 @@ public class ChunkGeneratorManagerImpl {
         if (chunkGenerator instanceof ChunkGeneratorAccessor acc) {
             var supplier = acc.wover_getFeaturesPerStep();
             if (supplier != null) {
-                List<FeatureSorter.StepFeatureData> list = supplier.get();
                 final HashMap<String, Integer> namespaces = new HashMap<>();
-                if (list != null) {
-                    for (var features : list)
-                        if (features != null) {
-                            for (PlacedFeature feature : features.features()) {
-                                if (feature != null) {
-                                    String namespace = null;
-                                    if (WorldState.registryAccess() != null) {
-                                        final ResourceLocation location = WorldState.registryAccess()
-                                                                                    .registryOrThrow(Registries.PLACED_FEATURE)
-                                                                                    .getKey(feature);
-                                        if (location != null) {
-                                            namespace = location.getNamespace();
+                try {
+                    List<FeatureSorter.StepFeatureData> list = supplier.get();
+                    if (list != null) {
+                        for (var features : list)
+                            if (features != null) {
+                                for (PlacedFeature feature : features.features()) {
+                                    if (feature != null) {
+                                        String namespace = null;
+                                        if (WorldState.registryAccess() != null) {
+                                            final ResourceLocation location = WorldState.registryAccess()
+                                                                                        .registryOrThrow(Registries.PLACED_FEATURE)
+                                                                                        .getKey(feature);
+                                            if (location != null) {
+                                                namespace = location.getNamespace();
+                                            }
                                         }
-                                    }
-                                    if (namespace == null
-                                            && feature.feature() != null
-                                            && feature.feature().unwrapKey().isPresent()) {
-                                        namespace = feature
-                                                .feature()
-                                                .unwrapKey()
-                                                .get()
-                                                .location()
-                                                .getNamespace();
-                                    }
+                                        if (namespace == null
+                                                && feature.feature() != null
+                                                && feature.feature().unwrapKey().isPresent()) {
+                                            namespace = feature
+                                                    .feature()
+                                                    .unwrapKey()
+                                                    .get()
+                                                    .location()
+                                                    .getNamespace();
+                                        }
 
-                                    if (namespace == null) {
-                                        namespace = "none";
-                                    }
+                                        if (namespace == null) {
+                                            namespace = "none";
+                                        }
 
-                                    namespaces.put(namespace, namespaces.getOrDefault(namespace, 0) + 1);
+                                        namespaces.put(namespace, namespaces.getOrDefault(namespace, 0) + 1);
+                                    }
                                 }
                             }
-                        }
+                    }
+                } catch (Throwable e) {
+                    LibWoverWorldGenerator.C.log.warn("Failed to enumerate feature namespaces", e);
                 }
                 return namespaces.entrySet()
                                  .stream()
@@ -195,7 +198,7 @@ public class ChunkGeneratorManagerImpl {
         printDimensionInfo("World Dimensions", dimensionRegistry.dimensions().entrySet());
     }
 
-    public static void printDimensionInfo( Registry<LevelStem>  dimensionRegistry) {
+    public static void printDimensionInfo(Registry<LevelStem> dimensionRegistry) {
         if (!Configs.MAIN.verboseLogging.get()) return;
 
         printDimensionInfo("World Dimensions", dimensionRegistry.entrySet());

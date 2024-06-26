@@ -18,8 +18,8 @@ import org.betterx.wover.state.api.WorldState;
 import org.betterx.wover.tag.api.predefined.CommonBiomeTags;
 import org.betterx.wover.util.ResourceLocationSet;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -224,7 +224,7 @@ public class BiomeSourceManagerImpl {
                     final List<TagKey<Biome>> netherTags = WoverNetherBiomeSource.TAGS;
                     addBiomesToExclusion(value, id -> addAllExclusions(netherTags, id));
                 } else {
-                    final TagKey<Biome> tag = TagKey.create(Registries.BIOME,  ResourceLocation.parse(key));
+                    final TagKey<Biome> tag = TagKey.create(Registries.BIOME, ResourceLocation.parse(key));
                     final Set<ResourceLocation> elements = EXCLUSIONS.computeIfAbsent(
                             tag,
                             k -> new ResourceLocationSet()
@@ -241,9 +241,15 @@ public class BiomeSourceManagerImpl {
     }
 
     public static String printBiomeSourceInfo(BiomeSource biomeSource) {
+        Set<Holder<Biome>> biomes = Set.of();
+        try {
+            biomes = biomeSource.possibleBiomes();
+        } catch (Throwable e) {
+            LibWoverWorldGenerator.C.log.warn("Error getting possible biomes from BiomeSource", e);
+        }
         return biomeSource.getClass()
                           .getSimpleName() + " (" + Integer.toHexString(biomeSource.hashCode()) + ")" +
-                "\n    biomes     = " + biomeSource.possibleBiomes().size() +
-                "\n    namespaces = " + WoverBiomeSourceImpl.getNamespaces(biomeSource.possibleBiomes());
+                "\n    biomes     = " + biomes.size() +
+                "\n    namespaces = " + WoverBiomeSourceImpl.getNamespaces(biomes);
     }
 }
