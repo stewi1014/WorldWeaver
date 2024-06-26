@@ -274,7 +274,7 @@ public class WoverBlockModelGenerators {
         ).map(template -> template.create(buttonBlock, mapping, vanillaGenerator.modelOutput)).toList();
 
         acceptBlockState(BlockModelGenerators.createButton(buttonBlock, locations.get(0), locations.get(1)));
-        createItem(buttonBlock, ModelTemplates.BUTTON_INVENTORY, mapping);
+        createItemModel(buttonBlock, ModelTemplates.BUTTON_INVENTORY, mapping);
     }
 
     public void createStairs(
@@ -291,7 +291,7 @@ public class WoverBlockModelGenerators {
 
     public void createStairs(Block materialBlock, Block stairBlock) {
         createStairs(stairBlock, this
-                .getTextureModels(stairBlock, TexturedModel.CUBE_TOP_BOTTOM.get(materialBlock))
+                .getTextureModels(stairBlock, TexturedModel.CUBE.get(materialBlock))
                 .getMapping());
     }
 
@@ -336,11 +336,6 @@ public class WoverBlockModelGenerators {
         if (item != Items.AIR) {
             ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(item), TextureMapping.layer0(itemLocation), vanillaGenerator.modelOutput);
         }
-        vanillaGenerator.skipAutoItemBlock(block);
-    }
-
-    private void createItem(Block block, ModelTemplate inventoryModel, TextureMapping mapping) {
-        delegateItemModel(block, inventoryModel.create(block, mapping, vanillaGenerator.modelOutput));
         vanillaGenerator.skipAutoItemBlock(block);
     }
 
@@ -481,20 +476,6 @@ public class WoverBlockModelGenerators {
             return this;
         }
 
-        public Builder createStairs(Block stairBlock) {
-            final List<ResourceLocation> locations = Stream
-                    .of(
-                            ModelTemplates.STAIRS_INNER,
-                            ModelTemplates.STAIRS_STRAIGHT,
-                            ModelTemplates.STAIRS_OUTER
-                    )
-                    .map(template -> this.computeModelIfAbsent(template, stairBlock)).toList();
-
-            acceptBlockState(BlockModelGenerators.createStairs(stairBlock, locations.get(0), locations.get(1), locations.get(2)));
-            delegateItemModel(stairBlock, locations.get(1));
-
-            return this;
-        }
 
         private Builder createFullBlockVariant(Block block) {
             final TexturedModel texturedModel = getTextureModels(block, TexturedModel.CUBE.get(block));
