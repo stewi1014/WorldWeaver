@@ -77,6 +77,10 @@ public class WoverBlockModelGenerators {
         this.vanillaGenerator.modelOutput.accept(id, supplier);
     }
 
+    public void delegateItemModel(Block block) {
+        this.vanillaGenerator.delegateItemModel(block, TextureMapping.getBlockTexture(block));
+    }
+
     public void delegateItemModel(Block block, ResourceLocation resourceLocation) {
         this.vanillaGenerator.delegateItemModel(block, resourceLocation);
     }
