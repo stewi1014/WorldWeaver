@@ -295,7 +295,17 @@ public class WoverBlockModelGenerators {
                 .getMapping());
     }
 
-    private void createStairs(Block stairBlock, TextureMapping mapping) {
+    public void createStairsWithModels(
+            Block stairBlock,
+            ResourceLocation stair,
+            ResourceLocation outer,
+            ResourceLocation inner
+    ) {
+        acceptBlockState(BlockModelGenerators.createStairs(stairBlock, inner, stair, outer));
+        delegateItemModel(stairBlock, stair);
+    }
+
+    public void createStairs(Block stairBlock, TextureMapping mapping) {
         final List<ResourceLocation> locations = Stream
                 .of(
                         ModelTemplates.STAIRS_INNER,
