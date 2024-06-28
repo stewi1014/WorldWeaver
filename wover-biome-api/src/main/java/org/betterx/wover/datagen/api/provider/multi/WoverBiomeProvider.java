@@ -18,6 +18,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
 
+import java.util.List;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -119,7 +120,7 @@ public abstract class WoverBiomeProvider extends AbstractMultiProvider {
         );
 
         pack.addProvider(modCore ->
-                new WoverTagProvider.ForBiomes(modCore) {
+                new WoverTagProvider.ForBiomes(modCore, List.of(modCore.namespace, modCore.modId)) {
                     @Override
                     public void prepareTags(TagBootstrapContext<Biome> provider) {
                         prepareBiomeTags(provider);
