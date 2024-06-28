@@ -282,7 +282,7 @@ public class WoverEndBiomeSource extends WoverBiomeSource implements
             if (d > 0.25) {
                 suggestedType = CommonBiomeTags.IS_END_HIGHLAND; //highlands
             } else if (d >= -0.0625) {
-                suggestedType = CommonBiomeTags.IS_END_HIGHLAND; //midlands
+                suggestedType = CommonBiomeTags.IS_END_MIDLAND; //midlands
             } else {
                 suggestedType = d < -0.21875
                         ? CommonBiomeTags.IS_SMALL_END_ISLAND //small islands
