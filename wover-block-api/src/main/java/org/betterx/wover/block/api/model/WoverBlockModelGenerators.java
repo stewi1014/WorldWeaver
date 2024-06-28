@@ -322,6 +322,27 @@ public class WoverBlockModelGenerators {
         delegateItemModel(stairBlock, locations.get(1));
     }
 
+    public void createWall(Block materialBlock, Block wallBlock) {
+        createWall(wallBlock, this
+                .getTextureModels(wallBlock, TexturedModel.CUBE.get(materialBlock))
+                .getMapping());
+    }
+
+    public void createWall(Block wallBlock, TextureMapping mapping) {
+        final List<ResourceLocation> locations = Stream.of(
+                ModelTemplates.WALL_POST,
+                ModelTemplates.WALL_LOW_SIDE,
+                ModelTemplates.WALL_TALL_SIDE
+        ).map(template -> template.create(wallBlock, mapping, vanillaGenerator.modelOutput)).toList();
+
+        acceptBlockState(BlockModelGenerators.createWall(wallBlock, locations.get(0), locations.get(1), locations.get(2)));
+        createInventoryModel(wallBlock, ModelTemplates.WALL_INVENTORY, mapping);
+    }
+
+    private void createInventoryModel(Block wallBlock, ModelTemplate inventoryModel, TextureMapping mapping) {
+        delegateItemModel(wallBlock, inventoryModel.create(wallBlock, mapping, vanillaGenerator.modelOutput));
+    }
+
 
     public void createChest(Block materialBlock, Block chestBlock) {
         final var baseModel = particleOnlyModel(materialBlock);
@@ -338,6 +359,12 @@ public class WoverBlockModelGenerators {
 
     public void createFlatItem(Block block) {
         vanillaGenerator.createSimpleFlatItemModel(block);
+        vanillaGenerator.skipAutoItemBlock(block);
+    }
+
+
+    public void createWallItem(Block block, ResourceLocation textureLocation) {
+        createInventoryModel(block, ModelTemplates.WALL_INVENTORY, new TextureMapping().put(TextureSlot.WALL, textureLocation));
         vanillaGenerator.skipAutoItemBlock(block);
     }
 
@@ -410,20 +437,6 @@ public class WoverBlockModelGenerators {
                             fullBlockLocation
                     )
             );
-
-            return this;
-        }
-
-        public Builder createWall(Block wallBlock) {
-            final List<ResourceLocation> locations = Stream.of(
-                    ModelTemplates.WALL_POST,
-                    ModelTemplates.WALL_LOW_SIDE,
-                    ModelTemplates.WALL_TALL_SIDE
-            ).map(template -> template.create(wallBlock, mapping, vanillaGenerator.modelOutput)).toList();
-
-            acceptBlockState(BlockModelGenerators.createWall(wallBlock, locations.get(0), locations.get(1), locations.get(2)));
-
-            createInventoryModel(wallBlock, ModelTemplates.WALL_INVENTORY, mapping);
 
             return this;
         }
