@@ -157,7 +157,6 @@ public abstract class BiomeDecider {
      * Called whenever the picker needs to rebuild it's contents
      */
     public void rebuild() {
-        //TODO: 1.19.3 test if this rebuilds once we have biomes
         if (picker != null)
             picker.rebuild();
     }
@@ -192,16 +191,9 @@ public abstract class BiomeDecider {
             int quarterZ
     ) {
         return suggestType(
-                originalType,
-                suggestedType,
-                0,
-                maxHeight,
-                blockX,
-                blockY,
-                blockZ,
-                quarterX,
-                quarterY,
-                quarterZ
+                originalType, suggestedType, 0, maxHeight,
+                blockX, blockY, blockZ,
+                quarterX, quarterY, quarterZ
         );
     }
 
