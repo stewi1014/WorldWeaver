@@ -238,6 +238,13 @@ public interface FeaturePlacementBuilder {
     FeaturePlacementBuilder randomHeight8FromFloorCeil();
 
     /**
+     * Moves the input position to a random height from the lowest possible ground position to the maximum height
+     *
+     * @return this builder
+     */
+    FeaturePlacementBuilder randomHeightFromFloorToMaxTerrain();
+
+    /**
      * Moves the input position to a random height within the buildable range.
      *
      * @return this builder

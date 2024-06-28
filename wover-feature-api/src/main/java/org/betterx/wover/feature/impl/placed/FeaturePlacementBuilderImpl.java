@@ -234,6 +234,11 @@ public class FeaturePlacementBuilderImpl implements org.betterx.wover.feature.ap
     }
 
     @Override
+    public FeaturePlacementBuilderImpl randomHeightFromFloorToMaxTerrain() {
+        return modifier(PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT);
+    }
+
+    @Override
     public FeaturePlacementBuilderImpl randomHeight() {
         return modifier(PlacementUtils.FULL_RANGE);
     }
