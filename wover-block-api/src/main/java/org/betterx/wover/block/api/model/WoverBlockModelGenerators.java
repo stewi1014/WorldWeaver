@@ -281,6 +281,47 @@ public class WoverBlockModelGenerators {
         createItemModel(buttonBlock, ModelTemplates.BUTTON_INVENTORY, mapping);
     }
 
+    public void createFence(Block fenceBlock, ResourceLocation textureLocation) {
+        createFence(fenceBlock, new TextureMapping().put(TextureSlot.TEXTURE, textureLocation));
+    }
+
+    public void createFence(Block materialBlock, Block fenceBlock) {
+        createFence(fenceBlock, this
+                .getTextureModels(fenceBlock, TexturedModel.CUBE.get(materialBlock))
+                .getMapping());
+    }
+
+    public void createFence(Block fenceBlock, TextureMapping mapping) {
+        final List<ResourceLocation> locations = Stream.of(
+                ModelTemplates.FENCE_POST,
+                ModelTemplates.FENCE_SIDE
+        ).map(template -> template.create(fenceBlock, mapping, vanillaGenerator.modelOutput)).toList();
+
+        acceptBlockState(BlockModelGenerators.createFence(fenceBlock, locations.get(0), locations.get(1)));
+        createInventoryModel(fenceBlock, ModelTemplates.FENCE_INVENTORY, mapping);
+    }
+
+    public void createFenceGate(Block gateBlock, ResourceLocation textureLocation) {
+        createFence(gateBlock, new TextureMapping().put(TextureSlot.TEXTURE, textureLocation));
+    }
+
+    public void createFenceGate(Block materialBlock, Block gateBlock) {
+        createFenceGate(gateBlock, this
+                .getTextureModels(gateBlock, TexturedModel.CUBE.get(materialBlock))
+                .getMapping());
+    }
+
+    public void createFenceGate(Block gateBlock, TextureMapping mapping) {
+        final List<ResourceLocation> locations = Stream.of(
+                ModelTemplates.FENCE_GATE_OPEN,
+                ModelTemplates.FENCE_GATE_CLOSED,
+                ModelTemplates.FENCE_GATE_WALL_OPEN,
+                ModelTemplates.FENCE_GATE_WALL_CLOSED
+        ).map(template -> template.create(gateBlock, mapping, vanillaGenerator.modelOutput)).toList();
+
+        acceptBlockState(BlockModelGenerators.createFenceGate(gateBlock, locations.get(0), locations.get(1), locations.get(2), locations.get(3), true));
+    }
+
     public void createStairs(
             Block stairBlock,
             ResourceLocation topTextureLocation,
@@ -463,18 +504,6 @@ public class WoverBlockModelGenerators {
             return this;
         }
 
-        public Builder createFence(Block fenceBlock) {
-            final List<ResourceLocation> locations = Stream.of(
-                    ModelTemplates.FENCE_POST,
-                    ModelTemplates.FENCE_SIDE
-            ).map(template -> template.create(fenceBlock, mapping, vanillaGenerator.modelOutput)).toList();
-
-            acceptBlockState(BlockModelGenerators.createFence(fenceBlock, locations.get(0), locations.get(1)));
-            createInventoryModel(fenceBlock, ModelTemplates.FENCE_INVENTORY, this.mapping);
-
-            return this;
-        }
-
         public Builder createCustomFenceGate(Block gateBlock) {
             final TextureMapping particles = TextureMapping.customParticle(gateBlock);
 
@@ -486,19 +515,6 @@ public class WoverBlockModelGenerators {
             ).map(template -> template.create(gateBlock, particles, vanillaGenerator.modelOutput)).toList();
 
             acceptBlockState(BlockModelGenerators.createFenceGate(gateBlock, locations.get(0), locations.get(1), locations.get(2), locations.get(3), false));
-
-            return this;
-        }
-
-        public Builder createFenceGate(Block gateBlock) {
-            final List<ResourceLocation> locations = Stream.of(
-                    ModelTemplates.FENCE_GATE_OPEN,
-                    ModelTemplates.FENCE_GATE_CLOSED,
-                    ModelTemplates.FENCE_GATE_WALL_OPEN,
-                    ModelTemplates.FENCE_GATE_WALL_CLOSED
-            ).map(template -> template.create(gateBlock, mapping, vanillaGenerator.modelOutput)).toList();
-
-            acceptBlockState(BlockModelGenerators.createFenceGate(gateBlock, locations.get(0), locations.get(1), locations.get(2), locations.get(3), true));
 
             return this;
         }
