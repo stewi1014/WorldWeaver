@@ -28,18 +28,18 @@ public class MineableTags {
      */
     public static final TagKey<Block> PICKAXE = BlockTags.MINEABLE_WITH_PICKAXE;
     /**
-     * {@code fabric:mineable/shears}
+     * {@code c:mineable/shears}
      */
-    public static final TagKey<Block> SHEARS = TagManager.BLOCKS.makeFabricTag("mineable/shears");
+    public static final TagKey<Block> SHEARS = TagManager.BLOCKS.makeCommonTag("mineable/shears");
     ;
     /**
      * {@code minecraft:mineable/shovel}
      */
     public static final TagKey<Block> SHOVEL = BlockTags.MINEABLE_WITH_SHOVEL;
     /**
-     * {@code fabric:mineable/sword}
+     * {@code c:mineable/sword}
      */
-    public static final TagKey<Block> SWORD = TagManager.BLOCKS.makeFabricTag("mineable/sword");
+    public static final TagKey<Block> SWORD = TagManager.BLOCKS.makeCommonTag("mineable/sword");
     /**
      * {@code c:mineable/hammer}
      */
