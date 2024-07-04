@@ -121,7 +121,7 @@ public abstract class BiomeBuilder<B extends BiomeBuilder<B>> {
     }
 
     @SafeVarargs
-    protected final B tag(TagKey<Biome>... tags) {
+    public final B tag(TagKey<Biome>... tags) {
         for (TagKey<Biome> biomeTag : tags) {
             if (biomeTag != null && !biomeTags.contains(biomeTag))
                 biomeTags.add(biomeTag);
