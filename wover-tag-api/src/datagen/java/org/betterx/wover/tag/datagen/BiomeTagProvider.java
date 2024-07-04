@@ -10,10 +10,11 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 
 import java.util.List;
+import java.util.Set;
 
 public class BiomeTagProvider extends WoverTagProvider.ForBiomes {
     public BiomeTagProvider(ModCore modCore) {
-        super(modCore, List.of(modCore.namespace, modCore.modId, "c", "minecraft"));
+        super(modCore, List.of(modCore.namespace, modCore.modId, "c", "minecraft"), Set.of(CommonBiomeTags.IS_END_LAND));
     }
 
     public void prepareTags(TagBootstrapContext<Biome> ctx) {

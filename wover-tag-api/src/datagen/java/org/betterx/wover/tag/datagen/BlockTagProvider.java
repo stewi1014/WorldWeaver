@@ -24,6 +24,7 @@ public class BlockTagProvider extends WoverTagProvider.ForBlocks {
                         CommonBlockTags.BARREL,
                         CommonBlockTags.WOODEN_CHEST,
                         CommonBlockTags.WOODEN_COMPOSTER,
+                        CommonBlockTags.WOODEN_BARREL,
                         CommonBlockTags.WORKBENCHES,
                         CommonBlockTags.NEEDS_GOLD_TOOL,
                         CommonBlockTags.NEEDS_NETHERITE_TOOL,
