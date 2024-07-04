@@ -18,8 +18,9 @@ public class TestModelProvider extends WoverModelProvider {
         //TexturedModel texturedModel = blockStateModelGenerator.getTextureModels(Blocks.AMETHYST_BLOCK, TexturedModel.CUBE.get(block));
         blockStateModelGenerator.modelFor(Blocks.AMETHYST_BLOCK)
                                 .createFullBlock(TestBlockRegistry.TEST_BLOCK)
-                                .createWall(TestBlockRegistry.TEST_WALL)
                                 .createDoor(TestBlockRegistry.TEST_DOOR);
+
+        blockStateModelGenerator.createWall(Blocks.AMETHYST_BLOCK, TestBlockRegistry.TEST_WALL);
 
 //        var fullBlock = texturedModel
 //                .getTemplate()
