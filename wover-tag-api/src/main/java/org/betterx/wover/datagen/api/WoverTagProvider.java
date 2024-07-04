@@ -203,6 +203,15 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
         return this.modCore.namespace + "/" + this.getClass().getSimpleName();
     }
 
+    /**
+     * When {@code true} the original tags will be replaced by the new tags.
+     *
+     * @return {@code true} if the original tags should be replaced
+     */
+    protected boolean replaceOriginalTags() {
+        return false;
+    }
+
     @Override
     public FabricTagProvider<T> getProvider(
             FabricDataOutput output,
@@ -239,8 +248,7 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
                     if (!force && elements.isEmpty()) {
                         return;
                     }
-                    final FabricTagProvider<T>.FabricTagBuilder builder = getOrCreateTagBuilder(tag);
-
+                    final FabricTagProvider<T>.FabricTagBuilder builder = getOrCreateTagBuilder(tag).setReplace(replaceOriginalTags());
                     //write all elements that passed the above filtering...
                     for (var element : elements) {
                         if (element.tag()) {
