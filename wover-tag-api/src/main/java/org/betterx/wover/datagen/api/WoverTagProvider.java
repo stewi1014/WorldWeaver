@@ -231,6 +231,8 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
              */
             protected final void addTags(HolderLookup.Provider arg) {
                 P provider = tagRegistry.createBootstrapContext(initAll());
+                //make sure that force written Tags are added to the provider
+                forceWrite.forEach(provider::asPlaceholder);
                 prepareTags(provider);
 
                 provider.forEach((tag, allElements) -> {

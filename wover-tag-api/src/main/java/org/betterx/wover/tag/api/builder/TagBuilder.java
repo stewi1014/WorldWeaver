@@ -3,6 +3,8 @@ package org.betterx.wover.tag.api.builder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 
+import org.jetbrains.annotations.ApiStatus;
+
 /**
  * Allows you to add Elements to a given {@link TagKey}.
  * <p>
@@ -94,4 +96,13 @@ public interface TagBuilder<T> {
      */
     @SuppressWarnings("unchecked")
     void addOptional(TagKey<T> tagID, ResourceKey<T>... keys);
+
+    /**
+     * Makes sure the tag is created. This is useful if you want to define a Tag but do not yet have the elements to add.
+     * A WoverTagProvider will call this automatically for all Tags that are in the Set of forced Tags .
+     *
+     * @param tagID The Tag to ensure is created.
+     */
+    @ApiStatus.Internal
+    void asPlaceholder(TagKey<T> tagID);
 }

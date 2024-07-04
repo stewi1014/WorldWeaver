@@ -91,6 +91,10 @@ public class TagBootstrapContextImpl<T, P extends TagBootstrapContext<T>> implem
         }
     }
 
+    public void asPlaceholder(TagKey<T> tagID) {
+        getSetForTag(tagID);
+    }
+
     public void add(T element, TagKey<T>... tags) {
         for (TagKey<T> tagID : tags) {
             add(tagID, false, element);
