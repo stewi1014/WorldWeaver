@@ -57,5 +57,9 @@ public class ClientWorldLifecycle {
      */
     public static Event<StartupScreenProvider> ENUMERATE_STARTUP_SCREENS = ClientWorldLifecycleImpl.ENUMERATE_STARTUP_SCREENS;
 
+    /**
+     * Called immediately after the WoVer welcome screen was shown. This event is not fired when the Screen was skipped. So if you need to do something
+     * on the first run after wover was installed, you should use this event.
+     */
     public static Event<AfterWelcomeScreen> AFTER_WELCOME_SCREEN = ClientWorldLifecycleImpl.AFTER_WELCOME_SCREEN;
 }
