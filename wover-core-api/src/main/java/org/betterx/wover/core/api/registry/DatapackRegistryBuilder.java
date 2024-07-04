@@ -1,5 +1,6 @@
 package org.betterx.wover.core.api.registry;
 
+import org.betterx.wover.core.impl.registry.DatapackLoadElementImpl;
 import org.betterx.wover.core.impl.registry.DatapackRegistryBuilderImpl;
 
 import com.mojang.serialization.Codec;
@@ -238,7 +239,29 @@ public class DatapackRegistryBuilder {
         };
     }
 
+    /**
+     * Creates a new ResourceKey for a Registry.
+     *
+     * @param location The location of the Registry
+     * @param <T>      The type of the Elements stored in the Registry
+     * @return A new ResourceKey for a Registry
+     */
     public static <T> ResourceKey<Registry<T>> createRegistryKey(ResourceLocation location) {
         return ResourceKey.createRegistryKey(location);
+    }
+
+    public static <E> void onElementLoad(
+            ResourceKey<Registry<E>> registryKey,
+            OnElementLoad<E> watcher
+    ) {
+        DatapackLoadElementImpl.register(registryKey, watcher);
+    }
+
+    public static <E> void onElementLoad(
+            ResourceKey<Registry<E>> registryKey,
+            OnElementLoad<E> watcher,
+            int priority
+    ) {
+        DatapackLoadElementImpl.register(registryKey, watcher, priority);
     }
 }

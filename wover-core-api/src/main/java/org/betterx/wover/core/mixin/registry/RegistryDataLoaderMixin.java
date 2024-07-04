@@ -55,4 +55,20 @@ public class RegistryDataLoaderMixin {
     ) {
         DatapackRegistryBuilderImpl.bootstrap(registryInfoLookup, writableRegistry.key(), writableRegistry);
     }
+
+    //we moved this over to the register Method in MappedRegistryMixin to catch all registered values, even those
+    //that are registered at run time and not loaded from a datapack
+//    @ModifyArg(
+//            method = "loadElementFromResource",
+//            at = @At(value = "INVOKE", target = "Lnet/minecraft/core/WritableRegistry;register(Lnet/minecraft/resources/ResourceKey;Ljava/lang/Object;Lnet/minecraft/core/RegistrationInfo;)Lnet/minecraft/core/Holder$Reference;")
+//    )
+//    private static <T> T wover_loadElementFromResource(
+//            ResourceKey<T> resourceKey,
+//            T value,
+//            RegistrationInfo registrationInfo
+//    ) {
+//        DatapackLoadElementImpl.didLoadFromDatapack(resourceKey, value);
+//        return value;
+//    }
+
 }

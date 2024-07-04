@@ -14,6 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
 public class DatapackRegistryBuilderImpl {
@@ -39,6 +40,7 @@ public class DatapackRegistryBuilderImpl {
         }
     }
 
+
     public static boolean isRegistered(ResourceLocation registryId) {
         return REGISTRIES.stream()
                          .filter(entry -> entry.definesRegistry())
@@ -57,14 +59,14 @@ public class DatapackRegistryBuilderImpl {
             Consumer<BootstrapContext<T>> bootstrap,
             int priority
     ) {
-        REGISTRIES.add(new Entry<>(key, null, bootstrap), priority);
+        REGISTRIES.add(new Entry<>(key, null, bootstrap), Math.max(MAX_READONLY_PRIORITY + 1, priority));
     }
 
     public static <T> void registerReadOnly(
             ResourceKey<? extends Registry<T>> key,
             Consumer<BootstrapContext<T>> bootstrap
     ) {
-        register(key, bootstrap, DEFAULT_PRIORITY);
+        register(key, bootstrap, MAX_READONLY_PRIORITY);
     }
 
     public static <T> void registerReadOnly(
@@ -72,7 +74,7 @@ public class DatapackRegistryBuilderImpl {
             Consumer<BootstrapContext<T>> bootstrap,
             int priority
     ) {
-        register(key, bootstrap, MAX_READONLY_PRIORITY + priority);
+        register(key, bootstrap, Math.min(MAX_READONLY_PRIORITY, Integer.MIN_VALUE + priority));
     }
 
     public static <T> void register(
@@ -102,6 +104,7 @@ public class DatapackRegistryBuilderImpl {
         });
     }
 
+    @ApiStatus.Internal
     public static <E> void bootstrap(
             RegistryOps.RegistryInfoLookup registryInfoLookup,
             ResourceKey<? extends Registry<E>> resourceKey,
