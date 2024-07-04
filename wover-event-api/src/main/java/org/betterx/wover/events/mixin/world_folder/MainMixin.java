@@ -9,7 +9,7 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(Main.class)
+@Mixin(value = Main.class, priority = 200)
 public class MainMixin {
     @ModifyExpressionValue(
             method = "main",
