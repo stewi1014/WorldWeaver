@@ -24,7 +24,12 @@ public class BlockTagProvider extends WoverTagProvider.ForBlocks {
                         CommonBlockTags.BARREL,
                         CommonBlockTags.WOODEN_CHEST,
                         CommonBlockTags.WOODEN_COMPOSTER,
-                        CommonBlockTags.WORKBENCHES
+                        CommonBlockTags.WORKBENCHES,
+                        CommonBlockTags.NEEDS_GOLD_TOOL,
+                        CommonBlockTags.NEEDS_NETHERITE_TOOL,
+                        CommonBlockTags.MYCELIUM,
+                        CommonBlockTags.END_STONES,
+                        CommonBlockTags.NETHER_TERRAIN
                 )
         );
     }
@@ -49,6 +54,7 @@ public class BlockTagProvider extends WoverTagProvider.ForBlocks {
     }
 
     public static void prepareBlockTags(TagBootstrapContext<Block> ctx) {
+
         ctx.add(MineableTags.HAMMER, net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE);
         ctx.add(CommonBlockTags.SCULK_LIKE, Blocks.SCULK);
         ctx.add(CommonBlockTags.DRAGON_IMMUNE, net.minecraft.tags.BlockTags.DRAGON_IMMUNE);
@@ -71,7 +77,7 @@ public class BlockTagProvider extends WoverTagProvider.ForBlocks {
         ctx.add(CommonBlockTags.IS_OBSIDIAN, Blocks.OBSIDIAN, Blocks.CRYING_OBSIDIAN);
 
         ctx.add(CommonBlockTags.MYCELIUM, Blocks.MYCELIUM);
-        ctx.add(CommonBlockTags.MYCELIUM, CommonBlockTags.NETHER_MYCELIUM);
+        ctx.addOptional(CommonBlockTags.MYCELIUM, CommonBlockTags.NETHER_MYCELIUM);
 
 
         ctx.add(
@@ -87,12 +93,16 @@ public class BlockTagProvider extends WoverTagProvider.ForBlocks {
                 Blocks.FARMLAND,
                 Blocks.GRASS_BLOCK
         );
+
         ctx.add(
                 CommonBlockTags.TERRAIN,
-                CommonBlockTags.NETHER_TERRAIN,
                 net.minecraft.tags.BlockTags.DRIPSTONE_REPLACEABLE,
                 net.minecraft.tags.BlockTags.BASE_STONE_OVERWORLD,
-                net.minecraft.tags.BlockTags.NYLIUM,
+                net.minecraft.tags.BlockTags.NYLIUM
+        );
+        ctx.addOptional(
+                CommonBlockTags.TERRAIN,
+                CommonBlockTags.NETHER_TERRAIN,
                 CommonBlockTags.MYCELIUM,
                 CommonBlockTags.END_STONES
         );
@@ -108,8 +118,11 @@ public class BlockTagProvider extends WoverTagProvider.ForBlocks {
         );
         ctx.add(
                 CommonBlockTags.NETHER_TERRAIN,
+                net.minecraft.tags.BlockTags.NYLIUM
+        );
+        ctx.addOptional(
+                CommonBlockTags.NETHER_TERRAIN,
                 CommonBlockTags.NETHERRACK,
-                net.minecraft.tags.BlockTags.NYLIUM,
                 CommonBlockTags.NETHER_ORES,
                 CommonBlockTags.SOUL_GROUND,
                 CommonBlockTags.NETHER_MYCELIUM
@@ -213,11 +226,13 @@ public class BlockTagProvider extends WoverTagProvider.ForBlocks {
                 Blocks.SMALL_DRIPLEAF
         );
 
-        ctx.add(CommonBlockTags.GROWS_GRASS, BlockTags.DIRT, CommonBlockTags.TERRAIN, BlockTags.LOGS, BlockTags.PLANKS);
+        ctx.add(CommonBlockTags.GROWS_GRASS, BlockTags.DIRT, BlockTags.LOGS, BlockTags.PLANKS);
+        ctx.addOptional(CommonBlockTags.GROWS_GRASS, CommonBlockTags.TERRAIN);
 
-        ctx.add(CommonBlockTags.GRASS_SOIL, BlockTags.DIRT, CommonBlockTags.TERRAIN, BlockTags.LOGS, BlockTags.PLANKS);
+        ctx.add(CommonBlockTags.GRASS_SOIL, BlockTags.DIRT, BlockTags.LOGS, BlockTags.PLANKS);
+        ctx.addOptional(CommonBlockTags.GRASS_SOIL, CommonBlockTags.TERRAIN);
 
-        ctx.add(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, CommonBlockTags.NEEDS_NETHERITE_TOOL);
-        ctx.add(BlockTags.INCORRECT_FOR_WOODEN_TOOL, CommonBlockTags.NEEDS_GOLD_TOOL);
+        ctx.addOptional(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, CommonBlockTags.NEEDS_NETHERITE_TOOL);
+        ctx.addOptional(BlockTags.INCORRECT_FOR_WOODEN_TOOL, CommonBlockTags.NEEDS_GOLD_TOOL);
     }
 }

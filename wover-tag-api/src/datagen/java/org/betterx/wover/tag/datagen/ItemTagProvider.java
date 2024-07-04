@@ -10,10 +10,11 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 
 import java.util.List;
+import java.util.Set;
 
 public class ItemTagProvider extends WoverTagProvider.ForItems {
     public ItemTagProvider(ModCore modCore) {
-        super(modCore, List.of(modCore.namespace, modCore.modId, "c", "minecraft"));
+        super(modCore, List.of(modCore.namespace, modCore.modId, "c", "minecraft"), Set.of(CommonItemTags.SHEARS));
     }
 
     public void prepareTags(ItemTagBootstrapContext ctx) {
