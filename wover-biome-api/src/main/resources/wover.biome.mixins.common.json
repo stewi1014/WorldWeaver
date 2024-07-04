@@ -8,6 +8,8 @@
   },
   "mixins": [
     "BiomeGenerationSettingsAccessor",
-    "HolderSetNamedAccessor"
+    "ChunkGeneratorAccessor",
+    "HolderSetNamedAccessor",
+    "NoiseBasedChunkGeneratorMixin"
   ]
 }

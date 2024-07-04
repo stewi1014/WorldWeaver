@@ -1,11 +1,11 @@
 package org.betterx.wover.generator.impl.chunkgenerator;
 
+import org.betterx.wover.biome.mixin.ChunkGeneratorAccessor;
 import org.betterx.wover.config.api.Configs;
 import org.betterx.wover.core.api.ModCore;
 import org.betterx.wover.core.api.registry.BuiltInRegistryManager;
 import org.betterx.wover.entrypoint.LibWoverWorldGenerator;
 import org.betterx.wover.events.api.WorldLifecycle;
-import org.betterx.wover.generator.mixin.generator.ChunkGeneratorAccessor;
 import org.betterx.wover.legacy.api.LegacyHelper;
 import org.betterx.wover.state.api.WorldConfig;
 import org.betterx.wover.state.api.WorldState;

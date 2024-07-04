@@ -12,7 +12,6 @@
     "biomesource.TheEndBiomesMixin",
     "DSL.V2551Mixin",
     "DSL.V2832Mixin",
-    "generator.ChunkGeneratorAccessor",
     "generator.ChunkGeneratorMixin",
     "generator.ChunkGeneratorPrintMixin",
     "generator.NoiseBasedChunkGeneratorMixin"

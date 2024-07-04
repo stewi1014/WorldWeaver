@@ -1,4 +1,4 @@
-package org.betterx.wover.generator.mixin.generator;
+package org.betterx.wover.biome.mixin;
 
 import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.biome.FeatureSorter;

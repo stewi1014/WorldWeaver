@@ -1,5 +1,7 @@
 package org.betterx.wover.generator.impl.chunkgenerator;
 
+import org.betterx.wover.biome.impl.modification.ChunkGeneratorHelper;
+import org.betterx.wover.biome.mixin.ChunkGeneratorAccessor;
 import org.betterx.wover.common.generator.api.biomesource.BiomeSourceWithNoiseRelatedSettings;
 import org.betterx.wover.common.generator.api.biomesource.MergeableBiomeSource;
 import org.betterx.wover.common.generator.api.biomesource.NoiseGeneratorSettingsProvider;
@@ -10,7 +12,6 @@ import org.betterx.wover.common.generator.api.chunkgenerator.RestorableBiomeSour
 import org.betterx.wover.common.surface.api.InjectableSurfaceRules;
 import org.betterx.wover.core.api.IntegrationCore;
 import org.betterx.wover.entrypoint.LibWoverWorldGenerator;
-import org.betterx.wover.generator.mixin.generator.ChunkGeneratorAccessor;
 import org.betterx.wover.surface.impl.SurfaceRuleUtil;
 
 import com.mojang.serialization.MapCodec;
@@ -21,20 +22,14 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.SurfaceRuleData;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSource;
-import net.minecraft.world.level.biome.FeatureSorter;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.*;
 
-import com.google.common.base.Suppliers;
-
 import java.util.List;
-import java.util.function.Function;
 import org.jetbrains.annotations.NotNull;
 
 public class WoverChunkGenerator extends NoiseBasedChunkGenerator implements
@@ -83,7 +78,7 @@ public class WoverChunkGenerator extends NoiseBasedChunkGenerator implements
                     + biomeSource.getClass().getName());
             //terrablender is invalidating the feature initialization
             //we redo it at this point, otherwise we will get blank biomes
-            rebuildFeaturesPerStep(biomeSource);
+            ChunkGeneratorHelper.rebuildFeaturesPerStep(this, biomeSource);
         }
 
         LibWoverWorldGenerator.C.log.info("Created WoverChunkGenerator with " + biomeSource.getClass().getName());
@@ -94,21 +89,8 @@ public class WoverChunkGenerator extends NoiseBasedChunkGenerator implements
         return CODEC;
     }
 
-    public void rebuildFeaturesPerStep() {
-        rebuildFeaturesPerStep(getBiomeSource());
-    }
-    
-    private void rebuildFeaturesPerStep(BiomeSource biomeSource) {
-        if (this instanceof ChunkGeneratorAccessor acc) {
-            Function<Holder<Biome>, BiomeGenerationSettings> function
-                    = (Holder<Biome> hh) -> hh.value().getGenerationSettings();
-
-            acc.wover_setFeaturesPerStep(Suppliers.memoize(() -> FeatureSorter.buildFeaturesPerStep(
-                    List.copyOf(biomeSource.possibleBiomes()),
-                    (hh) -> function.apply(hh).features(),
-                    true
-            )));
-        }
+    public void wover_rebuildFeaturesPerStep() {
+        ChunkGeneratorHelper.rebuildFeaturesPerStep(this, getBiomeSource());
     }
 
     /**
@@ -126,7 +108,7 @@ public class WoverChunkGenerator extends NoiseBasedChunkGenerator implements
                     bs.reloadBiomes();
                 }
 
-                rebuildFeaturesPerStep(getBiomeSource());
+                ChunkGeneratorHelper.rebuildFeaturesPerStep(this, getBiomeSource());
             }
         }
     }
