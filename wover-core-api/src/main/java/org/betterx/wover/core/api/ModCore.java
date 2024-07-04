@@ -261,4 +261,13 @@ public final class ModCore implements Version.ModVersionProvider {
         return FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT;
     }
 
+    /**
+     * Returns true if the game is currently running on the server.
+     *
+     * @return true if the game is currently running on the server.
+     */
+    public static boolean isServer() {
+        return FabricLoader.getInstance().getEnvironmentType() == EnvType.SERVER;
+    }
+
 }
