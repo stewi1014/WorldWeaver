@@ -4,12 +4,15 @@ import org.betterx.wover.biome.api.BiomeKey;
 import org.betterx.wover.biome.api.builder.BiomeBootstrapContext;
 import org.betterx.wover.biome.api.builder.BiomeBuilder;
 import org.betterx.wover.biome.api.data.BiomeData;
+import org.betterx.wover.biome.api.data.BiomeGenerationDataContainer;
 import org.betterx.wover.generator.impl.biomesource.builder.WoverBiomeKeyImpl;
 import org.betterx.wover.generator.impl.biomesource.builder.WrappedWoverBiomeKeyImpl;
+import org.betterx.wover.tag.api.predefined.CommonBiomeTags;
 
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biome;
 
 import org.jetbrains.annotations.NotNull;
@@ -39,6 +42,32 @@ public interface WoverBiomeBuilder<B extends BiomeBuilder<B>> {
                 BiomeKey<WoverBiomeBuilder.Wrapped> key
         ) {
             super(context, key);
+        }
+
+        public WoverBiomeBuilder.Wrapped isNetherBiome() {
+            return this.intendedPlacement(BiomeTags.IS_NETHER);
+        }
+
+        public WoverBiomeBuilder.Wrapped isEndHighlandBiome() {
+            return this.intendedPlacement(CommonBiomeTags.IS_END_HIGHLAND);
+        }
+
+        public WoverBiomeBuilder.Wrapped isEndMidlandBiome(BiomeKey<?> parent) {
+            this.parent(parent);
+            return this.intendedPlacement(CommonBiomeTags.IS_END_MIDLAND);
+        }
+
+        public WoverBiomeBuilder.Wrapped isEndCenterIslandBiome() {
+            return this.intendedPlacement(CommonBiomeTags.IS_END_CENTER);
+        }
+
+        public WoverBiomeBuilder.Wrapped isEndBarrensBiome(BiomeKey<?> parent) {
+            this.parent(parent);
+            return this.intendedPlacement(CommonBiomeTags.IS_END_BARRENS);
+        }
+
+        public WoverBiomeBuilder.Wrapped isEndSmallIslandBiome() {
+            return this.intendedPlacement(CommonBiomeTags.IS_SMALL_END_ISLAND);
         }
     }
 
@@ -72,7 +101,7 @@ public interface WoverBiomeBuilder<B extends BiomeBuilder<B>> {
             dataContext.register(
                     key.dataKey,
                     new WoverBiomeData(
-                            fogDensity, key.key, parameters,
+                            fogDensity, key.key, new BiomeGenerationDataContainer(parameters, intendedPlacement),
                             terrainHeight, genChance, edgeSize, vertical, edge, parent
                     )
             );

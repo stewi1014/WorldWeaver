@@ -65,6 +65,8 @@ public abstract class BiomeBuilder<B extends BiomeBuilder<B>> {
     public static float DEFAULT_END_WETNESS = 0.5f;
 
     protected final List<Climate.ParameterPoint> parameters = new ArrayList<>(1);
+
+    protected @Nullable TagKey<Biome> intendedPlacement = null;
     protected float fogDensity;
     protected final List<TagKey<Biome>> biomeTags = new ArrayList<>(2);
 
@@ -87,7 +89,7 @@ public abstract class BiomeBuilder<B extends BiomeBuilder<B>> {
     }
 
     public B addNetherClimate(float temperature, float humidity) {
-        return addClimate(Climate.parameters(temperature, humidity, 0, 0, 0, 0, 0));
+        return addNetherClimate(temperature, humidity, 0);
     }
 
     public B fogDensity(float density) {
@@ -103,8 +105,23 @@ public abstract class BiomeBuilder<B extends BiomeBuilder<B>> {
         return tag(structureTag);
     }
 
+    /**
+     * Adds a biome tag to the biome and sets it as the intended placement for this biome.
+     * <p>
+     * The intended placement is used to determine where a Biome is placed in a dimension.
+     *
+     * @param tag The tag to add and set as the intended placement.
+     * @return The builder.
+     */
+    protected B biomeTypeTag(TagKey<Biome> tag) {
+        if (intendedPlacement == null && tag != null) {
+            intendedPlacement = tag;
+        }
+        return tag(tag);
+    }
+
     @SafeVarargs
-    public final B tag(TagKey<Biome>... tags) {
+    protected final B tag(TagKey<Biome>... tags) {
         for (TagKey<Biome> biomeTag : tags) {
             if (biomeTag != null && !biomeTags.contains(biomeTag))
                 biomeTags.add(biomeTag);
@@ -132,6 +149,11 @@ public abstract class BiomeBuilder<B extends BiomeBuilder<B>> {
 
     public B surface(Block top, Block under) {
         return startSurface().surface(top).subsurface(under, 3).finishSurface();
+    }
+
+    public B intendedPlacement(TagKey<Biome> biome) {
+        this.intendedPlacement = biome;
+        return (B) this;
     }
 
     public void register() {
@@ -198,7 +220,7 @@ public abstract class BiomeBuilder<B extends BiomeBuilder<B>> {
             return (B) this;
         }
 
-        protected B temperatureAdjustment(Biome.TemperatureModifier temperatureModifier) {
+        public B temperatureAdjustment(Biome.TemperatureModifier temperatureModifier) {
             this.temperatureModifier = temperatureModifier;
             return (B) this;
         }
@@ -414,27 +436,27 @@ public abstract class BiomeBuilder<B extends BiomeBuilder<B>> {
         }
 
         public final B isNetherBiome() {
-            return tag(BiomeTags.IS_NETHER);
+            return biomeTypeTag(BiomeTags.IS_NETHER);
         }
 
         public final B isEndHighlandBiome() {
-            return tag(CommonBiomeTags.IS_END_HIGHLAND);
+            return biomeTypeTag(CommonBiomeTags.IS_END_HIGHLAND);
         }
 
         public final B isEndMidlandBiome() {
-            return tag(CommonBiomeTags.IS_END_MIDLAND);
+            return biomeTypeTag(CommonBiomeTags.IS_END_MIDLAND);
         }
 
         public final B isEndCenterIslandBiome() {
-            return tag(CommonBiomeTags.IS_END_CENTER);
+            return biomeTypeTag(CommonBiomeTags.IS_END_CENTER);
         }
 
         public final B isEndBarrensBiome() {
-            return tag(CommonBiomeTags.IS_END_BARRENS);
+            return biomeTypeTag(CommonBiomeTags.IS_END_BARRENS);
         }
 
         public final B isEndSmallIslandBiome() {
-            return tag(CommonBiomeTags.IS_SMALL_END_ISLAND);
+            return biomeTypeTag(CommonBiomeTags.IS_SMALL_END_ISLAND);
         }
 
         public B spawn(EntityType<?> entityType, int weight, int minGroupCount, int maxGroupCount) {

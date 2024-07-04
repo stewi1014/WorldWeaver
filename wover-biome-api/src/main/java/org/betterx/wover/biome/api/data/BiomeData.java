@@ -5,21 +5,20 @@ import org.betterx.wover.entrypoint.LibWoverBiome;
 import org.betterx.wover.state.api.WorldState;
 
 import com.mojang.datafixers.util.*;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Climate;
 
-import java.util.List;
 import java.util.Objects;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
 
 public class BiomeData {
     public static final MapCodec<BiomeData> CODEC = codec(BiomeData::new);
@@ -30,7 +29,7 @@ public class BiomeData {
     public final float fogDensity;
 
     @NotNull
-    public final List<Climate.ParameterPoint> parameterPoints;
+    public final BiomeGenerationDataContainer generationData;
 
 
     protected static int preFinalAccessWarning = 0;
@@ -38,23 +37,23 @@ public class BiomeData {
     public BiomeData(
             float fogDensity,
             @NotNull ResourceKey<Biome> biome,
-            @NotNull List<Climate.ParameterPoint> parameterPoints
+            @NotNull BiomeGenerationDataContainer generationData
     ) {
         this.fogDensity = fogDensity;
         biomeKey = biome;
-        this.parameterPoints = parameterPoints;
+        this.generationData = generationData;
     }
 
     public static @NotNull BiomeData of(ResourceKey<Biome> biome) {
-        return new BiomeData(1.0f, biome, List.of());
+        return new BiomeData(1.0f, biome, BiomeGenerationDataContainer.EMPTY);
     }
 
     public static @NotNull BiomeData tempOf(ResourceKey<Biome> biome) {
-        return new BiomeDataImpl.InMemoryBiomeData(1.0f, biome, List.of());
+        return new BiomeDataImpl.InMemoryBiomeData(1.0f, biome, BiomeGenerationDataContainer.EMPTY);
     }
 
     public static <T extends BiomeData> MapCodec<T> codec(
-            final Function3<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, T> factory
+            final Function3<Float, ResourceKey<Biome>, BiomeGenerationDataContainer, T> factory
     ) {
         BiomeDataImpl.CodecAttributes<T> a = new BiomeDataImpl.CodecAttributes<>();
         return RecordCodecBuilder.mapCodec(
@@ -65,7 +64,7 @@ public class BiomeData {
 
     public static <T extends BiomeData, P4> MapCodec<T> codec(
             final RecordCodecBuilder<T, P4> p4,
-            final Function4<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, P4, T> factory
+            final Function4<Float, ResourceKey<Biome>, BiomeGenerationDataContainer, P4, T> factory
     ) {
         BiomeDataImpl.CodecAttributes<T> a = new BiomeDataImpl.CodecAttributes<>();
         return RecordCodecBuilder.mapCodec(
@@ -77,7 +76,7 @@ public class BiomeData {
     public static <T extends BiomeData, P4, P5> MapCodec<T> codec(
             final RecordCodecBuilder<T, P4> p4,
             final RecordCodecBuilder<T, P5> p5,
-            final Function5<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, P4, P5, T> factory
+            final Function5<Float, ResourceKey<Biome>, BiomeGenerationDataContainer, P4, P5, T> factory
     ) {
         BiomeDataImpl.CodecAttributes<T> a = new BiomeDataImpl.CodecAttributes<>();
         return RecordCodecBuilder.mapCodec(
@@ -90,7 +89,7 @@ public class BiomeData {
             final RecordCodecBuilder<T, P4> p4,
             final RecordCodecBuilder<T, P5> p5,
             final RecordCodecBuilder<T, P6> p6,
-            final Function6<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, P4, P5, P6, T> factory
+            final Function6<Float, ResourceKey<Biome>, BiomeGenerationDataContainer, P4, P5, P6, T> factory
     ) {
         BiomeDataImpl.CodecAttributes<T> a = new BiomeDataImpl.CodecAttributes<>();
         return RecordCodecBuilder.mapCodec(
@@ -104,7 +103,7 @@ public class BiomeData {
             final RecordCodecBuilder<T, P5> p5,
             final RecordCodecBuilder<T, P6> p6,
             final RecordCodecBuilder<T, P7> p7,
-            final Function7<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, P4, P5, P6, P7, T> factory
+            final Function7<Float, ResourceKey<Biome>, BiomeGenerationDataContainer, P4, P5, P6, P7, T> factory
     ) {
         BiomeDataImpl.CodecAttributes<T> a = new BiomeDataImpl.CodecAttributes<>();
         return RecordCodecBuilder.mapCodec(
@@ -119,7 +118,7 @@ public class BiomeData {
             final RecordCodecBuilder<T, P6> p6,
             final RecordCodecBuilder<T, P7> p7,
             final RecordCodecBuilder<T, P8> p8,
-            final Function8<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, P4, P5, P6, P7, P8, T> factory
+            final Function8<Float, ResourceKey<Biome>, BiomeGenerationDataContainer, P4, P5, P6, P7, P8, T> factory
     ) {
         BiomeDataImpl.CodecAttributes<T> a = new BiomeDataImpl.CodecAttributes<>();
         return RecordCodecBuilder.mapCodec(
@@ -135,7 +134,7 @@ public class BiomeData {
             final RecordCodecBuilder<T, P7> p7,
             final RecordCodecBuilder<T, P8> p8,
             final RecordCodecBuilder<T, P9> p9,
-            final Function9<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, P4, P5, P6, P7, P8, P9, T> factory
+            final Function9<Float, ResourceKey<Biome>, BiomeGenerationDataContainer, P4, P5, P6, P7, P8, P9, T> factory
     ) {
         BiomeDataImpl.CodecAttributes<T> a = new BiomeDataImpl.CodecAttributes<>();
         return RecordCodecBuilder.mapCodec(
@@ -152,7 +151,7 @@ public class BiomeData {
             final RecordCodecBuilder<T, P8> p8,
             final RecordCodecBuilder<T, P9> p9,
             final RecordCodecBuilder<T, P10> p10,
-            final Function10<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, P4, P5, P6, P7, P8, P9, P10, T> factory
+            final Function10<Float, ResourceKey<Biome>, BiomeGenerationDataContainer, P4, P5, P6, P7, P8, P9, P10, T> factory
     ) {
         BiomeDataImpl.CodecAttributes<T> a = new BiomeDataImpl.CodecAttributes<>();
         return RecordCodecBuilder.mapCodec(
@@ -170,7 +169,7 @@ public class BiomeData {
             final RecordCodecBuilder<T, P9> p9,
             final RecordCodecBuilder<T, P10> p10,
             final RecordCodecBuilder<T, P11> p11,
-            final Function11<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, P4, P5, P6, P7, P8, P9, P10, P11, T> factory
+            final Function11<Float, ResourceKey<Biome>, BiomeGenerationDataContainer, P4, P5, P6, P7, P8, P9, P10, P11, T> factory
     ) {
         BiomeDataImpl.CodecAttributes<T> a = new BiomeDataImpl.CodecAttributes<>();
         return RecordCodecBuilder.mapCodec(
@@ -189,7 +188,7 @@ public class BiomeData {
             final RecordCodecBuilder<T, P10> p10,
             final RecordCodecBuilder<T, P11> p11,
             final RecordCodecBuilder<T, P12> p12,
-            final Function12<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, P4, P5, P6, P7, P8, P9, P10, P11, P12, T> factory
+            final Function12<Float, ResourceKey<Biome>, BiomeGenerationDataContainer, P4, P5, P6, P7, P8, P9, P10, P11, P12, T> factory
     ) {
         BiomeDataImpl.CodecAttributes<T> a = new BiomeDataImpl.CodecAttributes<>();
         return RecordCodecBuilder.mapCodec(
@@ -209,7 +208,7 @@ public class BiomeData {
             final RecordCodecBuilder<T, P11> p11,
             final RecordCodecBuilder<T, P12> p12,
             final RecordCodecBuilder<T, P13> p13,
-            final Function13<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, T> factory
+            final Function13<Float, ResourceKey<Biome>, BiomeGenerationDataContainer, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, T> factory
     ) {
         BiomeDataImpl.CodecAttributes<T> a = new BiomeDataImpl.CodecAttributes<>();
         return RecordCodecBuilder.mapCodec(
@@ -230,7 +229,7 @@ public class BiomeData {
             final RecordCodecBuilder<T, P12> p12,
             final RecordCodecBuilder<T, P13> p13,
             final RecordCodecBuilder<T, P14> p14,
-            final Function14<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, T> factory
+            final Function14<Float, ResourceKey<Biome>, BiomeGenerationDataContainer, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, T> factory
     ) {
         BiomeDataImpl.CodecAttributes<T> a = new BiomeDataImpl.CodecAttributes<>();
         return RecordCodecBuilder.mapCodec(
@@ -252,7 +251,7 @@ public class BiomeData {
             final RecordCodecBuilder<T, P13> p13,
             final RecordCodecBuilder<T, P14> p14,
             final RecordCodecBuilder<T, P15> p15,
-            final Function15<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, T> factory
+            final Function15<Float, ResourceKey<Biome>, BiomeGenerationDataContainer, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, T> factory
     ) {
         BiomeDataImpl.CodecAttributes<T> a = new BiomeDataImpl.CodecAttributes<>();
         return RecordCodecBuilder.mapCodec(
@@ -275,7 +274,7 @@ public class BiomeData {
             final RecordCodecBuilder<T, P14> p14,
             final RecordCodecBuilder<T, P15> p15,
             final RecordCodecBuilder<T, P16> p16,
-            final Function16<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, T> factory
+            final Function16<Float, ResourceKey<Biome>, BiomeGenerationDataContainer, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, T> factory
     ) {
         BiomeDataImpl.CodecAttributes<T> a = new BiomeDataImpl.CodecAttributes<>();
         return RecordCodecBuilder.mapCodec(
@@ -383,5 +382,10 @@ public class BiomeData {
     @Override
     public int hashCode() {
         return Objects.hash(biomeKey);
+    }
+
+    public boolean isIntendedFor(@Nullable TagKey<Biome> tag) {
+        if (generationData.intendedPlacement() == null) return tag == null;
+        return generationData.intendedPlacement().equals(tag);
     }
 }

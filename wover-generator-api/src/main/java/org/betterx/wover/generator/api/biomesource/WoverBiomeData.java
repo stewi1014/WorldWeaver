@@ -2,12 +2,12 @@ package org.betterx.wover.generator.api.biomesource;
 
 import org.betterx.wover.biome.api.data.BiomeData;
 import org.betterx.wover.biome.api.data.BiomeDataRegistry;
+import org.betterx.wover.biome.api.data.BiomeGenerationDataContainer;
 import org.betterx.wover.entrypoint.LibWoverBiome;
 import org.betterx.wover.generator.impl.biomesource.WoverBiomeDataImpl;
 import org.betterx.wover.state.api.WorldState;
 
 import com.mojang.datafixers.util.*;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Registry;
@@ -15,9 +15,7 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Climate;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
@@ -39,7 +37,7 @@ public class WoverBiomeData extends BiomeData {
     public WoverBiomeData(
             float fogDensity,
             @NotNull ResourceKey<Biome> biome,
-            @NotNull List<Climate.ParameterPoint> parameterPoints,
+            @NotNull BiomeGenerationDataContainer generationData,
             float terrainHeight,
             float genChance,
             int edgeSize,
@@ -47,7 +45,7 @@ public class WoverBiomeData extends BiomeData {
             @Nullable ResourceKey<Biome> edge,
             @Nullable ResourceKey<Biome> parent
     ) {
-        super(fogDensity, biome, parameterPoints);
+        super(fogDensity, biome, generationData);
 
         this.terrainHeight = terrainHeight;
         this.genChance = genChance;
@@ -61,19 +59,19 @@ public class WoverBiomeData extends BiomeData {
     }
 
     public static WoverBiomeData of(ResourceKey<Biome> biome) {
-        return new WoverBiomeData(1.0f, biome, List.of(), 0.1f, 1.0f, 0, false, null, null);
+        return new WoverBiomeData(1.0f, biome, BiomeGenerationDataContainer.EMPTY, 0.1f, 1.0f, 0, false, null, null);
     }
 
     public static WoverBiomeData withEdge(ResourceKey<Biome> biome, ResourceKey<Biome> edge) {
-        return new WoverBiomeData(1.0f, biome, List.of(), 0.1f, 1.0f, 4, false, edge, null);
+        return new WoverBiomeData(1.0f, biome, BiomeGenerationDataContainer.EMPTY, 0.1f, 1.0f, 4, false, edge, null);
     }
 
     public static WoverBiomeData tempWithEdge(ResourceKey<Biome> biome, ResourceKey<Biome> edge) {
-        return new WoverBiomeData.InMemoryWoverBiomeData(1.0f, biome, List.of(), 0.1f, 1.0f, 4, false, edge, null);
+        return new WoverBiomeData.InMemoryWoverBiomeData(1.0f, biome, BiomeGenerationDataContainer.EMPTY, 0.1f, 1.0f, 4, false, edge, null);
     }
 
     public static <T extends WoverBiomeData> MapCodec<T> codec(
-            final Function9<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, Float, Float, Integer, Boolean, ResourceKey<Biome>, ResourceKey<Biome>, T> factory
+            final Function9<Float, ResourceKey<Biome>, BiomeGenerationDataContainer, Float, Float, Integer, Boolean, ResourceKey<Biome>, ResourceKey<Biome>, T> factory
     ) {
         WoverBiomeDataImpl.CodecAttributes<T> a = new WoverBiomeDataImpl.CodecAttributes<>();
         return codec(
@@ -91,7 +89,7 @@ public class WoverBiomeData extends BiomeData {
 
     public static <T extends WoverBiomeData, P10> MapCodec<T> codec(
             final RecordCodecBuilder<T, P10> p10,
-            final Function10<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, Float, Float, Integer, Boolean, ResourceKey<Biome>, ResourceKey<Biome>, P10, T> factory
+            final Function10<Float, ResourceKey<Biome>, BiomeGenerationDataContainer, Float, Float, Integer, Boolean, ResourceKey<Biome>, ResourceKey<Biome>, P10, T> factory
     ) {
         WoverBiomeDataImpl.CodecAttributes<T> a = new WoverBiomeDataImpl.CodecAttributes<>();
         return codec(a.t0, a.t1, a.t2, a.t3, a.t4, a.t5, p10,
@@ -104,7 +102,7 @@ public class WoverBiomeData extends BiomeData {
     public static <T extends WoverBiomeData, P10, P11> MapCodec<T> codec(
             final RecordCodecBuilder<T, P10> p10,
             final RecordCodecBuilder<T, P11> p11,
-            final Function11<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, Float, Float, Integer, Boolean, ResourceKey<Biome>, ResourceKey<Biome>, P10, P11, T> factory
+            final Function11<Float, ResourceKey<Biome>, BiomeGenerationDataContainer, Float, Float, Integer, Boolean, ResourceKey<Biome>, ResourceKey<Biome>, P10, P11, T> factory
     ) {
         WoverBiomeDataImpl.CodecAttributes<T> a = new WoverBiomeDataImpl.CodecAttributes<>();
         return codec(a.t0, a.t1, a.t2, a.t3, a.t4, a.t5, p10, p11,
@@ -118,7 +116,7 @@ public class WoverBiomeData extends BiomeData {
             final RecordCodecBuilder<T, P10> p10,
             final RecordCodecBuilder<T, P11> p11,
             final RecordCodecBuilder<T, P12> p12,
-            final Function12<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, Float, Float, Integer, Boolean, ResourceKey<Biome>, ResourceKey<Biome>, P10, P11, P12, T> factory
+            final Function12<Float, ResourceKey<Biome>, BiomeGenerationDataContainer, Float, Float, Integer, Boolean, ResourceKey<Biome>, ResourceKey<Biome>, P10, P11, P12, T> factory
     ) {
         WoverBiomeDataImpl.CodecAttributes<T> a = new WoverBiomeDataImpl.CodecAttributes<>();
         return codec(a.t0, a.t1, a.t2, a.t3, a.t4, a.t5, p10, p11, p12,
@@ -133,7 +131,7 @@ public class WoverBiomeData extends BiomeData {
             final RecordCodecBuilder<T, P11> p11,
             final RecordCodecBuilder<T, P12> p12,
             final RecordCodecBuilder<T, P13> p13,
-            final Function13<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, Float, Float, Integer, Boolean, ResourceKey<Biome>, ResourceKey<Biome>, P10, P11, P12, P13, T> factory
+            final Function13<Float, ResourceKey<Biome>, BiomeGenerationDataContainer, Float, Float, Integer, Boolean, ResourceKey<Biome>, ResourceKey<Biome>, P10, P11, P12, P13, T> factory
     ) {
         WoverBiomeDataImpl.CodecAttributes<T> a = new WoverBiomeDataImpl.CodecAttributes<>();
         return codec(a.t0, a.t1, a.t2, a.t3, a.t4, a.t5, p10, p11, p12, p13,
@@ -149,7 +147,7 @@ public class WoverBiomeData extends BiomeData {
             final RecordCodecBuilder<T, P12> p12,
             final RecordCodecBuilder<T, P13> p13,
             final RecordCodecBuilder<T, P14> p14,
-            final Function14<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, Float, Float, Integer, Boolean, ResourceKey<Biome>, ResourceKey<Biome>, P10, P11, P12, P13, P14, T> factory
+            final Function14<Float, ResourceKey<Biome>, BiomeGenerationDataContainer, Float, Float, Integer, Boolean, ResourceKey<Biome>, ResourceKey<Biome>, P10, P11, P12, P13, P14, T> factory
     ) {
         WoverBiomeDataImpl.CodecAttributes<T> a = new WoverBiomeDataImpl.CodecAttributes<>();
         return codec(a.t0, a.t1, a.t2, a.t3, a.t4, a.t5, p10, p11, p12, p13, p14,
@@ -167,7 +165,7 @@ public class WoverBiomeData extends BiomeData {
             final RecordCodecBuilder<T, P13> p13,
             final RecordCodecBuilder<T, P14> p14,
             final RecordCodecBuilder<T, P15> p15,
-            final Function15<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, Float, Float, Integer, Boolean, ResourceKey<Biome>, ResourceKey<Biome>, P10, P11, P12, P13, P14, P15, T> factory
+            final Function15<Float, ResourceKey<Biome>, BiomeGenerationDataContainer, Float, Float, Integer, Boolean, ResourceKey<Biome>, ResourceKey<Biome>, P10, P11, P12, P13, P14, P15, T> factory
     ) {
         WoverBiomeDataImpl.CodecAttributes<T> a = new WoverBiomeDataImpl.CodecAttributes<>();
         return codec(a.t0, a.t1, a.t2, a.t3, a.t4, a.t5, p10, p11, p12, p13, p14, p15,
@@ -186,7 +184,7 @@ public class WoverBiomeData extends BiomeData {
             final RecordCodecBuilder<T, P14> p14,
             final RecordCodecBuilder<T, P15> p15,
             final RecordCodecBuilder<T, P16> p16,
-            final Function16<Float, ResourceKey<Biome>, List<Climate.ParameterPoint>, Float, Float, Integer, Boolean, ResourceKey<Biome>, ResourceKey<Biome>, P10, P11, P12, P13, P14, P15, P16, T> factory
+            final Function16<Float, ResourceKey<Biome>, BiomeGenerationDataContainer, Float, Float, Integer, Boolean, ResourceKey<Biome>, ResourceKey<Biome>, P10, P11, P12, P13, P14, P15, P16, T> factory
     ) {
         WoverBiomeDataImpl.CodecAttributes<T> a = new WoverBiomeDataImpl.CodecAttributes<>();
         return codec(a.t0, a.t1, a.t2, a.t3, a.t4, a.t5, p10, p11, p12, p13, p14, p15, p16,
@@ -271,7 +269,7 @@ public class WoverBiomeData extends BiomeData {
         private InMemoryWoverBiomeData(
                 float fogDensity,
                 @NotNull ResourceKey<Biome> biome,
-                @NotNull List<Climate.ParameterPoint> parameterPoints,
+                @NotNull BiomeGenerationDataContainer generationData,
                 float terrainHeight,
                 float genChance,
                 int edgeSize,
@@ -279,7 +277,7 @@ public class WoverBiomeData extends BiomeData {
                 @Nullable ResourceKey<Biome> edge,
                 @Nullable ResourceKey<Biome> parent
         ) {
-            super(fogDensity, biome, parameterPoints, terrainHeight, genChance, edgeSize, vertical, edge, parent);
+            super(fogDensity, biome, generationData, terrainHeight, genChance, edgeSize, vertical, edge, parent);
         }
 
         @Override

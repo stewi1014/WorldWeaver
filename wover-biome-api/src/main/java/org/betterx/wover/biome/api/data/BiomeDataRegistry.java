@@ -7,6 +7,7 @@ import org.betterx.wover.events.api.Event;
 import org.betterx.wover.events.api.types.OnBootstrapRegistry;
 
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
@@ -51,5 +52,18 @@ public class BiomeDataRegistry {
             ResourceKey<Biome> biomeKey
     ) {
         return BiomeDataRegistryImpl.createKey(biomeKey.location());
+    }
+
+
+    /**
+     * Creates a ResourceKey for the Biome that will use the  {@link BiomeData}.
+     *
+     * @param biomeDataKey A BiomeData Key
+     * @return The ResourceKey of the matching Biome
+     */
+    public static ResourceKey<Biome> createBiomeKey(
+            ResourceKey<BiomeData> biomeDataKey
+    ) {
+        return ResourceKey.create(Registries.BIOME, biomeDataKey.location());
     }
 }

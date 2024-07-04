@@ -152,7 +152,7 @@ public class BiomeModificationRegistryImpl {
             final Registry<LevelStem> dimensions = registryAccess.registryOrThrow(Registries.LEVEL_STEM);
             dimensions.forEach(stem -> {
                 if (stem.generator() instanceof RebuildableFeaturesPerStep<?> generator) {
-                    generator.rebuildFeaturesPerStep();
+                    generator.wover_rebuildFeaturesPerStep();
                 }
             });
 

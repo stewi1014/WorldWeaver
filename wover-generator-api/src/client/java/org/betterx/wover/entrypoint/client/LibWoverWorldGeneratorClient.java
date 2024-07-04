@@ -1,6 +1,7 @@
 package org.betterx.wover.entrypoint.client;
 
 import org.betterx.wover.config.api.client.ClientConfigs;
+import org.betterx.wover.core.api.ModCore;
 import org.betterx.wover.events.api.client.ClientWorldLifecycle;
 import org.betterx.wover.generator.api.preset.WorldPresets;
 import org.betterx.wover.generator.impl.chunkgenerator.ConfiguredChunkGenerator;
@@ -26,7 +27,7 @@ public class LibWoverWorldGeneratorClient implements ClientModInitializer {
             }
         });
 
-        if (ClientConfigs.CLIENT.forceBetterXPreset.get()) {
+        if (ModCore.isClient() && ClientConfigs.CLIENT.forceBetterXPreset.get()) {
             WorldPresetManager.suggestDefault(WorldPresets.WOVER_WORLD, 2000);
         }
 

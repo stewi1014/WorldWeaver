@@ -3,6 +3,7 @@ package org.betterx.wover.generator.impl.biomesource.builder;
 import org.betterx.wover.biome.api.BiomeKey;
 import org.betterx.wover.biome.api.builder.BiomeBootstrapContext;
 import org.betterx.wover.biome.api.data.BiomeData;
+import org.betterx.wover.biome.api.data.BiomeGenerationDataContainer;
 import org.betterx.wover.generator.api.biomesource.WoverBiomeBuilder;
 import org.betterx.wover.generator.api.biomesource.WoverBiomeData;
 
@@ -41,7 +42,7 @@ public class WrappedWoverDataBuilderImpl extends WoverBiomeBuilder.Wrapped {
         dataContext.register(
                 key.dataKey,
                 new WoverBiomeData(
-                        fogDensity, key.key, parameters,
+                        fogDensity, key.key, new BiomeGenerationDataContainer(parameters, intendedPlacement),
                         terrainHeight, genChance, edgeSize, vertical, edge, parent
                 )
         );
