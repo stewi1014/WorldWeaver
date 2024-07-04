@@ -90,7 +90,16 @@ public class BiomeSourceManagerImpl {
                     }
                 }
             } else if (!TheEndBiomesHelper.canGenerateInEnd(biomeKey)) {
-                if (biomeData.isIntendedFor(CommonBiomeTags.IS_END_HIGHLAND)) {
+                if (biomeData.isIntendedFor(CommonBiomeTags.IS_END_LAND) || biomeData.isIntendedFor(BiomeTags.IS_END)) {
+                    if (!TheEndBiomesHelper.canGenerateAsHighlandsBiome(biomeKey)) {
+                        LibWoverWorldGenerator.C.log.verbose("Adding End Highland Biome to Fabric: " + biomeKey.location());
+                        TheEndBiomes.addHighlandsBiome(biomeKey, genChance(biomeData, 1.0f));
+                    }
+                    if (!TheEndBiomesHelper.canGenerateAsEndMidlands(biomeKey)) {
+                        LibWoverWorldGenerator.C.log.verbose("Adding End Highland Biome to Fabric: " + biomeKey.location());
+                        TheEndBiomes.addMidlandsBiome(biomeKey, biomeKey, genChance(biomeData, 0.5f));
+                    }
+                } else if (biomeData.isIntendedFor(CommonBiomeTags.IS_END_HIGHLAND)) {
                     if (!TheEndBiomesHelper.canGenerateAsHighlandsBiome(biomeKey)) {
                         LibWoverWorldGenerator.C.log.verbose("Adding End Highland Biome to Fabric: " + biomeKey.location());
                         TheEndBiomes.addHighlandsBiome(biomeKey, genChance(biomeData, 1.0f));
