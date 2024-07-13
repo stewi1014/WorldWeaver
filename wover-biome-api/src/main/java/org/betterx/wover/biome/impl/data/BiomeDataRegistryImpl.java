@@ -87,7 +87,6 @@ public class BiomeDataRegistryImpl {
         if (didInit) return;
         didInit = true;
 
-        System.out.println("Initializing BiomeDataRegistry");
         DatapackRegistryBuilder.register(
                 BiomeDataRegistry.BIOME_DATA_REGISTRY,
                 BiomeCodecRegistryImpl.CODEC,
