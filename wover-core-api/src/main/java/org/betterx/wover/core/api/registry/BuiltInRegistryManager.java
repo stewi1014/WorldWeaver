@@ -42,7 +42,7 @@ public class BuiltInRegistryManager {
             Lifecycle lifecycle,
             Function<Registry<T>, T> registryBootstrap
     ) {
-
+        LibWoverCore.C.log.debug("Creating registry: " + resourceKey.location());
         return BuiltInRegistries.registerSimple(resourceKey, registryBootstrap::apply);
     }
 }

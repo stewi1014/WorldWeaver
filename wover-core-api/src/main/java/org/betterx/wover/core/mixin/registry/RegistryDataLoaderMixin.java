@@ -33,7 +33,7 @@ public class RegistryDataLoaderMixin {
     private static void wover_init(CallbackInfo ci) {
         List<RegistryDataLoader.RegistryData<?>> enhanced = new ArrayList<>(RegistryDataLoader.WORLDGEN_REGISTRIES.size() + 1);
         enhanced.addAll(RegistryDataLoader.WORLDGEN_REGISTRIES);
-        LibWoverCore.C.log.debug("Enhanced RegistryDataLoader.WORLDGEN_REGISTRIES");
+        LibWoverCore.C.log.debug("Adding custom WORLDGEN_REGISTRIES");
         DatapackRegistryBuilderImpl.forEach((key, codec) -> {
             if (codec != null) {
                 LibWoverCore.C.log.debug("    - Adding " + key.location());

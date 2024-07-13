@@ -19,10 +19,18 @@ import org.jetbrains.annotations.Nullable;
  * The DatapackRegistryBuilder adds custom, Datapack-Backed Registries and allows you
  * to add a bootstrap functions to any Registry. The bootstrap function is
  * called whenever the Registry is loaded from a Datapack.
+ * <p>
+ * In order to ensure that the Registry is loaded correctly, you need to call the register
+ * and addBootstrap methods from the <code>wover.datapack.registry</code> Entrypoint. The Entrypoint must implement the
+ * {@link DatapackRegistryEntrypoint} interface.
  */
 public class DatapackRegistryBuilder {
     /**
      * Register a new, custom Registry.
+     * <p>
+     * In order to ensure that the Registry is loaded correctly, you need to call this method from
+     * the <code>wover.datapack.registry</code> Entrypoint. The Entrypoint must implement the
+     * {@link DatapackRegistryEntrypoint} interface.
      *
      * @param key          The ResourceKey of the Registry
      * @param elementCodec The Codec used to serialize the Registry
@@ -39,6 +47,10 @@ public class DatapackRegistryBuilder {
 
     /**
      * Register a new, custom Registry.
+     * <p>
+     * In order to ensure that the Registry is loaded correctly, you need to call this method from
+     * the <code>wover.datapack.registry</code> Entrypoint. The Entrypoint must implement the
+     * {@link DatapackRegistryEntrypoint} interface.
      *
      * @param key          The ResourceKey of the Registry
      * @param elementCodec The Codec used to serialize the Registry
@@ -60,6 +72,10 @@ public class DatapackRegistryBuilder {
      * loaded from a Datapack. This includes custom Registries added using
      * {@link #register(ResourceKey, Codec, Consumer)}, as well as vanilla
      * Registries.
+     * <p>
+     * In order to ensure that the Registry is loaded correctly, you need to call this method from
+     * the <code>wover.datapack.registry</code> Entrypoint. The Entrypoint must implement the
+     * {@link DatapackRegistryEntrypoint} interface.
      *
      * @param key       The ResourceKey of the Registry
      * @param bootstrap The bootstrap function, which is called when the Registry is loaded from a DataPack
@@ -77,6 +93,10 @@ public class DatapackRegistryBuilder {
      * loaded from a Datapack. This includes custom Registries added using
      * {@link #register(ResourceKey, Codec, Consumer)}, as well as vanilla
      * Registries.
+     * <p>
+     * In order to ensure that the Registry is loaded correctly, you need to call this method from
+     * the <code>wover.datapack.registry</code> Entrypoint. The Entrypoint must implement the
+     * {@link DatapackRegistryEntrypoint} interface.
      *
      * @param key       The ResourceKey of the Registry
      * @param bootstrap The bootstrap function, which is called when the Registry is loaded from a DataPack
@@ -96,6 +116,10 @@ public class DatapackRegistryBuilder {
      * loaded from a Datapack. This includes custom Registries added using
      * {@link #register(ResourceKey, Codec, Consumer)}, as well as vanilla
      * Registries.
+     * <p>
+     * In order to ensure that the Registry is loaded correctly, you need to call this method from
+     * the <code>wover.datapack.registry</code> Entrypoint. The Entrypoint must implement the
+     * {@link DatapackRegistryEntrypoint} interface.
      *
      * @param key       The ResourceKey of the Registry
      * @param bootstrap The bootstrap function, which is called when the Registry is loaded from a DataPack
@@ -113,6 +137,10 @@ public class DatapackRegistryBuilder {
      * loaded from a Datapack. This includes custom Registries added using
      * {@link #register(ResourceKey, Codec, Consumer)}, as well as vanilla
      * Registries.
+     * <p>
+     * In order to ensure that the Registry is loaded correctly, you need to call this method from
+     * the <code>wover.datapack.registry</code> Entrypoint. The Entrypoint must implement the
+     * {@link DatapackRegistryEntrypoint} interface.
      *
      * @param key       The ResourceKey of the Registry
      * @param bootstrap The bootstrap function, which is called when the Registry is loaded from a DataPack

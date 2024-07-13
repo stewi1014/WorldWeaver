@@ -1,6 +1,8 @@
 package org.betterx.wover.core.impl.registry;
 
 import org.betterx.wover.core.api.registry.DatapackRegistryBuilder;
+import org.betterx.wover.core.api.registry.DatapackRegistryEntrypoint;
+import org.betterx.wover.entrypoint.LibWoverCore;
 import org.betterx.wover.util.PriorityLinkedList;
 
 import com.mojang.serialization.Codec;
@@ -11,6 +13,8 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+
+import net.fabricmc.loader.api.FabricLoader;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -59,6 +63,7 @@ public class DatapackRegistryBuilderImpl {
             Consumer<BootstrapContext<T>> bootstrap,
             int priority
     ) {
+        LibWoverCore.C.log.debug("Adding dynamic registry bootstrap: " + key.location());
         REGISTRIES.add(new Entry<>(key, null, bootstrap), Math.max(MAX_READONLY_PRIORITY + 1, priority));
     }
 
@@ -95,13 +100,30 @@ public class DatapackRegistryBuilderImpl {
             throw new IllegalStateException("Registry with id " + key.location() + " was already registered!");
         }
 
+        LibWoverCore.C.log.debug("Adding dynamic registry: " + key.location());
         REGISTRIES.add(new Entry<>(key, elementCodec, bootstrap), priority);
     }
 
     public static void forEach(BiConsumer<ResourceKey<? extends Registry<?>>, Codec<?>> consumer) {
+        initEntrypoints();
         REGISTRIES.forEach(entry -> {
             consumer.accept(entry.key, entry.elementCodec);
         });
+    }
+
+    private static boolean didInitEntrypoints = false;
+
+    private static void initEntrypoints() {
+        if (didInitEntrypoints) {
+            return;
+        }
+        didInitEntrypoints = true;
+        LibWoverCore.C.LOG.verbose("Processing wover.datapack.registry Entrypoints");
+        FabricLoader.getInstance().getEntrypoints("wover.datapack.registry", DatapackRegistryEntrypoint.class)
+                    .forEach(entrypoint -> {
+                        LibWoverCore.C.LOG.verbose("    - Processing Entrypoint: {}", entrypoint.getClass().getName());
+                        entrypoint.registerDatapackRegistries();
+                    });
     }
 
     @ApiStatus.Internal
@@ -110,8 +132,11 @@ public class DatapackRegistryBuilderImpl {
             ResourceKey<? extends Registry<E>> resourceKey,
             WritableRegistry<E> writableRegistry
     ) {
+        initEntrypoints();
+        LibWoverCore.C.LOG.debug("Bootstrapping registry {}", resourceKey.location());
         REGISTRIES.forEach(entry -> {
             if (entry.key.equals(resourceKey)) {
+                LibWoverCore.C.LOG.debug("Calling custom Registry Bootstrap on {}", resourceKey.location());
                 entry.bootstrap.accept(entry.getContext(registryInfoLookup, (WritableRegistry) writableRegistry));
             }
         });
@@ -120,7 +145,10 @@ public class DatapackRegistryBuilderImpl {
     public static void bootstrap(
             BiConsumer<ResourceKey<? extends Registry<?>>, RegistrySetBuilder.RegistryBootstrap<? extends Object>> consumer
     ) {
+        initEntrypoints();
+        LibWoverCore.C.LOG.debug("Bootstrapping vanilla registries");
         REGISTRIES.forEach(entry -> {
+            LibWoverCore.C.LOG.debug("Calling custom vanilla Registry Bootstrap on {}", entry.key);
             consumer.accept(
                     entry.key,
                     (ctx) -> {
