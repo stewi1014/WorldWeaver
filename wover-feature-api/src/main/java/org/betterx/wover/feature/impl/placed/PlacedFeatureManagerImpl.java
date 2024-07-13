@@ -31,8 +31,13 @@ public class PlacedFeatureManagerImpl {
         return h.orElse(null);
     }
 
+    private static boolean didInit = false;
+
     @ApiStatus.Internal
     public static void initialize() {
+        if (didInit) return;
+        didInit = true;
+
         DatapackRegistryBuilder.addBootstrap(
                 Registries.PLACED_FEATURE,
                 PlacedFeatureManagerImpl::onBootstrap

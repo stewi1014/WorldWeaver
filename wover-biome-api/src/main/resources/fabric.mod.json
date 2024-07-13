@@ -18,6 +18,9 @@
     "entrypoints": {
         "main": [
             "org.betterx.wover.entrypoint.LibWoverBiome"
+        ],
+        "wover.datapack.registry": [
+            "org.betterx.wover.entrypoint.BiomeDatapackRegistryEntrypoint"
         ]
     },
     "mixins": [

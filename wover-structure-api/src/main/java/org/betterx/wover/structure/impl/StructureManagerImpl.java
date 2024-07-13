@@ -60,8 +60,13 @@ public class StructureManagerImpl {
         return lookup.lookup(Registries.STRUCTURE).flatMap(r -> r.get(key)).orElse(null);
     }
 
+    private static boolean didInit = false;
+
     @ApiStatus.Internal
     public static void initialize() {
+        if (didInit) return;
+        didInit = true;
+
         DatapackRegistryBuilder.addBootstrap(
                 Registries.STRUCTURE,
                 StructureManagerImpl::onBootstrap

@@ -2,7 +2,6 @@ package org.betterx.wover.entrypoint;
 
 import org.betterx.wover.core.api.ModCore;
 import org.betterx.wover.datagen.api.WoverDataGenEntryPoint;
-import org.betterx.wover.enchantment.impl.EnchantmentManagerImpl;
 import org.betterx.wover.item.impl.AutoItemRegistryTagProvider;
 
 import net.fabricmc.api.ModInitializer;
@@ -12,7 +11,7 @@ public class LibWoverItem implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        EnchantmentManagerImpl.initialize();
+        //EnchantmentManagerImpl.initialize(); //done in the wover.datapack.registry entrypoint
         WoverDataGenEntryPoint.registerAutoProvider(AutoItemRegistryTagProvider::new);
     }
 }

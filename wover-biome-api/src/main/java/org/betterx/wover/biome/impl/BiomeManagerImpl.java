@@ -34,8 +34,13 @@ public class BiomeManagerImpl {
         BOOTSTRAP_BIOME_REGISTRY.emit(c -> c.bootstrap(ctx));
     }
 
+    private static boolean didInit = false;
+
     @ApiStatus.Internal
     public static void initialize() {
+        if (didInit) return;
+        didInit = true;
+
         DatapackRegistryBuilder.addBootstrap(
                 Registries.BIOME,
                 BiomeManagerImpl::onBootstrap

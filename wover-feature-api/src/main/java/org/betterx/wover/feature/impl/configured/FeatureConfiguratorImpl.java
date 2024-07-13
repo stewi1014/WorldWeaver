@@ -26,8 +26,13 @@ public abstract class FeatureConfiguratorImpl<FC extends FeatureConfiguration, F
     public static final EventImpl<OnBootstrapRegistry<ConfiguredFeature<?, ?>>> BOOTSTRAP_CONFIGURED_FEATURES =
             new EventImpl<>("BOOTSTRAP_CONFIGURED_FEATURES");
 
+    private static boolean didInit = false;
+
     @ApiStatus.Internal
     public static void initialize() {
+        if (didInit) return;
+        didInit = true;
+
         DatapackRegistryBuilder.addBootstrap(
                 Registries.CONFIGURED_FEATURE,
                 FeatureConfiguratorImpl::onBootstrap

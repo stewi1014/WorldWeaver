@@ -36,9 +36,12 @@ public class SurfaceRuleUtil {
         Registry<AssignedSurfaceRule> registry = null;
         if (WorldState.registryAccess() != null)
             registry = WorldState.registryAccess()
-                                 .registryOrThrow(SurfaceRuleRegistry.SURFACE_RULES_REGISTRY);
+                                 .registry(SurfaceRuleRegistry.SURFACE_RULES_REGISTRY).orElse(null);
 
-        if (registry == null) return List.of();
+        if (registry == null) {
+            LibWoverSurface.C.LOG.warn("No Surface Rule Registry found. Skipping Surface Rule Injection for Biome {}", biomeKey.location());
+            return List.of();
+        }
 
         var list = registry.stream()
                            .filter(a -> a != null && a.biomeID != null && a.biomeID.equals(biomeKey.location()))

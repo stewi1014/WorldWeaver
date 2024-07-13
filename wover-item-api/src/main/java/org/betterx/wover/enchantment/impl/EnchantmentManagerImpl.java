@@ -14,8 +14,13 @@ public class EnchantmentManagerImpl {
     public static final EventImpl<OnBootstrapRegistry<Enchantment>> BOOTSTRAP_ENCHANTMENTS =
             new EventImpl<>("BOOTSTRAP_ENCHANTMENTS");
 
+    private static boolean didInit = false;
+
     @ApiStatus.Internal
     public static void initialize() {
+        if (didInit) return;
+        didInit = true;
+
         DatapackRegistryBuilder.addBootstrap(
                 Registries.ENCHANTMENT,
                 EnchantmentManagerImpl::onBootstrap

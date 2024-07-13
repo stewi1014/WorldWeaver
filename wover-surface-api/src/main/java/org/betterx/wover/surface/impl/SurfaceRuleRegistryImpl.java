@@ -25,8 +25,13 @@ public class SurfaceRuleRegistryImpl {
         BOOTSTRAP_SURFACE_RULE_REGISTRY.emit(c -> c.bootstrap(ctx));
     }
 
+    private static boolean didInit = false;
+
     @ApiStatus.Internal
     public static void initialize() {
+        if (didInit) return;
+        didInit = true;
+
         DatapackRegistryBuilder.register(
                 SurfaceRuleRegistry.SURFACE_RULES_REGISTRY,
                 AssignedSurfaceRuleImpl.CODEC,

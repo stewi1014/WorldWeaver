@@ -36,8 +36,13 @@ public class BiomeModificationRegistryImpl {
     public static final EventImpl<OnBootstrapRegistry<BiomeModification>> BOOTSTRAP_BIOME_MODIFICATION_REGISTRY
             = new EventImpl<>("BOOTSTRAP_BIOME_MODIFICATION_REGISTRY");
 
+    private static boolean didInit = false;
+
     @ApiStatus.Internal
     public static void initialize() {
+        if (didInit) return;
+        didInit = true;
+        
         DatapackRegistryBuilder.register(
                 BiomeModificationRegistry.BIOME_MODIFICATION_REGISTRY,
                 BiomeModification.CODEC,
@@ -63,7 +68,13 @@ public class BiomeModificationRegistryImpl {
         final Stopwatch sw = Stopwatch.createStarted();
 
         final RegistryAccess registryAccess = WorldState.registryAccess();
-        final Registry<BiomeModification> modifications = registryAccess.registryOrThrow(BiomeModificationRegistry.BIOME_MODIFICATION_REGISTRY);
+        final Registry<BiomeModification> modifications = registryAccess
+                .registry(BiomeModificationRegistry.BIOME_MODIFICATION_REGISTRY)
+                .orElse(null);
+        if (modifications == null) {
+            LibWoverBiome.C.log.error("Biome Modification Registry is missing. Cannot apply Biome Modifications.");
+            return;
+        }
         final Registry<Biome> biomes = registryAccess.registryOrThrow(Registries.BIOME);
 
         final List<ResourceKey<Biome>> keys = biomes

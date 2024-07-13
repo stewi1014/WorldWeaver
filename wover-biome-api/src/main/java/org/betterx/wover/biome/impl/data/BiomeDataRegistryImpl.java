@@ -80,8 +80,13 @@ public class BiomeDataRegistryImpl {
         return defaultFactory.apply(key);
     }
 
+    private static boolean didInit = false;
+
     @ApiStatus.Internal
     public static void initialize() {
+        if (didInit) return;
+        didInit = true;
+
         System.out.println("Initializing BiomeDataRegistry");
         DatapackRegistryBuilder.register(
                 BiomeDataRegistry.BIOME_DATA_REGISTRY,

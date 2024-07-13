@@ -31,8 +31,13 @@ public class StructureSetManagerImpl {
         return h.orElse(null);
     }
 
+    private static boolean didInit = false;
+
     @ApiStatus.Internal
     public static void initialize() {
+        if (didInit) return;
+        didInit = true;
+
         DatapackRegistryBuilder.addBootstrap(
                 Registries.STRUCTURE_SET,
                 StructureSetManagerImpl::onBootstrap

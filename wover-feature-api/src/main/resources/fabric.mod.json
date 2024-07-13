@@ -18,6 +18,9 @@
     "entrypoints": {
         "main": [
             "org.betterx.wover.entrypoint.LibWoverFeature"
+        ],
+        "wover.datapack.registry": [
+            "org.betterx.wover.entrypoint.FeatureDatapackRegistryEntrypoint"
         ]
     },
     "mixins": [

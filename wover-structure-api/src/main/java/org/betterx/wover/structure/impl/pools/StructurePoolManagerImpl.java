@@ -31,8 +31,13 @@ public class StructurePoolManagerImpl {
         return h.orElse(null);
     }
 
+    static private boolean didInit = false;
+
     @ApiStatus.Internal
     public static void initialize() {
+        if (didInit) return;
+        didInit = true;
+
         DatapackRegistryBuilder.addBootstrap(
                 Registries.TEMPLATE_POOL,
                 StructurePoolManagerImpl::onBootstrap
