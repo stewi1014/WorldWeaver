@@ -24,7 +24,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.net.Proxy;
 
-@Mixin(value = MinecraftServer.class, priority = 2000)
+//priority needs to be low, to ensure that our modifications are applied before fabric
+//otherwise other mods, that for example modify all nether biomes will generate a feature order cycle
+//as those modification will be added after our features in custom nether biomes, but might be added to
+//the vanilla biomes before our features are added.
+@Mixin(value = MinecraftServer.class, priority = 150)
 public class MinecraftServerMixin {
     @Shadow
     @Final
