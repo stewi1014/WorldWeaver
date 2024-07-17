@@ -11,6 +11,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
@@ -63,7 +64,7 @@ public abstract class WoverModelProvider implements WoverDataProvider<FabricMode
         }
 
         public ModelOverides override(@Nullable Block block, @NotNull BlockModelProvider provider) {
-            if (block == null) return this;
+            if (block == Blocks.AIR || block == null) return this;
 
             final var old = OVERRIDES.put(block, provider);
             if (old != null) {
@@ -73,10 +74,12 @@ public abstract class WoverModelProvider implements WoverDataProvider<FabricMode
         }
 
         public ModelOverides overrideLike(@Nullable Block block, @NotNull Block copyFromBlock) {
+            if (block == Blocks.AIR || block == null) return this;
             return this.override(block, OVERRIDES.get(copyFromBlock));
         }
 
         public ModelOverides ignore(@Nullable Block block) {
+            if (block == Blocks.AIR || block == null) return this;
             return this.override(block, IGNORE);
         }
 
