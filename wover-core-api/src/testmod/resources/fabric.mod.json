@@ -18,6 +18,9 @@
   "entrypoints": {
     "main": [
       "org.betterx.wover.testmod.entrypoint.TestModWoverWorldCore"
+    ],
+    "client": [
+      "org.betterx.wover.testmod.entrypoint.client.TestModWoverWorldCoreClient"
     ]
   },
   "mixins": [],
