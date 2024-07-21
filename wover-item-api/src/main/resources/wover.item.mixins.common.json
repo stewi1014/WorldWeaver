@@ -7,6 +7,8 @@
     "defaultRequire": 1
   },
   "mixins": [
-    "ItemInputMixin"
+    "item_stack_setup.CraftingRecipeMixin",
+    "item_stack_setup.ItemInputMixin",
+    "item_stack_setup.SmithingTransformRecipeMixin"
   ]
 }
