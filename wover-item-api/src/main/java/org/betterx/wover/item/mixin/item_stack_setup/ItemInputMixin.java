@@ -1,7 +1,6 @@
-package org.betterx.wover.item.mixin;
+package org.betterx.wover.item.mixin.item_stack_setup;
 
-import org.betterx.wover.common.item.api.ItemWithCustomStack;
-import org.betterx.wover.state.api.WorldState;
+import org.betterx.wover.item.api.ItemStackHelper;
 
 import net.minecraft.commands.arguments.item.ItemInput;
 import net.minecraft.core.Holder;
@@ -26,10 +25,6 @@ public class ItemInputMixin {
             at = @At(value = "NEW", target = "net/minecraft/world/item/ItemStack")
     )
     public ItemStack wover_init(Holder<Item> item, int count, Operation<ItemStack> original) {
-        ItemStack stack = original.call(item, count);
-        if (item.value() instanceof ItemWithCustomStack pitem) {
-            pitem.setupItemStack(stack, WorldState.registryAccess());
-        }
-        return stack;
+        return ItemStackHelper.callItemStackSetupIfPossible(original.call(item, count));
     }
 }

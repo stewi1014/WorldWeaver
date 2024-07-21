@@ -1,8 +1,8 @@
 package org.betterx.wover.tabs.impl;
 
-import org.betterx.wover.common.item.api.ItemWithCustomStack;
 import org.betterx.wover.core.api.ModCore;
 import org.betterx.wover.item.api.ItemRegistry;
+import org.betterx.wover.item.api.ItemStackHelper;
 import org.betterx.wover.tabs.api.interfaces.CreativeTabPredicate;
 import org.betterx.wover.tabs.api.interfaces.CreativeTabsBuilder;
 import org.betterx.wover.tabs.api.interfaces.CreativeTabsBuilderWithItems;
@@ -69,13 +69,7 @@ public class CreativeTabManagerImpl implements CreativeTabsBuilder, CreativeTabs
                     .displayItems((displayParameters, output) -> {
                         output.acceptAll(tab.items
                                 .stream()
-                                .map(i -> {
-                                    var stack = new ItemStack(i);
-                                    if (i instanceof ItemWithCustomStack item) {
-                                        item.setupItemStack(stack, displayParameters.holders());
-                                    }
-                                    return stack;
-                                })
+                                .map(i -> ItemStackHelper.callItemStackSetupIfPossible(new ItemStack(i), displayParameters.holders()))
                                 .toList()
                         );
                     }).build();
