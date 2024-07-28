@@ -380,6 +380,38 @@ public class WoverBlockModelGenerators {
         createInventoryModel(wallBlock, ModelTemplates.WALL_INVENTORY, mapping);
     }
 
+    public void createSlab(Block slabBlock, Block baseBlock) {
+        var res = TextureMapping.getBlockTexture(baseBlock);
+        createSlab(slabBlock, baseBlock, new TextureMapping()
+                .put(TextureSlot.SIDE, res)
+                .put(TextureSlot.BOTTOM, res)
+                .put(TextureSlot.TOP, res));
+    }
+
+    public void createSlab(Block slabBlock, Block baseBlock, TextureMapping mapping) {
+        final var fullBlockLocation = ModelLocationUtils.getModelLocation(baseBlock);
+        final List<ResourceLocation> locations = Stream.of(
+                ModelTemplates.SLAB_BOTTOM,
+                ModelTemplates.SLAB_TOP
+        ).map(template -> template.create(slabBlock, mapping, vanillaGenerator.modelOutput)).toList();
+
+        acceptBlockState(BlockModelGenerators.createSlab(slabBlock, locations.get(0), locations.get(1), fullBlockLocation));
+        delegateItemModel(slabBlock, locations.get(0));
+    }
+
+    public void createRotatedPillar(Block pillarBlock) {
+        var res = TextureMapping.getBlockTexture(pillarBlock);
+        createRotatedPillar(pillarBlock, new TextureMapping()
+                .put(TextureSlot.SIDE, res.withSuffix("_side"))
+                .put(TextureSlot.END, res.withSuffix("_top")));
+    }
+
+    public void createRotatedPillar(Block pillarBlock, TextureMapping mapping) {
+        final var model = ModelTemplates.CUBE_COLUMN.create(pillarBlock, mapping, vanillaGenerator.modelOutput);
+
+        acceptBlockState(BlockModelGenerators.createAxisAlignedPillarBlock(pillarBlock, model));
+    }
+
     private void createInventoryModel(Block wallBlock, ModelTemplate inventoryModel, TextureMapping mapping) {
         delegateItemModel(wallBlock, inventoryModel.create(wallBlock, mapping, vanillaGenerator.modelOutput));
     }
