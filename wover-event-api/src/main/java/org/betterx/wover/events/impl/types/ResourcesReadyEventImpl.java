@@ -12,7 +12,7 @@ public class ResourcesReadyEventImpl extends EventImpl<OnResourceLoad> {
 
     public ResourcesReadyEventImpl(String eventName) {
         super(eventName);
-        WorldLifecycleImpl.BEFORE_LOADING_RESOURCES.subscribe(this::reset);
+        WorldLifecycleImpl.BEFORE_LOADING_RESOURCES.subscribe(this::reset, SYSTEM_PRIORITY);
     }
 
     private void reset(ResourceManager resourceManager, FeatureFlagSet featureFlagSet) {

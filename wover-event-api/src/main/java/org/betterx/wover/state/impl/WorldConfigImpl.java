@@ -20,6 +20,7 @@ import net.minecraft.world.level.storage.LevelStorageSource;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import static org.betterx.wover.events.impl.AbstractEvent.SYSTEM_PRIORITY;
 
 import java.io.File;
 import java.io.IOException;
@@ -45,7 +46,7 @@ public class WorldConfigImpl {
 
     @ApiStatus.Internal
     public static void initialize() {
-        WorldLifecycle.WORLD_FOLDER_READY.subscribe(WorldConfigImpl::loadForWorld);
+        WorldLifecycle.WORLD_FOLDER_READY.subscribe(WorldConfigImpl::loadForWorld, SYSTEM_PRIORITY);
         registerMod(ModCoreImpl.GLOBAL_MOD);
         registerMod(LegacyHelper.BCLIB_CORE);
         registerMod(LegacyHelper.WORLDS_TOGETHER_CORE);

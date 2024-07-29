@@ -6,6 +6,8 @@ import org.betterx.wover.events.api.types.OnRegistryReady;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.level.storage.LevelStorageSource;
 
+import static org.betterx.wover.events.impl.AbstractEvent.SYSTEM_PRIORITY;
+
 public final class WorldStateImpl {
     public static final WorldStateImpl INSTANCE = new WorldStateImpl();
     private RegistryAccess currentRegistryAccess;
@@ -31,8 +33,8 @@ public final class WorldStateImpl {
 
     public static void ensureStaticallyLoaded() {
         assert INSTANCE != null;
-        WorldLifecycle.WORLD_REGISTRY_READY.subscribe(INSTANCE::setCurrentRegistryAccess);
-        WorldLifecycle.WORLD_FOLDER_READY.subscribe(INSTANCE::setCurrentStorageAccess);
+        WorldLifecycle.WORLD_REGISTRY_READY.subscribe(INSTANCE::setCurrentRegistryAccess, SYSTEM_PRIORITY + 1);
+        WorldLifecycle.WORLD_FOLDER_READY.subscribe(INSTANCE::setCurrentStorageAccess, SYSTEM_PRIORITY + 1);
     }
 
     public LevelStorageSource.LevelStorageAccess getCurrentStorageAccess() {

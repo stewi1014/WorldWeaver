@@ -11,6 +11,8 @@ import org.betterx.wover.tag.impl.TagBootstrapContextImpl;
 
 import net.fabricmc.api.ModInitializer;
 
+import static org.betterx.wover.events.impl.AbstractEvent.SYSTEM_PRIORITY;
+
 public class LibWoverTag implements ModInitializer {
     public static final ModCore C = ModCore.create("wover-tag", "wover");
 
@@ -30,6 +32,6 @@ public class LibWoverTag implements ModInitializer {
 
         WorldLifecycle
                 .BEFORE_LOADING_RESOURCES
-                .subscribe((resourceManager, featureFlagSet) -> TagBootstrapContextImpl.invalidateCaches());
+                .subscribe((resourceManager, featureFlagSet) -> TagBootstrapContextImpl.invalidateCaches(), SYSTEM_PRIORITY);
     }
 }

@@ -7,6 +7,11 @@ import org.betterx.wover.util.SortedLinkedList;
 import java.util.Objects;
 
 public class AbstractEvent<T extends Subscriber> implements Event<T> {
+    /**
+     * The default priority for system calls
+     */
+    public static final int SYSTEM_PRIORITY = 100000000;
+
     protected static class Subscriber<T extends org.betterx.wover.events.api.Subscriber> {
         public final T task;
         private final int priority;

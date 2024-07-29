@@ -26,6 +26,7 @@ import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.storage.LevelStorageSource;
 
 import com.google.common.base.Stopwatch;
+import static org.betterx.wover.events.impl.AbstractEvent.SYSTEM_PRIORITY;
 
 import java.util.Comparator;
 import java.util.List;
@@ -42,14 +43,14 @@ public class BiomeModificationRegistryImpl {
     public static void initialize() {
         if (didInit) return;
         didInit = true;
-        
+
         DatapackRegistryBuilder.register(
                 BiomeModificationRegistry.BIOME_MODIFICATION_REGISTRY,
                 BiomeModification.CODEC,
                 BiomeModificationRegistryImpl::onBootstrap
         );
 
-        WorldLifecycle.MINECRAFT_SERVER_READY.subscribe(BiomeModificationRegistryImpl::whenReady);
+        WorldLifecycle.MINECRAFT_SERVER_READY.subscribe(BiomeModificationRegistryImpl::whenReady, SYSTEM_PRIORITY);
     }
 
     private static void onBootstrap(BootstrapContext<BiomeModification> ctx) {

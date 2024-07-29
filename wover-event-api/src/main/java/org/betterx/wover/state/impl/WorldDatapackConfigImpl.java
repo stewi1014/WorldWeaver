@@ -10,6 +10,7 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.flag.FeatureFlagSet;
 
 import com.google.gson.JsonObject;
+import static org.betterx.wover.events.impl.AbstractEvent.SYSTEM_PRIORITY;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -32,8 +33,8 @@ public class WorldDatapackConfigImpl {
 
     @ApiStatus.Internal
     public static void initialize() {
-        WorldLifecycle.BEFORE_LOADING_RESOURCES.subscribe(WorldDatapackConfigImpl::onResourcesLoaded, Event.DEFAULT_PRIORITY * 100);
-        WorldLifecycle.RESOURCES_LOADED.subscribe(WorldDatapackConfigImpl::onResourcesLoaded, Event.DEFAULT_PRIORITY * 100);
+        WorldLifecycle.BEFORE_LOADING_RESOURCES.subscribe(WorldDatapackConfigImpl::onResourcesLoaded, SYSTEM_PRIORITY);
+        WorldLifecycle.RESOURCES_LOADED.subscribe(WorldDatapackConfigImpl::onResourcesLoaded, SYSTEM_PRIORITY);
     }
 
     private static void onResourcesLoaded(ResourceManager resourceManager, FeatureFlagSet featureFlagSet) {
