@@ -116,12 +116,7 @@ public class CommonBlockTags {
      */
     public static final TagKey<Block> TERRAIN = TagManager.BLOCKS.makeCommonTag("terrain");
 
-    /**
-     * {@code c:grows_grass}
-     */
-    public static final TagKey<Block> GROWS_GRASS = TagManager.BLOCKS.makeCommonTag("grows_grass");
-
-    public static final TagKey<Block> GRASS_SOIL = TagManager.BLOCKS.makeCommonTag("grass_soil");
+    public static final TagKey<Block> SOIL_OR_LOGS = TagManager.BLOCKS.makeCommonTag("soil_or_logs");
     /**
      * {@code c:nether_terrain}
      */
