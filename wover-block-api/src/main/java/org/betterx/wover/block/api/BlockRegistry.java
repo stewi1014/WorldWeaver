@@ -1,5 +1,6 @@
 package org.betterx.wover.block.api;
 
+import org.betterx.wover.block.impl.WoverBlockItemImpl;
 import org.betterx.wover.core.api.ModCore;
 import org.betterx.wover.item.api.ItemRegistry;
 import org.betterx.wover.loot.api.BlockLootProvider;
@@ -78,7 +79,7 @@ public class BlockRegistry {
             if (block instanceof CustomBlockItemProvider provider) {
                 item = provider.getCustomBlockItem(id, defaultBlockItemSettings());
             } else {
-                item = new BlockItem(block, defaultBlockItemSettings());
+                item = WoverBlockItemImpl.create(block, defaultBlockItemSettings());
             }
             if (itemTags == null)
                 registerBlockItem(path, item);
