@@ -41,9 +41,9 @@ public class CommonBlockTags {
 
 
     /**
-     * {@code wover:surfaces/end_stones}
+     * {@code wover:surfaces/end/stones}
      */
-    public static final TagKey<Block> END_STONES = TagManager.BLOCKS.makeWorldWeaverTag("surfaces/end_stones");
+    public static final TagKey<Block> END_STONES = TagManager.BLOCKS.makeWorldWeaverTag("surfaces/end/stones");
     /**
      * {@code c:immobile}
      */
