@@ -47,12 +47,44 @@ public class BlockTagProvider extends WoverTagProvider.ForBlocks {
     }
 
     public static void preparePOITags(TagBootstrapContext<Block> ctx) {
-        ctx.add(
-                CommonPoiTags.FISHERMAN_WORKSTATION,
-                CommonBlockTags.BARREL,
-                CommonBlockTags.WOODEN_BARREL
-        );
+
+        ctx.add(CommonPoiTags.ARMORER_WORKSTATION, Blocks.BLAST_FURNACE);
+        ctx.add(CommonPoiTags.BUTCHER_WORKSTATION, Blocks.SMOKER);
+        ctx.add(CommonPoiTags.CARTOGRAPHER_WORKSTATION, Blocks.CARTOGRAPHY_TABLE);
+        ctx.add(CommonPoiTags.CLERIC_WORKSTATION, Blocks.BREWING_STAND);
         ctx.add(CommonPoiTags.FARMER_WORKSTATION, Blocks.COMPOSTER);
+        ctx.add(CommonPoiTags.FISHERMAN_WORKSTATION, CommonBlockTags.BARREL, CommonBlockTags.WOODEN_BARREL);
+        ctx.add(CommonPoiTags.FLETCHER_WORKSTATION, Blocks.FLETCHING_TABLE);
+        ctx.add(CommonPoiTags.LEATHERWORKER_WORKSTATION, CommonBlockTags.CAULDRONS);
+        ctx.add(CommonPoiTags.LIBRARIAN_WORKSTATION, Blocks.LECTERN);
+        ctx.add(CommonPoiTags.MASON_WORKSTATION, Blocks.STONECUTTER);
+        ctx.add(CommonPoiTags.SHEPHERD_WORKSTATION, Blocks.LOOM);
+        ctx.add(CommonPoiTags.TOOLSMITH_WORKSTATION, Blocks.SMITHING_TABLE);
+        ctx.add(CommonPoiTags.WEAPONSMITH_WORKSTATION, Blocks.GRINDSTONE);
+        ctx.add(CommonPoiTags.HOME, CommonBlockTags.BEDS);
+        ctx.add(CommonPoiTags.MEETING_PLACE, Blocks.BELL);
+        ctx.add(CommonPoiTags.BEEHIVE, Blocks.BEEHIVE);
+        ctx.add(CommonPoiTags.BEE_NEST, Blocks.BEE_NEST);
+        ctx.add(CommonPoiTags.NETHER_PORTAL, Blocks.NETHER_PORTAL);
+        ctx.add(CommonPoiTags.LODESTONE, Blocks.LODESTONE);
+        ctx.add(CommonPoiTags.LIGHTNING_ROD, Blocks.LIGHTNING_ROD);
+
+        ctx.addOptional(
+                WoverTagDatagen.VILLAGER_JOB_SITES,
+                CommonPoiTags.ARMORER_WORKSTATION,
+                CommonPoiTags.BUTCHER_WORKSTATION,
+                CommonPoiTags.CARTOGRAPHER_WORKSTATION,
+                CommonPoiTags.CLERIC_WORKSTATION,
+                CommonPoiTags.FARMER_WORKSTATION,
+                CommonPoiTags.FISHERMAN_WORKSTATION,
+                CommonPoiTags.FLETCHER_WORKSTATION,
+                CommonPoiTags.LEATHERWORKER_WORKSTATION,
+                CommonPoiTags.LIBRARIAN_WORKSTATION,
+                CommonPoiTags.MASON_WORKSTATION,
+                CommonPoiTags.SHEPHERD_WORKSTATION,
+                CommonPoiTags.TOOLSMITH_WORKSTATION,
+                CommonPoiTags.WEAPONSMITH_WORKSTATION
+        );
     }
 
     public static void prepareBlockTags(TagBootstrapContext<Block> ctx) {
