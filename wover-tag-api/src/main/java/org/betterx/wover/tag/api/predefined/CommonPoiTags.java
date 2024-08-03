@@ -12,18 +12,18 @@ import org.jetbrains.annotations.ApiStatus;
  */
 public class CommonPoiTags {
     /**
-     * {@code c:workstation/fisherman}
+     * {@code wover:workstation/fisherman}
      * <p>
      * This tag is used to identify blocks that can be used as a workstation for a fisherman villager.
      */
-    public static final TagKey<Block> FISHERMAN_WORKSTATION = TagManager.BLOCKS.makeCommonTag("workstation/fisherman");
+    public static final TagKey<Block> FISHERMAN_WORKSTATION = TagManager.BLOCKS.makeWorldWeaverTag("workstation/fisherman");
     /**
-     * {@code c:workstation/farmer}
+     * {@code wover:workstation/farmer}
      * <p>
      * This tag is used to identify blocks that can be used as a workstation for a farmer villager.
      */
 
-    public static final TagKey<Block> FARMER_WORKSTATION = TagManager.BLOCKS.makeCommonTag("workstation/farmer");
+    public static final TagKey<Block> FARMER_WORKSTATION = TagManager.BLOCKS.makeWorldWeaverTag("workstation/farmer");
 
     /**
      * Called internally to ensure that the tags are created.

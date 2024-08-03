@@ -1,6 +1,7 @@
 package org.betterx.wover.tag.impl;
 
 import org.betterx.wover.core.api.ModCore;
+import org.betterx.wover.entrypoint.LibWoverTag;
 import org.betterx.wover.events.api.Event;
 import org.betterx.wover.events.impl.EventImpl;
 import org.betterx.wover.tag.api.TagRegistry;
@@ -35,6 +36,10 @@ public abstract class TagRegistryImpl<T, P extends TagBootstrapContext<T>> imple
         this.locationProvider = locationProvider;
 
         BOOTSTRAP_EVENT = new EventImpl<>("TAG_BOOTSTRAP_EVENT (" + directory + ")");
+    }
+
+    public TagKey<T> makeWorldWeaverTag(String name) {
+        return makeTag(LibWoverTag.C.mk(name));
     }
 
     public TagKey<T> makeCommonTag(String name) {

@@ -12,32 +12,32 @@ import org.jetbrains.annotations.ApiStatus;
  */
 public class CommonBiomeTags {
     /**
-     * {@code c:is_end_center} - Tag for biomes that are in the center of the end (ie. the dragon island).
+     * {@code wover:is_end/center} - Tag for biomes that are in the center of the end (ie. the dragon island).
      */
-    public static final TagKey<Biome> IS_END_CENTER = TagManager.BIOMES.makeCommonTag("is_end_center");
+    public static final TagKey<Biome> IS_END_CENTER = TagManager.BIOMES.makeWorldWeaverTag("is_end/center");
 
     /**
-     * {@code c:is_end_land} - Tag for biomes that are highlands or midlands in the end.
+     * {@code wover:is_end/land} - Tag for biomes that are highlands or midlands in the end.
      */
-    public static final TagKey<Biome> IS_END_LAND = TagManager.BIOMES.makeCommonTag("is_end_land");
+    public static final TagKey<Biome> IS_END_LAND = TagManager.BIOMES.makeWorldWeaverTag("is_end/land");
 
     /**
-     * {@code c:is_end_highland} - Tag for biomes that are highlands in the end.
+     * {@code wover:is_end/highland} - Tag for biomes that are highlands in the end.
      */
-    public static final TagKey<Biome> IS_END_HIGHLAND = TagManager.BIOMES.makeCommonTag("is_end_highland");
+    public static final TagKey<Biome> IS_END_HIGHLAND = TagManager.BIOMES.makeWorldWeaverTag("is_end/highland");
 
     /**
-     * {@code c:is_end_midland} - Tag for biomes that are midlands in the end.
+     * {@code wover:is_end/midland} - Tag for biomes that are midlands in the end.
      */
-    public static final TagKey<Biome> IS_END_MIDLAND = TagManager.BIOMES.makeCommonTag("is_end_midland");
+    public static final TagKey<Biome> IS_END_MIDLAND = TagManager.BIOMES.makeWorldWeaverTag("is_end/midland");
     /**
-     * {@code c:is_end_barrens} - Tag for biomes that are barrens in the end.
+     * {@code wover:is_end/barrens} - Tag for biomes that are barrens in the end.
      */
-    public static final TagKey<Biome> IS_END_BARRENS = TagManager.BIOMES.makeCommonTag("is_end_barrens");
+    public static final TagKey<Biome> IS_END_BARRENS = TagManager.BIOMES.makeWorldWeaverTag("is_end/barrens");
     /**
-     * {@code c:is_small_end_island} - Tag for biomes that are small islands in the end.
+     * {@code wover:is_end/small_island} - Tag for biomes that are small islands in the end.
      */
-    public static final TagKey<Biome> IS_SMALL_END_ISLAND = TagManager.BIOMES.makeCommonTag("is_small_end_island");
+    public static final TagKey<Biome> IS_SMALL_END_ISLAND = TagManager.BIOMES.makeWorldWeaverTag("is_end/small_island");
 
     /**
      * Called internally to ensure that the tags are created.

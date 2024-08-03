@@ -26,8 +26,9 @@ public class BlockTagProvider extends WoverTagProvider.ForBlocks {
                         CommonBlockTags.WOODEN_COMPOSTER,
                         CommonBlockTags.WOODEN_BARREL,
                         CommonBlockTags.WORKBENCHES,
-                        CommonBlockTags.NEEDS_GOLD_TOOL,
-                        CommonBlockTags.NEEDS_NETHERITE_TOOL,
+                        MineableTags.NEEDS_GOLD_TOOL,
+                        MineableTags.NEEDS_NETHERITE_TOOL,
+                        MineableTags.NEEDS_WOOD_TOOL,
                         CommonBlockTags.MYCELIUM,
                         CommonBlockTags.END_STONES,
                         CommonBlockTags.NETHER_TERRAIN
@@ -227,10 +228,17 @@ public class BlockTagProvider extends WoverTagProvider.ForBlocks {
                 Blocks.SMALL_DRIPLEAF
         );
 
+
         ctx.add(CommonBlockTags.SOIL_OR_LOGS, BlockTags.DIRT, BlockTags.LOGS, BlockTags.PLANKS);
         ctx.addOptional(CommonBlockTags.SOIL_OR_LOGS, CommonBlockTags.TERRAIN);
 
-        ctx.addOptional(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, CommonBlockTags.NEEDS_NETHERITE_TOOL);
-        ctx.addOptional(BlockTags.INCORRECT_FOR_WOODEN_TOOL, CommonBlockTags.NEEDS_GOLD_TOOL);
+        ctx.addOptional(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, MineableTags.NEEDS_NETHERITE_TOOL);
+        ctx.addOptional(BlockTags.INCORRECT_FOR_WOODEN_TOOL, MineableTags.NEEDS_GOLD_TOOL);
+
+        ctx.addOptional(
+                WoverTagDatagen.VILLAGER_JOB_SITES,
+                CommonPoiTags.FARMER_WORKSTATION,
+                CommonPoiTags.FISHERMAN_WORKSTATION
+        );
     }
 }

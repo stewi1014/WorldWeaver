@@ -48,6 +48,14 @@ public interface TagRegistry<T, P extends TagBootstrapContext<T>> {
     ResourceKey<? extends Registry<T>> registryKey();
 
     /**
+     * Get or create a {@link TagKey} defined by WorldWeaver(namespace is 'wover').
+     *
+     * @param name - The name of the Tag;
+     * @return the corresponding TagKey {@link TagKey<T>}.
+     */
+    TagKey<T> makeWorldWeaverTag(String name);
+
+    /**
      * Get or create a common {@link TagKey} (namespace is 'c').
      *
      * @param name - The name of the Tag;

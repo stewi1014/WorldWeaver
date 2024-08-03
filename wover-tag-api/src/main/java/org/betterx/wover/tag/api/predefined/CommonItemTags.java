@@ -12,66 +12,71 @@ import org.jetbrains.annotations.ApiStatus;
  */
 public class CommonItemTags {
     /**
-     * {@code c:hammers}
+     * {@code wover:tools/hammers}
      */
-    public final static TagKey<Item> HAMMERS = TagManager.ITEMS.makeCommonTag("hammers");
+    public final static TagKey<Item> HAMMERS = TagManager.ITEMS.makeWorldWeaverTag("tools/hammers");
     /**
-     * {@code c:barrel}
+     * {@code c:barrels}
      */
-    public static final TagKey<Item> BARREL = TagManager.ITEMS.makeCommonTag("barrel");
+    public static final TagKey<Item> BARREL = TagManager.ITEMS.makeCommonTag("barrels");
     /**
-     * {@code c:chest}
+     * {@code c:chests}
      */
-    public static final TagKey<Item> CHEST = TagManager.ITEMS.makeCommonTag("chest");
+    public static final TagKey<Item> CHEST = TagManager.ITEMS.makeCommonTag("chests");
     /**
-     * {@code c:shears}
+     * {@code c:tools/shears}
      */
-    public static final TagKey<Item> SHEARS = TagManager.ITEMS.makeCommonTag("shears");
+    public static final TagKey<Item> SHEARS = TagManager.ITEMS.makeCommonTag("tools/shears");
     /**
-     * {@code c:furnaces}
+     * {@code wover:furnaces}
      */
-    public static final TagKey<Item> FURNACES = TagManager.ITEMS.makeCommonTag("furnaces");
+    public static final TagKey<Item> FURNACES = TagManager.ITEMS.makeWorldWeaverTag("furnaces");
     /**
-     * {@code c:iron_ingots}
+     * {@code c:ingots/iron}
      */
-    public static final TagKey<Item> IRON_INGOTS = TagManager.ITEMS.makeCommonTag("iron_ingots");
+    public static final TagKey<Item> IRON_INGOTS = TagManager.ITEMS.makeCommonTag("ingots/iron");
     /**
-     * {@code c:leaves}
+     * {@code c:ores}
      */
-    public static final TagKey<Item> LEAVES = TagManager.ITEMS.makeCommonTag("leaves");
-    /**
-     * {@code c:saplings}
-     */
-    public static final TagKey<Item> SAPLINGS = TagManager.ITEMS.makeCommonTag("saplings");
-    /**
-     * {@code c:seeds}
-     */
-    public static final TagKey<Item> SEEDS = TagManager.ITEMS.makeCommonTag("seeds");
-    /**
-     * {@code c:soul_ground}
-     */
-    public static final TagKey<Item> SOUL_GROUND = TagManager.ITEMS.makeCommonTag("soul_ground");
-    /**
-     * {@code c:wooden_barrels}
-     */
-    public static final TagKey<Item> WOODEN_BARREL = TagManager.ITEMS.makeCommonTag("wooden_barrels");
-    /**
-     * {@code c:wooden_chests}
-     */
-    public static final TagKey<Item> WOODEN_CHEST = TagManager.ITEMS.makeCommonTag("wooden_chests");
-    /**
-     * {@code c:workbench}
-     */
-    public static final TagKey<Item> WORKBENCHES = TagManager.ITEMS.makeCommonTag("workbench");
+    public static final TagKey<Item> ORES = TagManager.ITEMS.makeCommonTag("ores");
 
     /**
-     * {@code c:water_bottles}
+     * {@code wover:vegetation/leaves}
      */
-    public static final TagKey<Item> WATER_BOTTLES = TagManager.ITEMS.makeCommonTag("water_bottles");
+    public static final TagKey<Item> LEAVES = TagManager.ITEMS.makeWorldWeaverTag("vegetation/leaves");
     /**
-     * {@code c:compostable}
+     * {@code wover:vegetation/saplings}
      */
-    public static final TagKey<Item> COMPOSTABLE = TagManager.ITEMS.makeCommonTag("compostable");
+    public static final TagKey<Item> SAPLINGS = TagManager.ITEMS.makeWorldWeaverTag("vegetation/saplings");
+    /**
+     * {@code wover:vegetation/seeds}
+     */
+    public static final TagKey<Item> SEEDS = TagManager.ITEMS.makeWorldWeaverTag("vegetation/seeds");
+    /**
+     * {@code wover:surfaces/soul_ground}
+     */
+    public static final TagKey<Item> SOUL_GROUND = TagManager.ITEMS.makeWorldWeaverTag("surfaces/soul_ground");
+    /**
+     * {@code c:barrels/wooden}
+     */
+    public static final TagKey<Item> WOODEN_BARREL = TagManager.ITEMS.makeCommonTag("barrels/wooden");
+    /**
+     * {@code c:chests/wooden}
+     */
+    public static final TagKey<Item> WOODEN_CHEST = TagManager.ITEMS.makeCommonTag("chests/wooden");
+    /**
+     * {@code wover:workbench}
+     */
+    public static final TagKey<Item> WORKBENCHES = TagManager.ITEMS.makeWorldWeaverTag("workbench");
+
+    /**
+     * {@code wover:water_bottles}
+     */
+    public static final TagKey<Item> WATER_BOTTLES = TagManager.ITEMS.makeWorldWeaverTag("water_bottles");
+    /**
+     * {@code wover:compostable}
+     */
+    public static final TagKey<Item> COMPOSTABLE = TagManager.ITEMS.makeWorldWeaverTag("compostable");
 
     /**
      * {@code c:music_discs}

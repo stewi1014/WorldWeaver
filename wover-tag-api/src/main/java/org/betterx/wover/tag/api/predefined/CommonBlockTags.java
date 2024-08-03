@@ -2,6 +2,7 @@ package org.betterx.wover.tag.api.predefined;
 
 import org.betterx.wover.tag.api.TagManager;
 
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 
@@ -14,7 +15,7 @@ public class CommonBlockTags {
     /**
      * {@code c:barrel}
      */
-    public static final TagKey<Block> BARREL = TagManager.BLOCKS.makeCommonTag("barrel");
+    public static final TagKey<Block> BARREL = TagManager.BLOCKS.makeCommonTag("barrels");
     /**
      * {@code c:bookshelves}
      */
@@ -22,122 +23,122 @@ public class CommonBlockTags {
     /**
      * {@code c:chest}
      */
-    public static final TagKey<Block> CHEST = TagManager.BLOCKS.makeCommonTag("chest");
+    public static final TagKey<Block> CHEST = TagManager.BLOCKS.makeCommonTag("chests");
     /**
-     * {@code c:composter}
+     * {@code wover:composters}
      */
-    public static final TagKey<Block> COMPOSTER = TagManager.BLOCKS.makeCommonTag("composter");
+    public static final TagKey<Block> COMPOSTER = TagManager.BLOCKS.makeWorldWeaverTag("composters");
     /**
-     * {@code c:end_stones}
+     * {@code wover:surfaces/end_stones}
      */
-    public static final TagKey<Block> END_STONES = TagManager.BLOCKS.makeCommonTag("end_stones");
+    public static final TagKey<Block> END_STONES = TagManager.BLOCKS.makeWorldWeaverTag("surfaces/end_stones");
     /**
      * {@code c:immobile}
      */
-    public static final TagKey<Block> IMMOBILE = TagManager.BLOCKS.makeCommonTag("immobile");
+    public static final TagKey<Block> IMMOBILE = TagManager.BLOCKS.makeWorldWeaverTag("immobile");
     /**
      * {@code c:leaves}
      */
-    public static final TagKey<Block> LEAVES = TagManager.BLOCKS.makeCommonTag("leaves");
+    public static final TagKey<Block> LEAVES = TagManager.BLOCKS.makeWorldWeaverTag("vegetation/leaves");
     /**
-     * {@code c:netherrack}
+     * {@code wover:surfaces/nether/netherrack}
      */
-    public static final TagKey<Block> NETHERRACK = TagManager.BLOCKS.makeCommonTag("netherrack");
+    public static final TagKey<Block> NETHERRACK = TagManager.BLOCKS.makeWorldWeaverTag("surfaces/nether/netherrack");
     /**
-     * {@code c:mycelium}
+     * {@code wover:surfaces/mycelium}
      */
-    public static final TagKey<Block> MYCELIUM = TagManager.BLOCKS.makeCommonTag("mycelium");
+    public static final TagKey<Block> MYCELIUM = TagManager.BLOCKS.makeWorldWeaverTag("surfaces/mycelium");
     /**
-     * {@code c:nether_mycelium}
+     * {@code wover:surfaces/nether/mycelium}
      */
-    public static final TagKey<Block> NETHER_MYCELIUM = TagManager.BLOCKS.makeCommonTag("nether_mycelium");
+    public static final TagKey<Block> NETHER_MYCELIUM = TagManager.BLOCKS.makeWorldWeaverTag("surfaces/nether/mycelium");
     /**
-     * {@code c:nether_pframe}
+     * {@code wover:nether_pframe}
      */
-    public static final TagKey<Block> NETHER_PORTAL_FRAME = TagManager.BLOCKS.makeCommonTag("nether_pframe");
+    public static final TagKey<Block> NETHER_PORTAL_FRAME = TagManager.BLOCKS.makeWorldWeaverTag("nether_pframe");
     /**
-     * {@code c:nether_stones}
+     * {@code wover:surfaces/nether/stones}
      */
-    public static final TagKey<Block> NETHER_STONES = TagManager.BLOCKS.makeCommonTag("nether_stones");
+    public static final TagKey<Block> NETHER_STONES = TagManager.BLOCKS.makeWorldWeaverTag("surfaces/nether/stones");
     /**
-     * {@code c:nether_ores}
+     * {@code wover:ores/nether}
      */
-    public static final TagKey<Block> NETHER_ORES = TagManager.BLOCKS.makeCommonTag("nether_ores");
+    public static final TagKey<Block> NETHER_ORES = TagManager.BLOCKS.makeWorldWeaverTag("ores/nether");
     /**
      * {@code c:ores}
      */
     public static final TagKey<Block> ORES = TagManager.BLOCKS.makeCommonTag("ores");
     /**
-     * {@code c:end_ores}
+     * {@code wover:ores/end}
      */
-    public static final TagKey<Block> END_ORES = TagManager.BLOCKS.makeCommonTag("end_ores");
+    public static final TagKey<Block> END_ORES = TagManager.BLOCKS.makeWorldWeaverTag("ores/end");
     /**
-     * {@code c:saplings}
+     * {@code wover:vegetation/saplings}
      */
-    public static final TagKey<Block> SAPLINGS = TagManager.BLOCKS.makeCommonTag("saplings");
+    public static final TagKey<Block> SAPLINGS = TagManager.BLOCKS.makeWorldWeaverTag("vegetation/saplings");
     /**
-     * {@code c:seeds}
+     * {@code wover:vegetation/seeds}
      */
-    public static final TagKey<Block> SEEDS = TagManager.BLOCKS.makeCommonTag("seeds");
+    public static final TagKey<Block> SEEDS = TagManager.BLOCKS.makeWorldWeaverTag("vegetation/seeds");
     /**
-     * {@code c:soul_ground}
+     * {@code wover:surfaces/soul_ground}
      */
-    public static final TagKey<Block> SOUL_GROUND = TagManager.BLOCKS.makeCommonTag("soul_ground");
+    public static final TagKey<Block> SOUL_GROUND = TagManager.BLOCKS.makeWorldWeaverTag("surfaces/soul_ground");
     /**
-     * {@code c:sculk_like}
+     * {@code wover:surfaces/sculk_like}
      */
-    public static final TagKey<Block> SCULK_LIKE = TagManager.BLOCKS.makeCommonTag("sculk_like");
+    public static final TagKey<Block> SCULK_LIKE = TagManager.BLOCKS.makeWorldWeaverTag("surfaces/sculk_like");
     /**
-     * {@code c:wooden_barrels}
+     * {@code c:barrels/wooden}
      */
-    public static final TagKey<Block> WOODEN_BARREL = TagManager.BLOCKS.makeCommonTag("wooden_barrels");
+    public static final TagKey<Block> WOODEN_BARREL = TagManager.BLOCKS.makeCommonTag("barrels/wooden");
     /**
-     * {@code c:wooden_chests}
+     * {@code c:chests/wooden}
      */
-    public static final TagKey<Block> WOODEN_CHEST = TagManager.BLOCKS.makeCommonTag("wooden_chests");
+    public static final TagKey<Block> WOODEN_CHEST = TagManager.BLOCKS.makeCommonTag("chests/wooden");
     /**
-     * {@code c:wooden_composter}
+     * {@code wover:composters/wooden}
      */
-    public static final TagKey<Block> WOODEN_COMPOSTER = TagManager.BLOCKS.makeCommonTag("wooden_composter");
+    public static final TagKey<Block> WOODEN_COMPOSTER = TagManager.BLOCKS.makeWorldWeaverTag("composters/wooden");
     /**
-     * {@code c:workbench}
+     * {@code wover:workbench}
      */
-    public static final TagKey<Block> WORKBENCHES = TagManager.BLOCKS.makeCommonTag("workbench");
+    public static final TagKey<Block> WORKBENCHES = TagManager.BLOCKS.makeWorldWeaverTag("workbench");
     /**
-     * {@code c:dragon_immune}
+     * {@code minecraft:dragon_immune}
      */
-    public static final TagKey<Block> DRAGON_IMMUNE = TagManager.BLOCKS.makeCommonTag("dragon_immune");
+    public static final TagKey<Block> DRAGON_IMMUNE = BlockTags.DRAGON_IMMUNE;
     /**
-     * {@code c:is_obsidian}
+     * {@code wover:is_obsidian}
      */
-    public static final TagKey<Block> IS_OBSIDIAN = TagManager.BLOCKS.makeCommonTag("is_obsidian");
+    public static final TagKey<Block> IS_OBSIDIAN = TagManager.BLOCKS.makeWorldWeaverTag("is_obsidian");
     /**
-     * {@code c:terrain}
+     * {@code wover:surfaces/terrain}
      */
-    public static final TagKey<Block> TERRAIN = TagManager.BLOCKS.makeCommonTag("terrain");
+    public static final TagKey<Block> TERRAIN = TagManager.BLOCKS.makeWorldWeaverTag("surfaces/terrain");
 
-    public static final TagKey<Block> SOIL_OR_LOGS = TagManager.BLOCKS.makeCommonTag("soil_or_logs");
     /**
-     * {@code c:nether_terrain}
+     * {@code wover:surfaces/soil_or_logs}
      */
-    public static final TagKey<Block> NETHER_TERRAIN = TagManager.BLOCKS.makeCommonTag("nether_terrain");
+    public static final TagKey<Block> SOIL_OR_LOGS = TagManager.BLOCKS.makeWorldWeaverTag("surfaces/soil_or_logs");
     /**
-     * {@code c:budding_blocks}
+     * {@code wover:surfaces/nether/terrain}
      */
-    public static final TagKey<Block> BUDDING_BLOCKS = TagManager.BLOCKS.makeCommonTag("budding_blocks");
+    public static final TagKey<Block> NETHER_TERRAIN = TagManager.BLOCKS.makeWorldWeaverTag("surfaces/nether/terrain");
     /**
-     * {@code c:water_plant}
+     * {@code c:budsy}
      */
-    public static final TagKey<Block> WATER_PLANT = TagManager.BLOCKS.makeCommonTag("water_plant");
+    public static final TagKey<Block> BUDDING_BLOCKS = TagManager.BLOCKS.makeCommonTag("buds");
     /**
-     * {@code c:plant}
+     * {@code wover:vegetation/water_plant}
      */
-    public static final TagKey<Block> PLANT = TagManager.BLOCKS.makeCommonTag("plant");
+    public static final TagKey<Block> WATER_PLANT = TagManager.BLOCKS.makeWorldWeaverTag("vegetation/water_plant");
+    /**
+     * {@code wover:vegetation/plant}
+     */
+    public static final TagKey<Block> PLANT = TagManager.BLOCKS.makeWorldWeaverTag("vegetation/plant");
 
-    public static final TagKey<Block> NEEDS_NETHERITE_TOOL = TagManager.BLOCKS.makeCommonTag("needs_netherite_tool");
-    public static final TagKey<Block> NEEDS_GOLD_TOOL = TagManager.BLOCKS.makeCommonTag("needs_gold_tool");
-    public static final TagKey<Block> NEEDS_WOOD_TOOL = TagManager.BLOCKS.makeCommonTag("needs_wood_tool");
-
+    
     /**
      * Called internally to ensure that the tags are created.
      */
