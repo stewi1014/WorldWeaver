@@ -2,6 +2,7 @@ package org.betterx.wover.datagen.api;
 
 import org.betterx.wover.core.api.ModCore;
 import org.betterx.wover.datagen.impl.WoverDataGenEntryPointImpl;
+import org.betterx.wover.entrypoint.LibWoverDatagen;
 
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.data.DataProvider;
@@ -18,6 +19,7 @@ import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import java.util.LinkedList;
 import java.util.List;
 import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A simplified entrypoint for fabric data generators.
@@ -192,6 +194,8 @@ public abstract class WoverDataGenEntryPoint implements DataGeneratorEntrypoint 
     private void initialize() {
         synchronized (this) {
             if (builders == null) {
+                LibWoverDatagen.C.LOG.debug("Initializing WoverDataGenEntryPoint:" +
+                        this.getClass().getName() + " for " + modCore());
                 this.builders = new LinkedList<>();
                 this.globalBuilder = addDatapack(null);
 
@@ -221,6 +225,11 @@ public abstract class WoverDataGenEntryPoint implements DataGeneratorEntrypoint 
         return pack;
     }
 
+    @Override
+    public @Nullable String getEffectiveModId() {
+        return modCore().modId;
+    }
+
     /**
      * Manages the creation of the Datapacks. You should override
      * {@link #onInitializeDataGenerator(FabricDataGenerator)} in order to register custom Providers
@@ -230,6 +239,10 @@ public abstract class WoverDataGenEntryPoint implements DataGeneratorEntrypoint 
     @ApiStatus.Internal
     @Override
     public final void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
+        if (ignoreRun()) {
+            LibWoverDatagen.C.LOG.debug("Ignoring run for " + this);
+            return;
+        }
         initialize();
         globalBuilder.pack = fabricDataGenerator.createPack();
 
@@ -286,6 +299,8 @@ public abstract class WoverDataGenEntryPoint implements DataGeneratorEntrypoint 
     @ApiStatus.Internal
     @Override
     public final void buildRegistry(RegistrySetBuilder registryBuilder) {
+        if (ignoreRun()) return;
+
         DataGeneratorEntrypoint.super.buildRegistry(registryBuilder);
         initialize();
 
@@ -306,5 +321,49 @@ public abstract class WoverDataGenEntryPoint implements DataGeneratorEntrypoint 
      */
     public static <T extends DataProvider> void registerAutoProvider(PackBuilder.ProviderFactory<T> providerFactory) {
         WoverDataGenEntryPointImpl.registerAutoProvider(providerFactory);
+    }
+
+    /**
+     * Returns whether the Datagenerator should be run. This will check if the Datagenerator
+     * was started by the Mod specified in the {@link #targetModID()} method.
+     *
+     * @return Whether the Datagenerator should be run
+     */
+    protected boolean ignoreRun() {
+        return !runsForMod(modCore());
+    }
+
+    /**
+     * Returns whether the Datagenerator was started by the Mod specified in the
+     * passed {@link ModCore} instance. This will check if the id returned by
+     * {@link #targetModID()} is equal to the mod id of the passed {@link ModCore}.
+     *
+     * @param modCore The {@link ModCore} instance to check
+     * @return Whether the Datagenerator was started by the Mod
+     */
+    public static boolean runsForMod(ModCore modCore) {
+        final String target = targetModID();
+
+        if (!modCore.namespace.equals(LibWoverDatagen.C.namespace)) {
+            if (target == null || target.isEmpty()) return true;
+        }
+
+        return modCore.modId.equals(targetModID());
+    }
+
+    /**
+     * Returns the mod id of the mod that is responsible for the Datagenerator run. This is
+     * the mod that started the Datagenerator. The value is read from the system property
+     * {@code fabric-api.datagen.modid}.
+     *
+     * @return The mod id
+     */
+    public static String targetModID() {
+        return System.getProperty("fabric-api.datagen.modid");
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + " for " + modCore();
     }
 }
