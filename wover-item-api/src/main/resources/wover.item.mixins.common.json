@@ -9,6 +9,7 @@
   "mixins": [
     "item_stack_setup.CraftingRecipeMixin",
     "item_stack_setup.ItemInputMixin",
+    "item_stack_setup.LootItemFunctionMixin",
     "item_stack_setup.SmithingTransformRecipeMixin"
   ]
 }
