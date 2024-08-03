@@ -64,9 +64,10 @@ public class AutoBlockTagProvider extends WoverTagProvider.ForBlocks implements 
     public @Nullable <T extends DataProvider> WoverDataProvider<T> redirect(@Nullable WoverDataProvider<T> provider) {
         if (provider instanceof WoverTagProvider<?, ?> tagProvider) {
             if (tagProvider.tagRegistry == this.tagRegistry && tagProvider.modCore.equals(this.modCore)) {
-                LibWoverTag.C.LOG.debug("Redirecting {} to {}", tagProvider.getClass().getName(), this
-                        .getClass()
-                        .getName());
+                LibWoverTag.C.LOG.debug("Redirecting {}  to {} ({})",
+                        tagProvider.getClass().getName(),
+                        this.getClass().getName(), this.modIDs
+                );
                 this.mergeAllowedAndForced((WoverTagProvider<Block, TagBootstrapContext<Block>>) tagProvider);
                 redirects.add((WoverTagProvider<Block, TagBootstrapContext<Block>>) tagProvider);
                 return null;

@@ -1,6 +1,7 @@
 package org.betterx.wover.datagen.api;
 
 import org.betterx.wover.core.api.ModCore;
+import org.betterx.wover.entrypoint.LibWoverTag;
 import org.betterx.wover.tag.api.TagManager;
 import org.betterx.wover.tag.api.TagRegistry;
 import org.betterx.wover.tag.api.event.context.ItemTagBootstrapContext;
@@ -62,7 +63,7 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
     private Set<TagKey<T>> forceWrite;
 
     private static @NotNull List<String> defaultModIDList(ModCore modCore) {
-        return List.of(modCore.namespace, modCore.modId, "minecraft", "c");
+        return List.of(modCore.namespace, modCore.modId);
     }
 
     /**
@@ -235,6 +236,7 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
                 forceWrite.forEach(provider::asPlaceholder);
                 prepareTags(provider);
 
+                LibWoverTag.C.LOG.debug("    ****> Writing tags for {}", modIDs);
                 provider.forEach((tag, allElements) -> {
                     boolean force = forceWrite.contains(tag);
 
@@ -567,5 +569,10 @@ public abstract class WoverTagProvider<T, P extends TagBootstrapContext<T>> impl
         ) {
             super(modCore, TagManager.ENTITY_TYPES, modIDs, forceWriteKeys);
         }
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + " for " + modCore + " (" + modIDs + ")";
     }
 }
