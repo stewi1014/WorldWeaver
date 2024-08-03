@@ -91,7 +91,6 @@ public class BlockTagProvider extends WoverTagProvider.ForBlocks {
 
         ctx.add(MineableTags.HAMMER, net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE);
         ctx.add(CommonBlockTags.SCULK_LIKE, Blocks.SCULK);
-        ctx.add(CommonBlockTags.DRAGON_IMMUNE, net.minecraft.tags.BlockTags.DRAGON_IMMUNE);
 
         ctx.add(CommonBlockTags.END_STONES, Blocks.END_STONE);
         ctx.add(CommonBlockTags.NETHER_STONES, net.minecraft.tags.BlockTags.BASE_STONE_NETHER);
