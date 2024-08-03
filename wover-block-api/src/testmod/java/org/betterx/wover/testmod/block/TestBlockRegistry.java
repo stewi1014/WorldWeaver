@@ -1,6 +1,7 @@
 package org.betterx.wover.testmod.block;
 
 import org.betterx.wover.block.api.BlockRegistry;
+import org.betterx.wover.tag.api.predefined.CommonPoiTags;
 import org.betterx.wover.testmod.entrypoint.TestModWoverBlock;
 
 import net.minecraft.tags.BlockTags;
@@ -18,7 +19,8 @@ public class TestBlockRegistry {
 
     public static final TestBlock TEST_BLOCK = R.register(
             "test_block",
-            new TestBlock(Block.Properties.of().ignitedByLava().instabreak())
+            new TestBlock(Block.Properties.of().ignitedByLava().instabreak()),
+            CommonPoiTags.MASON_WORKSTATION
     );
 
     public static final TestDoorBlock TEST_DOOR = R.register(

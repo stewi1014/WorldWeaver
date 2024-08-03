@@ -5,6 +5,7 @@ import org.betterx.wover.core.api.ModCore;
 import org.betterx.wover.datagen.api.WoverDataGenEntryPoint;
 import org.betterx.wover.datagen.api.provider.AutoBlockLootProvider;
 import org.betterx.wover.datagen.api.provider.AutoBlockRegistryTagProvider;
+import org.betterx.wover.poi.impl.PoiManagerImpl;
 
 import net.fabricmc.api.ModInitializer;
 
@@ -18,5 +19,6 @@ public class LibWoverBlock implements ModInitializer {
         WoverDataGenEntryPoint.registerAutoProvider(AutoBlockLootProvider::new);
 
         BlockPredicatesImpl.ensureStaticInitialization();
+        PoiManagerImpl.registerAll();
     }
 }
