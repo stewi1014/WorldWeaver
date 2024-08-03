@@ -28,6 +28,18 @@ public class CommonBlockTags {
      * {@code wover:composters}
      */
     public static final TagKey<Block> COMPOSTER = TagManager.BLOCKS.makeWorldWeaverTag("composters");
+
+    /**
+     * {@code wover:cauldrons}
+     */
+    public static final TagKey<Block> CAULDRONS = TagManager.BLOCKS.makeWorldWeaverTag("cauldrons");
+
+    /**
+     * {@code wover:beds}
+     */
+    public static final TagKey<Block> BEDS = TagManager.BLOCKS.makeWorldWeaverTag("beds");
+
+
     /**
      * {@code wover:surfaces/end_stones}
      */
@@ -126,9 +138,9 @@ public class CommonBlockTags {
      */
     public static final TagKey<Block> NETHER_TERRAIN = TagManager.BLOCKS.makeWorldWeaverTag("surfaces/nether/terrain");
     /**
-     * {@code c:budsy}
+     * {@code c:budding_blocks}
      */
-    public static final TagKey<Block> BUDDING_BLOCKS = TagManager.BLOCKS.makeCommonTag("buds");
+    public static final TagKey<Block> BUDDING_BLOCKS = TagManager.BLOCKS.makeCommonTag("budding_blocks");
     /**
      * {@code wover:vegetation/water_plant}
      */
@@ -138,7 +150,7 @@ public class CommonBlockTags {
      */
     public static final TagKey<Block> PLANT = TagManager.BLOCKS.makeWorldWeaverTag("vegetation/plant");
 
-    
+
     /**
      * Called internally to ensure that the tags are created.
      */
