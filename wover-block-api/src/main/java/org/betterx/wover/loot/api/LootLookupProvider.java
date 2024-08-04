@@ -1,6 +1,8 @@
 package org.betterx.wover.loot.api;
 
-import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import org.betterx.wover.tag.api.predefined.CommonItemTags;
+
+import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -23,10 +25,7 @@ import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
-import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
+import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
@@ -81,7 +80,21 @@ public class LootLookupProvider {
     }
 
     public LootItemCondition.Builder silkTouchCondition() {
-        return vanillaBlockLoot.hasSilkTouch();
+        return MatchTool.toolMatches(ItemPredicate.Builder
+                .item()
+                .withSubPredicate(ItemSubPredicates.ENCHANTMENTS, ItemEnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(silkTouch(), MinMaxBounds.Ints.atLeast(1))))));
+    }
+
+    public LootItemCondition.Builder shearsCondition() {
+        return MatchTool.toolMatches(ItemPredicate.Builder.item().of(CommonItemTags.SHEARS));
+    }
+
+    public LootItemCondition.Builder shearsOrSilkTouchCondition() {
+        return shearsCondition().or(silkTouchCondition());
+    }
+
+    public LootItemCondition.Builder neitherShearsNorSilkTouchCondition() {
+        return shearsOrSilkTouchCondition().invert();
     }
 
     public LootTable.Builder dropWithSilkTouch(
