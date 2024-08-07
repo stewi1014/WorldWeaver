@@ -54,15 +54,17 @@ public abstract class WoverBiomeProvider extends AbstractMultiProvider {
     protected abstract void bootstrap(BiomeBootstrapContext context);
 
     private <T> BiomeBootstrapContextImpl initContext(BootstrapContext<T> ctx) {
-        if (context == null) {
-            context = new BiomeBootstrapContextImpl();
-            context.setLookupContext(ctx);
-            bootstrap(context);
-        } else {
-            context.setLookupContext(ctx);
-        }
+        synchronized (this.context) {
+            if (context == null) {
+                context = new BiomeBootstrapContextImpl();
+                context.setLookupContext(ctx);
+                bootstrap(context);
+            } else {
+                context.setLookupContext(ctx);
+            }
 
-        return context;
+            return context;
+        }
     }
 
     private void bootstrapBiomes(BootstrapContext<Biome> ctx) {
