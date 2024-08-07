@@ -8,6 +8,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.packs.VanillaBlockLoot;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -89,6 +90,14 @@ public class LootLookupProvider {
         return MatchTool.toolMatches(ItemPredicate.Builder.item().of(CommonItemTags.SHEARS));
     }
 
+    public LootItemCondition.Builder hoeCondition() {
+        return MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.HOES));
+    }
+
+    public LootItemCondition.Builder shearsOrHoeSilkTouchCondition() {
+        return shearsCondition().or(hoeCondition().or(silkTouchCondition()));
+    }
+
     public LootItemCondition.Builder shearsOrSilkTouchCondition() {
         return shearsCondition().or(silkTouchCondition());
     }
@@ -108,6 +117,18 @@ public class LootLookupProvider {
 //                        .setRolls(ConstantValue.exactly(1.0F))
 //                        .add(LootItem.lootTableItem(withSilkTouch).when(vanillaBlockLoot.hasSilkTouch()))
 //                );
+    }
+
+    public LootTable.Builder dropWithSilkTouchOrHoeOrShears(
+            ItemLike withSilkTouch
+    ) {
+        return LootTable
+                .lootTable()
+                .withPool(LootPool
+                        .lootPool()
+                        .when(shearsOrHoeSilkTouchCondition())
+                        .setRolls(ConstantValue.exactly(1.0f))
+                        .add(LootItem.lootTableItem(withSilkTouch)));
     }
 
     public LootTable.Builder dropWithSilkTouchOrShears(
