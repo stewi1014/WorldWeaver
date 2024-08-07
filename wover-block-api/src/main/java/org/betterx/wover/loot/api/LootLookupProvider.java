@@ -122,13 +122,21 @@ public class LootLookupProvider {
     public LootTable.Builder dropWithSilkTouchOrHoeOrShears(
             ItemLike withSilkTouch
     ) {
+        return dropWithSilkTouchOrHoeOrShears(withSilkTouch, ConstantValue.exactly(1.0f));
+    }
+
+    public LootTable.Builder dropWithSilkTouchOrHoeOrShears(
+            ItemLike withSilkTouch,
+            NumberProvider rolls
+    ) {
         return LootTable
                 .lootTable()
                 .withPool(LootPool
                         .lootPool()
                         .when(shearsOrHoeSilkTouchCondition())
-                        .setRolls(ConstantValue.exactly(1.0f))
-                        .add(LootItem.lootTableItem(withSilkTouch)));
+                        .setRolls(rolls)
+                        .add(LootItem.lootTableItem(withSilkTouch))
+                );
     }
 
     public LootTable.Builder dropWithSilkTouchOrShears(
