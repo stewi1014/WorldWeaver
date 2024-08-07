@@ -21,7 +21,7 @@ public class TagLoaderMixin {
     private String directory;
 
     @ModifyArg(method = "loadAndBuild", at = @At(value = "INVOKE", target = "Lnet/minecraft/tags/TagLoader;build(Ljava/util/Map;)Ljava/util/Map;"))
-    public Map<ResourceLocation, List<TagLoader.EntryWithSource>> be_modifyTags(Map<ResourceLocation, List<TagLoader.EntryWithSource>> tagsMap) {
+    public Map<ResourceLocation, List<TagLoader.EntryWithSource>> wover_modifyTags(Map<ResourceLocation, List<TagLoader.EntryWithSource>> tagsMap) {
         return TagManagerImpl.didLoadTagMap(directory, tagsMap);
     }
 }
