@@ -204,7 +204,7 @@ public class BlockTagProvider extends WoverTagProvider.ForBlocks {
                 Blocks.BAMBOO_SAPLING,
                 Blocks.MANGROVE_PROPAGULE
         );
-        ctx.add(CommonBlockTags.PLANT, CommonBlockTags.SAPLINGS);
+        ctx.add(CommonBlockTags.PLANT, CommonBlockTags.SAPLINGS, CommonBlockTags.VINE);
         ctx.add(
                 CommonBlockTags.PLANT,
                 Blocks.MANGROVE_LEAVES,
