@@ -1,7 +1,5 @@
 accessWidener   v1  named
 
 accessible class net/minecraft/core/registries/BuiltInRegistries$RegistryBootstrap
-extendable class net/minecraft/resources/ResourceLocation
 
-accessible method net/minecraft/resources/ResourceLocation <init> (Ljava/lang/String;Ljava/lang/String;)V
 accessible method net/minecraft/core/registries/BuiltInRegistries registerSimple (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/core/registries/BuiltInRegistries$RegistryBootstrap;)Lnet/minecraft/core/Registry;

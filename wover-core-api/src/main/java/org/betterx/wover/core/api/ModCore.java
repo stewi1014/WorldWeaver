@@ -98,7 +98,7 @@ public final class ModCore implements Version.ModVersionProvider {
     /**
      * Returns the {@link ResourceLocation} for the given name in the namespace of this mod.
      * <p>
-     * You should always prefer this method over {@link ResourceLocation#ResourceLocation(String, String)}.
+     * You should always prefer this method over {@link ResourceLocation#fromNamespaceAndPath(String, String)}.
      *
      * @param name The name or path of the resource.
      * @return The {@link ResourceLocation} for the given name.
