@@ -1,16 +1,9 @@
 def moduleDependencies(project, List<String> depNames) {
     def deps = getDependencies(project, depNames, 'namedElements')
 
-
     project.dependencies {
         deps.each {
-            if (it.name == 'WunderLib' && project.name == 'wover-core-api') {
-                api(it) {
-                    transitive = true
-                }
-            } else {
-                implementation it
-            }
+            api it
         }
     }
 }

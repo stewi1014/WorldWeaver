@@ -13,4 +13,4 @@ loom {
     accessWidenerPath = file('src/main/resources/wover.event.accesswidener')
 }
 
-moduleDependencies(project, ['wover-core-api', 'WunderLib'])
+moduleDependencies(project, ['wover-core-api'])

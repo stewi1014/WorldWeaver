@@ -11,6 +11,7 @@ archivesBaseName = project.archives_base_name
 sourceCompatibility = JavaVersion.VERSION_21
 targetCompatibility = JavaVersion.VERSION_21
 
+
 def getDependencies(project, List<String> depNames, configuration) {
     return depNames.iterator().collect {
         project.dependencies.project(path: ":$it", configuration: configuration)

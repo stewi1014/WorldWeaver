@@ -10,6 +10,8 @@ buildscript {
 
 version = project.mod_version
 group = project.maven_group
+def local_wunderlib = findProject(':wunderlib') != null
+
 
 allprojects { projIt ->
     apply plugin: 'java'
@@ -26,6 +28,7 @@ allprojects { projIt ->
         maven { url 'https://jitpack.io' }
         maven { url 'https://maven.terraformersmc.com/releases' }
         maven { url 'https://maven.terraformersmc.com' }
+        maven { url 'https://maven.ambertation.de/releases' }
     }
 
     version = rootProject.mod_version
@@ -156,14 +159,15 @@ allprojects { projIt ->
 
     configurations {
         dev {
-            transitive false
-            canBeResolved = false
+            transitive true
+            canBeResolved = true
             canBeConsumed = true
-            extendsFrom implementation
+            extendsFrom api
         }
     }
 
     dependencies {
+        println("Adding dependencies for ${projIt.name}")
         minecraft "com.mojang:minecraft:${project.minecraft_version}"
         mappings loom.officialMojangMappings()
         modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
@@ -177,6 +181,14 @@ allprojects { projIt ->
         testmodDatagenImplementation sourceSets.main.output
         testmodDatagenImplementation sourceSets.testmod.output
         testmodDatagenImplementation sourceSets.testmodClient.output
+
+        if (projIt.name != "wunderlib") {
+            if (local_wunderlib) {
+                implementation project(path: ":wunderlib", configuration: 'dev')
+            } else {
+                modApi "de.ambertation:wunderlib:${project.wunderlib_version}"
+            }
+        }
     }
 
     processResources {
@@ -259,6 +271,14 @@ dependencies {
     }
     modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
     modLocalRuntime "com.terraformersmc:modmenu:${project.modmenu_version}"
+
+    if (local_wunderlib) {
+        implementation project(path: ":wunderlib", configuration: 'dev')
+        include project(path: ":wunderlib")
+    } else {
+        modApi "de.ambertation:wunderlib:${project.wunderlib_version}"
+        include "de.ambertation:wunderlib:${project.wunderlib_version}"
+    }
 }
 
 loom {
@@ -345,17 +365,19 @@ jar {
 configurations {
     dev {
         canBeConsumed true
-        canBeResolved false
+        canBeResolved true
     }
 }
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
+task javadocJar(type: Jar, dependsOn: [javadoc, copyHighlightJs]) {
     archiveClassifier = 'javadoc'
     from javadoc.destinationDir
 }
 
 artifacts {
-    dev javadocJar
+    dev remapJar
+    archives sourcesJar
+    archives javadocJar
 }
 
 idea {

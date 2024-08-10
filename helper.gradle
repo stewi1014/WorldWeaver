@@ -268,6 +268,46 @@ task github(dependsOn: [build, remapJar, sourcesJar, javadocJar]) {
     }
 }
 
+subprojects {
+    apply plugin: 'maven-publish'
+
+    // Ensure the necessary tasks like remapJar exist in each subproject
+    afterEvaluate {
+        if (project.name == "wunderlib") return
+        publishing {
+            publications {
+                mavenJava(MavenPublication) {
+                    from components.java
+
+                    // Customize the group, artifactId, and version for each subproject
+                    groupId = group
+                    artifactId = project.name
+                    version = project.version
+
+                    // Ensure remapJar is included
+                    artifact(tasks.named('remapJar').get()) {
+                        classifier "remapped-${project.name}"
+                        builtBy tasks.named('remapJar').get()
+                    }
+                }
+            }
+
+            repositories {
+                maven {
+                    def slurper = new groovy.json.JsonSlurper()
+                    def apiKey = slurper.parseText(new File(rootProject.projectDir, "../AMBER_TOKEN").text)
+                    name = "Ambertation"
+                    url = "https://maven.ambertation.de/releases/"
+                    credentials {
+                        username = apiKey.username
+                        password = apiKey.token
+                    }
+                }
+            }
+        }
+    }
+}
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -297,6 +337,27 @@ publishing {
                     connection = "scm:git:https://github.com/quiqueck/${githubName}.git"
                     developerConnection = "scm:git:https://github.com/quiqueck/${githubName}.git"
                     url = "https://github.com/quiqueck/${githubName}"
+                }
+
+                // Add subprojects as dependencies in the POM
+                withXml {
+                    def dependenciesNode = asNode().appendNode('dependencies')
+
+                    subprojects.each { subproject ->
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+
+
+                        dependencyNode.appendNode('artifactId', subproject.name)
+                        if (subproject.name == "wunderlib") {
+                            dependencyNode.appendNode('groupId', "de.ambertation")
+                            dependencyNode.appendNode('version', project.wunderlib_version)
+                        } else {
+                            dependencyNode.appendNode('groupId', group)
+                            dependencyNode.appendNode('version', project.version)
+                        }
+                        println("Adding dependency: ${subproject.name} -> ${dependencyNode}")
+                        dependencyNode.appendNode('scope', 'compile')
+                    }
                 }
             }
         }
