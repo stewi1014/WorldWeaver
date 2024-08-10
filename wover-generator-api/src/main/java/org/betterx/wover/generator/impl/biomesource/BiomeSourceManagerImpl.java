@@ -47,7 +47,7 @@ import org.jetbrains.annotations.ApiStatus;
 public class BiomeSourceManagerImpl {
     public static final ResourceLocation BIOME_CONFIG_FILE = LibWoverWorldGenerator.C.id("biome_config.json");
     public static final ResourceLocation MINECRAFT_WILDCARD
-            = new ResourceLocationSet.WildcardResourceLocation(IntegrationCore.MINECRAFT);
+            = ResourceLocationSet.WildcardResourceLocation.forAllFrom(IntegrationCore.MINECRAFT);
     public static final String BIOME_EXCLUSION_TAG = "exclude";
     public static final String NO_FABRIC_REGISTER_TAG = "no_fabric_register";
     public static final String END_CATCH_ALL = "*:is_end";

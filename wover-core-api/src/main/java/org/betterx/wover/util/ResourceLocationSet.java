@@ -32,36 +32,37 @@ public class ResourceLocationSet extends HashSet<ResourceLocation> {
 
     private boolean containsResource(ResourceLocation o) {
         if (!super.contains(o)) {
-            final var namespace = new WildcardResourceLocation(o.getNamespace());
-            return super.contains(namespace);
+            return super.stream().anyMatch(location -> {
+                if (location.getPath().equals(WildcardResourceLocation.CATCH_ALL_PATH)) {
+                    return location.getNamespace().equals(o.getNamespace());
+                }
+                return false;
+            });
         }
 
         return true;
     }
 
-    public static class WildcardResourceLocation extends ResourceLocation {
-        public WildcardResourceLocation(String namespace) {
-            super(namespace, "*");
+    public static class WildcardResourceLocation {
+        private WildcardResourceLocation() {
         }
 
-        public WildcardResourceLocation(ResourceLocation location) {
-            super(location.getNamespace(), "*");
-        }
-
-        public WildcardResourceLocation(ModCore mod) {
-            super(mod.namespace, "*");
-        }
+        static final String CATCH_ALL_PATH = "__..-all-..__";
 
         private static String[] parse(String string, String c) {
             String[] parts = string.split(c, 2);
             if (parts.length == 2) return parts;
-            return new String[]{DEFAULT_NAMESPACE, string};
+            return new String[]{ResourceLocation.DEFAULT_NAMESPACE, string};
+        }
+
+        public static ResourceLocation forAllFrom(ModCore mod) {
+            return ResourceLocation.fromNamespaceAndPath(mod.namespace, CATCH_ALL_PATH);
         }
 
         public static ResourceLocation parse(String string) {
             final var decomposed = parse(string, ":");
             if (decomposed[1].equals("*")) {
-                return new WildcardResourceLocation(decomposed[0]);
+                return ResourceLocation.fromNamespaceAndPath(decomposed[0], CATCH_ALL_PATH);
             } else {
                 return ResourceLocation.fromNamespaceAndPath(decomposed[0], decomposed[1]);
             }
