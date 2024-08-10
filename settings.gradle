@@ -12,7 +12,7 @@ rootProject.name = 'world-weaver'
 //include 'bclib-legacy'
 
 apply from: "module-include.gradle"
-ext.knownWoverModules.each { module->
+ext.knownWoverModules.each { module ->
     include module
 }
 

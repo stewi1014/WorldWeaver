@@ -156,10 +156,10 @@ allprojects { projIt ->
 
     configurations {
         dev {
-            transitive true
+            transitive false
             canBeResolved = false
             canBeConsumed = true
-            extendsFrom api
+            extendsFrom implementation
         }
     }
 
@@ -235,15 +235,6 @@ allprojects.each { p ->
 
 subprojects.each {
     remapJar.dependsOn("${it.path}:remapJar")
-}
-
-remapJar {
-    afterEvaluate {
-        subprojects.each {
-            // Include the signed or none signed jar from the sub project.
-            nestedJars.from project("${it.path}").tasks.getByName("remapJar")
-        }
-    }
 }
 
 tasks.sourcesJar {

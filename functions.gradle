@@ -1,14 +1,22 @@
 def moduleDependencies(project, List<String> depNames) {
-    def deps = getDependencies(project, depNames,'namedElements')
+    def deps = getDependencies(project, depNames, 'namedElements')
+
+
     project.dependencies {
         deps.each {
-            api it
+            if (it.name == 'WunderLib' && project.name == 'wover-core-api') {
+                api(it) {
+                    transitive = true
+                }
+            } else {
+                implementation it
+            }
         }
     }
 }
 
 def testDependencies(project, List<String> depNames) {
-    def deps = getDependencies(project, depNames,'namedElements')
+    def deps = getDependencies(project, depNames, 'namedElements')
 
     project.dependencies {
         deps.each {
@@ -19,8 +27,8 @@ def testDependencies(project, List<String> depNames) {
 }
 
 def datagenDependencies(project, List<String> depNames) {
-    def deps = getDependencies(project, depNames,'namedElements')
-    def depsClient = getDependencies(project, depNames,'devClient')
+    def deps = getDependencies(project, depNames, 'namedElements')
+    def depsClient = getDependencies(project, depNames, 'devClient')
 
     project.dependencies {
         deps.each {
