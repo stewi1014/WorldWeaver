@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 public interface CreativeTabsBuilderWithTab extends CreativeTabsBuilder {
     /**
-     * Process all items and block items from the {@link ItemRegistry} and {@link BlockRegistry}
+     * Process all items and block items from the {@link ItemRegistry} and BlockRegistry
      * for the current mod. (as defined by the ModCore that was used when creating the manager)
      * <p>
      * see {@link #process(Stream)} for details what processing means

@@ -106,7 +106,7 @@ public class TagManager {
      * This method is just a convenice method for
      * {@link #registerType(ResourceKey, String, TagRegistry.LocationProvider)}. The
      * {@code directory} is built using Minecrafts
-     * {@link net.minecraft.tags.TagManager#getTagDir(ResourceKey)}, while {@code locationProvider}
+     * {@link net.minecraft.core.registries.Registries#tagsDirPath(ResourceKey)}, while {@code locationProvider}
      * will lookup the Registry using {@link WorldState#registryAccess()} and determin the
      * {@link net.minecraft.resources.ResourceLocation} using {@link Registry#getKey(Object)}.
      *

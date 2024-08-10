@@ -3,7 +3,6 @@ package org.betterx.wover.surface.api.noise;
 import org.betterx.wover.core.api.registry.DatapackRegistryBuilder;
 import org.betterx.wover.entrypoint.LibWoverSurface;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.Lifecycle;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.MappedRegistry;
@@ -17,7 +16,7 @@ import net.minecraft.resources.ResourceLocation;
  * default Numeric Providers. It is not loaded from datapacks.
  * <p>
  * You can however add your own Numeric Providers to this registry while your mod is initialized using
- * the {@link #register(ResourceKey, Codec)} method.
+ * the {@link #register(ResourceLocation, MapCodec)} method.
  */
 public class NumericProviderRegistry {
     /**

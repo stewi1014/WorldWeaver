@@ -74,7 +74,7 @@ public class StructureManager {
      * Creates a {@link StructureKey} and {@link StructureTypeKey} for the given {@link ResourceLocation}.
      * This method will create a {@link Codec} for the {@link Structure} using the given {@link Structure#simpleCodec}.
      * This codec assumes, that the <b>{@link Structure} has no additional data</b>. If this assumption is not
-     * valid you should use {@link #structure(ResourceLocation, StructureTypeKey.StructureFactory, Codec)}
+     * valid you should use {@link #structure(ResourceLocation, StructureTypeKey.StructureFactory, MapCodec)}
      * instead.
      *
      * @param location The location of the {@link Structure}
@@ -155,7 +155,7 @@ public class StructureManager {
      * for the given {@link ResourceLocation}. This method will create a {@link Codec}
      * for the {@link Structure} using the given {@link Structure#simpleCodec}. The codec
      * assumes, that the <b>{@link Structure} has no additional data</b>. If this assumption is not
-     * valid you should use {@link #registerType(ResourceLocation, StructureTypeKey.StructureFactory, Codec)}
+     * valid you should use {@link #registerType(ResourceLocation, StructureTypeKey.StructureFactory, MapCodec)}
      * instead.
      *
      * @param location The location of the {@link Structure}

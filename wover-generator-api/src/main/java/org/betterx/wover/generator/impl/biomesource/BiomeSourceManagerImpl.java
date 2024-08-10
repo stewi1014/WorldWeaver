@@ -81,7 +81,7 @@ public class BiomeSourceManagerImpl {
 
     private static void didLoadBiomeData(ResourceKey<BiomeData> biomeDataKey, BiomeData biomeData) {
         if (biomeDataKey.location().getNamespace().equals("minecraft")) return;
-        
+
         final ResourceKey<Biome> biomeKey = BiomeDataRegistry.createBiomeKey(biomeDataKey);
         if (!FABRIC_EXCLUDES.contains(biomeKey.location())) {
             if (biomeData.isIntendedFor(BiomeTags.IS_NETHER)) {

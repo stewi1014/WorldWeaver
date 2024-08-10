@@ -66,7 +66,7 @@ public class StructureKeys {
     }
 
     /**
-     * Alias for {@link StructureManager#structure(ResourceLocation, StructureTypeKey.StructureFactory, Codec)}.
+     * Alias for {@link StructureManager#structure(ResourceLocation, StructureTypeKey.StructureFactory, MapCodec)}.
      *
      * @param location The location of the {@link Structure}
      * @return The {@link StructureKey}
@@ -141,7 +141,7 @@ public class StructureKeys {
     }
 
     /**
-     * Alias for {@link StructureManager#registerType(ResourceLocation, StructureTypeKey.StructureFactory, Codec)}.
+     * Alias for {@link StructureManager#registerType(ResourceLocation, StructureTypeKey.StructureFactory, MapCodec)}.
      *
      * @param location         The location of the {@link StructureTypeKey}
      * @param structureFactory The {@link StructureTypeKey.StructureFactory}

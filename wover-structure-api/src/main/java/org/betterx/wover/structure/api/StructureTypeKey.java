@@ -1,6 +1,6 @@
 package org.betterx.wover.structure.api;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
@@ -17,8 +17,8 @@ public class StructureTypeKey<S extends Structure> {
     }
 
     /**
-     * For internal use only. Use {@link StructureManager#registerType(ResourceLocation, StructureFactory, Codec)}
-     * to explicitly register am create key. Or {@link StructureManager#structure(ResourceLocation, StructureFactory, Codec)}
+     * For internal use only. Use {@link StructureManager#registerType(ResourceLocation, StructureFactory, MapCodec)}
+     * to explicitly register am create key. Or {@link StructureManager#structure(ResourceLocation, StructureFactory, MapCodec)}
      * to implicitly register and create a key that will be used by a structure.
      *
      * @param type             the structure type

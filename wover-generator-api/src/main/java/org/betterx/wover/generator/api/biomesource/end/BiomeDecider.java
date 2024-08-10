@@ -213,7 +213,6 @@ public abstract class BiomeDecider {
      * @param quarterX      The quarter Block Coordinate (which is blockX/4)
      * @param quarterY      The quarter Block Coordinate (which is blockY/4)
      * @param quarterZ      The quarter Block Coordinate (which is blockZ/4)
-     * @param maxHeight
      * @return The <em>suggestedType</em> if this decider does not plan to provide a Biome, or a unique BiomeType.
      * The Biome Source will call {@link BiomeDecider#canProvideBiome(TagKey)} with the finally chosen type
      * for all available Deciders.
