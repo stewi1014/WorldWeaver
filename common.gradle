@@ -164,6 +164,9 @@ allprojects { projIt ->
             canBeConsumed = true
             extendsFrom api
         }
+        localDev {
+            extendsFrom dev
+        }
     }
 
     dependencies {
@@ -367,6 +370,9 @@ configurations {
         canBeConsumed true
         canBeResolved true
     }
+    localDev {
+        extendsFrom dev
+    }
 }
 
 task javadocJar(type: Jar, dependsOn: [javadoc, copyHighlightJs]) {
@@ -376,6 +382,7 @@ task javadocJar(type: Jar, dependsOn: [javadoc, copyHighlightJs]) {
 
 artifacts {
     dev remapJar
+    localDev jar
     archives sourcesJar
     archives javadocJar
 }
