@@ -227,7 +227,7 @@ public class BiomeSourceManagerImpl {
     public static String printBiomeSourceInfo(BiomeSource biomeSource) {
         Set<Holder<Biome>> biomes = Set.of();
         try {
-            biomes = biomeSource.possibleBiomes();
+            //biomes = biomeSource.possibleBiomes();
         } catch (Throwable e) {
             LibWoverWorldGenerator.C.log.warn("Error getting possible biomes from BiomeSource", e);
         }

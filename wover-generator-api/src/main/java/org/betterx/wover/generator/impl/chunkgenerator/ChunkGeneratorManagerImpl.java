@@ -117,7 +117,7 @@ public class ChunkGeneratorManagerImpl {
 
     public static String enumerateFeatureNamespaces(@NotNull ChunkGenerator chunkGenerator) {
         if (chunkGenerator instanceof ChunkGeneratorAccessor acc) {
-            var supplier = acc.wover_getFeaturesPerStep();
+            Supplier<List<FeatureSorter. StepFeatureData>> supplier = null; // acc.wover_getFeaturesPerStep();
             if (supplier != null) {
                 final HashMap<String, Integer> namespaces = new HashMap<>();
                 try {
