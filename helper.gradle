@@ -292,19 +292,6 @@ subprojects {
                     }
                 }
             }
-
-            repositories {
-                maven {
-                    def slurper = new groovy.json.JsonSlurper()
-                    def apiKey = slurper.parseText(new File(rootProject.projectDir, "../AMBER_TOKEN").text)
-                    name = "Ambertation"
-                    url = "https://maven.ambertation.de/releases/"
-                    credentials {
-                        username = apiKey.username
-                        password = apiKey.token
-                    }
-                }
-            }
         }
     }
 }
@@ -360,19 +347,6 @@ publishing {
                         dependencyNode.appendNode('scope', 'compile')
                     }
                 }
-            }
-        }
-    }
-    repositories {
-        maven {
-            def slurper = new groovy.json.JsonSlurper();
-            def apiKey = slurper.parseText(new File(projectDir, "../AMBER_TOKEN").text)
-            println "\nPublishing ${project.archives_base_name} to Maven..."
-            name = "Ambertation"
-            url = "https://maven.ambertation.de/releases/"
-            credentials {
-                username = apiKey.username
-                password = apiKey.token
             }
         }
     }
